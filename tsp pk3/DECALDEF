@@ -1,0 +1,55 @@
+/***** Shock Shell Scorches (Just resized plasma rifle scorches) ***********************************************/
+
+decal ShockScorchLower1
+{
+	pic PLASMA1
+	shade "00 00 00"
+	x-scale 0.2
+	y-scale 0.2
+	randomflipx
+	randomflipy
+}
+
+decal ShockScorch1
+{
+	pic PLSSA0
+	x-scale 0.3
+	y-scale 0.3
+	add 1.0
+	fullbright
+	animator GoAway
+	lowerdecal ShockScorchLower1
+}
+
+decal ShockScorchLower2
+{
+	pic PLASMA2
+	shade "00 00 00"
+	x-scale 0.2
+	y-scale 0.2
+	randomflipx
+	randomflipy
+}
+
+decal ShockScorch2
+{
+	pic PLSSB0
+	x-scale 0.3
+	y-scale 0.3
+	add 1.0
+	fullbright
+	animator GoAway
+	lowerdecal ShockScorchLower2
+}
+
+decalgroup PlasmaScorchLower
+{
+	ShockScorchLower1	1
+	ShockScorchLower2	1
+}
+
+decalgroup ShockScorchPirate
+{
+	ShockScorch1	1
+	ShockScorch2	1
+}

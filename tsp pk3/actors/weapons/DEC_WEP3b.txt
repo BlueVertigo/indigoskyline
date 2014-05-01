@@ -1,0 +1,1042 @@
+//===========================================================================
+//
+// "Dahlia" Custom Concealable Weapon
+//
+// by Scroton and Marty Kirra
+// Sprites by Marty Kirra
+// Arrow Voxels by Voxelbro
+//
+//===========================================================================
+ACTOR DahliaCrossbow : Weapon
+{
+	Weapon.Kickback 450
+	Weapon.AmmoType	"DahliaNormalAmmo"
+	Weapon.AmmoGive	10
+	Weapon.AmmoUse	0
+	Weapon.AmmoType2 "DahliaExplosiveAmmo"
+	Weapon.AmmoGive2 5
+	Weapon.AmmoUse2	0
+	Weapon.BobStyle Alpha
+	Weapon.BobSpeed 2.0
+	Weapon.BobRangeY 0.6
+	Weapon.BobRangeX 0.4
+	Inventory.PickupMessage "[''Dahlia'' Custom Concealable Weapon] [Class: Bow, Slot 3]"
+	Decal BulletChip
+	Obituary "%o was taken out from the shadows by %k's crossbow."
+	+Weapon.AMMO_OPTIONAL
+	+NOEXTREMEDEATH
+	+WEAPON.NoAlert
+   States
+   {
+   Spawn:
+	  DCBP A -1
+	  Stop
+   Ready:
+      TNT1 A 0 A_JumpIfInventory("DahliaFired", 1, "ReadyEmpty")
+      TNT1 A 0 A_JumpIfNoAmmo("ReadyEmpty")
+	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "ExplosiveReady")
+      DCBG A 1 A_WeaponReady
+      LOOP
+   ReadyEmpty:
+      DCBE A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+	  Loop
+   ExplosiveReady:
+      DCBB A 1 A_WeaponReady
+	  Loop
+   Deselect:
+      TNT1 A 0 A_PlaySound("dahlia/down", 5)
+	  TNT1 A 0 A_JumpIfNoAmmo("EmptyDeselect")
+	  TNT1 A 0 A_JumpIfInventory("DahliaFired", 1, "EmptyDeselect")
+	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "ExplosiveDeselect")
+	  DCBD ABCD 1 
+   DeselectLoop:
+	  TNT1 A 4 A_Lower
+      Loop
+   ExplosiveDeselect:
+      DCBD IJKL 1
+   ExplosiveDeselectLoop:
+      TNT1 A 4 A_Lower
+      Loop
+   EmptyDeselect:
+      DCBD EFGH 1 
+   EmptyDeselectLoop:
+      TNT1 A 4 A_Lower
+      Loop
+   Select:
+      TNT1 A 0 A_PlaySound("dahlia/up", 6)
+      TNT1 A 4 SetPlayerProperty(0,1,2)
+	  TNT1 A 0 A_JumpIfNoAmmo("EmptySelect")
+	  TNT1 A 0 A_JumpIfInventory("DahliaFired", 1, "EmptySelect")
+	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "ExplosiveSelect")
+      DCBU ABCD 1
+   SelectLoop:
+	  DCBG A 1 A_Raise
+	  Loop
+   ExplosiveSelect:
+      DCBU IJKL 1
+   ExplosiveSelectLoop:
+      DCBB A 1 A_Raise
+	  Loop
+   EmptySelect:
+      DCBU EFGH 1 
+   EmptySelectLoop:
+      DCBE A 1 A_Raise
+	  Loop
+   Fire:
+      DCBG A 0 A_JumpIfInventory("DahliaFired", 1, "Reload")
+	  DCBG A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "ExplosiveFire")
+	  DCBG A 0 A_JumpIfInventory("DahliaNormalAmmo", 1, "Fire2")
+      Goto ReadyEmpty
+   Fire2:
+      DCBG A 2
+	  TNT1 A 0 A_SetPitch(pitch - 0.5)
+	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
+	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
+      DCBF A 1 A_FireCustomMissile("CrossbowBoltBlue",0,1,2)
+	  TNT1 A 0 A_TakeInventory("DahliaNormalAmmo", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
+	  DCBF BCDDDDCBA 1
+	  DCBE A 3 A_WeaponReady(WRF_ALLOWRELOAD)
+	  Goto ReadyEmpty
+	NormalLastShot:
+      DCBG A 2
+	  TNT1 A 0 A_SetPitch(pitch - 0.5)
+	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
+	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
+      DCBF A 1 A_FireCustomMissile("CrossbowBoltBlue",0,1,2)
+	  TNT1 A 0 A_TakeInventory("DahliaNormalAmmo", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
+	  DCBF BCDDDDCBA 1
+	  DCBE A 3 A_WeaponReady(WRF_ALLOWRELOAD)
+	  Goto ReadyEmpty
+   ExplosiveFire:
+      DCBG A 0 A_JumpIfInventory("DahliaFired", 1, "Reload")
+      DCBG A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 1, "ExplosiveFire2")
+      Goto ReadyEmpty
+   ExplosiveFire2:
+      DCBB A 2
+	  TNT1 A 0 A_SetPitch(pitch - 0.5)
+	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
+	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
+      DCBF A 1 A_FireCustomMissile("CrossbowBoltRed",0,1,2)
+	  TNT1 A 0 A_TakeInventory("DahliaExplosiveAmmo", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
+	  DCBF BCDDDDCBA 1
+	  DCBE A 3 A_WeaponReady(WRF_ALLOWRELOAD)
+	  Goto ReadyEmpty
+	ExplosiveLastShot:
+	  DCBB A 2
+	  TNT1 A 0 A_SetPitch(pitch - 0.5)
+	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
+	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
+      DCBF A 1 A_FireCustomMissile("CrossbowBoltRed",0,1,2)
+	  TNT1 A 0 A_TakeInventory("DahliaExplosiveAmmo", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
+	  TNT1 A 0 A_TakeInventory("DahliaExplosiveMode", 99)
+	  DCBF BCDDDDCBA 1
+	  DCBE A 3 A_WeaponReady(WRF_ALLOWRELOAD)
+	  Goto ReadyEmpty
+    Reload:
+      TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 1, "ReloadStart")
+      TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 1, "ReloadStart")
+      Goto ReadyEmpty
+    ReloadStart:
+      TNT1 A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "ExplosiveReload")
+      TNT1 A 0 A_PlaySound("dahlia/load", 6)
+	  TNT1 A 0 A_PlaySound("dahlia/load", 6)
+	  DCBE A 4
+	  DCBR ABCDDDDDDDDDDDDDDDEEFFGGHHHHHHHIIIII 1
+	  TNT1 A 0 A_TakeInventory("DahliaFired", 99)
+	  DCBU ABCD 1
+	  DCBG A 3
+	  Goto Ready
+   ExplosiveReload:
+      TNT1 A 0 A_PlaySound("dahlia/load", 6)
+	  DCBE A 4
+	  DCBR ABCDDDDDDDDDDDDDDDEEFFGGHHHHHHHIIIII 1
+	  TNT1 A 0 A_TakeInventory("DahliaFired", 99)
+	  DCBU IJKL 1
+	  DCBB A 3
+	  Goto ExplosiveReady
+   AltFire:
+	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "NormalSelect")
+	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 0, "Ready")
+	  TNT1 A 0 A_Print("[Explosive Bolts Loaded]")
+	  DCBG A 1
+      DCBU DCBA 1
+	  TNT1 A 0 A_PlaySound("dahlia/ammo1", 5)
+	  DCBR IIIIIHHHHHHGGFFEEDDDDDD 1
+	  TNT1 A 0 A_PlaySound("dahlia/ammo2", 6)
+	  DCBR A 0 A_GiveInventory("DahliaExplosiveMode", 1)
+	  DCBR DDEEFFGGHHHHHHHIIIII 1
+	  DCBU IJKL 1
+	  DCBB A 3 A_WeaponReady
+	  Goto ExplosiveReady
+   NormalSelect:
+      TNT1 A 0 A_Print("[Normal Bolts Loaded]")
+	  DCBB A 1
+      DCBU DCBA 1
+	  TNT1 A 0 A_PlaySound("dahlia/ammo2", 5)
+	  DCBR IIIIIHHHHHHGGFFEEDDDDDD 1
+	  TNT1 A 0 A_PlaySound("dahlia/ammo1", 6)
+	  DCBR A 0 A_TakeInventory("DahliaExplosiveMode", 99)
+	  DCBR DDEEFFGGHHHHHHHIIIII 1
+	  DCBU ABCD 1
+	  DCBG A 3 A_WeaponReady
+	  Goto Ready
+   }
+}
+
+ACTOR DahliaFired : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+ACTOR DahliaExplosiveMode : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+ACTOR DahliaNormalMode : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+ACTOR DahliaNormalAmmo : Ammo
+{
+	Inventory.Amount 10
+	Inventory.MaxAmount 40
+	Ammo.BackpackAmount 30
+	Ammo.BackpackMaxAmount 60
+	Inventory.Icon "DCBAA0"
+	Inventory.PickupMessage "Picked up a box of crossbow bolts. [+10 Crossbow Bolts]"
+	Inventory.PickupSound "dahlia/normalammo"
+	States
+	{
+	Spawn:
+		DCBA A -1
+		Stop
+	}
+}
+
+ACTOR DahliaExplosiveAmmo : Ammo
+{
+	Inventory.Amount 10
+	Inventory.MaxAmount 20
+	Ammo.BackpackAmount 20
+	Ammo.BackpackMaxAmount 40
+	Inventory.Icon "DCBXA0"
+	Inventory.PickupMessage "Picked up a box of explosive bolts. [+10 Explosive Bolts]"
+	Inventory.PickupSound "dahlia/explosiveammo"
+	States
+	{
+	Spawn:
+		DCBX A -1
+		Stop
+	}
+}
+
+ACTOR CrossbowPickup : CustomInventory
+{
+    Inventory.PickupMessage "[''Dahlia'' Custom Concealable Weapon] [Class: Bow, Slot 3]"
+	Inventory.PickupSound "misc/w_pkup"
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+      DCBP A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIfInventory("DahliaCrossbow", 1, "AmmoCheck")
+	  TNT1 A 0 A_GiveInventory("DahliaCrossbow", 1)
+	  TNT1 A 1 ACS_ExecuteAlways(860)
+	  Stop
+	AmmoCheck:
+      TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 0, "AmmoCheck2")
+	  TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
+	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",5)
+	  Stop
+	AmmoCheck2:
+      TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
+	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",5)
+	  Stop
+	PickupFail:
+      DCBP A 1
+      Fail
+	}
+}
+
+ACTOR CrossbowSSGPickup : CustomInventory Replaces SuperShotgun
+{
+    Inventory.PickupMessage "[''Dahlia'' Custom Concealable Weapon] [Class: Bow, Slot 3]"
+	Inventory.PickupSound "misc/w_pkup"
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+      DCBP A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIfInventory("DahliaCrossbow", 1, "AmmoCheck")
+	  TNT1 A 0 A_GiveInventory("DahliaCrossbow", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo", 5)
+	  TNT1 A 1 ACS_ExecuteAlways(860)
+	  Stop
+	AmmoCheck:
+      TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 0, "AmmoCheck2")
+	  TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
+	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",10)
+	  Stop
+	AmmoCheck2:
+      TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
+	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",10)
+	  Stop
+	PickupFail:
+      DCBP A 1
+      Fail
+	}
+}
+
+ACTOR CrossbowBoltBlue : FastProjectile //The second crossbow voxel voxelbro made; to edit the scale look in voxeldef
+{
+   Radius 3
+   Height 6
+   Speed 120
+   Damage 5
+   PROJECTILE
+   +BLOODSPLATTER
+   +RIPPER
+   //+FORCEXYBILLBOARD
+   States
+   {
+   Spawn:
+      ARWP A 1
+      Loop
+   Death:
+      ARWP A 1 A_PlaySound("dahlia/impact", 5)
+	  ARWP A 1 A_ChangeFlag("NOINTERACTION",1)
+      Goto Death2
+   Death2:
+      ARWP A 700
+      Stop
+   XdeathUnused:
+      TNT1 A 1
+	  stop
+   }
+}
+
+//Code is sloppy because in the middle of working on it
+ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except red
+{
+   Radius 4
+   Height 1
+   Speed 120
+   Damage 1
+   PROJECTILE
+   +BLOODSPLATTER
+   +SEEKERMISSILE
+   +FORCEPAIN
+   +NOEXTREMEDEATH
+   +FORCERADIUSDMG
+   var int user_angle;
+   var int user_tracerangle;
+   var int user_height;
+   var int user_warpangle;
+   States
+   {
+   Spawn:
+      ARWR A 0
+	  ARWR A 0
+	  ARWR A 0
+	  ARWR A 0
+	  ARWR A 0 A_SetUserVar("user_angle",angle)
+	  ARWR A 0 A_SetUserVar("user_angle",angle)
+      Goto Spawn2
+   Spawn2:
+      ARWR A 1
+      Loop
+   Death:
+      ARWR A 0 A_JumpIfInventory("ShockCanDie",1,"XDeath2")
+	  ARWR A 1 A_PlaySound("dahlia/impact", 5)
+	  ARWR A 1 A_ChangeFlag("NOINTERACTION",1)
+      Goto Death2
+   Death2:
+      ARWR A 10
+	  ARWR A 0 A_PlaySound("dahlia/beep",0)
+      ARWR A 20
+	  ARWR A 0 A_PlaySound("dahlia/beep",0)
+	  ARWR A 20
+	  ARWR A 0 A_PlaySound("dahlia/beep",0)
+	  ARWR A 20
+	  Goto RegularExplode
+
+  RegularExplode:
+	  ARWQ A 0 A_SpawnItemEx("CrossbowBoltExplode1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+      TNT1 A 0 A_Jump(256,"RegularExplode1","RegularExplode2","RegularExplode3","RegularExplode4","RegularExplode5","RegularExplode6","RegularExplode7")
+      TNT1 A 1
+      stop
+   RegularExplode1:
+      MXP1 ABCDFHJLNPRTVX 1 BRIGHT
+      stop
+   RegularExplode2:
+      MXP2 ABCDFHJLNPRTVX 1 BRIGHT
+      stop
+   RegularExplode3:
+      MXP3 ABCDFHJLNPRTVX 1 BRIGHT
+      stop
+   RegularExplode4:
+      MXP4 ABCDFHJLNPRTVX 1 BRIGHT
+      stop
+   RegularExplode5:
+      MXP5 ABCDFHJLNPRTVX 1 BRIGHT
+      stop
+   RegularExplode6:
+      MXP6 ABCDFHJLNPRTVX 1 BRIGHT
+      stop
+   RegularExplode7:
+      MXP7 ABCDFHJLNPRTVX 1 BRIGHT
+      stop
+
+   Xdeath:
+	  ARWR A 0 A_GiveInventory("ShockCanDie", 1)
+      TNT1 A 0 A_ChangeFlag("NOCLIP",1)
+	  TNT1 A 0 A_ChangeFlag("THRUACTORS",1)
+	  ARWR A 0 A_SetUserVar("user_angle",angle)
+	  TNT1 A 0 A_SetUserVar("user_height",(z-floorz))
+	  TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
+	  TNT1 A 1 A_GiveInventory("ShockCanDie", 1)
+	  TNT1 A 1 ACS_ExecuteAlways(865)
+	  TNT1 A 3
+	  TNT1 A 1 A_SetUserVar("user_tracerangle",angle)
+	  TNT1 A 1 A_SetUserVar("user_warpangle",(user_angle-user_tracerangle+Random(-3,3)))
+	  ARWR A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT) 
+	  ARWR A 0 A_JumpIfInTargetLOS("XDeath2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+	  Stop
+   XDeath2:
+	  TNT1 A 0 A_ChangeFlag("NODAMAGETHRUST",1)
+      ARWR A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   XDeath3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+	  
+   CountdownA1:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA2:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA4:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA5:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA6:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA7:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA8:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA9:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownA10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA10:
+	  ARWR A 0 A_PlaySound("dahlia/beep",0)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+
+
+
+   CountdownB1:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB2:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB4:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB5:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB6:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB7:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB8:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB9:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownB10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB10:
+	  //ARWR A 0 A_PlaySound("dahlia/beep",0)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+
+
+   CountdownC1:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC2:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC4:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC5:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC6:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC7:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC8:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC9:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownC10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC10:
+	  ARWR A 0 A_PlaySound("dahlia/beep",0)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+
+   CountdownD1:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD2:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD4:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD5:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD6:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD7:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD8:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD9:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownD10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD10:
+	  //ARWR A 0 A_PlaySound("dahlia/beep",0)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+
+
+   CountdownE1:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE2:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE4:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE5:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE6:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE7:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE8:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE9:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownE10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE10:
+	  ARWR A 0 A_PlaySound("dahlia/beep",0)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+
+
+
+   CountdownF1:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF2:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF4:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF5:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF6:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF7:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF8:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF9:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownF10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF10:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+
+
+
+
+   CountdownG1:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG2:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG4:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG5:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG6:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG7:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG8:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG9:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownG10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG10:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("CountdownExplode",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+
+
+   CountdownExplode:
+	  ARWQ A 0 A_SpawnItemEx("CrossbowBoltExplode1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+      TNT1 A 0 A_Jump(256,"CountdownExplode1","CountdownExplode2","CountdownExplode3","CountdownExplode4","CountdownExplode5","CountdownExplode6","CountdownExplode7")
+      TNT1 A 1
+      stop
+   CountdownExplode1:
+      MXP1 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   CountdownExplode2:
+      MXP2 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   CountdownExplode3:
+      MXP3 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   CountdownExplode4:
+      MXP4 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   CountdownExplode5:
+      MXP5 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   CountdownExplode6:
+      MXP6 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   CountdownExplode7:
+      MXP7 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+
+
+	  
+   TargetDeadA:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadB:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadC:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadD:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadE:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadF:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadG:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+
+
+   TargetDeadExplode:
+	  ARWQ A 0 A_SpawnItemEx("CrossbowBoltExplode1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+      TNT1 A 0 A_Jump(256,"TargetDeadExplode1","TargetDeadExplode2","TargetDeadExplode3","TargetDeadExplode4","TargetDeadExplode5","TargetDeadExplode6","TargetDeadExplode7")
+      TNT1 A 1
+      stop
+   TargetDeadExplode1:
+      MXP1 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   TargetDeadExplode2:
+      MXP2 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   TargetDeadExplode3:
+      MXP3 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   TargetDeadExplode4:
+      MXP4 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   TargetDeadExplode5:
+      MXP5 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   TargetDeadExplode6:
+      MXP6 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   TargetDeadExplode7:
+      MXP7 ABCDFHJLNPRTVX 1 BRIGHT A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+      stop
+   }
+}
+
+ACTOR CrossbowBoltExplode1
+{
+   +THRUACTORS
+   +NOCLIP
+   +BRIGHT
+   +NOGRAVITY
+   Height 4
+   Radius 4
+   States
+   {
+   Spawn:
+      TNT1 A 0
+	  TNT1 A 0
+	  TNT1 A 0
+	  TNT1 A 0 A_ClearTarget
+	  TNT1 A 0 A_RearrangePointers (AAPTR_NULL,AAPTR_NULL,AAPTR_NULL) 
+	  TNT1 A 0 A_SpawnItemEx("CrossbowBoltExplode2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+   }
+}
+
+
+
+
+ACTOR CrossbowBoltExplode2
+{
+   +THRUACTORS
+   +NOCLIP
+   +BRIGHT
+   +NOGRAVITY
+   Scale 0.2
+   Height 4
+   Radius 4
+   States
+   {
+   Spawn:
+      TNT1 A 0
+	  TNT1 A 0
+	  TNT1 A 0
+	  TNT1 A 0 A_ClearTarget
+	  TNT1 A 0 A_RearrangePointers (AAPTR_NULL,AAPTR_NULL,AAPTR_NULL) 
+	  TNT1 A 0 A_SetPitch(0)
+	  ARWR A 0 A_PlaySound("weapons/rocklx",0)
+	  
+
+	  TNT1 A 1 A_Explode(90,128)
+	  Stop
+   }
+}
+
+//Code is sloppy because in the middle of working on it
+ACTOR CrossbowBoltRedNoExplode : FastProjectile //The seond voxel voxelbro made, except red
+{
+   Radius 4
+   Height 1
+   Speed 120
+   Damage 1
+   PROJECTILE
+   +BLOODSPLATTER
+   +SEEKERMISSILE
+   +FORCEPAIN
+   +NOEXTREMEDEATH
+   +FORCERADIUSDMG
+   var int user_angle;
+   var int user_tracerangle;
+   var int user_height;
+   var int user_warpangle;
+   States
+   {
+   Spawn:
+      ARWR A 0
+	  ARWR A 0
+	  ARWR A 0
+	  ARWR A 0
+	  ARWR A 0 A_SetUserVar("user_angle",angle)
+	  ARWR A 0 A_SetUserVar("user_angle",angle)
+      Goto Spawn2
+   Spawn2:
+      ARWR A 1
+      Loop
+   Death:
+      ARWR A 0 A_JumpIfInventory("ShockCanDie",1,"XDeath2")
+	  ARWR A 1 A_PlaySound("dahlia/impact", 5)
+	  ARWR A 1 A_ChangeFlag("NOINTERACTION",1)
+      Goto Death2
+   Death2:
+      ARWR A 1
+      Loop
+   Xdeath:
+	  ARWR A 0 A_GiveInventory("ShockCanDie", 1)
+      TNT1 A 0 A_ChangeFlag("NOCLIP",1)
+	  TNT1 A 0 A_ChangeFlag("THRUACTORS",1)
+	  ARWR A 0 A_SetUserVar("user_angle",angle)
+	  TNT1 A 0 A_SetUserVar("user_height",(z-floorz))
+	  TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
+	  TNT1 A 1 A_GiveInventory("ShockCanDie", 1)
+	  TNT1 A 1 ACS_ExecuteAlways(865)
+	  TNT1 A 3
+	  TNT1 A 1 A_SetUserVar("user_tracerangle",angle)
+	  TNT1 A 1 A_SetUserVar("user_warpangle",(user_angle-user_tracerangle+Random(-3,3)))
+	  ARWR A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT) 
+	  ARWR A 0 A_JumpIfInTargetLOS("XDeath2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+	  Stop
+   XDeath2:
+	  TNT1 A 0 A_ChangeFlag("NODAMAGETHRUST",1)
+      ARWR A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("XDeath3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto XDeath8
+   XDeath3:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 0 A_JumpIfInTargetLOS("XDeath3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto XDeath8
+   XDeath8:
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*19,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*17,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*15,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*13,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*11,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*9,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*7,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*5,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*3,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*1,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto XDeath9
+   XDeath9:
+	  ARWR A 10 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Loop
+   }
+}

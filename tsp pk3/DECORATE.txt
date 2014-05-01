@@ -1,0 +1,78 @@
+// Well this is decorative. :P
+
+//Melee Button Press
+
+Actor Boolean : Inventory
+{
+    Inventory.MaxAmount 1
+    +UNDROPPABLE
+    -INVBAR
+}
+
+Actor MeleePressed : Boolean {}
+
+Actor StartMelee : CustomInventory
+{
+  -INVBAR
+  +UNDROPPABLE
+  Inventory.Amount 1
+  Inventory.MaxAmount 1
+  States
+  {
+      Use:
+      TNT1 A 0 A_GiveInventory("MeleePressed", 1)
+	  TNT1 A 0 A_GiveInventory("MakeHellFireBurst", 1)
+      Fail
+  }
+}
+
+Actor StopMelee : CustomInventory
+{
+  -INVBAR
+  +UNDROPPABLE
+  Inventory.Amount 1
+  Inventory.MaxAmount 1
+  States
+  {
+      Use:
+      TNT1 A 0 A_TakeInventory("MeleePressed", 1)
+	  TNT1 A 0 A_TakeInventory("MakeHellFireBurst", 1)
+      Fail
+  }
+}
+
+//
+#include "Actors/Characters/DEC_MEL.txt" // Mel's Player Stuff
+#include "Actors/Characters/DEC_MAC.txt" // Little Mac's Player Stuff
+
+//Enemies
+#include "Actors/Enemies/DEC_ENEM.txt" // Generic Enemy Stuff
+#include "Actors/Enemies/DEC_PZMB.txt" // Pistol / Rifle Zombie Enemies
+#include "Actors/Enemies/DEC_SZMB.txt" // Shotgun Zombie Enemies
+#include "Actors/Enemies/DEC_CZMB.txt" // Commando Zombie Enemies
+#include "Actors/Enemies/DEC_IMP.txt"  // Imp Enemies
+#include "Actors/Enemies/DEC_LSOUL.txt"// Lost Soul enemies
+//#include "Actors/Enemies/DEC_SCIE.txt"  // Scientist Enemies
+
+//Weapons
+#include "Actors/Weapons/DEC_WEP1.txt" // Slot 1 Weapons (Mel Melee)
+#include "Actors/Weapons/DEC_WEP2.txt" // Slot 2 Weapons (919m)
+#include "Actors/Weapons/DEC_WEP3.txt" // Slot 3 Weapons (Zeke)
+#include "Actors/Weapons/DEC_WEP3b.txt"// Slot 3 Weapons, continued (Dahlia, Leviathan)
+#include "Actors/Weapons/DEC_WEP4.txt" // Slot 4 Weapons (Ammobox 50)
+#include "Actors/Weapons/DEC_WEP5.txt" // Slot 5 Weapons
+#include "Actors/Weapons/DEC_PNOT.txt" // Punch-Out!!
+#include "Actors/DEC_SFX.txt" //Special Effects (Casings, Smoke, Etc.)
+#include "Actors/DEC_TEMP.txt" //Blanked out and replaced actors for the alpha
+
+//Items
+#include "Actors/DEC_ITEM.txt"
+
+
+//ACTOR Vexler : DoomPlayer
+//{
+//	Player.ViewHeight 49
+//	Player.AttackZOffset 22
+//	Player.DisplayName "Vexler"
+//}
+// you shouldn't be in here...

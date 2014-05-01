@@ -1,0 +1,168 @@
+height 32;
+monospacefonts true, "0";
+
+statusbar fullscreen, fullscreenoffsets
+{
+    drawimage "MDK1A0", 20, -2, centerbottom;
+	InInventory not Over100Health
+    {
+			drawnumber 3, DBIGFONT, Gold, health, drawshadow, 86, -19, 0, Red, 50, DarkGreen, 75;
+	}
+	InInventory Over100Health
+    {
+			drawnumber 3, DBIGFONT, Blue, health, drawshadow, 86, -19;
+	}
+	drawimage armoricon, 20, -24, centerbottom;
+	//DrawSwitchableImage armortype TSPBlueArmor, "", "PSRMA0", 20, -24, centerbottom;
+	//DrawSwitchableImage armortype TSPGreenArmor, "", "FLRMA0", 20, -24, centerbottom;
+	//DrawSwitchableImage armortype TSPMegaSphereBlueArmor, "", "PSRMA0", 20, -24, centerbottom;
+	//DrawSwitchableImage armortype TSPArmorBonus, "", "ARSDD0", 20, -24, centerbottom;
+	//DrawSwitchableImage armortype BlueArmorForMegasphere, "", "FLRMA0", 20, -24, centerbottom;
+	drawnumber 3, DBIGFONT, Green, armor, drawshadow, whennotzero, 86, -39, 0, Green, 50, LightBlue, 101;
+    drawimage ammoicon1, -14, -4, centerbottom;
+    drawnumber 3, DBIGFONT, DarkGreen, ammo1, drawshadow, -25, -20;
+    usesammo
+    {
+        usessecondaryammo
+        {
+            drawimage ammoicon2, -14, -22, centerbottom;
+            drawnumber 3, DBIGFONT, green, ammo2, drawshadow, -25, -37;
+            inventorybarnotvisible
+            {
+                drawselectedinventory centerbottom, drawshadow, alwaysshowcounter, DBIGFONT, -14, -39, -26, -56, untranslated;
+            }
+        }
+        usessecondaryammo not
+        {
+            inventorybarnotvisible
+            {
+                drawselectedinventory centerbottom, drawshadow, alwaysshowcounter, DBIGFONT, -14, -21, -26, -38, untranslated;
+            }
+        }
+    }
+    IsSelected ZekeShotgun
+    {
+		InInventory BuckshotLoaded
+		{
+			drawimage "SHLHUD2", -14, -39, centerbottom;
+			drawnumber 3, DBIGFONT, Red, BuckShotShell, drawshadow, -25, -54;
+			drawimage "1SHLE0", -14, -56, centerbottom;
+			drawnumber 3, smallfont, LightBlue, ElectricShell, drawshadow, -25, -64;
+			drawimage "3SHLE0", -14, -65, centerbottom;
+			drawnumber 3, smallfont, DarkGreen, PoisonShell, drawshadow, -25, -73;
+			drawimage "4SHLE0", -14, -74, centerbottom;
+			drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -82;
+		}
+		InInventory HellFireLoaded
+		{
+			drawimage "SHLHUD4", -14, -39, centerbottom;
+			drawnumber 3, DBIGFONT, Gold, HellFireShell, drawshadow, -25, -54;
+			drawimage "1SHLE0", -14, -56, centerbottom;
+			drawnumber 3, smallfont, LightBlue, ElectricShell, drawshadow, -25, -64;		
+			drawimage "3SHLE0", -14, -65, centerbottom;
+			drawnumber 3, smallfont, DarkGreen, PoisonShell, drawshadow, -25, -73;
+			drawimage "2SHLE0", -14, -74, centerbottom;
+			drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -82;
+		}
+		InInventory PoisonLoaded
+		{
+			drawimage "SHLHUD3", -14, -39, centerbottom;
+			drawnumber 3, DBIGFONT, DarkGreen, PoisonShell, drawshadow, -25, -54;		
+			drawimage "1SHLE0", -14, -56, centerbottom;
+			drawnumber 3, smallfont, LightBlue, ElectricShell, drawshadow, -25, -64;				
+			drawimage "4SHLE0", -14, -65, centerbottom;
+			drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -73;
+			drawimage "2SHLE0", -14, -74, centerbottom;
+			drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -82;
+		}
+		InInventory ElectricLoaded
+		{
+			drawimage "SHLHUD1", -14, -39, centerbottom;
+			drawnumber 3, DBIGFONT, LightBlue, ElectricShell, drawshadow, -25, -54;	
+			drawimage "3SHLE0", -14, -56, centerbottom;
+			drawnumber 3, smallfont, DarkGreen, PoisonShell, drawshadow, -25, -64;
+			drawimage "4SHLE0", -14, -65, centerbottom;
+			drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -73;
+			drawimage "2SHLE0", -14, -74, centerbottom;
+			drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -82;
+		}
+		InInventory not BuckshotLoaded
+		{
+			InInventory not HellFireLoaded
+			{
+				InInventory not PoisonLoaded
+				{
+					InInventory not ElectricLoaded
+					{
+					drawimage "1SHLE0", -14, -39, centerbottom;
+					drawnumber 3, smallfont, LightBlue, ElectricShell, drawshadow, -25, -47;
+					drawimage "3SHLE0", -14, -48, centerbottom;
+					drawnumber 3, smallfont, DarkGreen, PoisonShell, drawshadow, -25, -56;
+					drawimage "4SHLE0", -14, -57, centerbottom;
+					drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -65;
+					drawimage "2SHLE0", -14, -66, centerbottom;
+					drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -74;
+					}
+				}
+			}
+		}		
+	}
+    usesammo not
+    {
+        inventorybarnotvisible
+        {
+            drawselectedinventory centerbottom, drawshadow, alwaysshowcounter, DBIGFONT, -14, -3, -26, -20, untranslated;
+        }
+    }
+    gamemode deathmatch
+    {
+        drawnumber 2, DBIGFONT, green, frags, drawshadow, -3, 1;
+    }
+    gamemode singleplayer, cooperative, teamgame
+    {
+        drawkeybar 6, vertical, reverserows, auto, -10, 2, 0, 3, auto;
+    }
+}
+
+statusbar normal
+{
+    drawimage "STBAR", 0, 168;
+    drawimage "STTPRCNT", 90, 171;
+    drawimage "STTPRCNT", 221, 171;
+    drawnumber 3, DBIGFONT, untranslated, ammo1, 44, 171;
+    drawnumber 3, DBIGFONT, untranslated, health, 90, 171;
+    drawnumber 3, DBIGFONT, untranslated, armor, 221, 171;
+    drawswitchableimage keyslot 2 && 5, "nullimage", "STKEYS0", "STKEYS3", "STKEYS6", 239, 171;
+    drawswitchableimage keyslot 3 && 6, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", 239, 181;
+    drawswitchableimage keyslot 1 && 4, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", 239, 191;
+    drawnumber 3, INDEXFONT, gold, ammo TSPPistolAmmo, 288, 173;
+    drawnumber 3, INDEXFONT, gold, ammo TSPShells, 288, 179;
+    drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmo, 288, 185;
+    drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmo, 288, 191;
+    drawnumber 3, INDEXFONT, gold, ammocapacity TSPPistolAmmo, 314, 173;
+    drawnumber 3, INDEXFONT, gold, ammocapacity TSPShells, 314, 179;
+    drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmo, 314, 185;
+    drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmo, 314, 191;
+    gamemode deathmatch, teamgame
+    {
+        drawnumber 2, DBIGFONT, untranslated, frags, 138, 171;
+    }
+    gamemode cooperative, singleplayer
+    {
+        drawimage "STARMS", 104, 168;
+        drawswitchableimage weaponslot 2, "STGNUM2", "STYSNUM2", 111, 172; 
+        drawswitchableimage weaponslot 3, "STGNUM3", "STYSNUM3", 123, 172;
+        drawswitchableimage weaponslot 4, "STGNUM4", "STYSNUM4", 135, 172;
+        drawswitchableimage weaponslot 5, "STGNUM5", "STYSNUM5", 111, 182;
+        drawswitchableimage weaponslot 6, "STGNUM6", "STYSNUM6", 123, 182;
+        drawswitchableimage weaponslot 7, "STGNUM7", "STYSNUM7", 135, 182;
+    }
+    gamemode cooperative, deathmatch, teamgame
+    {
+        drawimage translatable "STFBANY", 144, 169;
+    }
+    drawselectedinventory alternateonempty, INDEXFONT, 143, 168
+    {
+        drawmugshot 5, 143, 168;
+    }
+}

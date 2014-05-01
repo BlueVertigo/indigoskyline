@@ -1,0 +1,49 @@
+//===========================================================================
+//
+// Punch-Out!!
+//
+// by Marty Kirra
+// Sprites by Marty Kirra, Blox, Scuba Steve, Banjo Entertainment
+// 
+//
+//===========================================================================
+
+ACTOR PunchOut : Weapon
+{
+   Inventory.PickupMessage "Let's keep it clean! Now come out boxing! [Class: Melee, Slot 1]"
+   Obituary "%k joined the Nintendo Fun Club in the sky. %o wins!"
+   Weapon.Kickback 100
+   Weapon.BobStyle Alpha
+   Weapon.BobSpeed 1.5
+   Weapon.BobRangeY 1.0
+   Weapon.BobRangeX 0.5
+   Tag "Melee"
+	+WEAPON.WIMPY_WEAPON
+	+WEAPON.MELEEWEAPON
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+    +NOEXTREMEDEATH
+	+INVENTORY.UNDROPPABLE
+    States
+    {
+    Spawn:
+      	TNT1 A -1
+      	Loop
+	Deselect:
+	    TNT1 A 0
+	    TNT1 A 1 A_Lower
+		Loop
+	Select:
+	    TNT1 A 4 SetPlayerProperty(0,1,2)
+	SelectLoop:
+		LMPG A 1 A_Raise
+		Loop
+	Ready:
+	    LMPG A 1 A_WeaponReady
+		Loop
+    Fire:
+	    LMPG A 1
+		Goto Ready
+		  }
+}

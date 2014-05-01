@@ -1,0 +1,85 @@
+#include "zcommon.acs"
+#library "tspacs"
+
+script 858 (void)
+{
+	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
+		GiveInventory("RoboPickupZekeShotgun",1);
+	else
+		GiveInventory("FlavorPickupZekeShotgun",1);
+}
+
+script 859 (void)
+{
+	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
+		GiveInventory("RoboPickupPistol",1);
+	else
+		GiveInventory("FlavorPickupPistol",1);
+}
+
+script 860 (void)
+{
+	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
+		GiveInventory("RoboPickupCrossbow",1);
+	else
+		GiveInventory("FlavorPickupCrossbow",1);
+}
+
+script 861 (void)
+{
+	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
+		GiveInventory("RoboPickupAmmoBox50",1);
+	else
+		GiveInventory("FlavorPickupAmmoBox50",1);
+}
+
+script 862 (void)
+{
+	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
+		GiveInventory("RoboPickupRLNG",1);
+	else
+		GiveInventory("FlavorPickupRLNG",1);
+}
+
+script 863 ENTER
+{
+	if(GetActorProperty( 0, APROP_Health) >= 101)
+    {
+        GiveInventory("Over100Health",1);
+		Delay(6);
+		Restart;
+    }
+    else
+    {
+        TakeInventory("Over100Health",1);
+		Delay(6);
+		Restart;
+    }
+}
+
+script 864 (void)
+{
+	if(CheckInventory("BasicArmor") >= 1)
+    {
+		Delay(6);
+		Restart;
+    }
+    else
+    {
+        TakeInventory("TSPGreenDamageReduction",1);
+		TakeInventory("TSPGreenArmorDamage",1);
+        TakeInventory("TSPBlueDamageReduction",1);
+		TakeInventory("TSPBlueArmorDamage",1);
+		Terminate;
+    }
+}
+
+script 865(void)
+{
+	int e257zsTracerNewTID = (UniqueTID());
+	Thing_ChangeTID (0,e257zsTracerNewTID);
+	SetActivator(0,AAPTR_TRACER);
+	int e257zsTracerAngle = GetActorAngle(0);
+	SetActorAngle (e257zsTracerNewTID,e257zsTracerAngle);
+	Terminate;
+}

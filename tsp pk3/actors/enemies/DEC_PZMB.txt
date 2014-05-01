@@ -1,0 +1,909 @@
+//===========================================================================
+// ZombieMan Replacements
+//===========================================================================
+
+ACTOR MKZombieSpawner : RandomSpawner replaces ZombieMan
+{
+	DropItem "PistolZombie", 255,100
+	DropItem "RifleZombieVanilla", 255, 100
+	DropItem "RifleZombieV1", 255, 100
+	DropItem "RifleZombieV2", 255, 100
+	DropItem "RifleZombieV3", 255, 100
+	DropItem "RifleZombieV4", 255, 100
+	DropItem "RifleZombieV5", 255, 100
+	DropItem "FemaleZombieV1", 255, 100
+//	DropItem "Cultist", 255, 100
+	DropItem "JudgmentZombie", 255, 15
+}
+
+//===========================================================================
+//
+// Pistol Zombie
+//
+// by WildWeasel and Captain Red, modified by Marty Kirra)
+// Sprites by Captain Red
+//
+//===========================================================================
+
+actor PistolZombie //: ZombieMan
+{
+	  Health 20
+      Radius 19
+      Height 56
+      Mass 100
+      Speed 2
+      Painchance 200
+	  PainChance "GasShellDamage", 20
+	  PainChance "Melee", 235
+	  PainChance "Sling", 255
+	  SeeSound "zombie/sight"
+	  PainSound "zombie/pain"
+	  DeathSound "zombie/death"
+	  ActiveSound "zombie/idle"
+	  AttackSound "919m/fire"
+	  Obituary "%o received a slug to the chest."
+      Dropitem TSPPistolAmmo 255
+	  MONSTER
+      +FLOORCLIP
+      states
+      {
+      Spawn:
+        ZMP1 A 10 A_Look
+        loop
+	  See:
+		ZMP1 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	    loop
+	  Missile:
+	    ZMP1 E 0 A_Jump(120,"See")
+		ZMP1 E 0 A_JumpIfInventory("AutoPistolMag",12,"Reload")
+        ZMP1 E 10 A_FaceTarget
+        ZMP1 F 4 BRIGHT A_CustomBulletAttack(8,3,1,3)
+		ZMP1 F 0 A_CustomMissile("WWPistolCasing",32,10,random(260,280))
+		ZMP1 E 0 A_GiveInventory("AutoPistolMag",1)
+        goto See
+	  Reload:
+	    ZMP1 E 0 A_TakeInventory("AutoPistolMag",12)
+		ZMP1 E 8 A_PlaySound("919m/magout")
+		ZMP1 E 8 A_CustomMissile("SpentClip1",32,10,random(260,280))
+		ZMP1 D 16 A_PlaySound("919m/magin2")
+		goto See
+      Pain:
+        ZMP1 G 3
+        ZMP1 G 3 A_Pain
+		goto See
+	  Pain.Sling:
+	    TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	  Pain.Melee:
+	    ZMP1 G 6
+        ZMP1 G 8 A_Pain
+		goto See
+//	  Death.Melee:
+//	    TNT1 A 0 A_GiveToTarget("MelTauntMelee",1)
+      Death:
+		ZMP1 H 5
+        ZMP1 I 5 A_Scream
+		ZMP1 J 5 A_NoBlocking
+        ZMP1 K 5
+        ZMP1 L -1
+        stop
+	  Death.Uppercut:
+	    TNT1 A 0 A_FaceTarget
+		TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+		TNT1 A 0 Thrustthingz(0,27,0,1)
+		Goto Death
+      XDeath:
+        ZMP1 M 5
+        ZMP1 N 5 A_XScream
+        ZMP1 O 5 A_NoBlocking
+        ZMP1 PQRST 5
+        ZMP1 U -1
+        stop
+	  Ice:
+	    ZMP1 W 5 A_GenericFreezeDeath
+	    ZMP1 W 1 A_FreezeDeathChunks
+        wait
+      Raise:
+		ZMP1 KJIH 5
+		goto See
+  }
+}
+
+//===========================================================================
+//
+// Rifle Zombie (Vanilla)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by idsoftware
+//
+//===========================================================================
+
+ACTOR RifleZombieVanilla //: ZombieMan
+{   
+    Health 20
+	Radius 19
+    Height 56
+    Mass 100
+	Speed 2
+	Painchance 200
+    Painchance "Melee", 235
+	PainChance "GasShellDamage", 20
+	SeeSound "zombie/sight"
+	PainSound "zombie/pain"
+	DeathSound "zombie/death"
+	ActiveSound "zombie/idle"
+	AttackSound "rifle/fire"
+	Obituary "%o was taken out by a member of the walking dead."
+	Dropitem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      POSS A 10 A_Look 
+      Loop
+	See:
+	  POSS AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop
+	Missile: 
+      POSS E 0 A_Jump(120,"See")
+	  POSS E 10 A_FaceTarget 
+      POSS F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      POSS E 1
+	  POSS E 0 A_FaceTarget 
+      POSS F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      POSS E 1
+	  POSS E 0 A_FaceTarget 
+      POSS F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+	  POSS E 5
+      Goto See
+	Pain:
+	  POSS G 3
+      POSS G 3 A_Pain
+	  Goto See
+    Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	Pain.Melee:
+	  POSS G 6
+      POSS G 8 A_Pain
+	  goto See
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    Death:
+      POSS H 5
+      POSS I 5 A_Scream
+      POSS J 5 A_NoBlocking
+      POSS K 5
+      POSS L -1
+      Stop
+    XDeath:
+      POSS M 5
+      POSS N 5 A_XScream
+      POSS O 5 A_NoBlocking
+      POSS PQRST 5
+      POSS U -1
+      Stop
+    Raise:
+      POSS K 5
+      POSS JIH 5
+      Goto See
+  	} 
+} 
+
+//===========================================================================
+//
+// Rifle Zombie (Variant One)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by ???
+//
+//===========================================================================
+
+ACTOR RifleZombieV1 //: ZombieMan
+{
+    Health 35
+    Speed 3
+    Radius 19
+    Height 56
+    Mass 100
+    PainChance 180
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 18
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "zombie/sight"
+	PainSound "zombie/pain"
+	DeathSound "zombie/death"
+	ActiveSound "zombie/idle"
+	AttackSound "rifle/fire"
+	Obituary "%o joined the ranks of the undead."
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      ZMV1 A 10 A_Look 
+      Loop 
+	See:
+	  ZMV1 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop
+    Missile: 
+      ZMV1 E 0 A_Jump(120,"See")
+	  ZMV1 E 10 A_FaceTarget 
+      ZMV1 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      ZMV1 E 1
+	  ZMV1 E 0 A_FaceTarget 
+      ZMV1 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      ZMV1 E 1
+	  ZMV1 E 0 A_FaceTarget 
+      ZMV1 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+	  ZMV1 E 5
+      Goto See
+    Pain: 
+      ZMV1 G 3 
+      ZMV1 G 3 A_Pain 
+      Goto See
+	Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	Pain.Melee:
+	  ZMV1 G 6 
+      ZMV1 G 8 A_Pain 
+      Goto See
+    Death: 
+      ZMV1 H 5 
+      ZMV1 I 5 A_Scream 
+      ZMV1 J 5 A_Fall 
+      ZMV1 K 5 
+      ZMV1 L -1 
+      Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    XDeath:
+      ZMV1 O 5
+      ZMV1 P 5 A_XScream
+      ZMV1 Q 5
+      ZMV1 R 5 A_Fall
+      ZMV1 ST 5
+      ZMV1 U -1
+      Stop
+    Raise: 
+      ZMV1 LKJIH 5
+      Goto See 
+   } 
+} 
+
+//===========================================================================
+//
+// Rifle Zombie (Variant Two)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by Marty Kirra and Draken
+//
+//===========================================================================
+
+ACTOR RifleZombieV2 //: ZombieMan
+{
+    Health 35
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 3
+    PainChance 180
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 18
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "zombie/sight"
+	PainSound "zombie/pain"
+	DeathSound "zombie/death"
+	ActiveSound "zombie/idle"
+	AttackSound "rifle/fire"
+	Obituary "%o was riddled with bullets thanks to a zombie."
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      ZMV2 A 10 A_Look 
+      Loop 
+	See:
+	  ZMV2 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop
+    Missile: 
+      ZMV2 E 0 A_Jump(120,"See")
+	  ZMV2 E 10 A_FaceTarget 
+      ZMV2 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      ZMV2 E 1
+	  ZMV2 E 0 A_FaceTarget 
+      ZMV2 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      ZMV2 E 1
+	  ZMV2 E 0 A_FaceTarget 
+      ZMV2 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+	  ZMV2 E 5
+      Goto See
+    Pain: 
+      ZMV2 G 3 
+      ZMV2 G 3 A_Pain 
+      Goto See
+    Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+    Pain.Melee: 
+      ZMV2 G 6 
+      ZMV2 G 8 A_Pain 
+      Goto See 
+    Death: 
+      ZMV2 H 5 
+      ZMV2 I 5 A_Scream 
+      ZMV2 J 5 A_Fall 
+      ZMV2 K 5 
+      ZMV2 L -1 
+      Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    XDeath:
+      ZMV2 O 5
+      ZMV2 P 5 A_XScream
+      ZMV2 Q 5
+      ZMV2 R 5 A_Fall
+      ZMV2 ST 5
+      ZMV2 U -1
+      Stop
+    Ice:
+      ZMV2 W 5 A_GenericFreezeDeath
+	  ZMV2 W 1 A_FreezeDeathChunks
+	  wait
+    Raise: 
+      ZMV2 LKJIH 5
+      Goto See 
+   } 
+} 
+
+//===========================================================================
+//
+// Rifle Zombie (Variant Three)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by Xim
+//
+//===========================================================================
+
+ACTOR RifleZombieV3 //: ZombieMan
+{
+    Health 35
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 3
+    PainChance 180
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 18
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "zombie/sight"
+	PainSound "zombie/pain"
+	DeathSound "zombie/death"
+	ActiveSound "zombie/idle"
+	AttackSound "rifle/fire"
+	Obituary "%o met their demise at the hands of a zombie."
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      ZMV3 A 10 A_Look 
+      Loop 
+	See:
+	  ZMV3 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop
+    Missile: 
+      ZMV3 E 0 A_Jump(120,"See")
+	  ZMV3 E 10 A_FaceTarget 
+      ZMV3 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      ZMV3 E 1
+	  ZMV3 E 0 A_FaceTarget 
+      ZMV3 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      ZMV3 E 1
+	  ZMV3 E 0 A_FaceTarget 
+      ZMV3 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+	  ZMV3 E 5
+      Goto See
+    Pain: 
+      ZMV3 G 3 
+      ZMV3 G 3 A_Pain 
+      Goto See 
+    Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	Pain.Melee:
+	  ZMV3 G 6
+      ZMV3 G 8 A_Pain 
+      Goto See 
+    Death: 
+      ZMV3 H 5 
+      ZMV3 I 5 A_Scream 
+      ZMV3 J 5 A_Fall 
+      ZMV3 K 5 
+      ZMV3 L -1 
+      Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    XDeath:
+      ZMV3 O 5
+      ZMV3 P 5 A_XScream
+      ZMV3 Q 5
+      ZMV3 R 5 A_Fall
+      ZMV3 ST 5
+      ZMV3 U -1
+      Stop
+    Ice:
+      ZMV3 W 5 A_GenericFreezeDeath
+	  ZMV3 W 1 A_FreezeDeathChunks
+	  wait
+    Raise: 
+      ZMV3 LKJIH 5
+      Goto See 
+   } 
+} 
+
+//===========================================================================
+//
+// Rifle Zombie (Variant Four)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by Vader
+//
+//===========================================================================
+
+ACTOR RifleZombieV4 //: ZombieMan
+{
+    Health 35
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 3
+    PainChance 180
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 18
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "zombie/sight"
+	PainSound "zombie/pain"
+	DeathSound "zombie/death"
+	ActiveSound "zombie/idle"
+	AttackSound "rifle/fire"
+	Obituary "%o met their demise at the hands of a former human."
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      ZMV4 A 10 A_Look 
+      Loop 
+	See:
+	  ZMV4 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop
+    Missile: 
+      ZMV4 E 0 A_Jump(120,"See")
+	  ZMV4 E 10 A_FaceTarget 
+      ZMV4 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      ZMV4 E 1
+	  ZMV4 E 0 A_FaceTarget 
+      ZMV4 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      ZMV4 E 1
+	  ZMV4 E 0 A_FaceTarget 
+      ZMV4 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+	  ZMV4 E 5
+      Goto See
+    Pain: 
+      ZMV4 G 3 
+      ZMV4 G 3 A_Pain 
+      Goto See 
+    Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+    Pain.Melee: 
+      ZMV4 G 6 
+      ZMV4 G 8 A_Pain 
+      Goto See 
+    Death: 
+      ZMV4 H 5 
+      ZMV4 I 5 A_Scream 
+      ZMV4 J 5 A_Fall 
+      ZMV4 K 5 
+      ZMV4 L -1 
+      Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    XDeath:
+      ZMV4 O 5
+      ZMV4 P 5 A_XScream
+      ZMV4 Q 5
+      ZMV4 R 5 A_Fall
+      ZMV4 ST 5
+      ZMV4 U -1
+      Stop
+	  wait
+    Raise: 
+      ZMV4 LKJIH 5
+      Goto See 
+   } 
+} 
+
+//===========================================================================
+//
+// Rifle Zombie (Variant Five)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by Marty Kirra and Toke
+//
+//===========================================================================
+
+ACTOR RifleZombieV5 //: ZombieMan
+{
+    Health 35
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 3
+    PainChance 180
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 18
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "zombie/sight"
+	PainSound "zombie/pain"
+	DeathSound "zombie/death"
+	ActiveSound "zombie/idle"
+	AttackSound "rifle/fire"
+	Obituary "%o fell victim to a rifle zombie."
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      ZMV5 A 10 A_Look 
+      Loop 
+	See:
+	  ZMV5 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop
+    Missile: 
+      ZMV5 E 0 A_Jump(120,"See")
+	  ZMV5 E 10 A_FaceTarget 
+      ZMV5 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      ZMV5 E 1
+	  ZMV5 E 0 A_FaceTarget 
+      ZMV5 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      ZMV5 E 1
+	  ZMV5 E 0 A_FaceTarget 
+      ZMV5 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+	  ZMV5 E 5
+      Goto See
+    Pain: 
+      ZMV5 G 3 
+      ZMV5 G 3 A_Pain 
+      Goto See
+    Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+    Pain.Melee: 
+      ZMV5 G 6 
+      ZMV5 G 8 A_Pain 
+      Goto See 
+    Death: 
+      ZMV5 H 5 
+      ZMV5 I 5 A_Scream 
+      ZMV5 J 5 A_Fall 
+      ZMV5 K 5 
+      ZMV5 L -1 
+      Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    XDeath:
+      ZMV5 O 5
+      ZMV5 P 5 A_XScream
+      ZMV5 Q 5
+      ZMV5 R 5 A_Fall
+      ZMV5 ST 5
+      ZMV5 U -1
+      Stop
+    Raise: 
+      ZMV5 LKJIH 5
+      Goto See 
+   } 
+} 
+
+//===========================================================================
+//
+// Female Zombie (Variant One)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by Lazerus and Marty Kirra
+//
+//===========================================================================
+
+ACTOR FemaleZombieV1 //: ZombieMan
+{
+    Health 35
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 4
+    PainChance 200
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 20
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "fzombie/sight"
+	PainSound "fzombie/pain"
+	DeathSound "fzombie/death"
+	ActiveSound "fzombie/idle"
+	AttackSound "rifle/fire"
+	Obituary "%o no longer lives thanks to a zombie."
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      FMZ1 A 10 A_Look 
+      Loop 
+	See:
+	  FMZ1 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop 
+    Missile: 
+      FMZ1 E 0 A_Jump(120,"See")
+	  FMZ1 E 10 A_FaceTarget 
+      FMZ1 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      FMZ1 E 1
+	  FMZ1 E 0 A_FaceTarget 
+      FMZ1 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      FMZ1 E 1
+	  FMZ1 E 0 A_FaceTarget 
+      FMZ1 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+	  FMZ1 E 5
+      Goto See
+    Pain: 
+      FMZ1 G 3 
+      FMZ1 G 3 A_Pain 
+      Goto See 
+	Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	Pain.Melee:
+	  FMZ1 G 6
+	  FMZ1 G 8 A_Pain
+	  Goto See
+    Death: 
+      FMZ1 H 5 
+      FMZ1 I 5 A_Scream 
+      FMZ1 J 5 A_Fall 
+      FMZ1 K 5 
+      FMZ1 L -1 
+      Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    XDeath:
+      FMZ1 O 5
+      FMZ1 P 5 A_XScream
+      FMZ1 Q 5
+      FMZ1 R 5 A_Fall
+      FMZ1 ST 5
+      FMZ1 U -1
+      Stop
+	  wait
+    Raise: 
+      FMZ1 LKJIH 5
+      Goto See 
+   } 
+}
+
+
+//===========================================================================
+//
+// Rifle Zombie (Variant One)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by ???
+//
+//===========================================================================
+
+ACTOR Cultist //: ZombieMan
+{
+    Health 35
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 3
+    PainChance 180
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 18
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "cultist/sight"
+	PainSound "cultist/pain"
+	DeathSound "cultist/death"
+	ActiveSound "cultist/idle"
+	AttackSound "cultist/fire"
+	Obituary "%o fell prey to the Cult of Baphomet's legion."
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      ZMV1 A 10 A_Look 
+      Loop 
+	See:
+	  ZMV1 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop 
+    Missile: 
+      ZMV1 E 0 A_Jump(120,"See")
+	  ZMV1 E 10 A_FaceTarget 
+      ZMV1 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      ZMV1 E 1
+	  ZMV1 E 0 A_FaceTarget 
+      ZMV1 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      ZMV1 E 1
+	  ZMV1 E 0 A_FaceTarget 
+      ZMV1 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+	  ZMV1 E 5
+      Goto See
+    Pain: 
+      ZMV1 G 3 
+      ZMV1 G 3 A_Pain 
+      Goto See 
+    Death: 
+      ZMV1 H 5 
+      ZMV1 I 5 A_Scream 
+      ZMV1 J 5 A_Fall 
+      ZMV1 K 5 
+      ZMV1 L -1 
+      Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    XDeath:
+      ZMV1 O 5
+      ZMV1 P 5 A_XScream
+      ZMV1 Q 5
+      ZMV1 R 5 A_Fall
+      ZMV1 ST 5
+      ZMV1 U -1
+      Stop
+    Raise: 
+      ZMV1 LKJIH 5
+      Goto See 
+   } 
+} 
+
+
+//===========================================================================
+//
+// Specialty Zombie (Judgment Pistol)
+//
+// by WildWeasel
+// Sprites by Gothic99 and Marty Kirra
+//
+//===========================================================================
+
+ACTOR JudgmentZombie //: ZombieMan
+{
+    Health 55
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 7
+    PainChance 200
+	PainChance "Melee", 200
+	PainChance "Sling", 255
+	//PainChance "GasShellDamage", 5
+	DamageFactor "GasShellDamage", 0 //because mask
+	DropItem TSPPistolAmmo 255
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "swat/sight"
+	PainSound "swat/pain"
+	DeathSound "swat/death"
+	ActiveSound "zombie/idle"
+	AttackSound "judgment/enemy"
+	Obituary "%o was judged and found guilty."
+	MONSTER 
+    +FLOORCLIP
+    States
+    {
+	Spawn:
+	  JDGZ A 10 A_Look
+	  Loop
+	See:
+	  JDGZ A 0 A_JumpIfInventory("JudgmentClip",12,"Reload")
+	  JDGZ AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+	  loop 
+	Missile:
+	  JDGZ E 0 A_Jump(120,"See")
+	  JDGZ E 2 A_FaceTarget
+      JDGZ F 0 A_CustomMissile("WWPistolCasing",32,10,random(260,280))
+	  JDGZ F 2 BRIGHT A_CustomBulletAttack(5,2,1,8)
+	  JDGZ E 3 A_GiveInventory("JudgmentClip",1)
+	  Goto See
+	Reload:
+	  JDGZ E 0 A_TakeInventory("JudgmentClip",12)
+	  JDGZ E 8 A_PlaySound("judgment/clipout")
+	  JDGZ D 12 A_CustomMissile("SpentClip1",32,10,random(260,280))
+	  JDGZ E 8 A_PlaySound("judgment/clipin")
+	  JDGZ E 4
+	  JDGZ D 4 A_PlaySound("judgment/cliphit")
+	  JDGZ D 5
+	  JDGZ E 2 A_PlaySound("judgment/slide")
+	  Goto See
+	Pain:
+	  JDGZ G 4  
+	  JDGZ G 4 A_Pain
+	  Goto See
+	Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	Pain.Melee:
+	  JDGZ G 6
+	  JDGZ G 8 A_Pain
+	  Goto See
+	Death:
+	  JDGZ H 4
+	  JDGZ I 4 A_Scream
+	  JDGZ J 4 A_NoBlocking
+	  JDGZ KLM 4
+	  JDGZ N -1
+	  Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+	XDeath:
+      JDGZ O 5
+      JDGZ P 5 A_XScream
+      JDGZ Q 5 A_NoBlocking
+      JDGZ RSTU 5
+      JDGZ V -1
+      stop
+	Raise:
+	  JDGZ NMLKJIH 3
+	  Goto See
+	}
+}
+
+ACTOR JudgmentClip : Ammo
+{
+	Inventory.MaxAmount 12
+}

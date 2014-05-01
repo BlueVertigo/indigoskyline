@@ -1,0 +1,329 @@
+//===========================================================================
+// Chaingunner Replacements
+//===========================================================================
+
+ACTOR MKChaingunguySpawner : RandomSpawner replaces Chaingunguy
+{
+	DropItem "ChaingunnerVanilla", 255,100
+	DropItem "ChaingunnerV1", 255, 100
+	DropItem "ChaingunnerV2", 255, 100
+//	DropItem "ChaingunnerV3", 255, 100
+//	DropItem "AmmoboxZombie1", 255, 100
+//	DropItem "AmmoboxZombie2", 255, 100
+}
+
+ACTOR SPChaingunner //: Chaingunguy
+{
+    Health 70
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 3
+    PainChance 170
+    Monster
+    +FLOORCLIP
+    dropitem TSPPistolAmmo 255
+	dropitem TSPPistolAmmo 255
+    dropitem TSPPistolAmmo 255
+	dropitem TSPArmorBonus 255
+	dropitem TSPArmorBonus 255
+	dropitem TSPArmorBonus 255
+	dropitem TSPArmorBonus 255
+	dropitem TSPArmorBonus 255
+	Dropitem "AmmoBox50DroppedPickup"
+	PainChance "GasShellDamage", 17
+	SeeSound "czombie/sight"
+	PainSound "czombie/pain"
+	DeathSound "czombie/death"
+	ActiveSound "czombie/idle"
+	PainChance "Melee", 220
+	PainChance "Sling", 255
+	States
+	{
+    Spawn:
+      CPOS AB 10 A_Look
+      Loop
+	See:
+	  CPOS AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+	  loop
+    Missile:
+      CPOS E 0 A_Jump(140,"See")
+	  CPOS E 10 A_FaceTarget
+      CPOS FE 4 Bright A_CPosAttack
+      CPOS F 1 A_CPosRefire
+      Goto Missile+2
+    Pain:
+      CPOS G 3
+      CPOS G 3 A_Pain
+      Goto See
+	Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+      Goto Pain
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    Death:
+      CPOS H 5
+      CPOS I 5 A_Scream
+      CPOS J 5 A_NoBlocking
+      CPOS KLM 5
+      CPOS N -1
+      Stop
+    XDeath:
+      CPOS O 5 
+      CPOS P 5 A_XScream
+      CPOS Q 5 A_NoBlocking
+      CPOS RS 5
+      CPOS T -1
+      Stop
+    Raise:
+      CPOS N 5
+      CPOS MLKJIH 5
+      Goto See
+	} 
+} 
+
+ACTOR ChaingunnerVanilla : SPChaingunner
+{
+	Dropitem "AmmoBox50DroppedPickup" //use this for chaingunners rather than the default ab50 since it gives the correct (half) ammo
+	Obituary "%o met a zombie wielding some heavy weaponry."
+	AttackSound ""
+	States
+	{
+	Spawn:
+      CPOS A 10 A_Look
+      loop
+	See:
+	  CPOS AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+	  loop 
+	Missile:
+	  CPOS E 0 A_Jump(140,"See")
+	  CPOS U 0 A_PlaySound("czombie/attack", 2)
+	  CPOS U 0 A_PlaySound("orionen/start", 6)
+	  CPOS U 15 A_FaceTarget
+	RapidFire:
+	  CPOS U 0 A_PlaySound("orionen/shootloops", 1, True)
+	  CPOS EF 2 bright A_CustomBulletAttack(22.5, 0, 1, random(1,5)*3, "BulletPuff", 0, CBAF_NORANDOM)
+	  CPOS E 4 A_MonsterRefire(40, "StopFiring")
+	  Goto Rapidfire
+	StopFiring:
+	  CPOS U 0 A_StopSound(1)
+	  CPOS U 10 A_PlaySound("orionen/stop", 6)
+	  Goto See
+	Pain:
+	  CPOS U 0 A_StopSound(1)
+      CPOS G 3
+      CPOS G 3 A_Pain
+      Goto See
+	Death:
+	  CPOS U 0 A_StopSound(1)
+	  CPOS H 5
+      CPOS I 5 A_Scream
+      CPOS J 5 A_NoBlocking
+      CPOS KLM 5
+      CPOS N -1
+      Stop
+	XDeath:
+	  CPOS U 0 A_StopSound(1)
+      CPOS O 5 
+      CPOS P 5 A_XScream
+      CPOS Q 5 A_NoBlocking
+      CPOS RS 5
+      CPOS T -1
+      Stop
+	 }
+}
+
+ACTOR ChaingunnerV1 : SPChaingunner
+{
+	Dropitem "AmmoBox50DroppedPickup" //use this for chaingunners rather than the default ab50 since it gives the correct (half) ammo
+	Obituary "%o is now a bullet-ridden corpse thanks to a heavy weapons zombie."
+	AttackSound ""
+	States
+	{
+	Spawn:
+      CZV1 A 10 A_Look
+      loop
+	See:
+	  CZV1 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+	  loop 
+	Missile:
+	  CZV1 U 0 A_PlaySound("czombie/attack", 2)
+	  CZV1 U 0 A_PlaySound("orionen/start", 6)
+	  CZV1 U 15 A_FaceTarget
+	RapidFire:
+	  CZV1 U 0 A_PlaySound("orionen/shootloops", 1, True)
+	  CZV1 EF 2 bright A_CustomBulletAttack(22.5, 0, 1, random(1,5)*3, "BulletPuff", 0, CBAF_NORANDOM)
+	  CZV1 E 4 A_MonsterRefire(40, "StopFiring")
+	  Goto Rapidfire
+	StopFiring:
+	  CZV1 U 0 A_StopSound(1)
+	  CZV1 U 10 A_PlaySound("orionen/stop", 6)
+	  Goto See
+    Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+      Goto Pain
+	Pain:
+	  CZV1 U 0 A_StopSound(1)
+      CZV1 G 3
+      CZV1 G 3 A_Pain
+      Goto See
+    Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+	Death:
+	  CZV1 U 0 A_StopSound(1)
+	  CZV1 H 5
+      CZV1 I 5 A_Scream
+      CZV1 J 5 A_NoBlocking
+      CZV1 KL 5
+      CZV1 M -1
+      Stop
+	XDeath:
+	  CZV1 U 0 A_StopSound(1)
+      CZV1 N 5 
+      CZV1 O 5 A_XScream
+      CZV1 P 5 A_NoBlocking
+      CZV1 QR 5
+      CZV1 S -1
+      Stop
+	Raise:
+	  CZV1 M 5
+      CZV1 LKJIH 5
+      Goto See
+	 }
+}
+
+ACTOR ChaingunnerV2 : SPChaingunner
+{
+	Dropitem "AmmoBox50DroppedPickup" //use this for chaingunners rather than the default ab50 since it gives the correct (half) ammo
+	Obituary "%o met a zombie wielding a deadly heavy weapon."
+	AttackSound ""
+	States
+	{
+	Spawn:
+      CZV2 A 10 A_Look
+      loop
+	See:
+	  CZV2 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+	  loop
+	Missile:
+	  CZV2 E 0 A_Jump(140,"See")
+	  CZV2 U 0 A_PlaySound("czombie/attack", 2)
+	  CZV2 U 0 A_PlaySound("orionen/start", 6)
+	  CZV2 U 15 A_FaceTarget
+	RapidFire:
+	  CZV2 U 0 A_PlaySound("orionen/shootloops", 1, True)
+	  CZV2 EF 2 bright A_CustomBulletAttack(22.5, 0, 1, random(1,5)*3, "BulletPuff", 0, CBAF_NORANDOM)
+	  CZV2 E 4 A_MonsterRefire(40, "StopFiring")
+	  Goto Rapidfire
+	StopFiring:
+	  CZV2 U 0 A_StopSound(1)
+	  CZV2 U 10 A_PlaySound("orionen/stop", 6)
+	  Goto See
+	Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+      Goto Pain
+	Pain:
+	  CZV2 U 0 A_StopSound(1)
+      CZV2 G 3
+      CZV2 G 3 A_Pain
+      Goto See
+    Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+	Death:
+	  CZV2 U 0 A_StopSound(1)
+	  CZV2 H 5
+      CZV2 I 5 A_Scream
+      CZV2 J 5 A_NoBlocking
+      CZV2 KLMNO 5
+      CZV2 P -1
+      Stop
+	XDeath:
+	  CZV3 U 0 A_StopSound(1)
+      CZV3 Q 5 
+      CZV3 R 5 A_XScream
+      CZV3 S 5 A_NoBlocking
+      CZV3 TUVWX 5
+      CZV3 Y -1
+      Stop
+	Raise:
+	  CZV2 P 5
+      CZV2 ONMLK 5
+      Goto See
+	 }
+}
+
+ACTOR ChaingunnerV3 : SPChaingunner
+{
+	Dropitem "AmmoBox50DroppedPickup" //use this for chaingunners rather than the default ab50 since it gives the correct (half) ammo
+	Obituary "%o now joins the ranks of the dead thanks to a heavy weapons zombie."
+	AttackSound ""
+	States
+	{
+	Spawn:
+      CZV2 A 10 A_Look
+      loop
+	See:
+	  CZV2 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+	  loop
+	Missile:
+	  CZV2 E 0 A_Jump(140,"See")
+	  CZV2 U 0 A_PlaySound("czombie/attack", 2)
+	  CZV2 U 0 A_PlaySound("orionen/start", 6)
+	  CZV2 U 15 A_FaceTarget
+	RapidFire:
+	  CZV2 U 0 A_PlaySound("orionen/shootloops", 1, True)
+	  CZV2 EF 2 bright A_CustomBulletAttack(22.5, 0, 1, random(1,5)*3, "BulletPuff", 0, CBAF_NORANDOM)
+	  CZV2 E 4 A_MonsterRefire(40, "StopFiring")
+	  Goto Rapidfire
+	StopFiring:
+	  CZV2 U 0 A_StopSound(1)
+	  CZV2 U 10 A_PlaySound("orionen/stop", 6)
+	  Goto See
+	Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+      Goto Pain
+	Pain:
+	  CZV2 U 0 A_StopSound(1)
+      CZV2 G 3
+      CZV2 G 3 A_Pain
+      Goto See
+    Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+	Death:
+	  CZV2 U 0 A_StopSound(1)
+	  CZV2 H 5
+      CZV2 I 5 A_Scream
+      CZV2 J 5 A_NoBlocking
+      CZV2 KLMNO 5
+      CZV2 P -1
+      Stop
+	XDeath:
+	  CZV3 U 0 A_StopSound(1)
+      CZV3 Q 5 
+      CZV3 R 5 A_XScream
+      CZV3 S 5 A_NoBlocking
+      CZV3 TUVWX 5
+      CZV3 Y -1
+      Stop
+	Raise:
+	  CZV2 P 5
+      CZV2 ONMLK 5
+      Goto See
+	 }
+}

@@ -1,0 +1,76 @@
+DEFAULTLISTMENU
+{
+	Font "DBIGFONT", "Green" //Font "MENUFNT", "DarkGreen"
+	Selector "M_SPSEL", -34, -8
+	Linespacing 16
+}
+
+LISTMENU "MainMenu"
+{
+	StaticPatch 44, -20, "SP_HEDR"
+	Position 97, 96
+	IfOption(ReadThis)
+	{
+		Position 97, 88
+	}
+	IfGame(Doom, Strife, Chex)
+	{
+		TextItem "NEW GAME", "n", "PlayerclassMenu"
+		ifOption(SwapMenu)
+		{
+			TextItem "LOAD GAME", "l", "LoadGameMenu"
+			TextItem "SAVE GAME", "s", "SaveGameMenu"
+			TextItem "OPTIONS","o", "OptionsMenu"
+		}
+		else
+		{
+			TextItem "OPTIONS","o", "OptionsMenu"
+			TextItem "LOAD GAME", "l", "LoadGameMenu"
+			TextItem "SAVE GAME", "s", "SaveGameMenu"
+		}
+		ifOption(ReadThis)
+		{
+			TextItem "READ THIS!","r", "ReadThisMenu"
+		}
+		TextItem "QUIT GAME", "q", "QuitMenu"
+	}
+	
+	IfGame(Heretic, Hexen)
+	{
+		TextItem "$MNU_NEWGAME", "n", "PlayerclassMenu"
+		TextItem "$MNU_OPTIONS", "o", "OptionsMenu"
+		TextItem "$MNU_GAMEFILES", "g", "GameFilesMenu"
+		TextItem "$MNU_INFO", "i", "ReadThisMenu"
+		TextItem "$MNU_QUITGAME", "q", "QuitMenu"
+	}
+}
+
+ListMenu "SkillMenu"
+{
+
+	Font "DBIGFONT", "Green"
+	IfGame(Doom, Chex)
+	{
+		Font "DBIGFONT", "Green"
+		StaticTextCentered 166, 14, "NEW GAME"
+	}
+	IfGame(Strife)
+	{
+		StaticPatch 96, 14, "M_NGAME"
+	}
+	IfGame(Doom, Strife, Chex)
+	{
+		StaticPatch 42, 38, "SP_SKILL"
+		Position 48, 63
+	}
+	IfGame (Heretic)
+	{
+		Position 38, 30
+	}
+	IfGame (Hexen)
+	{
+		StaticText 74, 16, "$MNU_CHOOSESKILL"
+		Position 160, 44
+		centermenu
+	}
+}

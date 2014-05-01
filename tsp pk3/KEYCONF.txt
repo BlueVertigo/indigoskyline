@@ -1,0 +1,10 @@
+clearplayerclasses
+addplayerclass SpacePirate
+//addplayerclass LittleMac
+
+addkeysection "The Space Pirate" ew_keysection
+addmenukey "Special/Melee" +Pirate_Melee
+
+defaultbind q +Pirate_Melee
+alias +Pirate_Melee "use StartMelee" //"give Melee"
+alias -Pirate_Melee "use StopMelee" //"give Melee"

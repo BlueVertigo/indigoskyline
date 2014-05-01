@@ -1,0 +1,57 @@
+//919m Brightmaps
+//BrightMap Sprite PSTFB0
+//{
+//map "brightmaps/weapons/pistol/BMPSTFB.png"
+//DisableFullBright
+//}
+//
+//BrightMap Sprite PSTFC0
+//{
+//map "brightmaps/weapons/pistol/BMPSTFC.png"
+//DisableFullBright
+//}
+
+//Shotgun Brightmaps
+BrightMap Sprite STGFA0
+{
+map "brightmaps/weapons/shotgun/BMSTGFA.png"
+DisableFullBright
+}
+
+BrightMap Sprite STGFB0
+{
+map "brightmaps/weapons/shotgun/BMSTGFB.png"
+DisableFullBright
+}
+
+//Ammobox50 Brightmaps
+//BrightMap Sprite ABXFA0
+//{
+//map "brightmaps/weapons/ammobox50/BMABXFA.png"
+//DisableFullBright
+//}
+//
+//BrightMap Sprite ABXFB0
+//{
+//map "brightmaps/weapons/ammobox50/BMABXFB.png"
+//DisableFullBright
+//}
+//
+//BrightMap Sprite ABXFC0
+//{
+//map "brightmaps/weapons/ammobox50/BMABXFC.png"
+//DisableFullBright
+//}
+//
+//BrightMap Sprite ABXFD0
+//{
+//map "brightmaps/weapons/ammobox50/BMABXFD.png"
+//DisableFullBright
+//}
+
+//RLNG Brightmaps
+BrightMap Sprite RNLGA0
+{
+map "brightmaps/weapons/RLNG/BMRNLGA.png"
+DisableFullBright
+}

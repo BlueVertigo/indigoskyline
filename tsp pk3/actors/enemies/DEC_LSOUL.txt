@@ -1,0 +1,255 @@
+//===========================================================================
+// Lost Soul Replacements
+//===========================================================================
+
+
+ACTOR LostSoulSpawner : RandomSpawner replaces LostSoul
+{
+	DropItem "LostSoulV1"
+	DropItem "LostSoulV2"
+	DropItem "LostSoulV3"
+}
+
+//===========================================================================
+//
+// Lost Soul
+//
+// by Ghastly_Death (Sprites by Captain Toenail, color variants by Marty Kirra)
+//
+//===========================================================================
+Actor LostSoulV1
+{
+  obituary "%o was taken over by a wandering Lost Soul."
+  health 100
+  Radius 16
+  Height 56
+  mass 50
+  speed 3
+  painchance 230
+  Painchance "Melee", 230
+  PainChance "Sling", 255
+  PainSound "Forgotten/Pain"
+  SeeSound "Forgotten/Sight"
+  DeathSound "Forgotten/Death"
+  ActiveSound "Forgotten/Active"
+  DamageFactor "GasShellDamage", 0 //because skeleton
+  Damage 3
+  MONSTER
+  +FLOORCLIP
+  +FLOAT
+  +NOGRAVITY
+  +NOICEDEATH
+  +DONTFALL
+  +NOBLOOD
+  +SEEINVISIBLE
+  states
+  {
+  Spawn:
+    1FOR A 0 Bright
+    1FOR AAAAAABBBBBB 1 Bright A_Look
+    1FOR AAAAAABBBBBB 1 Bright A_Look
+    1FOR AAAAAABBBBBB 1 Bright A_Look
+    1FOR AAAAAABBBBBB 1 Bright A_Look
+    1FOR AAAAAABBBBBB 1 Bright A_Look
+    1FOR A 0 Bright A_Jump(16, 1)
+    Loop
+    1FOR A 0 Bright A_PlaySound("Forgotten/Active")
+    Loop
+  See:
+    1FOR AAAAAABBBBBB 1 Bright A_Chase
+    Loop
+  Missile:
+    1FOR C 10 Bright A_FaceTarget
+    1FOR D 0 Bright A_PlaySound("Forgotten/Sight")
+    1FOR D 4 Bright A_SkullAttack
+    1FOR CCCC 1 Bright
+    1FOR C 0 A_Jump(16, 6)
+    1FOR DDDD 1 Bright
+    1FOR D 0 A_Jump(16, 1)
+    Goto Missile+4
+    1FOR C 0
+    Goto Missile+2
+  Pain.Sling:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+  Pain:
+    1FOR E 3 Bright
+    1FOR E 3 Bright A_Pain
+    Goto See
+  Pain.Melee:
+    1FOR E 5 Bright
+    1FOR E 4 Bright A_Pain
+    Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+	TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
+  Death:
+    1FOR EF 4 Bright
+    1FOR G 6 Bright A_Scream
+	1FOR G 0 A_PlaySound("LostSoul/Explode", 0)
+    1FOR H 6 Bright
+    1FOR I 6 Bright A_NoBlocking
+    1FOR J 6
+    Stop
+  }
+}
+
+Actor LostSoulV2
+{
+  obituary "%o was possessed by an angry Lost Soul."
+  health 100
+  Radius 16
+  Height 56
+  mass 50
+  speed 3
+  painchance 230
+  Painchance "Melee", 230
+  PainChance "Sling", 255
+  PainSound "Forgotten/Pain"
+  SeeSound "Forgotten/Sight"
+  DeathSound "Forgotten/Death"
+  ActiveSound "Forgotten/Active"
+  DamageFactor "GasShellDamage", 0 //because skeleton
+  Damage 3
+  MONSTER
+  +SEEINVISIBLE
+  +FLOORCLIP
+  +FLOAT
+  +NOGRAVITY
+  +NOICEDEATH
+  +DONTFALL
+  +NOBLOOD
+  states
+  {
+  Spawn:
+    2FOR A 0 Bright
+    2FOR AAAAAABBBBBB 1 Bright A_Look
+    2FOR AAAAAABBBBBB 1 Bright A_Look
+    2FOR AAAAAABBBBBB 1 Bright A_Look
+    2FOR AAAAAABBBBBB 1 Bright A_Look
+    2FOR AAAAAABBBBBB 1 Bright A_Look
+    2FOR A 0 Bright A_Jump(16, 1)
+    Loop
+    2FOR A 0 Bright A_PlaySound("Forgotten/Active")
+    Loop
+  See:
+    2FOR AAAAAABBBBBB 1 Bright A_Chase
+    Loop
+  Missile:
+    2FOR C 10 Bright A_FaceTarget
+    2FOR D 0 Bright A_PlaySound("Forgotten/Sight")
+    2FOR D 4 Bright A_SkullAttack
+    2FOR CCCC 1 Bright
+    2FOR C 0 A_Jump(16, 6)
+    2FOR DDDD 1 Bright
+    2FOR D 0 A_Jump(16, 1)
+    Goto Missile+4
+    2FOR C 0
+    Goto Missile+2
+  Pain.Sling:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+  Pain:
+    2FOR E 3 Bright
+    2FOR E 3 Bright A_Pain
+    Goto See
+  Pain.Melee:
+    2FOR E 5 Bright
+    2FOR E 4 Bright A_Pain
+    Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+	TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
+  Death:
+    2FOR EF 4 Bright
+    2FOR G 6 Bright A_Scream
+	2FOR G 0 A_PlaySound("LostSoul/Explode", 0)
+    2FOR H 6 Bright
+    2FOR I 6 Bright A_NoBlocking
+    2FOR J 6
+    Stop
+  }
+}
+
+Actor LostSoulV3
+{
+  obituary "%o's body was seized by an dismal Lost Soul."
+  health 100
+  Radius 16
+  Height 56
+  mass 50
+  speed 3
+  painchance 230
+  Painchance "Melee", 230
+  PainChance "Sling", 255
+  PainSound "Forgotten/Pain"
+  SeeSound "Forgotten/Sight"
+  DeathSound "Forgotten/Death"
+  ActiveSound "Forgotten/Active"
+  DamageFactor "GasShellDamage", 0 //because skeleton
+  Damage 3
+  MONSTER
+  +SEEINVISIBLE
+  +FLOORCLIP
+  +FLOAT
+  +NOGRAVITY
+  +NOICEDEATH
+  +DONTFALL
+  +NOBLOOD
+  states
+  {
+  Spawn:
+    3FOR A 0 Bright
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR A 0 Bright A_Jump(16, 1)
+    Loop
+    3FOR A 0 Bright A_PlaySound("Forgotten/Active")
+    Loop
+  See:
+    3FOR AAAAAABBBBBB 1 Bright A_Chase
+    Loop
+  Missile:
+    3FOR C 10 Bright A_FaceTarget
+    3FOR D 0 Bright A_PlaySound("Forgotten/Sight")
+    3FOR D 4 Bright A_SkullAttack
+    3FOR CCCC 1 Bright
+    3FOR C 0 A_Jump(16, 6)
+    3FOR DDDD 1 Bright
+    3FOR D 0 A_Jump(16, 1)
+    Goto Missile+4
+    3FOR C 0
+    Goto Missile+2
+  Pain.Sling:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+  Pain:
+    3FOR E 3 Bright
+    3FOR E 3 Bright A_Pain
+    Goto See
+  Pain.Melee:
+    3FOR E 5 Bright
+    3FOR E 4 Bright A_Pain
+    Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+	TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
+  Death:
+    3FOR EF 4 Bright
+    3FOR G 6 Bright A_Scream
+	3FOR G 0 A_PlaySound("LostSoul/Explode", 0)
+    3FOR H 6 Bright
+    3FOR I 6 Bright A_NoBlocking
+    3FOR J 6
+    Stop
+  }
+}

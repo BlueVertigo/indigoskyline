@@ -1,0 +1,84 @@
+gameinfo
+{
+	dimcolor = "#000000"
+	dimamount = "0.5"
+	titlemusic = "TSPTitle"
+	creditpage = "SP_CRED"
+	titlepage = "SP_TITLE" 
+	intermissioncounter = false
+	PlayerClasses = "SpacePirate"
+	armoricons = "FLRMA0", 0.5, "PSRMA0"
+	pausesign = "SP_PAUSE"
+	cursorpic = "M_SPCRS1"
+	menufontcolor_title = "GREEN"
+    menufontcolor_label = "GREEN"
+    menufontcolor_value = "GREEN"
+    menufontcolor_action = "GREEN"
+    menufontcolor_header = "GREEN"
+    menufontcolor_highlight = "GREEN"
+    menufontcolor_selection = "GREEN"
+}
+
+clearskills
+
+skill TSPbaby
+{
+	AutoUseHealth
+	AmmoFactor = 2
+	DamageFactor = 0.5
+	EasyBossBrain
+	SpawnFilter = Baby
+	PicName = "SP_BABY"
+	Name = "$SKILL_BABY"
+	Key = "i"
+}
+
+skill TSPeasy
+{
+	EasyBossBrain
+	SpawnFilter = Easy
+	PicName = "SP_ROUGH"
+	Name = "$SKILL_EASY"
+	Key = "h"
+}
+
+skill TSPnormal
+{
+	SpawnFilter = Normal
+	PicName = "SP_HURT"
+	Key = "h"
+	Name = "$SKILL_NORMAL"
+	DefaultSkill
+}
+
+skill TSPhard
+{
+	SpawnFilter = Hard
+	PicName = "SP_ULTRA"
+	Name = "$SKILL_HARD"
+	Key = "u"
+}
+
+skill TSPnightmare
+{
+	AmmoFactor = 2
+	FastMonsters
+	DisableCheats
+	RespawnTime = 12
+	SpawnFilter = Nightmare
+	PicName = "SP_NMARE"
+	Name = "$SKILL_NIGHTMARE"
+	MustConfirm
+	Key = "n"
+}
+
+//skill dante
+//{
+//  damagefactor = 255
+//  monsterhealth = 0.001
+//  spawnfilter = Hard
+//  name = "Death to Pirates"
+//  textcolor = blue
+//  mustconfirm = "Everything dies in one hit, including you! Ready for this?"
+//}
+//This will probably coming soon.

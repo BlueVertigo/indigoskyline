@@ -1,0 +1,467 @@
+//===========================================================================
+//
+// Armor
+//
+// Sprites by Sangelothi, BloodyAcid, Infirnex, and Marty Kirra
+//
+//===========================================================================
+
+ACTOR TSPGreenArmorPickup : CustomInventory Replaces GreenArmor
+{
+  Radius 20
+  Height 16
+  Inventory.PickupMessage "Equipped yourself with a ballistic armor vest. [+100 Armor]"
+  Inventory.PickupSound "armor/lightarmor"
+  Inventory.Icon "FLRMA0"
+  States
+  {
+  Spawn:
+    FLRM A 13
+    FLRM B 7 Bright
+    Loop
+  Pickup:
+	TNT1 A 0 A_JumpIfInventory("BasicArmor", 100, "PickupFail")
+	TNT1 A 0 A_TakeInventory("TSPBlueDamageReduction",9)
+	TNT1 A 0 A_TakeInventory("TSPBlueArmorDamage",9)
+	TNT1 A 0 A_GiveInventory("TSPGreenArmor")
+	TNT1 A 0 A_GiveInventory("TSPGreenArmorDamage")
+	TNT1 A 1 ACS_ExecuteAlways(863)
+    Stop
+  PickupFail:
+	FLRM A 1
+    Fail
+  }
+}
+
+ACTOR TSPBlueArmorPickup : CustomInventory Replaces BlueArmor
+{
+  Radius 20
+  Height 16
+  Inventory.PickupMessage "Equipped yourself with a palladium-alloy armor. [+200 Armor]"
+  Inventory.PickupSound "armor/heavyarmor"
+  Inventory.Icon "PSRMA0"
+  States
+  {
+  Spawn:
+    PSRM A 13
+    PSRM B 7 Bright
+    Loop
+  Pickup:
+	TNT1 A 0 A_JumpIfInventory("BasicArmor", 200, "PickupFail")
+	TNT1 A 0 A_TakeInventory("TSPGreenDamageReduction",9)
+	TNT1 A 0 A_TakeInventory("TSPGreenArmorDamage",9)
+	TNT1 A 0 A_GiveInventory("TSPBlueArmor")
+	TNT1 A 0 A_GiveInventory("TSPBlueArmorDamage")
+	TNT1 A 1 ACS_ExecuteAlways(863)
+    Stop
+  PickupFail:
+	FLRM A 1
+    Fail
+  }
+}
+
+ACTOR TSPGreenArmor : BasicArmorPickup
+{
+  Radius 20
+  Height 16
+  Inventory.PickupMessage "Equipped yourself with a ballistic armor vest. [+100 Armor]"
+  Inventory.PickupSound "armor/lightarmor"
+  Inventory.Icon "FLRMA0"
+  Armor.SavePercent 33
+  Armor.SaveAmount 100
+  States
+  {
+  Spawn:
+    FLRM A 13
+    FLRM B 7 Bright
+    Loop
+  }
+}
+
+ACTOR TSPBlueArmor : BasicArmorPickup
+{
+  Radius 20
+  Height 16
+  Inventory.PickupMessage "Equipped yourself with a palladium-alloy armor. [+200 Armor]"
+  Inventory.PickupSound "armor/heavyarmor"
+  Inventory.Icon "PSRMA0"
+  Armor.SavePercent 50
+  Armor.SaveAmount 200
+  States
+  {
+  Spawn:
+    PSRM A 13
+    PSRM B 7 Bright
+    Loop
+  }
+}
+
+ACTOR TSPGreenDamageReduction : PowerProtection
+{
+  DamageFactor "Normal", 0.95
+  +INVENTORY.PERSISTENTPOWER
+}
+
+ACTOR TSPGreenArmorDamage : PowerupGiver
+{
+  Inventory.MaxAmount 0
+  Powerup.Type "TSPGreenDamageReduction"
+  Powerup.Duration 0x7FFFFFFF
+  +INVENTORY.AUTOACTIVATE
+  +INVENTORY.PERSISTENTPOWER
+}
+
+ACTOR TSPBlueDamageReduction : PowerProtection
+{
+  DamageFactor "Normal", 0.90
+  +INVENTORY.PERSISTENTPOWER
+}
+
+ACTOR TSPBlueArmorDamage : PowerupGiver
+{
+  Inventory.MaxAmount 0
+  Powerup.Type "TSPBlueDamageReduction"
+  Powerup.Duration 0x7FFFFFFF
+  +INVENTORY.AUTOACTIVATE
+  +INVENTORY.PERSISTENTPOWER
+}
+
+ACTOR TSPArmorBonus : BasicArmorBonus replaces ArmorBonus
+{
+  Radius 20
+  Height 16
+  Inventory.PickupMessage "Found a nano-shield. [+1 Armor]"
+  Inventory.PickupSound "armor/armorshard"
+  Inventory.Icon "ARSDD0"
+  Armor.SavePercent 100
+  Armor.SaveAmount 1
+  Armor.MaxSaveAmount 300
+  +COUNTITEM
+  +INVENTORY.ALWAYSPICKUP
+  States
+  {
+  Spawn:
+	ARSD ABCDCB 6
+    Loop
+  }
+}
+
+//===========================================================================
+//
+// Health
+//
+// Sprites by Sangelothi, BloodyAcid, zrrion the insect,
+// Captain Toenail, and Marty Kirra
+//
+//===========================================================================
+
+ACTOR TSPMegaSphereBlueArmor : TSPBlueArmor
+{
+  Armor.SavePercent 50
+  Armor.SaveAmount 250
+}
+
+
+ACTOR TSPMegasphere : Megasphere replaces Megasphere
+{
+  Inventory.PickupMessage "Picked up the Miracle Sphere! [+250 Armor][+200 Health]"
+  Inventory.PickupSound "health/supercharge"
+  +INVENTORY.BIGPOWERUP
+  +FLOATBOB
+  States
+  {
+  Spawn:
+    SPOT ABCDCB 3 Bright
+    Loop
+  Pickup:
+    TNT1 A 0 A_GiveInventory("TSPMegaSphereBlueArmor", 1)
+    TNT1 A 0 A_GiveInventory("MegasphereHealth", 1)
+	TNT1 A 0 A_GiveInventory("TSPBlueArmorDamage")
+	TNT1 A 1 ACS_ExecuteAlways(863)
+    Stop
+  }
+}
+
+ACTOR TSPMedikit : Medikit Replaces Medikit
+{
+  Inventory.PickupMessage "Picked up a field-grade medikit. [+25 Health]"
+  Health.LowMessage 25, "Picked up a MUCH needed medikit. [+25 Health]"
+  Inventory.PickupSound "health/medkit"
+  Inventory.Icon "MDK1A0"
+  States
+  {
+  Spawn:
+    MDK1 ABCDEFG 5
+    Loop
+  }
+}
+
+ACTOR TSPStimpack : Stimpack Replaces Stimpack
+{
+  Inventory.PickupMessage "Picked up a quick-fix medkit. [+10 Health]"
+  Health.LowMessage 25, "Picked up a MUCH needed quick-fix kit. [+10 Health]"
+  Inventory.PickupSound "health/stimpack"
+  States
+  {
+  Spawn:
+    STPK A 1
+    Loop
+  }
+}
+
+ACTOR TSPHealthBonus : HealthBonus Replaces HealthBonus
+{
+  Inventory.PickupMessage "Picked up a vial of veti-gel. [+1 Health]"
+  Health.LowMessage 25, "Picked up a vial of veti-gel. Better find some more. [+1 Health]"
+  Inventory.PickupSound "health/healthbonus"
+  States
+  {
+  Spawn:
+    ASRM ABCDEFG 7
+    Loop
+  }
+}
+
+ACTOR Over100Health : Inventory
+{
+	Inventory.MaxAmount 1
+	+UNDROPPABLE
+}
+
+ACTOR TSPBerserk : Berserk Replaces Berserk
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_GiveInventory("PowerStrength")
+    TNT1 A 0 HealThing(100, 0)
+    TNT1 A 0 A_SelectWeapon("MelMelee")
+    Stop
+  }
+}
+
+ACTOR TSPBlurSphere : BlurSphere {}
+
+ACTOR TSPBlurSpherePickup : CustomInventory Replaces BlurSphere
+{
+  Game Doom
+  SpawnID 135
+  +COUNTITEM
+  +VISIBILITYPULSE
+  +INVENTORY.AUTOACTIVATE
+  +INVENTORY.ALWAYSPICKUP
+  +INVENTORY.BIGPOWERUP
+  RenderStyle Translucent
+  Inventory.PickupMessage "$GOTINVIS" // "Partial Invisibility"
+  States
+  {
+  Spawn:
+     PINS ABCD 6 Bright
+     Loop
+  Pickup:
+	TNT1 A 0 A_GiveInventory("TSPBlurSphere")
+	TNT1 A 0 A_GiveInventory("TSPInvisDamage")
+    Stop
+  }
+}
+
+ACTOR TSPInvisDamageReduction : PowerProtection
+{
+  DamageFactor "Normal", 0.9
+  +INVENTORY.PERSISTENTPOWER
+}
+
+ACTOR TSPInvisDamage : PowerupGiver
+{
+  Inventory.MaxAmount 0
+  Powerup.Type "TSPInvisDamageReduction"
+  Powerup.Duration -60
+  +INVENTORY.AUTOACTIVATE
+  +INVENTORY.PERSISTENTPOWER
+}
+
+//===========================================================================
+//
+// Miscellaneous
+//
+//===========================================================================
+
+ACTOR BackpackSpawner replaces Backpack
+{
+    DropItem PoisonShellThrown 150
+	DropItem PoisonShellThrown 150
+    DropItem HellFireShellThrown 150
+	DropItem HellFireShellThrown 150
+	DropItem HellFireShellThrown 150
+    DropItem HellFireShellThrown 150
+	DropItem ElectricShellThrown 250
+    DropItem ElectricShellThrown 250
+    DropItem ElectricShellThrown 250
+    DropItem ElectricShellThrown 250
+	DropItem ElectricShellThrown 250
+    DropItem ElectricShellThrown 250
+    DropItem ElectricShellThrown 250
+    DropItem ElectricShellThrown 250
+    DropItem BuckshotShellThrown 255
+    DropItem BuckshotShellThrown 255
+    DropItem BuckshotShellThrown 255
+    DropItem BuckshotShellThrown 255
+    DropItem BuckshotShellThrown 255
+    DropItem BuckshotShellThrown 255
+    DropItem BuckshotShellThrown 255
+    DropItem BuckshotShellThrown 255
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 1
+        TNT1 A 0 A_SpawnItemEx("BackPack2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+        TNT1 A 1 A_NoBlocking
+        Stop
+    }
+}
+
+ACTOR BackPack2 : BackPack {}
+
+ACTOR TSPRadSuit : CustomInventory Replaces RadSuit
+{
+  Game Doom
+  Height 46
+  +COUNTITEM
+  +INVENTORY.ALWAYSPICKUP
+  Inventory.MaxAmount 0
+  Inventory.PickupMessage "$GOTSUIT" // "Radiation Shielding Suit"
+  States
+  {
+  Spawn:
+    SUIT A -1 Bright
+    Loop
+  Pickup:
+    TNT1 A 0 A_GiveInventory("GasSuit", 1)
+    TNT1 A 0 A_GiveInventory("RadSuit", 1)
+    Stop
+  }
+}
+
+ACTOR GasSuitProtection : PowerProtection
+{
+  DamageFactor "GasShellDamage", 0
+}
+
+ACTOR GasSuit : PowerupGiver
+{
+  Inventory.MaxAmount 0
+  Powerup.Type "GasSuitProtection"
+  Powerup.Duration -60
+  +INVENTORY.AUTOACTIVATE
+}
+
+//New Barrel that's invulnerable to your punches. YOU WELCOME ERIC.
+
+ACTOR SPSplosiveBarrel : ExplosiveBarrel Replaces ExplosiveBarrel
+{
+   DamageFactor "Melee", 0.0
+   DamageFactor "Uppercut", 0.0
+   DamageFactor "Sling", 0.0
+   +PUSHABLE
+   +SLIDESONWALLS
+   +FORCEPAIN
+   Obituary "%o went KABOOM! Nice going %o!"
+   States
+    {
+    Pain.Sling:
+      TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	  Goto Spawn
+    }
+}
+
+ACTOR FlavorPickupZekeShotgun : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickup/ZekeShotgun"
+}
+
+ACTOR FlavorPickupCrossbow : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickup/Crossbow"
+}
+
+ACTOR FlavorPickupRLNG : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickup/RocketNailgunLauncher"
+}
+
+ACTOR FlavorPickupAmmobox50 : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickup/Ammobox50"
+}
+
+ACTOR FlavorPickupKushiel : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickup/Kushiel"
+}
+
+ACTOR FlavorPickupFlamethrower : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickup/Flamethrower"
+}
+
+ACTOR FlavorPickupPistol : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickup/Pistol"
+}
+
+ACTOR IsRobot : Inventory
+{
+	Inventory.MaxAmount 1
+	+UNDROPPABLE
+}
+
+ACTOR RoboPickupZekeShotgun : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickuprobo/ZekeShotgun"
+}
+
+ACTOR RoboPickupCrossbow : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickuprobo/Crossbow"
+}
+
+ACTOR RoboPickupRLNG : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickuprobo/RocketNailgunLauncher"
+}
+
+ACTOR RoboPickupAmmobox50 : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickuprobo/Ammobox50"
+}
+
+ACTOR RoboPickupKushiel : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickuprobo/Kushiel"
+}
+
+ACTOR RoboPickupFlamethrower : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickuprobo/Flamethrower"
+}
+
+ACTOR RoboPickupPistol : PowerProtection
+{
+  DamageFactor "none", 1.0
+  SeeSound "flavpickuprobo/Pistol"
+}

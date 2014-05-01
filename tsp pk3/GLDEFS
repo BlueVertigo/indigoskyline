@@ -1,0 +1,45 @@
+//PointLight HazmatZombieAttack
+//{
+//Color 0.0 0.0 1.0
+//Size 28
+//}
+
+//Object HazmatZombie
+//{
+//Frame HMZPF { Light HazmatZombieAttack }
+//}
+
+
+pointlight ShockShellArcLight
+{
+    color 0.1 0.1 0.2
+    size 12
+    dontlightself 1
+}
+
+pointlight PoisonShellLight
+{
+    color 0.1 0.2 0
+    size 12
+}
+
+pointlight HellFireShellLight
+{
+    color 0.3 0.1 0
+    size 32
+    dontlightself 1
+}
+
+pointlight SmallHellFireShellLight
+{
+    color 0.3 0.1 0
+    size 24
+    dontlightself 1
+}
+
+pointlight TinyFireShellLight
+{
+    color 0.3 0.1 0
+    size 10
+    dontlightself 1
+}

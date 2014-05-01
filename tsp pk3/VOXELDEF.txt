@@ -1,0 +1,13 @@
+ARWP = "ARWP"
+{
+AngleOffset = 270
+Scale = 0.2
+}
+
+ARWR = "ARWR"
+{
+AngleOffset = 270
+Scale = 0.2
+}
+
+ELEC = "elec" {}

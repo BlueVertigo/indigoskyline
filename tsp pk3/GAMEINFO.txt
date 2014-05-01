@@ -1,0 +1,2 @@
+STARTUPTITLE = "Marty Kirra Presents: The Space Pirate (v.0.1.2 Alpha Test)"
+STARTUPCOLORS = "8AE62E", "004C1A"
