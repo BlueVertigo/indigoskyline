@@ -96,19 +96,10 @@ ACTOR DahliaCrossbow : Weapon
 	  TNT1 A 0 A_TakeInventory("DahliaNormalAmmo", 1)
 	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
 	  DCBF BCDDDDCBA 1
-	  DCBE A 3 A_WeaponReady(WRF_ALLOWRELOAD)
-	  Goto ReadyEmpty
-	NormalLastShot:
-      DCBG A 2
-	  TNT1 A 0 A_SetPitch(pitch - 0.5)
-	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
-	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
-      DCBF A 1 A_FireCustomMissile("CrossbowBoltBlue",0,1,2)
-	  TNT1 A 0 A_TakeInventory("DahliaNormalAmmo", 1)
-	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
-	  DCBF BCDDDDCBA 1
-	  DCBE A 3 A_WeaponReady(WRF_ALLOWRELOAD)
-	  Goto ReadyEmpty
+	  DCBE A 1
+      TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 1, "ReloadStart")
+      TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 1, "ExplosiveReloadEmpty")
+      Goto ReadyEmpty
    ExplosiveFire:
       DCBG A 0 A_JumpIfInventory("DahliaFired", 1, "Reload")
       DCBG A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 1, "ExplosiveFire2")
@@ -119,26 +110,14 @@ ACTOR DahliaCrossbow : Weapon
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
 	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
       DCBF A 1 A_FireCustomMissile("CrossbowBoltRed",0,1,2)
-	  
 	  //DCBF A 1 A_SpawnItemEx ("CrossbowBoltRed",0,2,32,cos(-pitch)*120,0,sin(-pitch)*120,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
-	  
 	  TNT1 A 0 A_TakeInventory("DahliaExplosiveAmmo", 1)
 	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
 	  DCBF BCDDDDCBA 1
-	  DCBE A 3 A_WeaponReady(WRF_ALLOWRELOAD)
-	  Goto ReadyEmpty
-	ExplosiveLastShot:
-	  DCBB A 2
-	  TNT1 A 0 A_SetPitch(pitch - 0.5)
-	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
-	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
-      DCBF A 1 A_FireCustomMissile("CrossbowBoltRed",0,1,2)
-	  TNT1 A 0 A_TakeInventory("DahliaExplosiveAmmo", 1)
-	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
-	  TNT1 A 0 A_TakeInventory("DahliaExplosiveMode", 99)
-	  DCBF BCDDDDCBA 1
-	  DCBE A 3 A_WeaponReady(WRF_ALLOWRELOAD)
-	  Goto ReadyEmpty
+	  DCBE A 1
+      TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 1, "ReloadStart")
+	  TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 1, "NormalReloadEmpty")
+      Goto ReadyEmpty
     Reload:
       TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 1, "ReloadStart")
       TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 1, "ReloadStart")
@@ -155,6 +134,28 @@ ACTOR DahliaCrossbow : Weapon
 	  Goto Ready
    ExplosiveReload:
       TNT1 A 0 A_PlaySound("dahlia/load", 6)
+	  DCBE A 4
+	  DCBR ABCDDDDDDDDDDDDDDDEEFFGGHHHHHHHIIIII 1
+	  TNT1 A 0 A_TakeInventory("DahliaFired", 99)
+	  DCBU IJKL 1
+	  DCBB A 3
+	  Goto ExplosiveReady
+
+    NormalReloadEmpty:
+      TNT1 A 0 A_Print("[Out of Explosive Bolts, Switching to Normal Bolts]")
+	  DCBR A 0 A_TakeInventory("DahliaExplosiveMode", 99)
+      TNT1 A 0 A_PlaySound("dahlia/load", 6)
+	  TNT1 A 0 A_PlaySound("dahlia/load", 6)
+	  DCBE A 4
+	  DCBR ABCDDDDDDDDDDDDDDDEEFFGGHHHHHHHIIIII 1
+	  TNT1 A 0 A_TakeInventory("DahliaFired", 99)
+	  DCBU ABCD 1
+	  DCBG A 3
+	  Goto Ready
+   ExplosiveReloadEmpty:
+      TNT1 A 0 A_Print("[Out of Normal Bolts, Switching to Explosive Bolts]")
+	  DCBR A 0 A_GiveInventory("DahliaExplosiveMode", 1)
+	  TNT1 A 0 A_PlaySound("dahlia/load", 6)
 	  DCBE A 4
 	  DCBR ABCDDDDDDDDDDDDDDDEEFFGGHHHHHHHIIIII 1
 	  TNT1 A 0 A_TakeInventory("DahliaFired", 99)
