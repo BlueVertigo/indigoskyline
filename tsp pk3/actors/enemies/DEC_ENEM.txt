@@ -635,6 +635,7 @@ ACTOR TSPCyberdemon Replaces Cyberdemon
   +NORADIUSDMG
   +DONTMORPH
   +BOSSDEATH
+  DropItem CustomCrossbow 10
   SeeSound "cyber/sight"
   PainSound "cyber/pain"
   DeathSound "cyber/death"
@@ -703,6 +704,7 @@ ACTOR TSPSpiderMastermind Replaces SpiderMastermind
   +NORADIUSDMG
   +DONTMORPH
   +BOSSDEATH
+  DropItem CustomCrossbow 10
   SeeSound "spider/sight"
   AttackSound "spider/attack"
   PainSound "spider/pain"
@@ -769,7 +771,7 @@ ACTOR TSPWolfensteinSS replaces WolfensteinSS
   AttackSound "wolfss/attack"
   Obituary "$OB_WOLFSS"
   Dropitem TSPPistolAmmo 255
-  DropItem MipFowty 10
+  DropItem MipFowty 30
   States
   {
   Spawn:
