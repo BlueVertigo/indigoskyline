@@ -36,6 +36,7 @@ ACTOR ZekeShotgun : Weapon
 	  Stop
 	Ready:
       TNT1 A 0 A_TakeInventory("ShotgunLoading", 9)
+	  TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
 	  TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
       STGG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
       Loop
@@ -65,6 +66,16 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("BuckshotShell", 1)
 	  Stop
 	Fire:
+      TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
+	  STGG A 0 A_JumpIfInventory("ShotgunLoading", 1, "MidReloadFire")
+	  STGG A 0 A_JumpIfNoAmmo("Empty")
+      STGG A 0 A_JumpIfInventory("ShotgunNeedsPump", 1, "FastPump")
+      STGG A 0 A_JumpIfInventory("BuckshotShellSelected", 1, "BuckshotShot")
+      STGG A 0 A_JumpIfInventory("HellFireShellSelected", 1, "HellFireShot")
+	  STGG A 0 A_JumpIfInventory("ElectricShellSelected", 1, "ElectricShot")
+	  STGG A 0 A_JumpIfInventory("PoisonShellSelected", 1, "PoisonShot")
+	  Goto Ready
+	Hold:
       STGG A 0 A_JumpIfInventory("ShotgunLoading", 1, "MidReloadFire")
 	  STGG A 0 A_JumpIfNoAmmo("Empty")
       STGG A 0 A_JumpIfInventory("ShotgunNeedsPump", 1, "Pump")
@@ -77,13 +88,14 @@ ACTOR ZekeShotgun : Weapon
 	  STGG A 0 A_AlertMonsters
 	  STGG A 0 A_PlaySound("zekeshotgun/fire",0)
 	  STGF A 0 A_Light2
-      STGF A 1 BRIGHT A_FireBullets(2.7,2.7,9,5,"919mBulletPuff",FBF_USEAMMO|FBF_NOFLASH)
+      STGF A 1 BRIGHT A_FireBullets(2.7,2.7,10,5,"919mBulletPuff",FBF_USEAMMO|FBF_NOFLASH)
 	  STGF B 1 BRIGHT A_Light1
 	  STGF A 0 A_SetPitch(pitch - 1.0)
 	  STGG B 1 A_Light0
 	  STGG CDEEDCB 1 
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
-	  STGG A 5 A_WeaponReady(WRF_NOBOB)
+	  STGG A 0 A_Refire
+	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
 	  Goto Ready
 	ElectricShot:
 	  STGG A 0 A_AlertMonsters
@@ -96,7 +108,8 @@ ACTOR ZekeShotgun : Weapon
 	  STGG B 1 A_Light0
 	  STGG CDEEEDCB 1 
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
-	  STGG A 5 A_WeaponReady(WRF_NOBOB)
+	  STGG A 0 A_Refire
+	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
 	  Goto Ready
 	HellFireShot:
 	  STGG A 0 A_AlertMonsters
@@ -111,7 +124,8 @@ ACTOR ZekeShotgun : Weapon
 	  STGG B 1 A_Light0
 	  STGG CDEEEDCB 1 
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
-	  STGG A 5 A_WeaponReady(WRF_NOBOB)
+	  STGG A 0 A_Refire
+	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
 	  Goto Ready
     PoisonShot:
 	  STGG A 0 A_AlertMonsters
@@ -124,7 +138,8 @@ ACTOR ZekeShotgun : Weapon
 	  STGG B 1 A_Light0
 	  STGG CDEEEDCB 1 
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
-	  STGG A 5 A_WeaponReady(WRF_NOBOB)
+	  STGG A 0 A_Refire
+	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
 	  Goto Ready
 	MidReloadFire:
 	  STGR DCBA 1
@@ -140,6 +155,14 @@ ACTOR ZekeShotgun : Weapon
 	  STGG A 0 A_JumpIfInventory("PoisonShellSelected", 1, "PoisonShot")
 	  Goto BuckshotShot
 	AltFire:
+	  TNT1 A 0 A_JumpIfInventory("AltFirePressed", 1, "AltFire2")
+	  TNT1 A 0 A_GiveInventory("AltFirePressed", 1)
+	  TNT1 A 0 A_Print("[Altfire Again To Cycle Through Ammo Types]")
+	  STGG A 25 A_WeaponReady(WRF_NOBOB)
+	  TNT1 A 0 A_Print(" ")
+	  TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
+	  Goto Ready
+	AltFire2:
 	  TNT1 A 0 A_JumpIfInventory("BuckshotShellSelected", 1, "AltFireBuckshot")
 	  TNT1 A 0 A_JumpIfInventory("ElectricShellSelected", 1, "AltFireElectric")
 	  TNT1 A 0 A_JumpIfInventory("HellFireShellSelected", 1, "AltFireHellFire")
@@ -167,6 +190,7 @@ ACTOR ZekeShotgun : Weapon
 	  Goto SwitchFail
 	SwitchFail:
 	  STGG A 15 A_Print("[No Alternate Shell Ammo]")
+	  TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
 	  Goto Ready 
 	AltFireBuckshotSelect:
 	  TNT1 A 0
@@ -199,6 +223,7 @@ ACTOR ZekeShotgun : Weapon
 	AltFireSelectionFinal:  
 	  TNT1 A 0 A_GunFlash
 	  STGG A 25 A_WeaponReady(WRF_NOBOB|WRF_NOPRIMARY)
+	  TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
 	  TNT1 A 0 A_JumpIfInventory("BuckshotShellSelected", 1, "SwitchAmmoBuckshot")
 	  TNT1 A 0 A_JumpIfInventory("ElectricShellSelected", 1, "SwitchAmmoElectric")
 	  TNT1 A 0 A_JumpIfInventory("HellFireShellSelected", 1, "SwitchAmmoHellFire")
@@ -237,8 +262,12 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_TakeInventory("PoisonLoaded", 1)
 	  Goto UnLoadFinish //Ready
 	SwitchAmmo:
-	  STGC D 1
-	  STGR ABCD 1 
+	  STGG A 0 A_PlaySoundEX("zekeshotgun/unload1", "SoundSlot5")
+	  STGC ABCKL 1
+	  STGC L 1 Offset(0,45)
+	  STGC L 1 Offset(0,58)
+	  STGC L 1 Offset(0,71)
+	  STGC L 4 Offset(0,85)
 	  TNT1 A 0 A_JumpIfInventory("BuckshotLoaded", 1, "UnLoadBuckshot")
 	  TNT1 A 0 A_JumpIfInventory("ElectricLoaded", 1, "UnLoadElectric")
 	  TNT1 A 0 A_JumpIfInventory("HellFireLoaded", 1, "UnLoadHellFire")
@@ -246,81 +275,76 @@ ACTOR ZekeShotgun : Weapon
 	  Goto UnLoadBuckshot
 	UnLoadBuckshot:
 	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "UnLoadFullBuckshot")
-	  STGR KJIHG 1
-	  STGR  Q 1 A_TakeInventory("ShotgunMag",1)
-	  STGR  Q 0 A_GiveInventory("TSPShells",1)
-	  STGR  Q 0 A_GiveInventory("BuckShotShell",1)
-	  STGR  P 1
-	  STGR D 1
-	  STGR D 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadBuckshot")
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_GiveInventory("TSPShells",1)
+	  STGR L 0 A_GiveInventory("BuckShotShell",1)
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadBuckshot")
 	  Goto UnLoadFinish
 	UnLoadElectric:
 	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "UnLoadFullElectric")
-	  STGR KJIHG 1
-	  STGR  F 1 A_TakeInventory("ShotgunMag",1)
-	  STGR  F 0 A_GiveInventory("TSPShells",1)
-	  STGR  F 0 A_GiveInventory("ElectricShell",1)
-	  STGR  E 1
-	  STGR D 1
-	  STGR D 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadElectric")
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_GiveInventory("TSPShells",1)
+	  STGR L 0 A_GiveInventory("ElectricShell",1)
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadElectric")
 	  Goto UnLoadFinish
 	UnLoadHellFire:
 	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "UnLoadFullHellFire")
-	  STGR KJIHG 1
-	  STGR  O 1 A_TakeInventory("ShotgunMag",1)
-	  STGR  O 0 A_GiveInventory("TSPShells",1)
-	  STGR  O 0 A_GiveInventory("HellFireShell",1)
-	  STGR  N 1
-	  STGR D 1
-	  STGR D 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadHellFire")
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_GiveInventory("TSPShells",1)
+	  STGR L 0 A_GiveInventory("HellFireShell",1)
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadHellFire")
 	  Goto UnLoadFinish
 	UnLoadPoison:
 	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "UnLoadFullPoison")
-	  STGR KJIHG 1
-	  STGR M 1 A_TakeInventory("ShotgunMag",1)
-	  STGR M 0 A_GiveInventory("TSPShells",1)
-	  STGR M 0 A_GiveInventory("PoisonShell",1)
-	  STGR L 1
-	  STGR D 1
-	  STGR D 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadPoison")
+	  STGC L 1 Offset(0,85)
+	  STGC L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_GiveInventory("TSPShells",1)
+	  STGR L 0 A_GiveInventory("PoisonShell",1)
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadPoison")
 	  Goto UnLoadFinish
 	UnLoadFullBuckshot:
-	  STGR KJIHG 1
-	  STGR  Q 1 A_TakeInventory("ShotgunMag",1)
-	  STGR  P 1
-	  STGR D 1 A_SpawnItemEx("BuckshotShellThrown",0,0,30,random(2,8),0,0,random(-22.5,22.5))
-	  STGR D 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadBuckshot")
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_SpawnItemEx("BuckshotShellThrown",0,0,30,random(2,8),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadBuckshot")
 	  Goto UnLoadFinish
 	UnLoadFullElectric:
-	  STGR KJIHG 1
-	  STGR  F 1 A_TakeInventory("ShotgunMag",1)
-	  STGR  E 1
-	  STGR D 1 A_SpawnItemEx("ElectricShellThrown",0,0,30,random(2,8),0,0,random(-22.5,22.5))
-	  STGR D 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadElectric")
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_SpawnItemEx("ElectricShellThrown",0,0,30,random(2,8),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadElectric")
 	  Goto UnLoadFinish
 	UnLoadFullHellFire:
-	  STGR KJIHG 1
-	  STGR  O 1 A_TakeInventory("ShotgunMag",1)
-	  STGR  N 1
-	  STGR D 1 A_SpawnItemEx("HellFireShellThrown",0,0,30,random(2,8),0,0,random(-22.5,22.5))
-	  STGR D 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadHellFire")
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_SpawnItemEx("HellFireShellThrown",0,0,30,random(2,8),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadHellFire")
 	  Goto UnLoadFinish
 	UnLoadFullPoison:
-	  STGR KJIHG 1
-	  STGR M 1 A_TakeInventory("ShotgunMag",1)
-	  STGR L 1
-	  STGR D 1 A_SpawnItemEx("PoisonShellThrown",0,0,30,random(2,8),0,0,random(-22.5,22.5))
-	  STGR D 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadPoison")
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_SpawnItemEx("PoisonShellThrown",0,0,30,random(2,8),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"UnLoadPoison")
 	  Goto UnLoadFinish
 	UnLoadFinish:
 	  TNT1 A 0 A_TakeInventory("BuckshotLoaded", 1)
 	  TNT1 A 0 A_TakeInventory("ElectricLoaded", 1)
 	  TNT1 A 0 A_TakeInventory("HellFireLoaded", 1)
 	  TNT1 A 0 A_TakeInventory("PoisonLoaded", 1)
-	  TNT1 A 0 A_JumpIfInventory("BuckshotShellSelected", 1, "EmptyReloadBuckshot")
-	  TNT1 A 0 A_JumpIfInventory("ElectricShellSelected", 1, "EmptyReloadElectric")
-	  TNT1 A 0 A_JumpIfInventory("HellFireShellSelected", 1, "EmptyReloadHellFire")
-	  TNT1 A 0 A_JumpIfInventory("PoisonShellSelected", 1, "EmptyReloadPoison")
+	  STGC L 1 Offset(0,85)
+	  STGC L 1 Offset(0,71)
+	  STGC L 1 Offset(0,58)
+	  STGC L 1 Offset(0,45)
+	  STGC L 1
+	  STGG A 0 A_PlaySoundEX("zekeshotgun/unload2", "SoundSlot5")
+	  STGC KCBA 1
+	  TNT1 A 0 A_JumpIfInventory("BuckshotShellSelected", 1, "ReloadBuckshotStart")
+	  TNT1 A 0 A_JumpIfInventory("ElectricShellSelected", 1, "ReloadElectricStart")
+	  TNT1 A 0 A_JumpIfInventory("HellFireShellSelected", 1, "ReloadHellFireStart")
+	  TNT1 A 0 A_JumpIfInventory("PoisonShellSelected", 1, "ReloadPoisonStart")
 	  Goto Ready
 	UnLoadFinishSlow: //Replace UnLoadFinish with this if you want reloading after unloading to take an additional keypress, will also make the gun swung down and then back up again though which looks stupid IMO
 	  TNT1 A 0 A_TakeInventory("BuckshotLoaded", 1)
@@ -340,12 +364,18 @@ ACTOR ZekeShotgun : Weapon
 	  STGG A 0 A_TakeInventory("ShotgunNeedsPump",1)
 	  STGG A 0 A_PlaySoundEX("zekeshotgun/pump", "SoundSlot5")
 	  STGC AABBCCKKLLKKCBBAA 1
-	  STGG A 1
+	  STGG A 0 A_ReFire
 	  Goto Ready
     Pump2:
 	  STGG A 0 A_TakeInventory("ShotgunNeedsPump",1)
 	  STGG A 0 A_PlaySoundEX("zekeshotgun/pump", "SoundSlot5")
 	  STGC DDEFGGHIJJIHGGFED 1
+	  STGG D 0 A_ReFire
+	  Goto Ready
+	FastPump:
+	  STGG A 0 A_TakeInventory("ShotgunNeedsPump",1)
+	  STGG A 0 A_PlaySoundEX("zekeshotgun/pump", "SoundSlot5")
+	  STGC ABCKLKCBA 1
 	  Goto Ready
     Empty:
 	  STGG A 5 A_PlaySound("919m/dry",0)
@@ -407,8 +437,8 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("ShotgunLoading", 1)  
 	  TNT1 A 0 A_GiveInventory("BuckshotShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("BuckshotLoaded", 1)
-	  STGR D 4 A_WeaponReady(WRF_NOBOB|WRF_NOSECONDARY)
-	  STGR D 1 A_PlaySound("zekeshotgun/load",0)
+	  STGR D 2 A_WeaponReady(WRF_NOBOB|WRF_NOSECONDARY)
+	  STGR D 0 A_PlaySound("zekeshotgun/load",0)
 	  STGR D 0 A_TakeInventory("TSPShells",1)
 	  STGR D 0 A_TakeInventory("BuckshotShell",1)
 	  STGR D 0 A_GiveInventory("ShotgunMag",1)
@@ -433,8 +463,8 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("ShotgunLoading", 1)
 	  TNT1 A 0 A_GiveInventory("ElectricShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("ElectricLoaded", 1)
-	  STGR D 4 A_WeaponReady(WRF_NOBOB|WRF_NOSECONDARY)
-	  STGR D 1 A_PlaySound("zekeshotgun/load",0)
+	  STGR D 2 A_WeaponReady(WRF_NOBOB|WRF_NOSECONDARY)
+	  STGR D 0 A_PlaySound("zekeshotgun/load",0)
 	  STGR D 0 A_TakeInventory("TSPShells",1)
 	  STGR D 0 A_TakeInventory("ElectricShell",1)
 	  STGR D 0 A_GiveInventory("ShotgunMag",1)
@@ -459,8 +489,8 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("ShotgunLoading", 1)  
 	  TNT1 A 0 A_GiveInventory("HellFireShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("HellFireLoaded", 1)
-	  STGR D 4 A_WeaponReady(WRF_NOBOB|WRF_NOSECONDARY)
-	  STGR D 1 A_PlaySound("zekeshotgun/load",0)
+	  STGR D 2 A_WeaponReady(WRF_NOBOB|WRF_NOSECONDARY)
+	  STGR D 0 A_PlaySound("zekeshotgun/load",0)
 	  STGR D 0 A_TakeInventory("TSPShells",1)
 	  STGR D 0 A_TakeInventory("HellFireShell",1)
 	  STGR D 0 A_GiveInventory("ShotgunMag",1)
@@ -485,8 +515,8 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("ShotgunLoading", 1)
 	  TNT1 A 0 A_GiveInventory("PoisonShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("PoisonLoaded", 1)
-	  STGR D 4 A_WeaponReady(WRF_NOBOB|WRF_NOSECONDARY)
-	  STGR D 1 A_PlaySound("zekeshotgun/load",0)
+	  STGR D 2 A_WeaponReady(WRF_NOBOB|WRF_NOSECONDARY)
+	  STGR D 0 A_PlaySound("zekeshotgun/load",0)
 	  STGR D 0 A_TakeInventory("TSPShells",1)
 	  STGR D 0 A_TakeInventory("PoisonShell",1)
 	  STGR D 0 A_GiveInventory("ShotgunMag",1)
@@ -508,8 +538,8 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("ShotgunLoading", 1)  
 	  TNT1 A 0 A_GiveInventory("BuckshotShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("BuckshotLoaded", 1)
-	  STGR D 4
-	  STGR D 1 A_PlaySound("zekeshotgun/load",0)
+	  STGR D 2
+	  STGR D 0 A_PlaySound("zekeshotgun/load",0)
 	  STGR D 0 A_TakeInventory("TSPShells",1)
 	  STGR D 0 A_TakeInventory("BuckshotShell",1)
 	  STGR D 0 A_GiveInventory("ShotgunMag",1)
@@ -531,8 +561,8 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("ShotgunLoading", 1)
 	  TNT1 A 0 A_GiveInventory("ElectricShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("ElectricLoaded", 1)
-	  STGR D 4
-	  STGR D 1 A_PlaySound("zekeshotgun/load",0)
+	  STGR D 2
+	  STGR D 0 A_PlaySound("zekeshotgun/load",0)
 	  STGR D 0 A_TakeInventory("TSPShells",1)
 	  STGR D 0 A_TakeInventory("ElectricShell",1)
 	  STGR D 0 A_GiveInventory("ShotgunMag",1)
@@ -554,8 +584,8 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("ShotgunLoading", 1)  
 	  TNT1 A 0 A_GiveInventory("HellFireShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("HellFireLoaded", 1)
-	  STGR D 4
-	  STGR D 1 A_PlaySound("zekeshotgun/load",0)
+	  STGR D 2
+	  STGR D 0 A_PlaySound("zekeshotgun/load",0)
 	  STGR D 0 A_TakeInventory("TSPShells",1)
 	  STGR D 0 A_TakeInventory("HellFireShell",1)
 	  STGR D 0 A_GiveInventory("ShotgunMag",1)
@@ -577,8 +607,8 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_GiveInventory("ShotgunLoading", 1)
 	  TNT1 A 0 A_GiveInventory("PoisonShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("PoisonLoaded", 1)
-	  STGR D 4
-	  STGR D 1 A_PlaySound("zekeshotgun/load",0)
+	  STGR D 2
+	  STGR D 0 A_PlaySound("zekeshotgun/load",0)
 	  STGR D 0 A_TakeInventory("TSPShells",1)
 	  STGR D 0 A_TakeInventory("PoisonShell",1)
 	  STGR D 0 A_GiveInventory("ShotgunMag",1)
@@ -595,6 +625,7 @@ ACTOR ZekeShotgun : Weapon
 	  STGG A 0 A_PlaySoundEX("zekeshotgun/pump","SoundSlot5")
 	  STGG A 0 A_TakeInventory("ShotgunNeedsPump",1)
 	  STGC ABBCCBBAA 1
+	  STGC A 1 A_ReFire
 	  Goto Ready
 	AltFlash:
 	  TNT1 A 0
@@ -650,6 +681,7 @@ ACTOR MakeHellFireBurst : Inventory
 ACTOR ShotgunLoading : ShotgunPump {}
 ACTOR ShotgunNeedsPump : ShotgunPump {}
 
+ACTOR AltFirePressed : ShotgunPump {}
 ACTOR BuckshotShellSelected : ShotgunPump {}
 ACTOR ElectricShellSelected : ShotgunPump {}
 ACTOR HellFireShellSelected : ShotgunPump {}
@@ -659,6 +691,15 @@ ACTOR BuckshotLoaded : ShotgunPump {}
 ACTOR ElectricLoaded : ShotgunPump {}
 ACTOR HellFireLoaded : ShotgunPump {}
 ACTOR PoisonLoaded : ShotgunPump {}
+
+ACTOR PlayingPickupSound : ShotgunPump {}
+
+ACTOR PistolJustPickedUp : ShotgunPump {}
+ACTOR ShotgunJustPickedUp : ShotgunPump {}
+ACTOR DahliaJustPickedUp : ShotgunPump {}
+ACTOR AmmoBoxJustPickedUp : ShotgunPump {}
+ACTOR ToolBoxJustPickedUp : ShotgunPump {}
+
 
 ACTOR TSPShells : Ammo
 {
@@ -1288,14 +1329,13 @@ ACTOR ShotgunPickup : CustomInventory
 	  TNT1 A 0 A_GiveInventory("ZekeShotgun", 1)
 	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
 	  TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
-	  TNT1 A 1 ACS_ExecuteAlways(858)
-	  Stop
-	PickupRobo:
-	  TNT1 A 0 A_GiveInventory("RoboPickupZekeShotgun", 1)
+	  TNT1 A 0 A_GiveInventory("ShotgunJustPickedUp", 1)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
 	  Stop
     GiveShotgunFullShells:
 	  TNT1 A 0 A_GiveInventory("ZekeShotgun", 1)
-	  TNT1 A 1 ACS_ExecuteAlways(858)
+	  TNT1 A 0 A_GiveInventory("ShotgunJustPickedUp", 1)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
 	  Stop
 	ShellCheck:
       TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
@@ -2180,7 +2220,7 @@ actor HellFirePellet : FastProjectile
   -NOGRAVITY
   +NODAMAGETHRUST
   +BRIGHT
-  Damage (26*random(1,4))
+  Damage 30
   Radius 4
   Height 4
   Speed 40
@@ -2459,8 +2499,8 @@ actor HellFirePellet : FastProjectile
 
 	TNT1 A 0 A_PlaySound("Weapons/HellShell",0)
 	FX12 A 0 A_ClearTarget
-	FX12 AAAAAA 0 A_SpawnItemEx("HellFireBurstPellet",0,0,0,cos(-pitch)*15,0,sin(-pitch-Random(0,-6))*15,Random(-30,30),SXF_TRANSFERPITCH)
-	FX12 AAAAAA 0 A_SpawnItemEx("HellFireBurstPellet",0,0,0,cos(-pitch)*15,0,sin(-pitch-Random(0,8))*15,Random(-30,30),SXF_TRANSFERPITCH)
+	FX12 AAAAAAA 0 A_SpawnItemEx("HellFireBurstPellet",0,0,0,cos(-pitch)*15,0,sin(-pitch-Random(0,-6))*15,Random(-30,30),SXF_TRANSFERPITCH)
+	FX12 AAAAAAA 0 A_SpawnItemEx("HellFireBurstPellet",0,0,0,cos(-pitch)*15,0,sin(-pitch-Random(0,8))*15,Random(-30,30),SXF_TRANSFERPITCH)
 	FX12 A 0 A_GiveInventory("OnlyDieOnce",1)
 	FX12 A 0 A_TakeFromTarget("MakeHellFireBurst",9)
 	FX12 A 1 Light("HellFireShellLight") A_SpawnItemEx("HellFireBurstPellet",0,0,0,cos(-pitch)*15,0,sin(-pitch-Random(8,-4))*15,Random(-30,30),SXF_TRANSFERPITCH)
@@ -2471,7 +2511,7 @@ actor HellFirePellet : FastProjectile
 
 actor HellFireBurstPellet
 {
-  Damage 3
+  Damage 4
   Radius 8
   Height 16
   Speed 40

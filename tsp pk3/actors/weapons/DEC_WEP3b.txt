@@ -160,7 +160,9 @@ ACTOR DahliaCrossbow : Weapon
 	  Goto ExplosiveReady
    AltFire:
 	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "NormalSelect")
-	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 0, "Ready")
+	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 1, "AltFire2")
+	  Goto Ready
+   AltFire2:
 	  TNT1 A 0 A_Print("[Explosive Bolts Loaded]")
 	  DCBG A 1
       DCBU DCBA 1
@@ -173,6 +175,9 @@ ACTOR DahliaCrossbow : Weapon
 	  DCBB A 3 A_WeaponReady
 	  Goto ExplosiveReady
    NormalSelect:
+	  TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 1, "NormalSelect2")
+	  Goto Ready
+   NormalSelect2:
       TNT1 A 0 A_Print("[Normal Bolts Loaded]")
 	  DCBB A 1
       DCBU DCBA 1
@@ -249,7 +254,8 @@ ACTOR CrossbowPickup : CustomInventory
 	Pickup:
 	  TNT1 A 0 A_JumpIfInventory("DahliaCrossbow", 1, "AmmoCheck")
 	  TNT1 A 0 A_GiveInventory("DahliaCrossbow", 1)
-	  TNT1 A 1 ACS_ExecuteAlways(860)
+	  TNT1 A 0 A_GiveInventory("DahliaJustPickedUp", 1)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
 	  Stop
 	AmmoCheck:
       TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 0, "AmmoCheck2")
@@ -304,11 +310,11 @@ ACTOR CrossbowBoltBlue : FastProjectile //The second crossbow voxel voxelbro mad
    Radius 3
    Height 6
    Speed 120
-   Damage 5
+   Damage 7
    PROJECTILE
    +BLOODSPLATTER
    +RIPPER
-   //+FORCEXYBILLBOARD
+   +NOEXTREMEDEATH
    States
    {
    Spawn:
@@ -374,6 +380,7 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 
   RegularExplode:
 	  ARWQ A 0 A_SpawnItemEx("CrossbowBoltExplode1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  TNT1 A 0 ACS_NamedExecuteWithResult("TSPBoltHurtTracerScript")
       TNT1 A 0 A_Jump(256,"RegularExplode1","RegularExplode2","RegularExplode3","RegularExplode4","RegularExplode5","RegularExplode6","RegularExplode7")
       TNT1 A 1
       stop
@@ -407,7 +414,7 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 	  TNT1 A 0 A_SetUserVar("user_height",(z-floorz))
 	  TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
 	  TNT1 A 1 A_GiveInventory("ShockCanDie", 1)
-	  TNT1 A 1 ACS_ExecuteAlways(865)
+	  TNT1 A 1 ACS_NamedExecuteWithResult("TSPBoltStickScript")
 	  TNT1 A 3
 	  TNT1 A 1 A_SetUserVar("user_tracerangle",angle)
 	  TNT1 A 1 A_SetUserVar("user_warpangle",(user_angle-user_tracerangle+Random(-3,3)))
@@ -729,6 +736,7 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 
    CountdownExplode:
 	  ARWQ A 0 A_SpawnItemEx("CrossbowBoltExplode1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  TNT1 A 0 ACS_NamedExecuteWithResult("TSPBoltHurtTracerScript")
       TNT1 A 0 A_Jump(256,"CountdownExplode1","CountdownExplode2","CountdownExplode3","CountdownExplode4","CountdownExplode5","CountdownExplode6","CountdownExplode7")
       TNT1 A 1
       stop
@@ -988,7 +996,7 @@ ACTOR CrossbowBoltRedNoExplode : FastProjectile //The seond voxel voxelbro made,
 	  TNT1 A 0 A_SetUserVar("user_height",(z-floorz))
 	  TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
 	  TNT1 A 1 A_GiveInventory("ShockCanDie", 1)
-	  TNT1 A 1 ACS_ExecuteAlways(865)
+	  TNT1 A 1 ACS_NamedExecuteWithResult("TSPBoltStickScript")
 	  TNT1 A 3
 	  TNT1 A 1 A_SetUserVar("user_tracerangle",angle)
 	  TNT1 A 1 A_SetUserVar("user_warpangle",(user_angle-user_tracerangle+Random(-3,3)))

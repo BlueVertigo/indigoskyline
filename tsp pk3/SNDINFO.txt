@@ -263,6 +263,9 @@ zekeshotgun/load3 zekload3
 zekeshotgun/up zekup1
 zekeshotgun/down zekdown
 
+zekeshotgun/unload1 zekunl1
+zekeshotgun/unload2 zekunl2
+
 zekeshotgun/elfire zekelsht
 zekeshotgun/pofire zekposht
 zekeshotgun/hefire zekfrsht

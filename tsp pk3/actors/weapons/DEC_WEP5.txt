@@ -136,7 +136,7 @@ ACTOR Toolbox : Weapon
       RNLF ABCDE 1
 	  TNT1 A 0 A_SetPitch(pitch - 2.0)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.5,0.5)))
-	  RNLF FFFFFFFFFFFF 0 A_SpawnItemEx ("DummyShrapnel",0,2,44,cos(-pitch),0,sin(-pitch),(random(-400,400)/100),SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
+	  RNLF FFFFFFFFFFFFFF 0 A_SpawnItemEx ("DummyShrapnel",0,2,44,cos(-pitch),0,sin(-pitch),(random(-400,400)/100),SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  RNLF F 0 A_TakeInventory("ToolBoxMag", 1)
 	  RNLF F 2 BRIGHT A_PlaySound("toolbox/nailgun", 6)
 	  TNT1 A 0 A_AlertMonsters
@@ -246,7 +246,8 @@ ACTOR ToolboxPickup : CustomInventory Replaces RocketLauncher
 	  TNT1 A 0 A_JumpIfInventory("Toolbox", 1, "AmmoCheck")
 	  TNT1 A 0 A_GiveInventory("Toolbox", 1)
 	  TNT1 A 0 A_GiveInventory("ToolboxAmmo", 10)
-	  TNT1 A 1 ACS_ExecuteAlways(862)
+	  TNT1 A 0 A_GiveInventory("ToolBoxJustPickedUp", 1)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
 	  Stop
 	AmmoCheck:
       TNT1 A 0 A_JumpIfInventory("ToolboxAmmo", 0, "PickupFail")
@@ -762,7 +763,7 @@ actor ToolboxShrapnelMissile : FastProjectile
 	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15))*3),0,-(sin(-pitch+Random(-15,15))*3),90+Random(-15,15),SXF_NOCHECKPOSITION)
 	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15))*3),0,-(sin(-pitch+Random(-15,15))*3),-90+Random(-15,15),SXF_NOCHECKPOSITION)
 
-	TNT1 A 2 Light("SmallHellFireShellLight") A_Explode(5,40,0,0,40)
+	TNT1 A 2 Light("SmallHellFireShellLight") A_Explode(5,65,0,0,65)
 	TNT1 A 0 A_PlaySound("toolbox/nailgunflesh")
 	stop
 
