@@ -713,9 +713,9 @@ ACTOR ToolBoxJustPickedUp : ShotgunPump {}
 ACTOR TSPShells : Ammo
 {
 	Inventory.Amount 4
-	Inventory.MaxAmount 48
+	Inventory.MaxAmount 60
 	Ammo.BackpackAmount 0
-	Ammo.BackpackMaxAmount 96
+	Ammo.BackpackMaxAmount 120
 	Ammo.DropAmount 4
 	Inventory.Icon "TSPSHUD"
 	Inventory.PickupSound "zekeshotgun/load"
@@ -731,9 +731,9 @@ ACTOR TSPShells : Ammo
 ACTOR BuckShotShell : Ammo
 {
 	Inventory.Amount 1
-	Inventory.MaxAmount 48
+	Inventory.MaxAmount 60
 	Ammo.BackpackAmount 0
-	Ammo.BackpackMaxAmount 96
+	Ammo.BackpackMaxAmount 120
 	Ammo.DropAmount 4
 	Inventory.Icon "SHELA0"
 	Inventory.PickupSound "zekeshotgun/load"
@@ -749,9 +749,9 @@ ACTOR BuckShotShell : Ammo
 ACTOR ElectricShell : Ammo
 {
 	Inventory.Amount 1
-	Inventory.MaxAmount 48
+	Inventory.MaxAmount 60
 	Ammo.BackpackAmount 0
-	Ammo.BackpackMaxAmount 96
+	Ammo.BackpackMaxAmount 120
 	Ammo.DropAmount 4
 	Inventory.Icon "SHELA0"
 	Inventory.PickupSound "zekeshotgun/load"
@@ -767,9 +767,9 @@ ACTOR ElectricShell : Ammo
 ACTOR HellFireShell : Ammo
 {
 	Inventory.Amount 1
-	Inventory.MaxAmount 48
+	Inventory.MaxAmount 60
 	Ammo.BackpackAmount 0
-	Ammo.BackpackMaxAmount 96
+	Ammo.BackpackMaxAmount 120
 	Ammo.DropAmount 4
 	Inventory.Icon "SHELA0"
 	Inventory.PickupSound "zekeshotgun/load"
@@ -785,9 +785,9 @@ ACTOR HellFireShell : Ammo
 ACTOR PoisonShell : Ammo
 {
 	Inventory.Amount 1
-	Inventory.MaxAmount 48
+	Inventory.MaxAmount 60
 	Ammo.BackpackAmount 0
-	Ammo.BackpackMaxAmount 96
+	Ammo.BackpackMaxAmount 120
 	Ammo.DropAmount 4
 	Inventory.Icon "SHELA0"
 	Inventory.PickupSound "zekeshotgun/load"
