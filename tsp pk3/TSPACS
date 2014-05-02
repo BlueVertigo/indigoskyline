@@ -1,47 +1,140 @@
 #include "zcommon.acs"
 #library "tspacs"
 
-script 858 (void)
+script "TSPPickupSounds" (void)
 {
-	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
-		GiveInventory("RoboPickupZekeShotgun",1);
+	if(CheckInventory("PlayingPickupSound") > 0)
+	{
+		TakeInventory("PistolJustPickedUp", 1);
+		TakeInventory("ShotgunJustPickedUp", 1);
+		TakeInventory("DahliaJustPickedUp", 1);
+		TakeInventory("AmmoBoxJustPickedUp", 1);
+		TakeInventory("ToolBoxJustPickedUp", 1);
+		Terminate;
+	}
 	else
-		GiveInventory("FlavorPickupZekeShotgun",1);
+	{
+		GiveInventory("PlayingPickupSound", 1);
+		if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
+		{
+			if(CheckInventory("PistolJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickuprobo/Pistol",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);			
+				Delay(41);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+			if(CheckInventory("ShotgunJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickuprobo/ZekeShotgun",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);
+				Delay(49);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+			if(CheckInventory("DahliaJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickuprobo/Crossbow",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);
+				Delay(35);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+			if(CheckInventory("AmmoBoxJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickuprobo/Ammobox50",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);
+				Delay(123);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+			if(CheckInventory("ToolBoxJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickuprobo/RocketNailgunLauncher",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);
+				Delay(67);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+		}
+		else
+		{
+			if(CheckInventory("PistolJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickup/Pistol",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);		
+				Delay(46);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+			if(CheckInventory("ShotgunJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickup/ZekeShotgun",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);
+				Delay(60);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+			if(CheckInventory("DahliaJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickup/Crossbow",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);
+				Delay(53);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+			if(CheckInventory("AmmoBoxJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickup/Ammobox50",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);
+				Delay(144);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+			if(CheckInventory("ToolBoxJustPickedUp") > 0)
+			{
+				LocalAmbientSound("flavpickup/RocketNailgunLauncher",127);
+				TakeInventory("PistolJustPickedUp", 1);
+				TakeInventory("ShotgunJustPickedUp", 1);
+				TakeInventory("DahliaJustPickedUp", 1);
+				TakeInventory("AmmoBoxJustPickedUp", 1);
+				TakeInventory("ToolBoxJustPickedUp", 1);
+				Delay(69);
+				TakeInventory("PlayingPickupSound", 1);
+			}
+		}
+	}
 }
 
-script 859 (void)
-{
-	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
-		GiveInventory("RoboPickupPistol",1);
-	else
-		GiveInventory("FlavorPickupPistol",1);
-}
-
-script 860 (void)
-{
-	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
-		GiveInventory("RoboPickupCrossbow",1);
-	else
-		GiveInventory("FlavorPickupCrossbow",1);
-}
-
-script 861 (void)
-{
-	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
-		GiveInventory("RoboPickupAmmoBox50",1);
-	else
-		GiveInventory("FlavorPickupAmmoBox50",1);
-}
-
-script 862 (void)
-{
-	if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER) == 2)
-		GiveInventory("RoboPickupRLNG",1);
-	else
-		GiveInventory("FlavorPickupRLNG",1);
-}
-
-script 863 ENTER
+script "TSPHUDHealthNumberColor" ENTER
 {
 	if(GetActorProperty( 0, APROP_Health) >= 101)
     {
@@ -57,7 +150,13 @@ script 863 ENTER
     }
 }
 
-script 864 (void)
+script "TSPEnterScript1" ENTER
+{
+	TakeInventory("PlayingPickupSound", 1);
+	Terminate;
+}
+
+script "TSPArmorScript" (void)
 {
 	if(CheckInventory("BasicArmor") >= 1)
     {
@@ -74,12 +173,19 @@ script 864 (void)
     }
 }
 
-script 865(void)
+script "TSPBoltStickScript" (void)
 {
 	int e257zsTracerNewTID = (UniqueTID());
 	Thing_ChangeTID (0,e257zsTracerNewTID);
 	SetActivator(0,AAPTR_TRACER);
 	int e257zsTracerAngle = GetActorAngle(0);
 	SetActorAngle (e257zsTracerNewTID,e257zsTracerAngle);
+	Terminate;
+}
+
+script "TSPBoltHurtTracerScript" (void)
+{
+	SetActivator(0,AAPTR_TRACER);
+	Thing_Damage2(0,Random(128,256),MOD_R_SPLASH); 
 	Terminate;
 }
