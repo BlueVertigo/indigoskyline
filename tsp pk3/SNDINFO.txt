@@ -416,14 +416,25 @@ dahlia/load2 crsbld2
 dahlia/load3 crsbld3
 dahlia/ammo2 crsbam2
 dahlia/ammo1 crsbam1
-
-dahlia/beep SWBEEP
+dahlia/beep crsbbeep
 
 $limit dahlia/impact 0
 $random dahlia/impact { dahlia/impact1 dahlia/impact2 dahlia/impact3 }
 dahlia/impact1 CRSBIPW1
 dahlia/impact2 CRSBIPW2
 dahlia/impact3 CRSBIPW3
+
+$limit dahlia/impactenemy 0
+$random dahlia/impactenemy { dahlia/impactenemy1 dahlia/impactenemy2 dahlia/impactenemy3 }
+dahlia/impactenemy1 CRSBIPE1
+dahlia/impactenemy2 CRSBIPE2
+dahlia/impactenemy3 CRSBIPE3
+
+$limit dahlia/boltexplode 0
+$random dahlia/boltexplode { dahlia/boltexplode1 dahlia/boltexplode2 dahlia/boltexplode3 }
+dahlia/boltexplode1 CRSBEXP1
+dahlia/boltexplode2 CRSBEXP2
+dahlia/boltexplode3 CRSBEXP3
 
 //Ammo Box 50
 $random ammobox/fire { ammobox/fire1 ammobox/fire2 ammobox/fire3 }
