@@ -409,6 +409,7 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_JumpIfInventory("ShotgunMag",1,"Ready")
 	  Goto ReloadOutOfCurrentAmmo
 	ReloadOutOfCurrentAmmo:
+	  TNT1 A 0 A_Print("[Current Ammo Depleted, Switching To Alternate Ammo]")
 	  TNT1 A 0 A_JumpIfInventory("BuckshotShell", 1, "ReloadBuckshotStart")
 	  TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "ReloadHellFireStart")
 	  TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "ReloadElectricStart")
