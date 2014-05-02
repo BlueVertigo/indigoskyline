@@ -97,7 +97,7 @@ ACTOR ZekeShotgun : Weapon
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
 	  STGG A 0 A_Refire
 	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
-	  Goto Ready
+	  Goto Pump
 	ElectricShot:
 	  STGG A 0 A_AlertMonsters
 	  STGG A 0 A_PlaySound("zekeshotgun/elfire",0)
@@ -111,7 +111,7 @@ ACTOR ZekeShotgun : Weapon
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
 	  STGG A 0 A_Refire
 	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
-	  Goto Ready
+	  Goto Pump
 	HellFireShot:
 	  STGG A 0 A_AlertMonsters
 	  STGG A 0 A_PlaySound("zekeshotgun/hefire",0)
@@ -127,7 +127,7 @@ ACTOR ZekeShotgun : Weapon
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
 	  STGG A 0 A_Refire
 	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
-	  Goto Ready
+	  Goto Pump
     PoisonShot:
 	  STGG A 0 A_AlertMonsters
 	  STGG A 0 A_PlaySound("zekeshotgun/pofire",0)
@@ -141,7 +141,7 @@ ACTOR ZekeShotgun : Weapon
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
 	  STGG A 0 A_Refire
 	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
-	  Goto Ready
+	  Goto Pump
 	MidReloadFire:
 	  STGR DCBA 1
 	  STGC D 1
@@ -361,6 +361,7 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_TakeInventory("PoisonLoaded", 1)
 	  Goto Ready
 	Pump:
+	  STGG A 0 A_JumpIfNoAmmo("Reload")
 	  STGG A 0 A_Jump(125,"Pump2")
 	  STGG A 0 A_TakeInventory("ShotgunNeedsPump",1)
 	  STGG A 0 A_PlaySoundEX("zekeshotgun/pump", "SoundSlot5")
