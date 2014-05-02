@@ -950,8 +950,84 @@ ACTOR CrossbowBoltExplode2
    }
 }
 
+ACTOR CustomCrossbow : Weapon
+{
+	Weapon.Kickback 450
+	Weapon.AmmoType	"DahliaNormalAmmo2"
+	Weapon.AmmoGive	100
+	Weapon.AmmoUse	0
+	Weapon.BobStyle Alpha
+	Weapon.BobSpeed 2.0
+	Weapon.BobRangeY 0.6
+	Weapon.BobRangeX 0.4
+	Weapon.SelectionOrder 90000
+	Inventory.PickupMessage "[''Dahlia'' Very Extra Custom Weapon] [Class: Bow, Slot 1]"
+	Decal BulletChip
+	Obituary "%o was taken out from the shadows by %k's crossbow."
+	+NOEXTREMEDEATH
+	+WEAPON.CHEATNOTWEAPON
+	+WEAPON.NoAlert
+   States
+   {
+   Spawn:
+	  DCBP A -1
+	  Stop
+   Ready:
+      DCBG A 1 A_WeaponReady
+      LOOP
+   Deselect:
+      TNT1 A 0 A_PlaySound("dahlia/down", 5)
+	  DCBD ABCD 1 
+   DeselectLoop:
+	  TNT1 A 4 A_Lower
+      Loop
+   Select:
+      TNT1 A 0 A_PlaySound("dahlia/up", 6)
+      TNT1 A 4 SetPlayerProperty(0,1,2)
+      DCBU ABCD 1
+   SelectLoop:
+	  DCBG A 1 A_Raise
+	  Loop
+   Fire:
+      DCBG A 2
+	  TNT1 A 0 A_SetPitch(pitch - 0.5)
+	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
+	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
+      DCBF A 1 A_FireCustomMissile("CustomCrossbowBolt",0,1,2)
+	  TNT1 A 0 A_TakeInventory("DahliaNormalAmmo", 1)
+	  DCBF BCDDDDCBA 1
+	  DCBE A 1
+      TNT1 A 0 A_PlaySound("dahlia/load", 6)
+	  TNT1 A 0 A_PlaySound("dahlia/load", 6)
+	  DCBE A 4
+	  DCBR ABCDDDDDDDDDDDDDDDEEFFGGHHHHHHHIIIII 1
+	  TNT1 A 0 A_TakeInventory("DahliaFired", 99)
+	  DCBU ABCD 1
+	  DCBG A 2 
+	  DCBG A 0 A_ReFire
+	  Goto Ready
+   }
+}
+
+ACTOR DahliaNormalAmmo2 : Ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 100
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 100
+	Inventory.Icon "DCBAA0"
+	Inventory.PickupMessage "Picked up a box of crossbow bolts. [+10 Crossbow Bolts]"
+	Inventory.PickupSound "dahlia/normalammo"
+	States
+	{
+	Spawn:
+		DCBA A -1
+		Stop
+	}
+}
+
 //Code is sloppy because in the middle of working on it
-ACTOR CrossbowBoltRedNoExplode : FastProjectile //The seond voxel voxelbro made, except red
+ACTOR CustomCrossbowBolt : FastProjectile
 {
    Radius 4
    Height 1
@@ -970,29 +1046,29 @@ ACTOR CrossbowBoltRedNoExplode : FastProjectile //The seond voxel voxelbro made,
    States
    {
    Spawn:
-      ARWR A 0
-	  ARWR A 0
-	  ARWR A 0
-	  ARWR A 0
-	  ARWR A 0 A_SetUserVar("user_angle",angle)
-	  ARWR A 0 A_SetUserVar("user_angle",angle)
+      ARWP A 0
+	  ARWP A 0
+	  ARWP A 0
+	  ARWP A 0
+	  ARWP A 0 A_SetUserVar("user_angle",angle)
+	  ARWP A 0 A_SetUserVar("user_angle",angle)
       Goto Spawn2
    Spawn2:
-      ARWR A 1
+      ARWP A 1
       Loop
    Death:
-      ARWR A 0 A_JumpIfInventory("ShockCanDie",1,"XDeath2")
-	  ARWR A 1 A_PlaySound("dahlia/impact", 5)
-	  ARWR A 1 A_ChangeFlag("NOINTERACTION",1)
+      ARWP A 0 A_JumpIfInventory("ShockCanDie",1,"XDeath2")
+	  ARWP A 1 A_PlaySound("dahlia/impact", 5)
+	  ARWP A 1 A_ChangeFlag("NOINTERACTION",1)
       Goto Death2
    Death2:
-      ARWR A 1
-      Loop
+      ARWP A 700
+      Stop
    Xdeath:
-	  ARWR A 0 A_GiveInventory("ShockCanDie", 1)
+	  ARWP A 0 A_GiveInventory("ShockCanDie", 1)
       TNT1 A 0 A_ChangeFlag("NOCLIP",1)
 	  TNT1 A 0 A_ChangeFlag("THRUACTORS",1)
-	  ARWR A 0 A_SetUserVar("user_angle",angle)
+	  ARWP A 0 A_SetUserVar("user_angle",angle)
 	  TNT1 A 0 A_SetUserVar("user_height",(z-floorz))
 	  TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
 	  TNT1 A 1 A_GiveInventory("ShockCanDie", 1)
@@ -1000,51 +1076,51 @@ ACTOR CrossbowBoltRedNoExplode : FastProjectile //The seond voxel voxelbro made,
 	  TNT1 A 3
 	  TNT1 A 1 A_SetUserVar("user_tracerangle",angle)
 	  TNT1 A 1 A_SetUserVar("user_warpangle",(user_angle-user_tracerangle+Random(-3,3)))
-	  ARWR A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT) 
-	  ARWR A 0 A_JumpIfInTargetLOS("XDeath2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+	  ARWP A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT) 
+	  ARWP A 0 A_JumpIfInTargetLOS("XDeath2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
 	  Stop
    XDeath2:
 	  TNT1 A 0 A_ChangeFlag("NODAMAGETHRUST",1)
-      ARWR A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 0 A_JumpIfInTargetLOS("XDeath3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      ARWP A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 0 A_JumpIfInTargetLOS("XDeath3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
       Goto XDeath8
    XDeath3:
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 0 A_JumpIfInTargetLOS("XDeath3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 0 A_JumpIfInTargetLOS("XDeath3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
       Goto XDeath8
    XDeath8:
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*19,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*17,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*15,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*13,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*11,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*9,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*7,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*5,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*3,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  //ARWR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*1,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-	  ARWR A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*19,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*17,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*15,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*13,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*11,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*9,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*7,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*5,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*3,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  //ARWP A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*1,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
 	  Goto XDeath9
    XDeath9:
-	  ARWR A 10 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARWP A 10 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
 	  Loop
    }
 }
