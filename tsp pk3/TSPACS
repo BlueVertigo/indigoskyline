@@ -186,6 +186,13 @@ script "TSPBoltStickScript" (void)
 script "TSPBoltHurtTracerScript" (void)
 {
 	SetActivator(0,AAPTR_TRACER);
-	Thing_Damage2(0,Random(128,256),MOD_R_SPLASH); 
+	Thing_Damage2(0,Random(128,384),MOD_R_SPLASH); 
+	Terminate;
+}
+
+script "TSPBoltHurtTracerScriptNoRadius" (void)
+{
+	SetActivator(0,AAPTR_TRACER);
+	Thing_Damage2(0,Random(30,90),MOD_R_SPLASH); 
 	Terminate;
 }
