@@ -1746,8 +1746,8 @@ actor ShockScatterArcEnd : ShockScatterArc
 actor PoisonPellet
 {
   Damage 2
-  Radius 1
-  Height 1
+  Radius 4
+  Height 4
   Speed 60
   Projectile
   Scale 0.3
