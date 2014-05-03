@@ -28,6 +28,7 @@ ACTOR Toolbox : Weapon
       RNLP A -1
 	  Stop
    Ready:
+      TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
       RNLG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
       LOOP
    Deselect:
@@ -181,6 +182,22 @@ ACTOR Toolbox : Weapon
 	  RNLU EFG 1
 	  RNLG A 1
 	  Goto Reload
+    SPMelee:
+	  RNLG A 3
+	  RNLM ABBCC 1
+	  TNT1 A 0 A_PlaySound("strongmelee/miss", 5)
+	  TNT1 A 0 A_PlaySound("*melee", 6)
+	  RNLM DEF 1
+	  ML1F D 0 A_JumpIfInventory("PowerStrength",1,"SPMeleeBerserk")
+	  RNLM G 1 A_CustomPunch(8,0,0,"StrongMeleePuff",90)
+	  Goto SPMeleeA
+	SPMeleeBerserk:
+	  RNLM G 1 A_CustomPunch(16,0,0,"StrongMeleePuff",90)
+	  Goto SPMeleeA
+	SPMeleeA: 
+	  RNLM FEDCCBA 1
+	  RNLG A 5
+	  Goto Ready
 	}
 }
 
