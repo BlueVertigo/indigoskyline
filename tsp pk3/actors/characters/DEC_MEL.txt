@@ -21,7 +21,7 @@ ACTOR SpacePirate : DoomPlayer
 	Player.Portrait "Mel_Port"
 	Player.WeaponSlot 1, CustomCrossbow, MelMelee
 	Player.WeaponSlot 2, 919mPistol
-	Player.WeaponSlot 3, ZekeShotgun, DahliaCrossbow
+	Player.WeaponSlot 3, DahliaCrossbow, ZekeShotgun
 	Player.WeaponSlot 4, AmmoBox50, MipFowty
 	Player.WeaponSlot 5, Toolbox
     Species "Player"

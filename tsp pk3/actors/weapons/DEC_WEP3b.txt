@@ -32,15 +32,18 @@ ACTOR DahliaCrossbow : Weapon
 	  DCBP A -1
 	  Stop
    Ready:
+      TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMeleeNormalMode")
       TNT1 A 0 A_JumpIfInventory("DahliaFired", 1, "ReadyEmpty")
       TNT1 A 0 A_JumpIfNoAmmo("ReadyEmpty")
 	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "ExplosiveReady")
       DCBG A 1 A_WeaponReady
       LOOP
    ReadyEmpty:
+      TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMeleeEmptyMode")
       DCBE A 1 A_WeaponReady(WRF_ALLOWRELOAD)
 	  Loop
    ExplosiveReady:
+      TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMeleeExplosiveMode")
       DCBB A 1 A_WeaponReady
 	  Loop
    Deselect:
@@ -184,7 +187,7 @@ ACTOR DahliaCrossbow : Weapon
    NormalSelect2:
       TNT1 A 0 A_Print("[Normal Bolts Loaded]")
 	  DCBB A 1
-      DCBU DCBA 1
+      DCBU LKJI 1
 	  TNT1 A 0 A_PlaySound("dahlia/ammo2", 5)
 	  DCBR IIIIIHHHHHHGGFFEEDDDDDD 1
 	  TNT1 A 0 A_PlaySound("dahlia/ammo1", 6)
@@ -193,6 +196,66 @@ ACTOR DahliaCrossbow : Weapon
 	  DCBU ABCD 1
 	  DCBG A 3 A_WeaponReady
 	  Goto Ready
+	  
+   SPMeleeNormalMode:
+      TNT1 A 0 A_PlaySound("dahlia/down", 6)
+	  DCBD ABCD 1 
+	  TNT1 A 1
+	  TNT1 A 4 A_PlaySound("*strongmelee")
+	  ML2F A 0 A_PlaySoundEX("strongmelee/miss", "SoundSlot5")
+      MK1F ABC 1
+      ML1F D 0 A_JumpIfInventory("PowerStrength",1,"SPMeleeNormalModeBerserk")
+	  MK1F D 1 A_CustomPunch(9,0,0,"StrongMeleePuff",90)
+	  Goto SPMeleeNormalModeA
+	SPMeleeNormalModeBerserk:
+	  MK1F D 1 A_CustomPunch(18,0,0,"StrongMeleePuff",90)
+	  Goto SPMeleeNormalModeA
+	SPMeleeNormalModeA:
+	  MK1F EFGHI 1
+	  TNT1 A 0 A_PlaySound("dahlia/up", 6)
+	  TNT1 A 4
+      DCBU ABCD 1
+	  Goto Ready
+	  
+   SPMeleeEmptyMode:
+      TNT1 A 0 A_PlaySound("dahlia/down", 6)
+	  DCBD EFGH 1 
+	  TNT1 A 1
+	  TNT1 A 4 A_PlaySound("*strongmelee")
+	  ML2F A 0 A_PlaySoundEX("strongmelee/miss", "SoundSlot5")
+      MK1F ABC 1
+      ML1F D 0 A_JumpIfInventory("PowerStrength",1,"SPMeleeEmptyModeBerserk")
+	  MK1F D 1 A_CustomPunch(9,0,0,"StrongMeleePuff",90)
+	  Goto SPMeleeEmptyModeA
+	SPMeleeEmptyModeBerserk:
+	  MK1F D 1 A_CustomPunch(18,0,0,"StrongMeleePuff",90)
+	  Goto SPMeleeEmptyModeA
+	SPMeleeEmptyModeA:
+	  MK1F EFGHI 1
+	  TNT1 A 0 A_PlaySound("dahlia/up", 6)
+	  TNT1 A 4
+      DCBU EFGH 1 
+	  Goto ReadyEmpty
+	  
+	SPMeleeExplosiveMode:
+      TNT1 A 0 A_PlaySound("dahlia/down", 6)
+	  DCBD IJKL 1
+	  TNT1 A 1
+	  TNT1 A 4 A_PlaySound("*strongmelee")
+	  ML2F A 0 A_PlaySoundEX("strongmelee/miss", "SoundSlot5")
+      MK1F ABC 1
+      ML1F D 0 A_JumpIfInventory("PowerStrength",1,"SPMeleeExplosiveModeBerserk")
+	  MK1F D 1 A_CustomPunch(9,0,0,"StrongMeleePuff",90)
+	  Goto SPMeleeExplosiveModeA
+	SPMeleeExplosiveModeBerserk:
+	  MK1F D 1 A_CustomPunch(18,0,0,"StrongMeleePuff",90)
+	  Goto SPMeleeExplosiveModeA
+	SPMeleeExplosiveModeA:
+	  MK1F EFGHI 1
+	  TNT1 A 0 A_PlaySound("dahlia/up", 6)
+	  TNT1 A 4
+      DCBU IJKL 1 
+	  Goto ExplosiveReady
    }
 }
 
@@ -332,7 +395,7 @@ ACTOR CrossbowBoltBlue : FastProjectile //The second crossbow voxel voxelbro mad
       ARWP A 700
       Stop
    XdeathUnused:
-      TNT1 A 1
+      TNT1 A 0 A_PlaySound("dahlia/impactenemy", 5)
 	  stop
    }
 }
@@ -386,7 +449,7 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 	  //ARWQ A 0 A_SpawnItemEx("CrossbowBoltExplode1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
 	  
 	  TNT1 A 0 A_Explode(90,128)
-	  ARWR A 0 A_PlaySound("weapons/rocklx",0)
+	  ARWR A 0 A_PlaySound("dahlia/boltexplode", 0)
 	  TNT1 A 0 ACS_NamedExecuteWithResult("TSPBoltHurtTracerScript")
       
 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
@@ -549,6 +612,7 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 	  TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
 	  TNT1 A 1 A_GiveInventory("ShockCanDie", 1)
 	  TNT1 A 1 ACS_NamedExecuteWithResult("TSPBoltStickScript")
+	  TNT1 A 0 A_PlaySound("dahlia/impactenemy", 6)
 	  TNT1 A 3
 	  TNT1 A 1 A_SetUserVar("user_tracerangle",angle)
 	  TNT1 A 1 A_SetUserVar("user_warpangle",(user_angle-user_tracerangle+Random(-3,3)))
@@ -878,7 +942,7 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 
 	  
 	  TNT1 A 0 A_Explode(90,128)
-	  ARWR A 0 A_PlaySound("weapons/rocklx",0)
+	  ARWR A 0 A_PlaySound("dahlia/boltexplode", 0)
 
 	  
 
@@ -1143,7 +1207,7 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 
 	  
 	  TNT1 A 0 A_Explode(90,128)
-	  ARWR A 0 A_PlaySound("weapons/rocklx",0)
+	  ARWR A 0 A_PlaySound("dahlia/boltexplode", 0)
 
 	  
 
@@ -1519,7 +1583,7 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 
    TargetDeadExplode:
 	  TNT1 A 0 A_Explode(90,128)
-	  ARWR A 0 A_PlaySound("weapons/rocklx",0)
+	  ARWR A 0 A_PlaySound("dahlia/boltexplode", 0)
 
 
 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
@@ -2131,7 +2195,7 @@ ACTOR CrossbowBoltExplode2
 	  TNT1 A 0 A_ClearTarget
 	  TNT1 A 0 A_RearrangePointers (AAPTR_NULL,AAPTR_NULL,AAPTR_NULL) 
 	  TNT1 A 0 A_SetPitch(0)
-	  ARWR A 0 A_PlaySound("weapons/rocklx",0)
+	  ARWR A 0 A_PlaySound("dahlia/boltexplode", 0)
 	  
 
 	  TNT1 A 1 A_Explode(90,128)
@@ -2186,7 +2250,7 @@ ACTOR MysteryBolt
 	  ARWR A 20
 	  
 	  TNT1 A 0 A_Explode(90,128)
-	  ARWR A 0 A_PlaySound("weapons/rocklx",0)
+	  ARWR A 0 A_PlaySound("dahlia/boltexplode", 0)
       
 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
@@ -2462,6 +2526,7 @@ ACTOR CustomCrossbowBolt : FastProjectile
 	  ARWP A 0 A_SetUserVar("user_angle",angle)
 	  TNT1 A 0 A_SetUserVar("user_height",(z-floorz))
 	  TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
+	  TNT1 A 0 A_PlaySound("dahlia/impactenemy", 6)
 	  TNT1 A 1 A_GiveInventory("ShockCanDie", 1)
 	  TNT1 A 1 ACS_NamedExecuteWithResult("TSPBoltStickScript")
 	  TNT1 A 3
