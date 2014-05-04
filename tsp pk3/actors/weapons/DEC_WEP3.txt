@@ -38,6 +38,7 @@ ACTOR ZekeShotgun : Weapon
       TNT1 A 0 A_TakeInventory("ShotgunLoading", 9)
 	  TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
 	  TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	  TNT1 A 0 A_JumpIfInventory("DropShellsActor",1,"DropCurrentShellsCheck")
       STGG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
       Loop
 	Deselect:
@@ -45,16 +46,24 @@ ACTOR ZekeShotgun : Weapon
 	  STGD ABCDE 1
 	  TNT1 A 3 
 	DeselectLoop:
-      TNT1 A 1 A_Lower
+      TNT1 A 0 A_TakeInventory("DropShellsActor", 1)
+	  TNT1 A 1 A_Lower
       Loop
 	Select:
-      TNT1 A 0 A_JumpIfInventory("ComboCooldown", 1, "QuickSelect")
+      TNT1 A 0 A_TakeInventory("MeleeSelected", 1)
+	  TNT1 A 0 A_TakeInventory("919Selected", 1)
+	  TNT1 A 0 A_TakeInventory("DahliaSelected", 1)
+	  TNT1 A 0 A_TakeInventory("AmmoBoxSelected", 1)
+	  TNT1 A 0 A_TakeInventory("ToolBoxSelected", 1)
+	  TNT1 A 0 A_GiveInventory("ZekeSelected", 1)
+	  TNT1 A 0 A_JumpIfInventory("ComboCooldown", 1, "QuickSelect")
       TNT1 A 3 A_PlaySoundEX("zekeshotgun/up", "SoundSlot5")
 	  STGU ABCD 1
 	  STGR DCBA 1
 	  STGC D 1
 	  STGG A 2
 	SelectLoop:	  
+	  TNT1 A 0 A_TakeInventory("DropShellsActor", 1)
 	  STGG A 1 A_Raise
       Loop
 	QuickSelect:
@@ -168,6 +177,10 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_JumpIfInventory("ElectricShellSelected", 1, "AltFireElectric")
 	  TNT1 A 0 A_JumpIfInventory("HellFireShellSelected", 1, "AltFireHellFire")
 	  TNT1 A 0 A_JumpIfInventory("PoisonShellSelected", 1, "AltFirePoison")
+	  TNT1 A 0 A_JumpIfInventory("BuckshotShell", 1, "AltFireBuckshot")
+	  TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "AltFireElectric")
+	  TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "AltFireHellFire")
+	  TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "AltFirePoison")
 	  Goto Ready
 	AltFireBuckshot:
 	  TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "AltFireElectricSelect")
@@ -359,6 +372,135 @@ ACTOR ZekeShotgun : Weapon
 	  TNT1 A 0 A_TakeInventory("ElectricLoaded", 1)
 	  TNT1 A 0 A_TakeInventory("HellFireLoaded", 1)
 	  TNT1 A 0 A_TakeInventory("PoisonLoaded", 1)
+	  Goto Ready
+	DropCurrentShellsCheck:
+	  TNT1 A 0 A_TakeInventory("DropShellsActor", 1)
+	  TNT1 A 0 A_JumpIfInventory("ShotgunMag",1, "DropCurrentShells")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells",1, "DropCurrentShells2StartAnim")
+	  Goto Ready
+	DropCurrentShells:
+	  STGG A 0 A_PlaySoundEX("zekeshotgun/unload1", "SoundSlot5")
+	  TNT1 A 0 A_TakeInventory("DropShellsActor", 1)
+	  STGC ABCKL 1
+	  STGC L 1 Offset(0,45)
+	  STGC L 1 Offset(0,58)
+	  STGC L 1 Offset(0,71)
+	  STGC L 4 Offset(0,85)
+	  TNT1 A 0 A_JumpIfInventory("BuckshotLoaded", 1, "DropBuckshot")
+	  TNT1 A 0 A_JumpIfInventory("ElectricLoaded", 1, "DropElectric")
+	  TNT1 A 0 A_JumpIfInventory("HellFireLoaded", 1, "DropHellFire")
+	  TNT1 A 0 A_JumpIfInventory("PoisonLoaded", 1, "DropPoison")
+	  Goto DropBuckshot
+	DropBuckshot:
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_SpawnItemEx("BuckshotShellDropped",0,0,30,random(8,12),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"DropBuckshot")
+	  STGR L 0 A_JumpIfInventory("BuckshotShell",1,"DropCurrentShells2")
+	  Goto DropCurrentShellsFinish
+	DropElectric:
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_SpawnItemEx("ElectricShellDropped",0,0,30,random(8,12),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"DropElectric")
+	  STGR L 0 A_JumpIfInventory("ElectricShell",1,"DropCurrentShells2")
+	  Goto DropCurrentShellsFinish
+	DropHellFire:
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_SpawnItemEx("HellFireShellDropped",0,0,30,random(8,12),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"DropHellFire")
+	  STGR L 0 A_JumpIfInventory("HellFireShell",1,"DropCurrentShells2")
+	  Goto DropCurrentShellsFinish
+	DropPoison:
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ShotgunMag",1)
+	  STGR L 0 A_SpawnItemEx("PoisonShellDropped",0,0,30,random(8,12),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ShotgunMag",1,"DropPoison")
+	  STGR L 0 A_JumpIfInventory("PoisonShell",1,"DropCurrentShells2")
+	  Goto DropCurrentShellsFinish
+	DropCurrentShells2StartAnim:
+	  STGG A 0 A_PlaySoundEX("zekeshotgun/unload1", "SoundSlot5")
+	  TNT1 A 0 A_TakeInventory("DropShellsActor", 1)
+	  STGC ABCKL 1
+	  STGC L 1 Offset(0,45)
+	  STGC L 1 Offset(0,58)
+	  STGC L 1 Offset(0,71)
+	  STGC L 4 Offset(0,85)
+	  TNT1 A 0 A_JumpIfInventory("BuckshotLoaded", 1, "DropBuckshot2Check")
+	  TNT1 A 0 A_JumpIfInventory("ElectricLoaded", 1, "DropElectric2Check")
+	  TNT1 A 0 A_JumpIfInventory("HellFireLoaded", 1, "DropHellFire2Check")
+	  TNT1 A 0 A_JumpIfInventory("PoisonLoaded", 1, "DropPoison2Check")
+	  Goto DropCurrentShells2AmmoDecide
+  	DropCurrentShells2AmmoDecide:
+	  TNT1 A 0 A_JumpIfInventory("BuckshotShell", 1, "DropBuckshot2")
+	  TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "DropElectric2")
+	  TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "DropHellFire2")
+	  TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "DropPoison2")
+	  Goto DropBuckshot2
+	DropCurrentShells2:
+	  TNT1 A 0 A_JumpIfInventory("BuckshotLoaded", 1, "DropBuckshot2")
+	  TNT1 A 0 A_JumpIfInventory("ElectricLoaded", 1, "DropElectric2")
+	  TNT1 A 0 A_JumpIfInventory("HellFireLoaded", 1, "DropHellFire2")
+	  TNT1 A 0 A_JumpIfInventory("PoisonLoaded", 1, "DropPoison2")
+	  Goto DropBuckshot2
+	DropBuckshot2Check:
+	  STGR L 0 A_JumpIfInventory("BuckshotShell",1,"DropBuckshot2")
+	  Goto DropCurrentShells2AmmoDecide
+	DropBuckshot2:
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("BuckshotShell",1)
+	  STGR L 0 A_TakeInventory("TSPShells",1)
+	  STGR L 0 A_SpawnItemEx("BuckshotShellDropped",0,0,30,random(8,12),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("BuckshotShell",1,"DropBuckshot2")
+	  Goto DropCurrentShellsFinish
+	DropElectric2Check:
+	  STGR L 0 A_JumpIfInventory("ElectricShell",1,"DropElectric2")
+	  Goto DropCurrentShells2AmmoDecide
+	DropElectric2:
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("ElectricShell",1)
+	  STGR L 0 A_TakeInventory("TSPShells",1)
+	  STGR L 0 A_SpawnItemEx("ElectricShellDropped",0,0,30,random(8,12),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("ElectricShell",1,"DropElectric2")
+	  Goto DropCurrentShellsFinish
+	DropHellFire2Check:
+	  STGR L 0 A_JumpIfInventory("HellFireShell",1,"DropHellFire2")
+	  Goto DropCurrentShells2AmmoDecide
+	DropHellFire2:
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("HellFireShell",1)
+	  STGR L 0 A_TakeInventory("TSPShells",1)
+	  STGR L 0 A_SpawnItemEx("HellFireShellDropped",0,0,30,random(8,12),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("HellFireShell",1,"DropHellFire2")
+	  Goto DropCurrentShellsFinish
+	DropPoison2Check:
+	  STGR L 0 A_JumpIfInventory("PoisonShell",1,"DropPoison2")
+	  Goto DropCurrentShells2AmmoDecide
+	DropPoison2:
+	  STGC L 1 Offset(0,85)
+	  STGR L 0 A_TakeInventory("PoisonShell",1)
+	  STGR L 0 A_TakeInventory("TSPShells",1)
+	  STGR L 0 A_SpawnItemEx("PoisonShellDropped",0,0,30,random(8,12),0,0,random(-22.5,22.5))
+	  STGR L 0 A_JumpIfInventory("PoisonShell",1,"DropPoison2")
+	  Goto DropCurrentShellsFinish
+	DropCurrentShellsFinish:
+	  TNT1 A 0 A_TakeInventory("BuckshotLoaded", 1)
+	  TNT1 A 0 A_TakeInventory("ElectricLoaded", 1)
+	  TNT1 A 0 A_TakeInventory("HellFireLoaded", 1)
+	  TNT1 A 0 A_TakeInventory("PoisonLoaded", 1)
+	  TNT1 A 0 A_TakeInventory("BuckshotShellSelected", 1)
+	  TNT1 A 0 A_TakeInventory("ElectricShellSelected", 1)
+	  TNT1 A 0 A_TakeInventory("HellFireShellSelected", 1)
+	  TNT1 A 0 A_TakeInventory("PoisonShellSelected", 1)
+	  STGC L 1 Offset(0,85)
+	  STGC L 1 Offset(0,71)
+	  STGC L 1 Offset(0,58)
+	  STGC L 1 Offset(0,45)
+	  STGC L 1
+	  TNT1 A 0 A_TakeInventory("DropShellsActor", 1)
+	  STGG A 0 A_PlaySoundEX("zekeshotgun/unload2", "SoundSlot5")
+	  STGC KCBA 1
 	  Goto Ready
 	Pump:
 	  STGG A 0 A_JumpIfNoAmmo("Reload")
@@ -1278,6 +1420,339 @@ ACTOR PoisonShellThrown : CustomInventory
     PickupFail:
       3SHL A 1
       Fail
+	}
+}
+
+ACTOR BuckshotShellDropped : CustomInventory
+{
+    +THRUACTORS
+	+CORPSE
+	States
+	{
+	Spawn:
+      2SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  2SHL A 35
+	  TNT1 A 0 A_SpawnItemEx("BuckshotShellDroppedA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+    Crash2:
+	  2SHL C 35
+	  TNT1 A 0 A_SpawnItemEx("BuckshotShellDroppedB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash3:
+	  2SHL G 35
+	  TNT1 A 0 A_SpawnItemEx("BuckshotShellDroppedC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash4:
+	  2SHL E 35
+	  TNT1 A 0 A_SpawnItemEx("BuckshotShellDroppedD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	}
+}
+
+ACTOR BuckshotShellDroppedA : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a buckshot shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+	  2SHL A -1
+	  Loop
+	Pickup:
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("BuckshotShell", 1)
+	  Stop
+    PickupFail:
+      2SHL A 1
+      Fail
+	}
+}
+
+ACTOR BuckshotShellDroppedB : BuckshotShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  2SHL C -1
+	  Loop
+	}
+}
+
+ACTOR BuckshotShellDroppedC : BuckshotShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  2SHL G -1
+	  Loop
+	}
+}
+
+ACTOR BuckshotShellDroppedD : BuckshotShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  2SHL E -1
+	  Loop
+	}
+}
+
+ACTOR ElectricShellDropped : CustomInventory
+{
+    +THRUACTORS
+	+CORPSE
+	States
+	{
+	Spawn:
+      1SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  1SHL A 35
+	  TNT1 A 0 A_SpawnItemEx("ElectricShellDroppedA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+    Crash2:
+	  1SHL C 35
+	  TNT1 A 0 A_SpawnItemEx("ElectricShellDroppedB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash3:
+	  1SHL G 35
+	  TNT1 A 0 A_SpawnItemEx("ElectricShellDroppedC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash4:
+	  1SHL E 35
+	  TNT1 A 0 A_SpawnItemEx("ElectricShellDroppedD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	}
+}
+
+ACTOR ElectricShellDroppedA : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a shock shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+      1SHL A 1
+	  Loop
+    Pickup:
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("ElectricShell", 1)
+	  Stop
+    PickupFail:
+      1SHL A 1
+      Fail
+	}
+}
+
+ACTOR ElectricShellDroppedB : ElectricShellDroppedA
+{
+	States
+	{
+	Spawn:
+      1SHL C 1
+	  Loop
+	}
+}
+
+ACTOR ElectricShellDroppedC : ElectricShellDroppedA
+{
+	States
+	{
+	Spawn:
+      1SHL G 1
+	  Loop
+	}
+}
+
+ACTOR ElectricShellDroppedD : ElectricShellDroppedA
+{
+	States
+	{
+	Spawn:
+      1SHL E 1
+	  Loop
+	}
+}
+
+ACTOR HellFireShellDropped : CustomInventory
+{
+    +THRUACTORS
+	+CORPSE
+	States
+	{
+	Spawn:
+      4SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  4SHL A 35
+	  TNT1 A 0 A_SpawnItemEx("HellFireShellDroppedA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+    Crash2:
+	  4SHL C 35
+	  TNT1 A 0 A_SpawnItemEx("HellFireShellDroppedB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash3:
+	  4SHL G 35
+	  TNT1 A 0 A_SpawnItemEx("HellFireShellDroppedC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash4:
+	  4SHL E 35
+	  TNT1 A 0 A_SpawnItemEx("HellFireShellDroppedD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	}
+}
+
+ACTOR HellFireShellDroppedA : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a hellfire shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+	  4SHL A 1
+	  Loop
+    Pickup:
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("HellFireShell", 1)
+	  Stop
+    PickupFail:
+      4SHL A 1
+      Fail
+	}
+}
+
+ACTOR HellFireShellDroppedB : HellFireShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  4SHL C 1
+	  Loop
+	}
+}
+
+ACTOR HellFireShellDroppedC : HellFireShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  4SHL G 1
+	  Loop
+	}
+}
+
+ACTOR HellFireShellDroppedD : HellFireShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  4SHL E 1
+	  Loop
+	}
+}
+
+ACTOR PoisonShellDropped : CustomInventory
+{
+    +THRUACTORS
+	+CORPSE
+	States
+	{
+	Spawn:
+      3SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  3SHL A 35
+	  TNT1 A 0 A_SpawnItemEx("PoisonShellDroppedA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+    Crash2:
+	  3SHL C 35
+	  TNT1 A 0 A_SpawnItemEx("PoisonShellDroppedB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash3:
+	  3SHL G 35
+	  TNT1 A 0 A_SpawnItemEx("PoisonShellDroppedC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash4:
+	  3SHL E 35
+	  TNT1 A 0 A_SpawnItemEx("PoisonShellDroppedD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	}
+}
+
+ACTOR PoisonShellDroppedA : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a poison shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+	  3SHL A 1
+	  Loop
+	Pickup:
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("PoisonShell", 1)
+	  Stop
+    PickupFail:
+      3SHL A 1
+      Fail
+	}
+}
+
+ACTOR PoisonShellDroppedB : PoisonShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  3SHL C 1
+	  Loop
+	}
+}
+
+ACTOR PoisonShellDroppedC : PoisonShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  3SHL G 1
+	  Loop
+	}
+}
+
+
+ACTOR PoisonShellDroppedD : PoisonShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  3SHL E 1
+	  Loop
 	}
 }
 
