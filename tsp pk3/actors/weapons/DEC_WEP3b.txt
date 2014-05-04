@@ -367,7 +367,7 @@ ACTOR CrossbowSSGPickup : CustomInventory Replaces SuperShotgun
 	  TNT1 A 0 A_JumpIfInventory("DahliaCrossbow", 1, "AmmoCheck")
 	  TNT1 A 0 A_GiveInventory("DahliaCrossbow", 1)
 	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo", 5)
-	  TNT1 A 1 ACS_ExecuteAlways(860)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
 	  Stop
 	AmmoCheck:
       TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 0, "AmmoCheck2")
