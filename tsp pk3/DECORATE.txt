@@ -104,7 +104,7 @@ ACTOR MeleeButtonActor : CustomInventory
 #include "Actors/Enemies/DEC_CZMB.txt" // Commando Zombie Enemies
 #include "Actors/Enemies/DEC_IMP.txt"  // Imp Enemies
 #include "Actors/Enemies/DEC_LSOUL.txt"// Lost Soul enemies
-#include "Actors/Enemies/DEC_ARCH.txt"// Lost Soul enemies
+#include "Actors/Enemies/DEC_ARCH.txt"// ArchVile enemies
 //#include "Actors/Enemies/DEC_SCIE.txt"  // Scientist Enemies
 
 //Weapons
