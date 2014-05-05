@@ -20,6 +20,7 @@ ACTOR SpacePirate : DoomPlayer
 	Player.StartItem "ToolboxMag", 5
 	Player.SoundClass "Melody"
 	Player.DisplayName "Mel"
+	Player.Face MCW
 	Player.Portrait "Mel_Port"
 	Player.WeaponSlot 1, CustomCrossbow, MelMelee
 	Player.WeaponSlot 2, 919mPistol

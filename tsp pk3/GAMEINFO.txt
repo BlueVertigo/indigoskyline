@@ -1,2 +1,2 @@
-STARTUPTITLE = "Blue Vertigo Presents: The Space Pirate (v.0.1.2b)"
+STARTUPTITLE = "Blue Vertigo Presents: The Space Pirate (v.0.1.2d)"
 STARTUPCOLORS = "8AE62E", "004C1A"
