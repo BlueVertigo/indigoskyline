@@ -48,7 +48,7 @@ ACTOR MelMelee : Weapon
 		TNT1 A 0 A_TakeInventory("MelPrimaryCombo", 99)
 		TNT1 A 0 A_TakeInventory("MelAlternateCombo", 99)
 		TNT1 A 0 A_TakeInventory("MelMachCombo", 99)
-	    TNT1 A 2 A_Lower
+	    TNT1 A 5 A_Lower
 		Loop
     ComboDeselect:
 		TNT1 A 0 A_TakeInventory("MelPrimaryCombo", 99)
