@@ -95,6 +95,7 @@ ACTOR MeleeButtonActor : CustomInventory
 
 //
 #include "Actors/Characters/DEC_MEL.txt" // Mel's Player Stuff
+#include "Actors/Characters/DEC_VEX.txt" // Vexler's Player Stuff
 #include "Actors/Characters/DEC_MAC.txt" // Little Mac's Player Stuff
 
 //Enemies
@@ -120,12 +121,3 @@ ACTOR MeleeButtonActor : CustomInventory
 
 //Items
 #include "Actors/DEC_ITEM.txt"
-
-
-//ACTOR Vexler : DoomPlayer
-//{
-//	Player.ViewHeight 49
-//	Player.AttackZOffset 22
-//	Player.DisplayName "Vexler"
-//}
-// you shouldn't be in here...

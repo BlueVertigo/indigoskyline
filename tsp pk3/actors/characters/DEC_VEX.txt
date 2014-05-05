@@ -1,0 +1,42 @@
+ACTOR Vexler : DoomPlayer
+{
+	Player.ViewHeight 49
+	Player.AttackZOffset 22
+	Player.JumpZ 8.5
+	Player.ForwardMove 1.2, 1.2
+	Player.SideMove 0.7, 0.7
+	Player.StartItem "IsVexler", 1
+    Player.StartItem "StartMelee", 1
+	Player.StartItem "StopMelee", 1
+	Player.StartItem "DropCurrentShells", 1
+	Player.StartItem "MeleeButtonActor", 1
+	Player.StartItem "919MPistol"
+	Player.StartItem "MelMelee"
+	Player.StartItem "AutoPistolMag", 15
+	Player.StartItem "TSPPistolAmmo", 60
+	Player.StartItem "BuckshotShellSelected", 1
+	Player.StartItem "ShotgunMag", 8
+	Player.StartItem "BuckshotShellSelected", 1
+	Player.StartItem "BuckshotLoaded", 1
+	Player.StartItem "AmmoboxMag", 50
+	Player.StartItem "MP40Mag", 30
+	Player.StartItem "ToolboxMag", 5
+	Player.SoundClass "Vexler"
+	Player.DisplayName "Vexler"
+	Player.Portrait "Mel_Port"
+	Player.WeaponSlot 1, MelMelee
+	Player.WeaponSlot 2, 919mPistol
+	Player.WeaponSlot 3, DahliaCrossbow, ZekeShotgun
+	Player.WeaponSlot 4, AmmoBox50, MipFowty
+	Player.WeaponSlot 5, Toolbox
+    Species "Player"
+	+THRUSPECIES
+	DamageFactor "Poison", 2.0
+	DamageFactor "GasShellDamage", 1.5
+	DamageFactor "Shrapnel", 0.5
+}
+
+ACTOR IsVexler : Inventory
+{
+	Inventory.MaxAmount 1
+}

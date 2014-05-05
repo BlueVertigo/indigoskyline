@@ -6,7 +6,7 @@ gameinfo
 	creditpage = "SP_CRED"
 	titlepage = "SP_TITLE" 
 	intermissioncounter = false
-	PlayerClasses = "SpacePirate"
+	PlayerClasses = "SpacePirate", "Vexler"
 	armoricons = "FLRMA0", 0.5, "PSRMA0"
 	pausesign = "SP_PAUSE"
 	cursorpic = "M_SPCRS1"

@@ -1,5 +1,6 @@
 clearplayerclasses
 addplayerclass SpacePirate
+addplayerclass Vexler
 //addplayerclass LittleMac
 
 addkeysection "The Space Pirate" ew_keysection
