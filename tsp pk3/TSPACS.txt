@@ -342,6 +342,8 @@ script "TSPIDKFAFix" ENTER
 
 script "TSPEnterScript1" ENTER
 {
+	Print(s:"Blue Vertigo Presents: The Space Pirate\n \nCvars:\n \ntsp_shellpool - If set to true/1 (default), all shell types share the same ammo pool. IF set to false/0, they do not and each has a separate ammo pool.");
+	Print(s:" ");
 	TakeInventory("PlayingPickupSound", 1);
 	Terminate;
 }
