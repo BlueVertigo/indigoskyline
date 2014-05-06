@@ -6,7 +6,7 @@
 // Sprites by Marty Kirra
 //
 //===========================================================================
-ACTOR Toolbox : Weapon
+ACTOR MelToolbox : Weapon
 {
 	Weapon.AmmoType	"ToolboxMag"
 	Weapon.AmmoGive	0
@@ -266,8 +266,19 @@ ACTOR ToolboxPickup : CustomInventory Replaces RocketLauncher
       RNLP A -1
 	  Stop
 	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("Toolbox", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("Toolbox", 1)
+	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+	  Fail
+	VexlerPickup:
+	  TNT1 A 0 A_JumpIfInventory("MelToolbox", 1, "AmmoCheck")
+	  TNT1 A 0 A_GiveInventory("MelToolbox", 1)
+	  TNT1 A 0 A_GiveInventory("ToolboxAmmo", 10)
+	  TNT1 A 0 A_GiveInventory("ToolBoxJustPickedUp", 1)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
+	  Stop
+	MelPickup:
+	  TNT1 A 0 A_JumpIfInventory("MelToolbox", 1, "AmmoCheck")
+	  TNT1 A 0 A_GiveInventory("MelToolbox", 1)
 	  TNT1 A 0 A_GiveInventory("ToolboxAmmo", 10)
 	  TNT1 A 0 A_GiveInventory("ToolBoxJustPickedUp", 1)
 	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")

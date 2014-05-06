@@ -771,7 +771,7 @@ ACTOR TSPWolfensteinSS replaces WolfensteinSS
   AttackSound "wolfss/attack"
   Obituary "$OB_WOLFSS"
   Dropitem TSPPistolAmmo 255
-  DropItem MipFowty 30
+  DropItem MelMipFowty 30
   States
   {
   Spawn:

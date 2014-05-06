@@ -86,27 +86,27 @@ mel/strongmeleeyell6 melsha6
 //Mel's Pickup Lines
 ////////////////////
 
-flavpickup/Kushiel					MELPGLV
-$random flavpickup/persephone { flavpickup/persphone1 flavpickup/persphone2 flavpickup/persphone3 flavpickup/persphone4 }
-flavpickup/persphone1               MELPBZK1
-flavpickup/persphone2               MELPBZK2
-flavpickup/persphone3               MELPBZK3
-flavpickup/persphone4               MELPBZK4
-flavpickup/Pistol					MELPPST
-flavpickup/Deagle                   MELPDEAG
-flavpickup/zekeshotgun				MELPSHT
-flavpickup/Crossbow					MELPCBOW
-flavpickup/Ammobox50				MELPCUZI
-$random flavpickup/RocketNailgunLauncher {flavpickup/RocketLauncher1 flavpickup/RocketLauncher2}
-flavpickup/RocketLauncher1			MELPCNL
-flavpickup/RocketLauncher2			MELPCRL
-$random flavpickup/flamethrower {flavpickup/Flamethrower1 flavpickup/Flamethrower2}
-flavpickup/Flamethrower1			MELPCFL1
-flavpickup/Flamethrower2			MELPCFL2
-$random flavpickup/caster { flavpickup/caster1 flavpickup/caster2 flavpickup/caster3 }
-flavpickup/caster1                  MELPCAS1
-flavpickup/caster2                  MELPCAS2
-flavpickup/caster3                  MELPCAS3
+melflavpickup/Kushiel					MELPGLV
+$random melflavpickup/persephone { melflavpickup/persphone1 melflavpickup/persphone2 melflavpickup/persphone3 melflavpickup/persphone4 }
+melflavpickup/persphone1               MELPBZK1
+melflavpickup/persphone2               MELPBZK2
+melflavpickup/persphone3               MELPBZK3
+melflavpickup/persphone4               MELPBZK4
+melflavpickup/Pistol					MELPPST
+melflavpickup/Deagle                   MELPDEAG
+melflavpickup/zekeshotgun				MELPSHT
+melflavpickup/Crossbow					MELPCBOW
+melflavpickup/Ammobox50				MELPCUZI
+$random melflavpickup/RocketNailgunLauncher {melflavpickup/RocketLauncher1 melflavpickup/RocketLauncher2}
+melflavpickup/RocketLauncher1			MELPCNL
+melflavpickup/RocketLauncher2			MELPCRL
+$random melflavpickup/flamethrower {melflavpickup/Flamethrower1 melflavpickup/Flamethrower2}
+melflavpickup/Flamethrower1			MELPCFL1
+melflavpickup/Flamethrower2			MELPCFL2
+$random melflavpickup/caster { melflavpickup/caster1 melflavpickup/caster2 melflavpickup/caster3 }
+melflavpickup/caster1                  MELPCAS1
+melflavpickup/caster2                  MELPCAS2
+melflavpickup/caster3                  MELPCAS3
 
 //////////////////
 //Mel Caster Lines
@@ -291,17 +291,17 @@ robomel/strongmeleeyell6 relsha6
 //Robo Mel's Pickup Lines
 /////////////////////////
 
-flavpickuprobo/Kushiel					RELPGLV
-flavpickuprobo/Pistol					RELPPST
-flavpickuprobo/zekeshotgun				RELPSHT
-flavpickuprobo/Crossbow					RELPCBOW
-flavpickuprobo/Ammobox50				RELPCUZI
-$random flavpickuprobo/RocketNailgunLauncher {flavpickuprobo/RocketLauncher1 flavpickuprobo/RocketLauncher2}
-flavpickuprobo/RocketLauncher1			RELPCNL
-flavpickuprobo/RocketLauncher2			RELPCRL
-$random flavpickuprobo/Flamethrower {flavpickuprobo/Flamethrower1 flavpickuprobo/Flamethrower2}
-flavpickuprobo/Flamethrower1			RELPCFL1
-flavpickuprobo/Flamethrower2			RELPCFL2
+melflavpickuprobo/Kushiel					RELPGLV
+melflavpickuprobo/Pistol					RELPPST
+melflavpickuprobo/zekeshotgun				RELPSHT
+melflavpickuprobo/Crossbow					RELPCBOW
+melflavpickuprobo/Ammobox50				RELPCUZI
+$random melflavpickuprobo/RocketNailgunLauncher {melflavpickuprobo/RocketLauncher1 melflavpickuprobo/RocketLauncher2}
+melflavpickuprobo/RocketLauncher1			RELPCNL
+melflavpickuprobo/RocketLauncher2			RELPCRL
+$random melflavpickuprobo/Flamethrower {melflavpickuprobo/Flamethrower1 melflavpickuprobo/Flamethrower2}
+melflavpickuprobo/Flamethrower1			RELPCFL1
+melflavpickuprobo/Flamethrower2			RELPCFL2
 
 ///////////////////////
 // Vexler Player Sounds
@@ -388,6 +388,31 @@ vex/strongmeleeyell2 vexsha2
 vex/strongmeleeyell3 vexsha3
 vex/strongmeleeyell4 vexsha4
 
+/////////////////////////
+//Vexler's Pickup Lines
+/////////////////////////
+
+//vexflavpickup/Kushiel					MELPGLV
+//$random vexflavpickup/persephone { vexflavpickup/persphone1 vexflavpickup/persphone2 vexflavpickup/persphone3 vexflavpickup/persphone4 }
+//vexflavpickup/persphone1               MELPBZK1
+//vexflavpickup/persphone2               MELPBZK2
+//vexflavpickup/persphone3               MELPBZK3
+//vexflavpickup/persphone4               MELPBZK4
+//vexflavpickup/Pistol					MELPPST
+//vexflavpickup/Deagle                   MELPDEAG
+//vexflavpickup/zekeshotgun				MELPSHT
+//vexflavpickup/Crossbow					MELPCBOW
+//vexflavpickup/Ammobox50				MELPCUZI
+//$random vexflavpickup/RocketNailgunLauncher {vexflavpickup/RocketLauncher1 vexflavpickup/RocketLauncher2}
+//vexflavpickup/RocketLauncher1			MELPCNL
+//vexflavpickup/RocketLauncher2			MELPCRL
+//$random vexflavpickup/flamethrower {vexflavpickup/Flamethrower1 vexflavpickup/Flamethrower2}
+//vexflavpickup/Flamethrower1			MELPCFL1
+//vexflavpickup/Flamethrower2			MELPCFL2
+//$random vexflavpickup/caster { vexflavpickup/caster1 vexflavpickup/caster2 vexflavpickup/caster3 }
+//vexflavpickup/caster1                  MELPCAS1
+//vexflavpickup/caster2                  MELPCAS2
+//vexflavpickup/caster3                  MELPCAS3
 
 //Universal Melee Sounds
 $random basicmelee/miss { basicmelee/miss1 basicmelee/miss2 basicmelee/miss3 basicmelee/miss4 basicmelee/miss5 }

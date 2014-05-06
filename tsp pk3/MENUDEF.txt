@@ -74,3 +74,38 @@ ListMenu "SkillMenu"
 		centermenu
 	}
 }
+
+ListMenu "PlayerclassMenu"
+{
+	IfGame(Doom, Heretic, Hexen, Strife)
+	{
+		NetgameMessage "$NEWGAME"
+	}
+	IfGame(Chex)
+	{
+		NetgameMessage "$CNEWGAME"
+	}
+
+	IfGame(Doom, Strife, Chex)
+	{
+		StaticTextCentered 160, 15, "$MNU_CHOOSECLASS"
+		Position 48, 63
+		PlayerDisplay 220, 63, "20 00 00", "80 00 40"
+		MouseWindow 0, 220
+		Selector "M_SPSEL", -34, -8
+	}
+	IfGame(Heretic)
+	{
+		StaticTextCentered 160, 15, "$MNU_CHOOSECLASS"
+		Position 80, 50
+		PlayerDisplay 220, 50, "20 00 00", "80 00 40"
+		MouseWindow 0, 220
+	}
+	IfGame(Hexen)
+	{
+		StaticText 34, 24, "$MNU_CHOOSECLASS"
+		Position 66, 58
+		PlayerDisplay 174, 8, "00 07 00", "40 53 40"
+		MouseWindow 0, 174
+	}
+}

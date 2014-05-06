@@ -10,7 +10,7 @@ ACTOR Vexler : DoomPlayer
 	Player.StartItem "StopMelee", 1
 	Player.StartItem "DropCurrentShells", 1
 	Player.StartItem "MeleeButtonActor", 1
-	Player.StartItem "919MPistol"
+	Player.StartItem "Mel919MPistol"
 	Player.StartItem "MelMelee"
 	Player.StartItem "AutoPistolMag", 15
 	Player.StartItem "TSPPistolAmmo", 60
@@ -24,11 +24,11 @@ ACTOR Vexler : DoomPlayer
 	Player.SoundClass "Vexler"
 	Player.DisplayName "Vexler"
 	Player.Portrait "Mel_Port"
-	Player.WeaponSlot 1, MelMelee
-	Player.WeaponSlot 2, 919mPistol
-	Player.WeaponSlot 3, DahliaCrossbow, ZekeShotgun
-	Player.WeaponSlot 4, AmmoBox50, MipFowty
-	Player.WeaponSlot 5, Toolbox
+	Player.WeaponSlot 1, MelCustomCrossbow, MelMelee
+	Player.WeaponSlot 2, Mel919mPistol
+	Player.WeaponSlot 3, MelDahliaCrossbow, MelZekeShotgun, MelZekeShotgunNoPool
+	Player.WeaponSlot 4, MelAmmoBox50, MelMipFowty
+	Player.WeaponSlot 5, MelToolbox
     Species "Player"
 	+THRUSPECIES
 	DamageFactor "Poison", 2.0

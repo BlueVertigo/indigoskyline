@@ -40,7 +40,7 @@ statusbar fullscreen, fullscreenoffsets
             }
         }
     }
-    IsSelected ZekeShotgun
+    IsSelected MelZekeShotgun
     {
 		InInventory BuckshotLoaded
 		{
@@ -102,6 +102,73 @@ statusbar fullscreen, fullscreenoffsets
 					drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -65;
 					drawimage "2SHLE0", -14, -66, centerbottom;
 					drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -74;
+					}
+				}
+			}
+		}		
+	}
+    IsSelected MelZekeShotgunNoPool
+    {
+		InInventory BuckshotLoaded
+		{
+			drawimage "SHLHUD2", -14, -39, centerbottom;
+			drawnumber 3, DBIGFONT, Red, BuckShotShellNoPool, drawshadow, -25, -54;
+			drawimage "1SHLE0", -14, -56, centerbottom;
+			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, drawshadow, -25, -64;
+			drawimage "3SHLE0", -14, -65, centerbottom;
+			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, drawshadow, -25, -73;
+			drawimage "4SHLE0", -14, -74, centerbottom;
+			drawnumber 3, smallfont, Gold, HellFireShellNoPool, drawshadow, -25, -82;
+		}
+		InInventory HellFireLoaded
+		{
+			drawimage "SHLHUD4", -14, -39, centerbottom;
+			drawnumber 3, DBIGFONT, Gold, HellFireShellNoPool, drawshadow, -25, -54;
+			drawimage "1SHLE0", -14, -56, centerbottom;
+			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, drawshadow, -25, -64;		
+			drawimage "3SHLE0", -14, -65, centerbottom;
+			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, drawshadow, -25, -73;
+			drawimage "2SHLE0", -14, -74, centerbottom;
+			drawnumber 3, smallfont, Red, BuckShotShellNoPool, drawshadow, -25, -82;
+		}
+		InInventory PoisonLoaded
+		{
+			drawimage "SHLHUD3", -14, -39, centerbottom;
+			drawnumber 3, DBIGFONT, DarkGreen, PoisonShellNoPool, drawshadow, -25, -54;		
+			drawimage "1SHLE0", -14, -56, centerbottom;
+			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, drawshadow, -25, -64;				
+			drawimage "4SHLE0", -14, -65, centerbottom;
+			drawnumber 3, smallfont, Gold, HellFireShellNoPool, drawshadow, -25, -73;
+			drawimage "2SHLE0", -14, -74, centerbottom;
+			drawnumber 3, smallfont, Red, BuckShotShellNoPool, drawshadow, -25, -82;
+		}
+		InInventory ElectricLoaded
+		{
+			drawimage "SHLHUD1", -14, -39, centerbottom;
+			drawnumber 3, DBIGFONT, LightBlue, ElectricShellNoPool, drawshadow, -25, -54;	
+			drawimage "3SHLE0", -14, -56, centerbottom;
+			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, drawshadow, -25, -64;
+			drawimage "4SHLE0", -14, -65, centerbottom;
+			drawnumber 3, smallfont, Gold, HellFireShellNoPool, drawshadow, -25, -73;
+			drawimage "2SHLE0", -14, -74, centerbottom;
+			drawnumber 3, smallfont, Red, BuckShotShellNoPool, drawshadow, -25, -82;
+		}
+		InInventory not BuckshotLoaded
+		{
+			InInventory not HellFireLoaded
+			{
+				InInventory not PoisonLoaded
+				{
+					InInventory not ElectricLoaded
+					{
+					drawimage "1SHLE0", -14, -39, centerbottom;
+					drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, drawshadow, -25, -47;
+					drawimage "3SHLE0", -14, -48, centerbottom;
+					drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, drawshadow, -25, -56;
+					drawimage "4SHLE0", -14, -57, centerbottom;
+					drawnumber 3, smallfont, Gold, HellFireShellNoPool, drawshadow, -25, -65;
+					drawimage "2SHLE0", -14, -66, centerbottom;
+					drawnumber 3, smallfont, Red, BuckShotShellNoPool, drawshadow, -25, -74;
 					}
 				}
 			}

@@ -65,30 +65,37 @@ ACTOR MeleeButtonActor : CustomInventory
   States
   {
       Use:
-	  TNT1 A 0 A_JumpIfInventory("MeleeSelected",1,"MeleeSwitch")
+	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelMeleeButton")
+	  Fail
+	  MelMeleeButton:
+	  TNT1 A 0 A_JumpIfInventory("MeleeSelected",1,"MelMeleeSwitch")
 	  TNT1 A 0 A_SelectWeapon("MelMelee")
 	  Fail
-	  MeleeSwitch:
-	  TNT1 A 0 A_JumpIfInventory("919Selected",1,"919Switch")
-	  TNT1 A 0 A_JumpIfInventory("ZekeSelected",1,"ZekeSwitch")
-	  TNT1 A 0 A_JumpIfInventory("DahliaSelected",1,"DahliaSwitch")
-	  TNT1 A 0 A_JumpIfInventory("AmmoBoxSelected",1,"AmmoBoxSwitch")
-	  TNT1 A 0 A_JumpIfInventory("ToolBoxSelected",1,"ToolBoxSwitch")
-	  Goto 919Switch
-	  919Switch:
-	  TNT1 A 0 A_SelectWeapon("919mPistol")
+	  MelMeleeSwitch:
+	  TNT1 A 0 A_JumpIfInventory("919Selected",1,"Mel919Switch")
+	  TNT1 A 0 A_JumpIfInventory("ZekeSelected",1,"MelZekeSwitch")
+	  TNT1 A 0 A_JumpIfInventory("DahliaSelected",1,"MelDahliaSwitch")
+	  TNT1 A 0 A_JumpIfInventory("AmmoBoxSelected",1,"MelAmmoBoxSwitch")
+	  TNT1 A 0 A_JumpIfInventory("ToolBoxSelected",1,"MelToolBoxSwitch")
+	  Goto Mel919Switch
+	  Mel919Switch:
+	  TNT1 A 0 A_SelectWeapon("Mel919mPistol")
 	  Fail
-	  ZekeSwitch:
-	  TNT1 A 0 A_SelectWeapon("ZekeShotgun")
+	  MelZekeSwitch:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"MelZekeNoPoolSwitch")
+	  TNT1 A 0 A_SelectWeapon("MelZekeShotgun")
 	  Fail
-	  DahliaSwitch:
-	  TNT1 A 0 A_SelectWeapon("DahliaCrossbow")
+	  MelZekeNoPoolSwitch:
+	  TNT1 A 0 A_SelectWeapon("MelZekeShotgunNoPool")
 	  Fail
-	  AmmoBoxSwitch:
-	  TNT1 A 0 A_SelectWeapon("AmmoBox50")
+	  MelDahliaSwitch:
+	  TNT1 A 0 A_SelectWeapon("MelDahliaCrossbow")
 	  Fail
-	  ToolBoxSwitch:
-	  TNT1 A 0 A_SelectWeapon("Toolbox")
+	  MelAmmoBoxSwitch:
+	  TNT1 A 0 A_SelectWeapon("MelAmmoBox50")
+	  Fail
+	  MelToolBoxSwitch:
+	  TNT1 A 0 A_SelectWeapon("MelToolbox")
 	  Fail
   }
 }
@@ -112,6 +119,7 @@ ACTOR MeleeButtonActor : CustomInventory
 #include "Actors/Weapons/DEC_WEP1.txt" // Slot 1 Weapons (Mel Melee)
 #include "Actors/Weapons/DEC_WEP2.txt" // Slot 2 Weapons (919m)
 #include "Actors/Weapons/DEC_WEP3.txt" // Slot 3 Weapons (Zeke)
+#include "Actors/Weapons/DEC_WEP3NP.txt" // Slot 3 Weapons (Zeke Shotgun, No Shell Pool Version)
 #include "Actors/Weapons/DEC_WEP3b.txt"// Slot 3 Weapons, continued (Dahlia, Leviathan)
 #include "Actors/Weapons/DEC_WEP4.txt" // Slot 4 Weapons (Ammobox 50)
 #include "Actors/Weapons/DEC_WEP5.txt" // Slot 5 Weapons

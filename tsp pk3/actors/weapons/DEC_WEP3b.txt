@@ -7,7 +7,7 @@
 // Arrow Voxels by Voxelbro
 //
 //===========================================================================
-ACTOR DahliaCrossbow : Weapon
+ACTOR MelDahliaCrossbow : Weapon
 {
 	Weapon.Kickback 450
 	Weapon.AmmoType	"DahliaNormalAmmo"
@@ -332,8 +332,18 @@ ACTOR CrossbowPickup : CustomInventory
       DCBP A -1
 	  Stop
 	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("DahliaCrossbow", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("DahliaCrossbow", 1)
+	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+	  Fail
+	VexlerPickup:
+	  TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
+	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaJustPickedUp", 1)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
+	  Stop
+	MelPickup:
+	  TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
+	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
 	  TNT1 A 0 A_GiveInventory("DahliaJustPickedUp", 1)
 	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
 	  Stop
@@ -364,8 +374,20 @@ ACTOR CrossbowSSGPickup : CustomInventory Replaces SuperShotgun
       DCBP A -1
 	  Stop
 	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("DahliaCrossbow", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("DahliaCrossbow", 1)
+	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+	  Fail
+	VexlerPickup:
+	  TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
+	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaJustPickedUp", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo", 5)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
+	  Stop
+	MelPickup:
+	  TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
+	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
+	  TNT1 A 0 A_GiveInventory("DahliaJustPickedUp", 1)
 	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo", 5)
 	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
 	  Stop
@@ -2418,7 +2440,7 @@ ACTOR MysteryBolt
    }
 }
 
-ACTOR CustomCrossbow : Weapon
+ACTOR MelCustomCrossbow : Weapon
 {
 	Weapon.Kickback 450
 	Weapon.AmmoType	"DahliaNormalAmmo2"
