@@ -468,8 +468,8 @@ ACTOR TSPRevenant Replaces Revenant
 	TNT1 A 0 A_FaceTarget
     TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
   Pain.Melee:
-    SKEL I 5
-    SKEL I 7 A_Pain
+    SKEL L 5
+    SKEL L 7 A_Pain
     Goto See
   Death:
     SKEL LM 7
