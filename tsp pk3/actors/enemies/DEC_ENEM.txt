@@ -48,6 +48,11 @@ ACTOR TSPCaco replaces Cacodemon
     HEAD E 3 A_Pain
     HEAD F 7
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     HEAD G 8
     HEAD H 8 A_Scream
@@ -112,6 +117,11 @@ ACTOR TSPBaron replaces BaronOfHell
     BOSS H 5
     BOSS H 3 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     BOSS I 8
     BOSS J 8 A_Scream
@@ -170,6 +180,11 @@ ACTOR TSPKnight : TSPBaron replaces HellKnight
     BOS2 H 5
     BOS2 H 5 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     BOS2 I 8
     BOS2 J 8 A_Scream
@@ -228,6 +243,11 @@ ACTOR TSPDemon Replaces Demon
     SARG H 5
     SARG H 5 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     SARG I 8
     SARG J 8 A_Scream
@@ -281,6 +301,11 @@ ACTOR TSPSpectre : TSPDemon Replaces Spectre
     SARG H 5
     SARG H 5 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     SARG I 8
     SARG J 8 A_Scream
@@ -346,6 +371,11 @@ ACTOR TSPFatso Replaces Fatso
     FATT J 5
     FATT J 5 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     FATT K 6
     FATT L 6 A_Scream
@@ -404,6 +434,11 @@ ACTOR TSPPainElemental Replaces PainElemental
     PAIN G 5
     PAIN G 10 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     PAIN H 8 Bright
     PAIN I 8 Bright A_Scream
@@ -471,6 +506,11 @@ ACTOR TSPRevenant Replaces Revenant
     SKEL L 5
     SKEL L 7 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     SKEL LM 7
     SKEL N 7 A_Scream
@@ -537,6 +577,11 @@ ACTOR TSPArachnotron Replaces Arachnotron
     BSPI I 5
     BSPI I 5 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     BSPI J 20 A_Scream
     BSPI K 7 A_NoBlocking
@@ -604,6 +649,11 @@ ACTOR TSPArchvile //Replaces Archvile
     VILE Q 10
     VILE Q 5 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     VILE Q 7
     VILE R 7 A_Scream
@@ -799,6 +849,11 @@ ACTOR TSPWolfensteinSS replaces WolfensteinSS
     SSWV H 6
     SSWV H 6 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     SSWV I 5
     SSWV J 5 A_Scream

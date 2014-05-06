@@ -58,6 +58,11 @@ ACTOR TSPSuperArchvile Replaces Archvile
 	VILE Q 10
     VILE Q 5 A_Pain
     Goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
   Death:
     TNT1 A 0 A_ChangeFlag("NODAMAGE",0)
 	TNT1 A 0 A_KillChildren
