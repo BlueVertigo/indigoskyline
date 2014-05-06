@@ -920,6 +920,11 @@ SOULEXP1    SOULEXP1
 SOULEXP2    SOULEXP2
 SOULEXP3    SOULEXP3
 
+rictus/sight		RICTSEE
+rictus/death		RICTDIE
+rictus/active		FIRE09
+rictus/pain		RICTPAIN
+
 //Armor Pickups
 
 armor/lightarmor         larmpck1

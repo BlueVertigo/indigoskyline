@@ -9,7 +9,7 @@
 //Frame HMZPF { Light HazmatZombieAttack }
 //}
 
-
+//Shotgun 
 pointlight ShockShellArcLight
 {
     color 0.1 0.1 0.2
@@ -42,4 +42,98 @@ pointlight TinyFireShellLight
     color 0.3 0.1 0
     size 10
     dontlightself 1
+}
+//Rictus
+Flickerlight2 RictusFire
+{
+Color 1.0 0.8 0.0
+Size 20
+SecondarySize 25
+Interval 1
+Offset 0 0 0
+}
+
+Pointlight RictusFire2
+{
+Color 0.7 0.5 0.0
+Size 20
+}
+
+Pointlight RictusFire3
+{
+Color 0.5 0.3 0.0
+Size 15
+}
+
+Pointlight RictusFire4
+{
+Color 0.3 0.1 0.0
+Size 10
+}
+
+Object RictusFire
+{
+Frame CFCFA { Light RictusFire }
+Frame CFCFB { Light RictusFire }
+Frame CFCFC { Light RictusFire }
+Frame CFCFD { Light RictusFire }
+Frame CFCFE { Light RictusFire }
+Frame CFCFF { Light RictusFire }
+Frame CFCFG { Light RictusFire }
+Frame CFCFH { Light RictusFire }
+Frame CFCFI { Light RictusFire }
+Frame CFCFJ { Light RictusFire }
+Frame CFCFK { Light RictusFire }
+Frame CFCFL { Light RictusFire }
+Frame CFCFM { Light RictusFire }
+Frame CFCFN { Light RictusFire2 }
+Frame CFCFO { Light RictusFire3 }
+Frame CFCFP { Light RictusFire4 }
+}
+
+Flickerlight2 MiniRictusFire
+{
+Color 1.0 0.8 0.0
+Size 15
+SecondarySize 20
+Interval 1
+Offset 0 0 0
+}
+
+Pointlight MiniRictusFire2
+{
+Color 0.7 0.5 0.0
+Size 15
+}
+
+Pointlight MiniRictusFire3
+{
+Color 0.5 0.3 0.0
+Size 10
+}
+
+Pointlight MiniRictusFire4
+{
+Color 0.3 0.1 0.0
+Size 5
+}
+
+Object MiniRictusFire
+{
+Frame CFCFA { Light RictusFire }
+Frame CFCFB { Light RictusFire }
+Frame CFCFC { Light RictusFire }
+Frame CFCFD { Light RictusFire }
+Frame CFCFE { Light RictusFire }
+Frame CFCFF { Light RictusFire }
+Frame CFCFG { Light RictusFire }
+Frame CFCFH { Light RictusFire }
+Frame CFCFI { Light RictusFire }
+Frame CFCFJ { Light RictusFire }
+Frame CFCFK { Light RictusFire }
+Frame CFCFL { Light RictusFire }
+Frame CFCFM { Light RictusFire }
+Frame CFCFN { Light RictusFire2 }
+Frame CFCFO { Light RictusFire3 }
+Frame CFCFP { Light RictusFire4 }
 }

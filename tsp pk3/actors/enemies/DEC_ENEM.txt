@@ -391,7 +391,7 @@ ACTOR TSPPainElemental Replaces PainElemental
 	PAIN D 5 A_FaceTarget
     PAIN E 5 A_FaceTarget
     PAIN F 4 Bright A_FaceTarget
-    PAIN F 1 Bright A_PainAttack
+    PAIN F 1 Bright A_PainAttack("TSPRictus")
     Goto See
   Pain:
     PAIN G 6
@@ -408,7 +408,7 @@ ACTOR TSPPainElemental Replaces PainElemental
     PAIN H 8 Bright
     PAIN I 8 Bright A_Scream
     PAIN JK 8 Bright
-    PAIN L 8 Bright A_PainDie
+    PAIN L 8 Bright A_PainDie("TSPRictus")
     PAIN M 8 Bright
     Stop
   Raise:
@@ -550,7 +550,7 @@ ACTOR TSPArachnotron Replaces Arachnotron
   }
 }
 
-ACTOR TSPArchvile Replaces Archvile
+ACTOR TSPArchvile //Replaces Archvile
 {
   PainChance "GasShellDamage", 0
   DamageFactor "GasShellDamage", 0.52

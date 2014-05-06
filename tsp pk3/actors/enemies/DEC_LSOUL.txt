@@ -230,6 +230,7 @@ Actor LostSoulV3
   Pain.Sling:
 	TNT1 A 0 A_FaceTarget
     TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	Goto Pain
   Pain:
     3FOR E 3 Bright
     3FOR E 3 Bright A_Pain
@@ -251,5 +252,266 @@ Actor LostSoulV3
     3FOR I 6 Bright A_NoBlocking
     3FOR J 6
     Stop
+  }
+}
+
+//Rictus, a new monster by Captain Toenail//
+
+
+actor TSPRictus
+{
+  obituary "%o was charred by a rictus."
+  health 50
+  radius 16
+  height 56
+  mass 50
+  speed 3
+  Damage 3
+  painchance 128
+  Painchance "Melee", 230
+  PainChance "Sling", 255
+  seesound "rictus/sight"
+  deathsound "rictus/death"
+  activesound "rictus/active"
+  painsound "rictus/pain"
+  DamageFactor "GasShellDamage", 0 //because skeleton
+  MONSTER
+  //+SEEINVISIBLE
+  +FLOAT
+  +NOGRAVITY
+  +NOICEDEATH
+  +NOBLOOD
+  +DONTFALL
+  //+FIRERESIST
+  //+DONTHURTSPECIES
+  states
+  {
+  Spawn:
+    RICT A 1 A_Look
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT A 0 A_LoopActiveSound
+    loop
+  See:
+    RICT A 1 A_Chase
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT A 0 A_LoopActiveSound
+    loop
+  Missile:
+    RICT A 1 A_FaceTarget
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT A 1
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT A 1
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT A 1
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1 A_FaceTarget
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    Goto Missile2
+  Missile2:
+    RICT A 0 A_LoopActiveSound
+    RICT A 1 A_SkullAttack(14)
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT A 1
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT A 1
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT A 1
+    RICT AAAAA 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1 //A_SkullAttack(14)
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+
+
+
+    Goto Missile2
+  Missile2FDSFEWFESF:
+    HEAD BC 4 Bright A_FaceTarget
+    HEAD D 4 Bright A_SkullAttack(14)
+	HEAD G 0 A_PlaySound ("smcaco/sight",CHAN_AUTO,3)
+    HEAD CDCD 4 Bright
+    Goto Missile2+2
+
+  Pain.Sling:
+	TNT1 A 0 A_FaceTarget
+    TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	Goto Pain
+  Pain:
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1 A_Pain
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    RICT B 1
+    RICT BBBBB 0 A_SpawnItemEx("RictusFire",frandom(-5,-3),frandom(2,-2),frandom(2,-2),frandom(-2,-1),frandom(2,-2),frandom(1,3),frandom(-30,30),SXF_NOCHECKPOSITION)
+    goto See
+  Death.Uppercut:
+	TNT1 A 0 A_FaceTarget
+	TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	TNT1 A 0 Thrustthingz(0,27,0,1)
+	Goto Death
+  Death:
+    DRFX G 1 A_ScreamAndUnblock
+	SHAP AAAAAAA 0 A_SpawnItemEx("RictusFire2",0,0,0,cos(-pitch+Random(-90,90))*3,0,sin(-pitch+Random(-90,90))*3,Random(-180,180),SXF_NOCHECKPOSITION)
+
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,cos(-pitch+Random(-15,15))*3,0,sin(-pitch+Random(-15,15))*3,45+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,cos(-pitch+Random(-15,15)+22.5)*3,0,sin(-pitch+Random(-15,15)+22.5)*3,22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,cos(-pitch+Random(-15,15)+45)*3,0,sin(-pitch+Random(-15,15)+45)*3,0+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,cos(-pitch+Random(-15,15)+22.5)*3,0,sin(-pitch+Random(-15,15)+22.5)*3,-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,cos(-pitch+Random(-15,15))*3,0,sin(-pitch+Random(-15,15))*3,-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,cos(-pitch+Random(-15,15)-22.5)*3,0,sin(-pitch+Random(-15,15)-22.5)*3,-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,cos(-pitch+Random(-15,15)-45)*3,0,sin(-pitch+Random(-15,15)-45)*3,0+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,cos(-pitch+Random(-15,15)-22.5)*3,0,sin(-pitch+Random(-15,15)-22.5)*3,22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15))*3),0,-(sin(-pitch+Random(-15,15))*3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*3),0,-(sin(-pitch+Random(-15,15)+22.5)*3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15)+45)*3),0,-(sin(-pitch+Random(-15,15)+45)*3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*3),0,-(sin(-pitch+Random(-15,15)+22.5)*3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15))*3),0,-(sin(-pitch+Random(-15,15))*3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*3),0,-(sin(-pitch+Random(-15,15)-22.5)*3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15)-45)*3),0,-(sin(-pitch+Random(-15,15)-45)*3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*3),0,-(sin(-pitch+Random(-15,15)-22.5)*3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15)-90)*3),0,-(sin(-pitch+Random(-15,15)-90)*3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15)+90)*3),0,-(sin(-pitch+Random(-15,15)+90)*3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15))*3),0,-(sin(-pitch+Random(-15,15))*3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15))*3),0,-(sin(-pitch+Random(-15,15))*3),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15))*3),0,-(sin(-pitch+Random(-15,15))*3),90+Random(-15,15),SXF_NOCHECKPOSITION)
+	SHAP A 0 A_SpawnItemEx("ShrapnelScatter3",0,0,0,-(cos(-pitch+Random(-15,15))*3),0,-(sin(-pitch+Random(-15,15))*3),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+	
+    DRFX H 1
+	SHAP AAAAAAA 0 A_SpawnItemEx("RictusFire2",0,0,0,cos(-pitch+Random(-90,90))*3,0,sin(-pitch+Random(-90,90))*3,Random(-180,180),SXF_NOCHECKPOSITION)
+	
+    DRFX I 1
+	SHAP AAAAAAA 0 A_SpawnItemEx("RictusFire2",0,0,0,cos(-pitch+Random(-90,90))*3,0,sin(-pitch+Random(-90,90))*3,Random(-180,180),SXF_NOCHECKPOSITION)
+	
+	DRFX J 1
+	SHAP AAAAAA 0 A_SpawnItemEx("RictusFire2",0,0,0,cos(-pitch+Random(-90,90))*3,0,sin(-pitch+Random(-90,90))*3,Random(-180,180),SXF_NOCHECKPOSITION)
+	
+	DRFX K 1
+	SHAP AAAAAA 0 A_SpawnItemEx("RictusFire2",0,0,0,cos(-pitch+Random(-90,90))*3,0,sin(-pitch+Random(-90,90))*3,Random(-180,180),SXF_NOCHECKPOSITION)
+	
+	DRFX L 1
+	SHAP AAAA 0 A_SpawnItemEx("RictusFire2",0,0,0,cos(-pitch+Random(-90,90))*3,0,sin(-pitch+Random(-90,90))*3,Random(-180,180),SXF_NOCHECKPOSITION)
+	
+    stop
+  }
+}
+
+actor RictusFire
+{
+  Radius 2
+  Height 2
+  Renderstyle Add
+  +NOBLOCKMAP
+  +THRUACTORS
+  +NOINTERACTION
+  +NOGRAVITY
+  //+MISSILE
+  +BRIGHT
+  +NOTELEPORT
+  +DONTSPLASH
+  States
+  {
+  Spawn:
+    TNT1 A 0
+	TNT1 A 0
+	TNT1 A 0
+	TNT1 A 0
+	TNT1 A 0 A_ScaleVelocity(0.8)
+	TNT1 A 0 A_Jump(255,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5","Spawn6","Spawn7","Spawn8","Spawn9","SpawnA")
+  Spawn1:
+    TNT1 A 0 A_SetScale(0.9)
+	Goto SpawnA
+  Spawn2:
+    TNT1 A 0 A_SetScale(0.8)
+	Goto SpawnA
+  Spawn3:
+    TNT1 A 0 A_SetScale(0.7)
+	Goto SpawnA
+  Spawn4:
+    TNT1 A 0 A_SetScale(0.6)
+	Goto SpawnA
+  Spawn5:
+    TNT1 A 0 A_SetScale(0.5)
+	Goto SpawnA
+  Spawn6:
+    TNT1 A 0 A_SetScale(0.4)
+	Goto SpawnA
+  Spawn7:
+    TNT1 A 0 A_SetScale(0.3)
+	Goto SpawnA
+  Spawn8:
+    TNT1 A 0 A_SetScale(0.2)
+	Goto SpawnA
+  Spawn9:
+    TNT1 A 0 A_SetScale(0.1)
+	Goto SpawnA
+  SpawnA:
+    CFCF ABCDEFG 1
+    Goto SpawnB
+  SpawnB:
+    CFCF HIJKLMNOPABCDEFG 1 A_Fadeout(0.1)
+    Loop
+  }
+}
+
+actor RictusFire2
+{
+  Radius 2
+  Height 2
+  Renderstyle Add
+  +NOBLOCKMAP
+  +THRUACTORS
+  +NOINTERACTION
+  +NOGRAVITY
+  //+MISSILE
+  +BRIGHT
+  +NOTELEPORT
+  +DONTSPLASH
+  States
+  {
+  Spawn:
+    TNT1 A 0
+	TNT1 A 0
+	TNT1 A 0
+	TNT1 A 0
+	TNT1 A 0 A_ScaleVelocity(0.8)
+	TNT1 A 0 A_Jump(255,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5")
+  Spawn1:
+    TNT1 A 0 A_SetScale(0.2)
+	Goto SpawnA
+  Spawn2:
+    TNT1 A 0 A_SetScale(0.3)
+	Goto SpawnA
+  Spawn3:
+    TNT1 A 0 A_SetScale(0.4)
+	Goto SpawnA
+  Spawn4:
+    TNT1 A 0 A_SetScale(0.5)
+	Goto SpawnA
+  Spawn5:
+    TNT1 A 0 A_SetScale(0.6)
+	Goto SpawnA
+  SpawnA:
+    CFCF ABCDEF 1
+    Goto SpawnB
+  SpawnB:
+    CFCF GHIJKLMNOPABCDEF 1 A_Fadeout(0.1)
+    Loop
   }
 }
