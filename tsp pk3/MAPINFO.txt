@@ -51,6 +51,17 @@ skill TSPnormal
 	DefaultSkill
 }
 
+skill TSPGitGud
+{
+	SpawnFilter = Hard
+	PicName = "SP_SEMI"
+	Name = "GitGud"
+	Key = "u"
+	ReplaceActor = "ZombieMan","MKZombieSpawnerGG"
+	ReplaceActor = "ShotgunGuy","MKShotgunguySpawnerGG"
+	ReplaceActor = "Chaingunguy","MKChaingunguySpawnerGG"
+}
+
 skill TSPhard
 {
 	SpawnFilter = Hard

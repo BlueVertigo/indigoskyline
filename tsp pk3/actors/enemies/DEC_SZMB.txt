@@ -97,3 +97,26 @@ ACTOR ShotgunGuyVanilla //: ShotgunGuy
       Goto See	  
    } 
 } 
+
+//GG Replacements
+
+ACTOR MKShotgunguySpawnerGG : RandomSpawner
+{
+	DropItem "ShotgunGuyVanillaGG", 255,100
+	//DropItem "AmmoboxZombie1GG", 255, 10
+	//DropItem "AmmoboxZombie2GG", 255, 10
+}
+
+
+ACTOR ShotgunGuyVanillaGG : ShotgunGuyVanilla
+{
+	States
+	{
+	Missile: 
+      SPOS E 0 A_Jump(220,"See")
+	  SPOS E 10 A_FaceTarget 
+      SPOS F 10 Bright A_CustomBulletAttack(10,2,9,1)
+      SPOS E 10 A_PlaySound("zekeshotgun/pump")
+      Goto See
+   } 
+} 

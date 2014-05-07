@@ -327,3 +327,80 @@ ACTOR ChaingunnerV3 : SPChaingunner
       Goto See
 	 }
 }
+
+//GITGUD replacements
+
+ACTOR MKChaingunguySpawnerGG : RandomSpawner
+{
+	DropItem "ChaingunnerVanillaGG", 255,100
+	DropItem "ChaingunnerV1GG", 255, 100
+	DropItem "ChaingunnerV2GG", 255, 100
+//	DropItem "ChaingunnerV3GG", 255, 100
+//	DropItem "AmmoboxZombie1GG", 255, 100
+//	DropItem "AmmoboxZombie2GG", 255, 100
+}
+
+ACTOR SPChaingunnerGG : SPChaingunner
+{
+	States
+	{
+    Missile:
+      TNT1 A 0 A_Jump(200,"See")
+	  CPOS E 10 A_FaceTarget
+      CPOS FE 4 Bright A_CPosAttack
+      CPOS F 1 A_CPosRefire
+      Goto Missile+2
+	} 
+} 
+
+ACTOR ChaingunnerVanillaGG : SPChaingunner
+{
+	States
+	{
+	Missile:
+	  TNT1 A 0 A_Jump(200,"See")
+	  CPOS U 0 A_PlaySound("czombie/attack", 2)
+	  CPOS U 0 A_PlaySound("orionen/start", 6)
+	  CPOS U 15 A_FaceTarget
+	  Goto Rapidfire
+	 }
+}
+
+ACTOR ChaingunnerV1GG : SPChaingunner
+{
+	States
+	{
+	Missile:
+	  TNT1 A 0 A_Jump(200,"See")
+	  CZV1 U 0 A_PlaySound("czombie/attack", 2)
+	  CZV1 U 0 A_PlaySound("orionen/start", 6)
+	  CZV1 U 15 A_FaceTarget
+	  Goto RapidFire
+	 }
+}
+
+ACTOR ChaingunnerV2GG : SPChaingunner
+{
+	States
+	{
+	Missile:
+	  TNT1 A 0 A_Jump(200,"See")
+	  CZV2 U 0 A_PlaySound("czombie/attack", 2)
+	  CZV2 U 0 A_PlaySound("orionen/start", 6)
+	  CZV2 U 15 A_FaceTarget
+	  Goto RapidFire
+	 }
+}
+
+ACTOR ChaingunnerV3GG : ChaingunnerV3
+{
+	States
+	{
+	Missile:
+	  TNT1 A 0 A_Jump(200,"See")
+	  CZV2 U 0 A_PlaySound("czombie/attack", 2)
+	  CZV2 U 0 A_PlaySound("orionen/start", 6)
+	  CZV2 U 15 A_FaceTarget
+	  Goto RapidFire
+	 }
+}
