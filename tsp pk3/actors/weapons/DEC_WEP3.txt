@@ -2496,6 +2496,7 @@ ACTOR Poisonbagcheckitem : Inventory
 
 ACTOR GasCloud : PoisonCloud
 {
+  +NOTELEPORT  
   +BRIGHT
   -BLOCKEDBYSOLIDACTORS
   RenderStyle "Add"
