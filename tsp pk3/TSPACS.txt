@@ -393,3 +393,43 @@ script "GetShellPoolCVAR" (void)
 {
    SetResultValue(GetCVar("tsp_shellpool"));
 }
+
+script "TSPZekeMessage" (int which, int a1, int a2)
+{
+    int result;
+	
+	switch (which)
+    {
+	  case 1:
+        hudmessage (s:"[Altfire Again To Cycle Through Ammo Types]";HUDMSG_PLAIN,2,CR_GREEN,1.5,0.375,1.0);
+        Terminate;
+      case 2:
+        hudmessage (s:"[No Alternate Shell Ammo]";HUDMSG_PLAIN,2,CR_GREEN,1.5,0.375,0.42857);
+        Terminate;
+      case 3:
+        hudmessage (s:"[Current Ammo Depleted, Switching To Buckshot]";HUDMSG_PLAIN,2,CR_RED,1.5,0.375,1.5);
+        Terminate;
+      case 4:
+        hudmessage (s:"[Current Ammo Depleted, Switching To Shock Shells]";HUDMSG_PLAIN,2,CR_LIGHTBLUE,1.5,0.375,1.5);
+        Terminate;
+      case 5:
+        hudmessage (s:"[Current Ammo Depleted, Switching To HellFire Shells]";HUDMSG_PLAIN,2,CR_GOLD,1.5,0.375,1.5);
+        Terminate;
+      case 6:
+        hudmessage (s:"[Current Ammo Depleted, Switching To Poison Shells]";HUDMSG_PLAIN,2,CR_DARKGREEN,1.5,0.375,1.5);
+        Terminate;
+      case 7:
+        hudmessage (s:"[Buckshot Shells Selected]";HUDMSG_PLAIN,2,CR_RED,1.5,0.375,0.7142857143);
+        Terminate;
+      case 8:
+        hudmessage (s:"[Shock Shells Selected]";HUDMSG_PLAIN,2,CR_LIGHTBLUE,1.5,0.375,0.7142857143);
+        Terminate;
+      case 9:
+        hudmessage (s:"[HellFire Shells Selected]";HUDMSG_PLAIN,2,CR_GOLD,1.5,0.375,0.7142857143);
+        Terminate;
+      case 10:
+        hudmessage (s:"[Poison Shells Selected]";HUDMSG_PLAIN,2,CR_DARKGREEN,1.5,0.375,0.7142857143);
+        Terminate;
+    }
+    SetResultValue(result);
+}

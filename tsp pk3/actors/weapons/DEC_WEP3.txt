@@ -77,7 +77,6 @@ ACTOR MelZekeShotgun : Weapon
 	  Stop
 	Fire:
       TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
-	  TNT1 A 0 A_Print(" ")
 	  STGG A 0 A_JumpIfInventory("ShotgunLoading", 1, "MidReloadFire")
 	  STGG A 0 A_JumpIfNoAmmo("Empty")
       STGG A 0 A_JumpIfInventory("ShotgunNeedsPump", 1, "FastPump")
@@ -168,9 +167,8 @@ ACTOR MelZekeShotgun : Weapon
 	AltFire:
 	  TNT1 A 0 A_JumpIfInventory("AltFirePressed", 1, "AltFire2")
 	  TNT1 A 0 A_GiveInventory("AltFirePressed", 1)
-	  TNT1 A 0 A_Print("[Altfire Again To Cycle Through Ammo Types]")
+	  TNT1 A 0 ACS_NamedExecuteAlways("TSPZekeMessage",0,1) //"[Altfire Again To Cycle Through Ammo Types]"
 	  STGG A 35 A_WeaponReady(WRF_NOBOB)
-	  TNT1 A 0 A_Print(" ")
 	  TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
 	  Goto Ready
 	AltFire2:
@@ -204,7 +202,7 @@ ACTOR MelZekeShotgun : Weapon
 	  TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "AltFireHellFireSelect")
 	  Goto SwitchFail
 	SwitchFail:
-	  STGG A 15 A_Print("[No Alternate Shell Ammo]")
+	  STGG A 15 ACS_NamedExecuteAlways("TSPZekeMessage",0,2) //"[No Alternate Shell Ammo]"
 	  TNT1 A 0 A_TakeInventory("AltFirePressed", 1)
 	  Goto Ready 
 	AltFireBuckshotSelect:
@@ -553,14 +551,25 @@ ACTOR MelZekeShotgun : Weapon
 	  TNT1 A 0 A_JumpIfInventory("ShotgunMag",1,"Ready")
 	  Goto ReloadOutOfCurrentAmmo
 	ReloadOutOfCurrentAmmo:
-	  TNT1 A 0 A_Print("[Current Ammo Depleted, Switching To Alternate Ammo]")
-	  TNT1 A 0 A_JumpIfInventory("BuckshotShell", 1, "ReloadBuckshotStart")
-	  TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "ReloadHellFireStart")
-	  TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "ReloadElectricStart")
-	  TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "ReloadPoisonStart")
+	  TNT1 A 0 A_JumpIfInventory("BuckshotShell", 1, "ReloadBuckshotStartOutOfCurrentAmmo")
+	  TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "ReloadElectricStartOutOfCurrentAmmo")
+	  TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "ReloadHellFireStartOutOfCurrentAmmo")
+	  TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "ReloadPoisonStartOutOfCurrentAmmo")
 	  TNT1 A 0 A_JumpIfInventory("ShotgunMag",1,"Ready")
-	  TNT1 A 0 A_JumpIfInventory("TSPShells", 1, "ReloadBuckshotStart")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 1, "ReloadBuckshotStartOutOfCurrentAmmo")
 	  Goto Ready
+	ReloadBuckshotStartOutOfCurrentAmmo:
+	  TNT1 A 0 ACS_NamedExecuteAlways("TSPZekeMessage",0,3)
+	  Goto ReloadBuckshotStart
+	ReloadElectricStartOutOfCurrentAmmo:
+	  TNT1 A 0 ACS_NamedExecuteAlways("TSPZekeMessage",0,4)
+	  Goto ReloadElectricStart
+	ReloadHellFireStartOutOfCurrentAmmo:
+	  TNT1 A 0 ACS_NamedExecuteAlways("TSPZekeMessage",0,5)
+	  Goto ReloadHellFireStart
+	ReloadPoisonStartOutOfCurrentAmmo:
+	  TNT1 A 0 ACS_NamedExecuteAlways("TSPZekeMessage",0,6)
+	  Goto ReloadPoisonStart
 	ReloadStart:
 	  TNT1 A 0 A_JumpIfInventory("BuckshotShellSelected", 1, "ReloadBuckshotStart")
 	  TNT1 A 0 A_JumpIfInventory("ElectricShellSelected", 1, "ReloadElectricStart")
@@ -782,16 +791,16 @@ ACTOR MelZekeShotgun : Weapon
 	  TNT1 A 0 A_JumpIfInventory("PoisonShellSelected", 1, "AltFlashPoison")
 	  Stop
 	AltFlashBuckshot:
-	  TNT1 A 25 A_Print("[Buckshot Shells Selected]")
+	  TNT1 A 25 ACS_NamedExecuteAlways("TSPZekeMessage",0,7) //"[Buckshot Shells Selected]"
 	  Stop
 	AltFlashElectric:
-	  TNT1 A 25 A_Print("[Shock Shells Selected]")
+	  TNT1 A 25 ACS_NamedExecuteAlways("TSPZekeMessage",0,8) //"[Shock Shells Selected]"
 	  Stop
 	AltFlashHellFire:
-	  TNT1 A 25 A_Print("[HellFire Shells Selected]")
+	  TNT1 A 25 ACS_NamedExecuteAlways("TSPZekeMessage",0,9) //"[HellFire Shells Selected]"
 	  Stop
 	AltFlashPoison:
-	  TNT1 A 25 A_Print("[Poison Shells Selected]")
+	  TNT1 A 25 ACS_NamedExecuteAlways("TSPZekeMessage",0,10) //"[Poison Shells Selected]"
 	  Stop
 	SPMelee:
 	  STGG A 1
@@ -2496,7 +2505,6 @@ ACTOR Poisonbagcheckitem : Inventory
 
 ACTOR GasCloud : PoisonCloud
 {
-  +NOTELEPORT  
   +BRIGHT
   -BLOCKEDBYSOLIDACTORS
   RenderStyle "Add"
