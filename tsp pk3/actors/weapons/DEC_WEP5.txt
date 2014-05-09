@@ -248,6 +248,7 @@ ACTOR ToolboxRocketBox : ToolboxAmmo replaces RocketBox
   Inventory.PickupMessage "Picked up a crate of Toolbox Rockets. [+5 Toolbox Ammo]"
   Inventory.PickupSound "toolbox/ammo2"
   Inventory.Amount 5
+  scale 1.0
   States
   {
   Spawn:
