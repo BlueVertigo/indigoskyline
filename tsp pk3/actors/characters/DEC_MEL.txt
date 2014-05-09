@@ -27,6 +27,7 @@ ACTOR SpacePirate : DoomPlayer
 	Player.WeaponSlot 3, MelDahliaCrossbow, MelZekeShotgun, MelZekeShotgunNoPool
 	Player.WeaponSlot 4, MelAmmoBox50, MelMipFowty
 	Player.WeaponSlot 5, MelToolbox
+	Player.WeaponSlot 6, MelTestWeapon
     Species "Player"
 	+THRUSPECIES
 	DamageFactor "Poison", 2.0

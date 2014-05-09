@@ -123,6 +123,7 @@ ACTOR MeleeButtonActor : CustomInventory
 #include "Actors/Weapons/DEC_WEP3b.txt"// Slot 3 Weapons, continued (Dahlia, Leviathan)
 #include "Actors/Weapons/DEC_WEP4.txt" // Slot 4 Weapons (Ammobox 50)
 #include "Actors/Weapons/DEC_WEP5.txt" // Slot 5 Weapons
+#include "Actors/Weapons/DEC_WEP6.txt" // Slot 6 Weapons
 #include "Actors/Weapons/DEC_PNOT.txt" // Punch-Out!!
 #include "Actors/DEC_SFX.txt" //Special Effects (Casings, Smoke, Etc.)
 #include "Actors/DEC_TEMP.txt" //Blanked out and replaced actors for the alpha
