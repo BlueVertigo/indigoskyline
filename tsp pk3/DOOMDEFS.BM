@@ -11,16 +11,23 @@
 //DisableFullBright
 //}
 
+//Revolvodeagle Brightmaps
+Brightmap Sprite SVFGA0
+{
+map "brightmaps/weapons/melrevolvodeagle/BMSVFGA0.png"
+DisableFullBright
+}
+
 //Shotgun Brightmaps
 BrightMap Sprite STGFA0
 {
-map "brightmaps/weapons/shotgun/BMSTGFA.png"
+map "brightmaps/weapons/melzekeshotgun/BMSTGFA.png"
 DisableFullBright
 }
 
 BrightMap Sprite STGFB0
 {
-map "brightmaps/weapons/shotgun/BMSTGFB.png"
+map "brightmaps/weapons/melzekeshotgun/BMSTGFB.png"
 DisableFullBright
 }
 
@@ -52,6 +59,6 @@ DisableFullBright
 //RLNG Brightmaps
 BrightMap Sprite RNLGA0
 {
-map "brightmaps/weapons/RLNG/BMRNLGA.png"
+map "brightmaps/weapons/meltoolbox/BMRNLGA.png"
 DisableFullBright
 }

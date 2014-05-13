@@ -280,13 +280,6 @@ ACTOR DahliaNormalMode : Inventory
 	Inventory.MaxAmount 1
 }
 
-ACTOR MeleeSelected : DahliaFired {}
-ACTOR 919Selected : DahliaFired {}
-ACTOR ZekeSelected : DahliaFired {}
-ACTOR DahliaSelected : DahliaFired {}
-ACTOR AmmoBoxSelected : DahliaFired {}
-ACTOR ToolBoxSelected : DahliaFired {}
-
 ACTOR DahliaNormalAmmo : Ammo
 {
 	Inventory.Amount 10

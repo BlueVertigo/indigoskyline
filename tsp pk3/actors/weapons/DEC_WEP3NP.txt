@@ -95,7 +95,7 @@ ACTOR MelZekeShotgunNoPool : Weapon
 	  STGG CDEEDCB 1 
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
 	  STGG A 0 A_Refire
-	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
+	  STGG AAAAAAA 1 A_WeaponReady(WRF_NOBOB)
 	  Goto Pump
 	ElectricShot:
 	  STGG A 0 A_AlertMonsters
@@ -109,7 +109,7 @@ ACTOR MelZekeShotgunNoPool : Weapon
 	  STGG CDEEEDCB 1 
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
 	  STGG A 0 A_Refire
-	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
+	  STGG AAAAAAA 1 A_WeaponReady(WRF_NOBOB)
 	  Goto Pump
 	HellFireShot:
 	  STGG A 0 A_AlertMonsters
@@ -125,7 +125,7 @@ ACTOR MelZekeShotgunNoPool : Weapon
 	  STGG CDEEEDCB 1 
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
 	  STGG A 0 A_Refire
-	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
+	  STGG AAAAAAA 1 A_WeaponReady(WRF_NOBOB)
 	  Goto Pump
     PoisonShot:
 	  STGG A 0 A_AlertMonsters
@@ -139,7 +139,7 @@ ACTOR MelZekeShotgunNoPool : Weapon
 	  STGG CDEEEDCB 1 
 	  STGG A 0 A_GiveInventory("ShotgunNeedsPump", 1)
 	  STGG A 0 A_Refire
-	  STGG AAAAA 1 A_WeaponReady(WRF_NOBOB)
+	  STGG AAAAAAA 1 A_WeaponReady(WRF_NOBOB)
 	  Goto Pump
 	MidReloadFire:
 	  STGR DCBA 1

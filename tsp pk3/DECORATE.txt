@@ -73,6 +73,7 @@ ACTOR MeleeButtonActor : CustomInventory
 	  Fail
 	  MelMeleeSwitch:
 	  TNT1 A 0 A_JumpIfInventory("919Selected",1,"Mel919Switch")
+	  TNT1 A 0 A_JumpIfInventory("SavannahFalconSelected",1,"MelSavannahFalconSwitch")
 	  TNT1 A 0 A_JumpIfInventory("ZekeSelected",1,"MelZekeSwitch")
 	  TNT1 A 0 A_JumpIfInventory("DahliaSelected",1,"MelDahliaSwitch")
 	  TNT1 A 0 A_JumpIfInventory("AmmoBoxSelected",1,"MelAmmoBoxSwitch")
@@ -80,6 +81,9 @@ ACTOR MeleeButtonActor : CustomInventory
 	  Goto Mel919Switch
 	  Mel919Switch:
 	  TNT1 A 0 A_SelectWeapon("Mel919mPistol")
+	  Fail
+	  MelSavannahFalconSwitch:
+	  TNT1 A 0 A_SelectWeapon("MelSavannahFalcon")
 	  Fail
 	  MelZekeSwitch:
 	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"MelZekeNoPoolSwitch")
@@ -99,6 +103,14 @@ ACTOR MeleeButtonActor : CustomInventory
 	  Fail
   }
 }
+
+ACTOR MeleeSelected : Boolean {}
+ACTOR 919Selected : Boolean {}
+ACTOR SavannahFalconSelected : Boolean {}
+ACTOR ZekeSelected : Boolean {}
+ACTOR DahliaSelected : Boolean {}
+ACTOR AmmoBoxSelected : Boolean {}
+ACTOR ToolBoxSelected : Boolean {}
 
 //
 #include "Actors/Characters/DEC_MEL.txt" // Mel's Player Stuff
