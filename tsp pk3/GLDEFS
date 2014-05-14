@@ -117,23 +117,3 @@ Pointlight MiniRictusFire4
 Color 0.3 0.1 0.0
 Size 5
 }
-
-Object MiniRictusFire
-{
-Frame CFCFA { Light RictusFire }
-Frame CFCFB { Light RictusFire }
-Frame CFCFC { Light RictusFire }
-Frame CFCFD { Light RictusFire }
-Frame CFCFE { Light RictusFire }
-Frame CFCFF { Light RictusFire }
-Frame CFCFG { Light RictusFire }
-Frame CFCFH { Light RictusFire }
-Frame CFCFI { Light RictusFire }
-Frame CFCFJ { Light RictusFire }
-Frame CFCFK { Light RictusFire }
-Frame CFCFL { Light RictusFire }
-Frame CFCFM { Light RictusFire }
-Frame CFCFN { Light RictusFire2 }
-Frame CFCFO { Light RictusFire3 }
-Frame CFCFP { Light RictusFire4 }
-}
