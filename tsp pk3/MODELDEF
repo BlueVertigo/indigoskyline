@@ -1,0 +1,17 @@
+Model CrossbowBoltBlueModel   
+{
+   Path "models/"   
+   Model 0 "bolt.md3"  
+   Skin 0 "bolt.png"  
+   Scale 0.2 0.2 0.2  
+   FrameIndex ARMP A 0 0 
+}
+
+Model CrossbowBoltRedModel   
+{
+   Path "models/"   
+   Model 0 "boltred.md3"  
+   Skin 0 "boltred.png"  
+   Scale 0.2 0.2 0.2  
+   FrameIndex ARMR A 0 0 
+}

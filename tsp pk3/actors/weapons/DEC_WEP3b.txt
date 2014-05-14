@@ -101,7 +101,15 @@ ACTOR MelDahliaCrossbow : Weapon
 	  TNT1 A 0 A_SetPitch(pitch - 0.5)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
 	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetModelCVAR") == true,"FireModel")
+	  Goto Fire3
+   FireModel:
+      DCBF A 1 A_FireCustomMissile("CrossbowBoltBlueModel",0,1,2)
+	  Goto Fire4  
+   Fire3:
       DCBF A 1 A_FireCustomMissile("CrossbowBoltBlue",0,1,2)
+	  Goto Fire4
+   Fire4:
 	  TNT1 A 0 A_TakeInventory("DahliaNormalAmmo", 1)
 	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
 	  DCBF BCDDDDCBA 1
@@ -118,7 +126,15 @@ ACTOR MelDahliaCrossbow : Weapon
 	  TNT1 A 0 A_SetPitch(pitch - 0.5)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.1,0.3)))
 	  TNT1 A 0 A_PlaySound("dahlia/fire", 5)
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetModelCVAR") == true,"ExplosiveFireModel")
+	  Goto ExplosiveFire3
+   ExplosiveFireModel:
+      DCBF A 1 A_FireCustomMissile("CrossbowBoltRedModel",0,1,2)
+	  Goto ExplosiveFire4  
+   ExplosiveFire3:
       DCBF A 1 A_FireCustomMissile("CrossbowBoltRed",0,1,2)
+	  Goto ExplosiveFire4
+   ExplosiveFire4:
 	  //DCBF A 1 A_SpawnItemEx ("CrossbowBoltRed",0,2,32,cos(-pitch)*120,0,sin(-pitch)*120,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  TNT1 A 0 A_TakeInventory("DahliaExplosiveAmmo", 1)
 	  TNT1 A 0 A_GiveInventory("DahliaFired", 1)
@@ -131,7 +147,6 @@ ACTOR MelDahliaCrossbow : Weapon
 	  TNT1 A 0 A_JumpIfInventory("DahliaFired", 1, "ReloadCheck")
       Goto Ready
    ReloadCheck:
-      TNT1 A 0 A_TakeInventory("Reloading",9)
 	  TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 1, "ReloadStart")
       TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 1, "ReloadStart")
       Goto ReadyEmpty
@@ -425,6 +440,35 @@ ACTOR CrossbowBoltBlue : FastProjectile //The second crossbow voxel voxelbro mad
       Goto Death2
    Death2:
       ARWP A 700
+      Stop
+   XdeathUnused:
+      TNT1 A 0 A_PlaySound("dahlia/impactenemy", 5)
+	  stop
+   }
+}
+
+
+ACTOR CrossbowBoltBlueModel : FastProjectile
+{
+   Radius 3
+   Height 6
+   Speed 120
+   Damage 7
+   PROJECTILE
+   +BLOODSPLATTER
+   +RIPPER
+   +NOEXTREMEDEATH
+   States
+   {
+   Spawn:
+      ARMP A 1
+      Loop
+   Death:
+      ARMP A 1 A_PlaySound("dahlia/impact", 5)
+	  ARMP A 1 A_ChangeFlag("NOINTERACTION",1)
+      Goto Death2
+   Death2:
+      ARMP A 700
       Stop
    XdeathUnused:
       TNT1 A 0 A_PlaySound("dahlia/impactenemy", 5)
@@ -1871,6 +1915,1449 @@ ACTOR CrossbowBoltRed : FastProjectile //The seond voxel voxelbro made, except r
 
    WhoKnows:
       ARWQ A 0 A_SpawnItemEx("MysteryBolt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+      stop
+
+   }
+}
+
+ACTOR CrossbowBoltRedModel : FastProjectile
+{
+   Radius 4
+   Height 1
+   Speed 120
+   Damage 1
+   PROJECTILE
+   +BLOODSPLATTER
+   +SEEKERMISSILE
+   +FORCEPAIN
+   +NOEXTREMEDEATH
+   +FORCERADIUSDMG
+   var int user_angle;
+   var int user_tracerangle;
+   var int user_height;
+   var int user_warpangle;
+   States
+   {
+   Spawn:
+      ARMR A 0
+	  ARMR A 0
+	  ARMR A 0
+	  ARMR A 0
+	  ARMR A 0 A_SetUserVar("user_angle",angle)
+	  ARMR A 0 A_SetUserVar("user_angle",angle)
+      Goto Spawn2
+   Spawn2:
+      ARMR A 1
+      Loop
+   Death:
+      ARMR A 0 A_JumpIfInventory("ShockCanDie",1,"XDeath2")
+	  ARMR A 1 A_PlaySound("dahlia/impact", 5)
+	  ARMR A 1 A_ChangeFlag("NOINTERACTION",1)
+      Goto Death2
+   Death2:
+      ARMR A 10
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+      ARMR A 20
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR A 20
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR A 20
+	  Goto RegularExplode
+
+  RegularExplode:
+	  //ARMR A 0 A_SpawnItemEx("CrossbowBoltExplode1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  
+	  TNT1 A 0 A_Explode(90,128)
+	  ARMR A 0 A_PlaySound("dahlia/boltexplode", 0)
+	  TNT1 A 0 ACS_NamedExecuteWithResult("TSPBoltHurtTracerScript")
+      
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)   
+	  
+
+	  SHAP A 1 Light("HellFireShellLight") 
+	  
+	  
+
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+      TNT1 A 1
+      stop
+
+   Xdeath:
+	  ARMR A 0 A_GiveInventory("ShockCanDie", 1)
+      TNT1 A 0 A_ChangeFlag("NOCLIP",1)
+	  TNT1 A 0 A_ChangeFlag("THRUACTORS",1)
+	  ARMR A 0 A_SetUserVar("user_angle",angle)
+	  TNT1 A 0 A_SetUserVar("user_height",(z-floorz))
+	  TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
+	  TNT1 A 1 A_GiveInventory("ShockCanDie", 1)
+	  TNT1 A 1 ACS_NamedExecuteWithResult("TSPBoltStickScript")
+	  TNT1 A 0 A_PlaySound("dahlia/impactenemy", 6)
+	  TNT1 A 3
+	  TNT1 A 1 A_SetUserVar("user_tracerangle",angle)
+	  TNT1 A 1 A_SetUserVar("user_warpangle",(user_angle-user_tracerangle+Random(-3,3)))
+	  ARMR A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT) 
+	  ARMR A 0 A_JumpIfInTargetLOS("XDeath2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+	  Goto WhoKnows
+   XDeath2:
+	  TNT1 A 0 A_ChangeFlag("NODAMAGETHRUST",1)
+      ARMR A 0 A_RearrangePointers (AAPTR_TRACER,AAPTR_DEFAULT,AAPTR_DEFAULT)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   XDeath3:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+	  
+   CountdownA1:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA2:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA3:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA4:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA5:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA6:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA7:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA8:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA9:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownA10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+   CountdownA10:
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadA
+
+
+
+   CountdownB1:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB2:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB3:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB4:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB5:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB6:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB7:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB8:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB9:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownB10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+   CountdownB10:
+	  //ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadB
+
+
+   CountdownC1:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC2:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC3:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC4:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC5:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC6:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC7:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC8:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC9:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownC10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+   CountdownC10:
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadC
+
+   CountdownD1:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD2:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD3:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD4:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD5:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD6:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD7:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD8:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD9:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownD10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+   CountdownD10:
+	  //ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadD
+
+
+   CountdownE1:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE2:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE3:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE4:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE5:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE6:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE7:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE8:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE9:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownE10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+   CountdownE10:
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadE
+
+
+
+   CountdownF1:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF2:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF3:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF4:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF5:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF6:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF7:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF8:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF9:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownF10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+   CountdownF10:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG1",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadF
+
+
+
+
+   CountdownG1:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG2",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG2:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG3",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG3:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG4",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG4:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG5",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG5:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG6",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG6:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG7",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG7:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG8",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG8:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG9",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG9:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownG10",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+   CountdownG10:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_JumpIfInTargetLOS("CountdownExplode",0,JLOSF_NOSIGHT|JLOSF_DEADNOJUMP)
+      Goto TargetDeadG
+
+	  
+	  
+   CountdownExplode:
+	  ARMR A 0 A_CheckFlag("NORADIUSDMG", "CountdownExplodeNoRadiusDamage",AAPTR_TRACER)
+
+	  ARMR A 0 A_SpawnItemEx("BoltAnchor",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+
+	  
+	  TNT1 A 0 A_Explode(90,128)
+	  ARMR A 0 A_PlaySound("dahlia/boltexplode", 0)
+
+	  
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	 
+	  
+	  
+	  
+	  
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  
+	  
+	  
+	  
+
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+
+
+
+
+
+
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+	  
+
+
+
+
+	  SHAP A 1 Light("HellFireShellLight") A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+
+
+	  //SHAP A 1
+	  
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+	  TNT1 A 0 ACS_NamedExecuteWithResult("TSPBoltHurtTracerScript")
+
+
+      TNT1 A 1
+      stop
+
+
+   CountdownExplodeNoRadiusDamage:
+	  ARMR A 0 A_SpawnItemEx("BoltAnchor",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+
+	  
+	  TNT1 A 0 A_Explode(90,128)
+	  ARMR A 0 A_PlaySound("dahlia/boltexplode", 0)
+
+	  
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	 
+	  
+	  
+	  
+	  
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  
+	  
+	  
+	  
+
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+
+
+
+
+
+
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+	  
+
+
+
+
+	  SHAP A 1 Light("HellFireShellLight") A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+
+
+	  //SHAP A 1
+	  
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+	  TNT1 A 0 ACS_NamedExecuteWithResult("TSPBoltHurtTracerScriptNoRadius")
+
+
+      TNT1 A 1
+      stop
+
+	  
+   TargetDeadA:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadB:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadC:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadD:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadE:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 0 A_PlaySound("dahlia/beep",0)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadF:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR AAAAAAAAAA 1 A_Warp(AAPTR_TRACER,0,0,0,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+   TargetDeadG:
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*20,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*18,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*16,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*14,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*12,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*10,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*8,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*6,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*4,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  ARMR A 1 A_Warp(AAPTR_TRACER,0,0,(user_height/20)*2,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	  Goto TargetDeadExplode
+
+
+   TargetDeadExplode:
+	  TNT1 A 0 A_Explode(90,128)
+	  ARMR A 0 A_PlaySound("dahlia/boltexplode", 0)
+
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(2,3),0,sin(-pitch+Random(-90,90))*FRandom(2,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+ 	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("ShrapnelScatter1",0,0,0,cos(-pitch+Random(-90,90))*FRandom(0,3),0,sin(-pitch+Random(-90,90))*FRandom(0,3),Random(-180,180),SXF_NOCHECKPOSITION)
+	 
+	  
+	  
+	  
+	  
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  SHAP A 0 A_TossGib
+	  
+	  
+	  
+	  
+
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeat",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+
+
+
+
+
+
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15))*FRandom(2,3),0,sin(-pitch+Random(-15,15))*FRandom(2,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(2,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(2,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltMeatSpray",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(2,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(2,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+
+	  
+
+
+
+
+	  //SHAP A 1 A_Warp(AAPTR_TRACER,0,0,user_height,(user_warpangle),WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+
+	  TNT1 A 0 ACS_NamedExecuteWithResult("TSPBoltHurtTracerScript")
+
+	  SHAP A 1
+	  
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15))*FRandom(0,3),0,sin(-pitch+Random(-15,15))*FRandom(0,3),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-45)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-45)*FRandom(0,3),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3),0,sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),45+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-45)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-45)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-22.5)*FRandom(0,3)),-22.5+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)-90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)-90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15)+90)*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15)+90)*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),0+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-180+Random(-15,15),SXF_NOCHECKPOSITION)
+	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),90+Random(-15,15),SXF_NOCHECKPOSITION)
+  	  SHAP A 0 A_SpawnItemEx("BoltSmoke",0,0,0,-(cos(-pitch+Random(-15,15))*FRandom(0,3)),0,-(sin(-pitch+Random(-15,15))*FRandom(0,3)),-90+Random(-15,15),SXF_NOCHECKPOSITION)
+
+      //TNT1 A 0 A_Jump(256,"CountdownExplode1","CountdownExplode2","CountdownExplode3","CountdownExplode4","CountdownExplode5","CountdownExplode6","CountdownExplode7")
+      TNT1 A 1
+      stop
+
+   WhoKnows:
+      ARMR A 0 A_SpawnItemEx("MysteryBolt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
       stop
 
    }
