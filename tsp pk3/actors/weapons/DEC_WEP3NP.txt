@@ -46,6 +46,7 @@ ACTOR MelZekeShotgunNoPool : Weapon
 	  TNT1 A 0 A_TakeInventory("DahliaSelected", 1)
 	  TNT1 A 0 A_TakeInventory("AmmoBoxSelected", 1)
 	  TNT1 A 0 A_TakeInventory("ToolBoxSelected", 1)
+          TNT1 A 0 A_TakeInventory("MP40Selected", 1)
 	  TNT1 A 0 A_GiveInventory("ZekeSelected", 1)
 	  TNT1 A 0 A_JumpIfInventory("ComboCooldown", 1, "QuickSelect")
       TNT1 A 3 A_PlaySoundEX("zekeshotgun/up", "SoundSlot5")

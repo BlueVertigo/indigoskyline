@@ -66,6 +66,7 @@ ACTOR Mel919mPistol : Weapon
 	  TNT1 A 0 A_TakeInventory("DahliaSelected", 1)
 	  TNT1 A 0 A_TakeInventory("AmmoBoxSelected", 1)
 	  TNT1 A 0 A_TakeInventory("ToolBoxSelected", 1)
+          TNT1 A 0 A_TakeInventory("MP40Selected", 1)
 	  TNT1 A 0 A_GiveInventory("919Selected", 1)
 	  TNT1 A 0 A_PlaySound("919m/select", 5)
 	  TNT1 A 0 A_JumpIfInventory("MelPistolCombo", 1, "PistolComboStart")

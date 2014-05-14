@@ -78,6 +78,7 @@ ACTOR MeleeButtonActor : CustomInventory
 	  TNT1 A 0 A_JumpIfInventory("DahliaSelected",1,"MelDahliaSwitch")
 	  TNT1 A 0 A_JumpIfInventory("AmmoBoxSelected",1,"MelAmmoBoxSwitch")
 	  TNT1 A 0 A_JumpIfInventory("ToolBoxSelected",1,"MelToolBoxSwitch")
+	  TNT1 A 0 A_JumpIfInventory("MP40Selected",1,"MelMipFowtySwitch")
 	  Goto Mel919Switch
 	  Mel919Switch:
 	  TNT1 A 0 A_SelectWeapon("Mel919mPistol")
@@ -101,6 +102,9 @@ ACTOR MeleeButtonActor : CustomInventory
 	  MelToolBoxSwitch:
 	  TNT1 A 0 A_SelectWeapon("MelToolbox")
 	  Fail
+	  MelMipFowtySwitch:
+	  TNT1 A 0 A_GiveInventory("MelMipFowtyPickupItem")
+	  Fail
   }
 }
 
@@ -111,6 +115,7 @@ ACTOR ZekeSelected : Boolean {}
 ACTOR DahliaSelected : Boolean {}
 ACTOR AmmoBoxSelected : Boolean {}
 ACTOR ToolBoxSelected : Boolean {}
+ACTOR MP40Selected : Boolean {}
 
 //
 #include "Actors/Characters/DEC_MEL.txt" // Mel's Player Stuff
