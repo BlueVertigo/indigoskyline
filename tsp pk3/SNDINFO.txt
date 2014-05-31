@@ -321,25 +321,25 @@ $playeralias    Vexler	    Vexler      *usefail    vex/unf
 $playeralias	Vexler   	Vexler  	*melee      vex/meleeyell
 $playeralias	Vexler   	Vexler  	*strongmelee       vex/strongmeleeyell
 
-$random vex/pain25 { vexpn101 vexpn102 vexpn103 vexpn104 }
+$random vex/pain100 { vexpn101 vexpn102 vexpn103 vexpn104 }
 vexpn101 vexpn101
 vexpn102 vexpn102
 vexpn103 vexpn103
 vexpn104 vexpn104
 
-$random vex/pain50 { vexpn751 vexpn752 vexpn753 vexpn754 }
+$random vex/pain75 { vexpn751 vexpn752 vexpn753 vexpn754 }
 vexpn751 vexpn751
 vexpn752 vexpn752
 vexpn753 vexpn753
 vexpn754 vexpn754
 
-$random vex/pain75 { vexpn501 vexpn502 vexpn503 vexpn504 }
+$random vex/pain50 { vexpn501 vexpn502 vexpn503 vexpn504 }
 vexpn501 vexpn501
 vexpn502 vexpn502
 vexpn503 vexpn503
 vexpn504 vexpn504
 
-$random vex/pain100 { vexpn251 vexpn252 vexpn253 vexpn254 }
+$random vex/pain25 { vexpn251 vexpn252 vexpn253 vexpn254 }
 vexpn251 vexpn251
 vexpn252 vexpn252
 vexpn253 vexpn253

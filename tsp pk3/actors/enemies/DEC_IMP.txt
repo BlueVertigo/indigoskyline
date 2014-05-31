@@ -9,6 +9,7 @@ ACTOR ImpSpawner : RandomSpawner replaces DoomImp
 	DropItem "ImpVariant1"
 	DropItem "ImpVariant2"
 	DropItem "ImpVariant3"
+    DropItem "ImpVariant4"
 
 }
 //===========================================================================
@@ -261,7 +262,7 @@ Actor ImpVariant3 //: DoomImp
     Radius 18
     Height 56
     Mass 100
-    Speed 6
+    Speed 5
     PainChance 200
     Monster
     +FLOORCLIP
@@ -326,6 +327,90 @@ Actor ImpVariant3 //: DoomImp
     Raise:
 	  IMV3 ML 8
 	  IMV3 KJI 6
+	  Goto See
+    }
+}
+
+//===========================================================================
+//
+// Imp (Variant 4)
+//
+// by Marty Kirra
+// Sprites by Eriance
+//
+//===========================================================================
+
+Actor ImpVariant4 //: DoomImp
+{
+    Health 60
+    Radius 18
+    Height 56
+    Mass 100
+    Speed 5
+    PainChance 200
+    Monster
+    +FLOORCLIP
+	Species "DoomImp"
+	SeeSound "xmimp/sight"
+	PainSound "xmimp/pain"
+	DeathSound "xmimp/death"
+	ActiveSound "xmimp/idle"
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 20
+    obituary "%o was caught by a devilish Imp!"
+	HitObituary "%o's heart was clawed out by an Imp!"
+    States
+    {
+    Spawn:
+	  IMV4 A 10 A_Look
+	  Loop
+	See:
+	  IMV4 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+	  loop
+    Melee:
+	  IMV4 EF 8 A_FaceTarget
+	  IMV4 G 6 A_TroopAttack
+	  Goto See
+    Missile:
+	  IMV4 E 0 A_Jump(140,"See")
+	  IMV4 EF 8 A_FaceTarget
+	  IMV4 G 6 A_TroopAttack
+	  Goto See
+    Pain:
+	  IMV4 H 2
+	  IMV4 H 2 A_Pain
+	  Goto See
+	Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+    Pain.Melee:
+	  IMV4 H 6
+	  IMV4 H 8 A_Pain
+	  Goto See
+    Death:
+	  IMV4 I 8
+	  IMV4 J 8 A_Scream
+	  IMV4 K 6
+	  IMV4 L 6 A_Fall
+	  IMV4 M -1
+	  Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+	XDeath:
+	  IMV4 N 5
+	  IMV4 O 5 A_XScream
+	  IMV4 P 5
+	  IMV4 Q 5 A_NoBlocking
+	  IMV4 RST 5
+	  IMV4 U -1
+	  Stop
+    Raise:
+	  IMV4 ML 8
+	  IMV4 KJI 6
 	  Goto See
     }
 }

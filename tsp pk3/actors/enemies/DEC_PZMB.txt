@@ -12,6 +12,7 @@ ACTOR MKZombieSpawner : RandomSpawner replaces ZombieMan
 	DropItem "RifleZombieV4", 255, 100
 	DropItem "RifleZombieV5", 255, 100
 	DropItem "FemaleZombieV1", 255, 100
+    DropItem "FemaleZombieV2", 255, 100
 //	DropItem "Cultist", 255, 100
 	DropItem "JudgmentZombie", 255, 15
 }
@@ -644,7 +645,7 @@ ACTOR RifleZombieV5 //: ZombieMan
 // Female Zombie (Variant One)
 //
 // by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
-// Sprites by Lazerus and Marty Kirra
+// Sprites by Lazerus, Mike12, and Marty Kirra
 //
 //===========================================================================
 
@@ -704,8 +705,8 @@ ACTOR FemaleZombieV1 //: ZombieMan
       FMZ1 H 5 
       FMZ1 I 5 A_Scream 
       FMZ1 J 5 A_Fall 
-      FMZ1 K 5 
-      FMZ1 L -1 
+      FMZ1 KLM 5
+	  FMZ1 N -1 
       Stop
 	Death.Uppercut:
 	  TNT1 A 0 A_FaceTarget
@@ -717,23 +718,110 @@ ACTOR FemaleZombieV1 //: ZombieMan
       FMZ1 P 5 A_XScream
       FMZ1 Q 5
       FMZ1 R 5 A_Fall
-      FMZ1 ST 5
-      FMZ1 U -1
+      FMZ1 STUV 5
+      FMZ1 W -1
       Stop
 	  wait
     Raise: 
-      FMZ1 LKJIH 5
+      FMZ1 NMLKJIH 5
       Goto See 
    } 
 }
 
+//===========================================================================
+//
+// Female Zombie (Variant Two)
+//
+// by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
+// Sprites by Lazerus, Mike12, and Marty Kirra
+//
+//===========================================================================
+
+ACTOR FemaleZombieV2 //: ZombieMan
+{
+    Health 35
+    Radius 19
+    Height 56
+    Mass 100
+    Speed 4
+    PainChance 200
+	PainChance "Melee", 235
+	PainChance "Sling", 255
+	PainChance "GasShellDamage", 20
+	DropItem TSPPistolAmmo 255
+	Dropitem "AmmoBoxAmmo" 30
+	SeeSound "fzombie/sight"
+	PainSound "fzombie/pain"
+	DeathSound "fzombie/death"
+	ActiveSound "fzombie/idle"
+	AttackSound "rifle/fire"
+	Obituary "%o no longer lives thanks to a zombie."
+	MONSTER 
+    +FLOORCLIP
+	States
+	{
+    Spawn: 
+      FMZ2 A 10 A_Look 
+      Loop 
+	See:
+	  FMZ2 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+	  loop 
+    Missile: 
+      FMZ2 E 0 A_Jump(120,"See")
+	  FMZ2 E 10 A_FaceTarget 
+      FMZ2 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      FMZ2 E 1
+	  FMZ2 E 0 A_FaceTarget 
+      FMZ2 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      FMZ2 E 1
+	  FMZ2 E 0 A_FaceTarget 
+      FMZ2 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+	  FMZ2 E 5
+      Goto See
+    Pain: 
+      FMZ2 G 3 
+      FMZ2 G 3 A_Pain 
+      Goto See 
+	Pain.Sling:
+	  TNT1 A 0 A_FaceTarget
+      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
+	Pain.Melee:
+	  FMZ2 G 6
+	  FMZ2 G 8 A_Pain
+	  Goto See
+    Death: 
+      FMZ2 H 5 
+      FMZ2 I 5 A_Scream 
+      FMZ2 J 5 A_Fall 
+      FMZ2 KLM 5
+	  FMZ2 N -1 
+      Stop
+	Death.Uppercut:
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+	  TNT1 A 0 Thrustthingz(0,27,0,1)
+	  Goto Death
+    XDeath:
+      FMZ2 O 5
+      FMZ2 P 5 A_XScream
+      FMZ2 Q 5
+      FMZ2 R 5 A_Fall
+      FMZ2 STUV 5
+      FMZ2 W -1
+      Stop
+	  wait
+    Raise: 
+      FMZ2 NMLKJIH 5
+      Goto See 
+   } 
+}
 
 //===========================================================================
 //
-// Rifle Zombie (Variant One)
+// Cultist (Variant One)
 //
 // by Marty Kirra (with some snippets from WildWeasel and Graf Zahl)
-// Sprites by ???
+// Sprites by neoworm
 //
 //===========================================================================
 
@@ -920,6 +1008,7 @@ ACTOR MKZombieSpawnerGG : RandomSpawner
 	DropItem "RifleZombieV4GG", 255, 100
 	DropItem "RifleZombieV5GG", 255, 100
 	DropItem "FemaleZombieV1GG", 255, 100
+	DropItem "FemaleZombieV2GG", 255, 100
 //	DropItem "CultistGG", 255, 100
 	DropItem "JudgmentZombieGG", 255, 15
 }
@@ -1071,6 +1160,26 @@ ACTOR FemaleZombieV1GG : FemaleZombieV1
       Goto See
    } 
 }
+
+ACTOR FemaleZombieV2GG : FemaleZombieV2
+{
+	States
+	{
+    Missile: 
+      FMZ2 E 0 A_Jump(200,"See")
+	  FMZ2 E 10 A_FaceTarget 
+      FMZ2 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+      FMZ2 E 1
+	  FMZ2 E 0 A_FaceTarget 
+      FMZ2 F 2 Bright A_CustomBulletAttack(8,3,1,1) 
+      FMZ2 E 1
+	  FMZ2 E 0 A_FaceTarget 
+      FMZ2 F 2 Bright A_CustomBulletAttack(8,3,1,1)
+	  FMZ2 E 5
+      Goto See
+   } 
+}
+
 
 ACTOR CultistGG : Cultist
 {
