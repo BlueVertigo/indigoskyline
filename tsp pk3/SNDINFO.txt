@@ -658,6 +658,8 @@ secretmessage quit2
 
 //Zombie Rifle Sound
 rifle/fire dsarfire
+rifle/reload1 zmbrrld1
+rifle/reload2 zmbrrld2
 
 //Zombie Sounds
 $random zombie/sight {zombie/sight1 zombie/sight2 zombie/sight3 zombie/sight4 zombie/sight5 zombie/sight6 zombie/sight7 zombie/sight8 zombie/sight9 zombie/sight10 zombie/sight11 zombie/sight12}
@@ -777,7 +779,7 @@ czombie/pain4              zcpain4
 czombie/pain5              zcpain5
 czombie/pain6              zcpain6
 
-$random czombie/idle {czombie/idle1 czombie/idle2 czombie/idle3 czombie/idle4 czombie/idle5 czombie/idle6 czombie/idle7}
+$random czombie/idle {czombie/idle1 czombie/idle2 czombie/idle3 czombie/idle4 czombie/idle5 czombie/idle6 czombie/idle7 null null null null null null null null null null null null null null null null null null null null null null null null null}
 czombie/idle1              zcidle1
 czombie/idle2              zcidle2
 czombie/idle3              zcidle3
