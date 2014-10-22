@@ -1,31 +1,5 @@
 //This is here so any "non-canon" items will be replaced.
 
-ACTOR TempSuperShotgun //replaces SuperShotgun
-{
-	DropItem PoisonShellThrown 60
-	DropItem HellFireShellThrown 70
-	DropItem HellFireShellThrown 70
-	DropItem ElectricShellThrown 100
-	DropItem ElectricShellThrown 100
-	DropItem BuckshotShellThrown 255
-	DropItem BuckshotShellThrown 255
-	DropItem BuckshotShellThrown 255
-	DropItem BuckshotShellThrown 255
-	DropItem BuckshotShellThrown 255
-	DropItem AmmoBoxAmmo 255
-	DropItem AmmoBoxAmmo 255
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 1
-		TNT1 A 0 A_SpawnItemEx("ShotgunPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		TNT1 A 0 A_SpawnItemEx("AmmoBox50Pickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		TNT1 A 1 A_NoBlocking
-		Stop
-	}
-}
-
 ACTOR TempPlasmaRifle replaces PlasmaRifle
 {
 	DropItem ToolboxAmmo 255

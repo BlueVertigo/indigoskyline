@@ -9,7 +9,10 @@
 //Frame HMZPF { Light HazmatZombieAttack }
 //}
 
-//Shotgun 
+//===========================================================================
+// Shotgun 
+//===========================================================================
+
 pointlight ShockShellArcLight
 {
     color 0.1 0.1 0.2
@@ -43,7 +46,11 @@ pointlight TinyFireShellLight
     size 10
     dontlightself 1
 }
-//Rictus
+
+//===========================================================================
+// Rictus GLDEFS by Dreadopp
+//===========================================================================
+
 Flickerlight2 RictusFire
 {
 Color 1.0 0.8 0.0
@@ -71,7 +78,7 @@ Color 0.3 0.1 0.0
 Size 10
 }
 
-Object RictusFire
+Object RictusFireA
 {
 Frame CFCFA { Light RictusFire }
 Frame CFCFB { Light RictusFire }
@@ -89,31 +96,4 @@ Frame CFCFM { Light RictusFire }
 Frame CFCFN { Light RictusFire2 }
 Frame CFCFO { Light RictusFire3 }
 Frame CFCFP { Light RictusFire4 }
-}
-
-Flickerlight2 MiniRictusFire
-{
-Color 1.0 0.8 0.0
-Size 15
-SecondarySize 20
-Interval 1
-Offset 0 0 0
-}
-
-Pointlight MiniRictusFire2
-{
-Color 0.7 0.5 0.0
-Size 15
-}
-
-Pointlight MiniRictusFire3
-{
-Color 0.5 0.3 0.0
-Size 10
-}
-
-Pointlight MiniRictusFire4
-{
-Color 0.3 0.1 0.0
-Size 5
 }

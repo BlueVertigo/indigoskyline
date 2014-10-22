@@ -1,416 +1,512 @@
 //===========================================================================
 // Imp Replacements
+//
+// New Sounds by Trent Reznor
 //===========================================================================
 
-
-ACTOR ImpSpawner : RandomSpawner replaces DoomImp
+ACTOR ImpSkillSpawner : MonsterSkillSpawner replaces DoomImp
 {
-	DropItem "ImpVanilla"
-	DropItem "ImpVariant1"
-	DropItem "ImpVariant2"
-	DropItem "ImpVariant3"
-    DropItem "ImpVariant4"
-
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"Spawn2")
+    TNT1 A 0 A_SpawnItemEx("ImpSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("ImpSpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
 }
-//===========================================================================
-//
-// Imp (Variant 0)
-//
-// by id Software (New Sounds by Trent Reznor)
-//
-//===========================================================================
 
-actor ImpVanilla //: DoomImp
+ACTOR ImpSpawner : RandomSpawner
 {
-      Health 60
-	  Radius 18
-	  Height 56
-	  Mass 100
-	  Speed 3
-	  PainChance 200
-	  Monster
-	  +FLOORCLIP
-	  Species "DoomImp"
-	  obituary "%o was caught by a devilish Imp!"
-	  HitObituary "%o's heart was clawed out by an Imp!"
-	  SeeSound "xmimp/sight"
-	  PainSound "xmimp/pain"
-	  DeathSound "xmimp/death"
-	  ActiveSound "xmimp/idle"
-	  Painchance "Melee", 235
-	  PainChance "Sling", 255
-	  PainChance "GasShellDamage", 20
-      States
-      {
-      Spawn:
-	    TROO A 10 A_Look
-		Loop
-	  See:
-	    TROO AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
-	    Loop
-	  Melee:
-		TROO EF 8 A_FaceTarget
-		TROO G 6 A_TroopAttack
-		Goto See
-	  Missile:
-		TROO E 0 A_Jump(140,"See")
-		TROO EF 8 A_FaceTarget
-		TROO G 6 A_TroopAttack
-		Goto See
-	  Pain:
-		TROO H 2
-		TROO H 2 A_Pain
-		Goto See
-	  Pain.Sling:
-	    TNT1 A 0 A_FaceTarget
-        TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
-		Goto See
-	  Pain.Melee:
-	    TROO H 6
-	    TROO H 8 A_Pain
-	    Goto See
-	  Death.Uppercut:
-	    TNT1 A 0 A_FaceTarget
-	    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
-	    TNT1 A 0 Thrustthingz(0,27,0,1)
-	    Goto Death
-	  Death:
-		TROO I 8
-		TROO J 8 A_Scream
-		TROO K 6
-		TROO L 6 A_NoBlocking
-		TROO M -1
-		Stop
-	  XDeath:
-		TROO N 5
-		TROO O 5 A_XScream
-		TROO P 5
-		TROO Q 5 A_NoBlocking
-		TROO RST 5
-		TROO U -1
-		Stop
-	  Raise:
-		TROO MLKJI 8
-		Goto See
-	  }
+  DropItem "ImpVariant0"
+  DropItem "ImpVariant1"
+  DropItem "ImpVariant2"
+  DropItem "ImpVariant3"
+  DropItem "ImpVariant4"
 }
-	  
+
+ACTOR ImpSpawnerHard : RandomSpawner
+{
+  DropItem "HardImpVariant0"
+  DropItem "HardImpVariant1"
+  DropItem "HardImpVariant2"
+  DropItem "HardImpVariant3"
+  DropItem "HardImpVariant4"
+}
+
+ACTOR BaseImp : BaseHumanoid
+{
+  Radius 18
+  Height 56
+  Mass 100
+  Species "DoomImp"
+  PainChance 200
+  Painchance "Melee", 235
+  PainChance "GasShellDamage", 20
+  SeeSound "xmimp/sight"
+  PainSound "xmimp/pain"
+  DeathSound "xmimp/death"
+  ActiveSound "xmimp/idle"
+  obituary "%o was caught by a devilish Imp!"
+  HitObituary "%o's heart was clawed out by an Imp!"
+  States
+  {
+  Death.WOGChargeBeam3:
+	T01Z WWWWWW 1 A_FadeOut(0.002)
+    Goto Death.WOGChargeBeamFinish
+  }
+}
+
 //===========================================================================
-//
+// Vanilla Imp (Variant 0)
+//===========================================================================
+
+ACTOR BaseImpVariant0 : BaseImp
+{
+  Health 60
+  Speed 3
+  States
+  {
+  Spawn:
+    TROO A 10 A_Look
+    Loop
+  Melee:
+    TROO EF 8 A_FaceTarget
+    TROO G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Missile:
+    TROO EF 8 A_FaceTarget
+    TROO G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    TROO H 2
+    TROO H 2 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain.Melee:
+    TROO H 6
+    TROO H 8 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    TROO I 8
+    TROO J 8 A_Scream
+    TROO K 6
+    TROO L 6 A_NoBlocking
+    TROO M -1
+    Stop
+  XDeath:
+    TROO N 5
+    TROO O 5 A_XScream
+    TROO P 5
+    TROO Q 5 A_NoBlocking
+    TROO RST 5
+    TROO U -1
+    Stop
+  Raise:
+    TROO MLKJI 8
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR ImpVariant0 : BaseImpVariant0
+{
+  States
+  {
+  See2:
+    TROO A 1 A_Chase
+    TROO AA 1 A_Chase("","")
+    TROO A 1 A_Chase
+    TROO AA 1 A_Chase("","")
+    TROO B 1 A_Chase
+    TROO BB 1 A_Chase("","")
+    TROO B 1 A_Chase
+    TROO BB 1 A_Chase("","")
+    TROO C 1 A_Chase
+    TROO CC 1 A_Chase("","")
+    TROO C 1 A_Chase
+    TROO CC 1 A_Chase("","")
+    TROO D 1 A_Chase
+    TROO DD 1 A_Chase("","")
+    TROO D 1 A_Chase
+    TROO DD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardImpVariant0 : BaseImpVariant0
+{
+  States
+  {
+  See2:
+    TROO AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+    Loop
+  }
+}
+      
+//===========================================================================
 // Imp (Variant 1)
 //
-// by ItsNaturetoDie (modified by Marty Kirra)
 // Sprites by Vader and ItsNaturetoDie
-//
 //===========================================================================
 
-Actor ImpVariant1 //: DoomImp
+ACTOR BaseImpVariant1 : BaseImp
 {
-    Health 50
-    Radius 18
-    Height 56
-    Mass 100
-    Speed 4
-    PainChance 200
-    Monster
-    +FLOORCLIP
-	Species "DoomImp"
-	SeeSound "xmimp/sight"
-	PainSound "xmimp/pain"
-	DeathSound "xmimp/death"
-	ActiveSound "xmimp/idle"
-	PainChance "Melee", 235
-	PainChance "Sling", 255
-	PainChance "GasShellDamage", 20
-    obituary "%o was caught by a devilish Imp!"
-	HitObituary "%o's heart was clawed out by an Imp!"
-    States
-    {
-    Spawn:
-	  IMV1 A 10 A_Look
-	  Loop
-	See:
-	  IMV1 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
-	  loop
-    Melee:
-      IMV1 EF 8 A_FaceTarget
-	  IMV1 G 6 A_TroopAttack
-	  Goto See
-	Missile:
-	  IMV1 E 0 A_Jump(140,"See")
-	  IMV1 EF 8 A_FaceTarget
-	  IMV1 G 6 A_TroopAttack
-	  Goto See
-    Pain:
-	  IMV1 H 2
-	  IMV1 H 2 A_Pain
-	  Goto See
-    Pain.Sling:
-	  TNT1 A 0 A_FaceTarget
-      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
-	Pain.Melee:
-	  IMV1 H 6
-	  IMV1 H 8 A_Pain
-	  Goto See
-    Death:
-	  IMV1 I 8
-	  IMV1 J 8 A_Scream
-	  IMV1 K 6
-	  IMV1 L 6 A_Fall
-	  IMV1 M -1
-	  Stop
-	Death.Uppercut:
-	  TNT1 A 0 A_FaceTarget
-	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
-	  TNT1 A 0 Thrustthingz(0,27,0,1)
-	  Goto Death
-    Raise:
-	  IMV1 ML 8
-	  IMV1 KJI 6
-	  Goto See
-    }
+  Health 50
+  Mass 100
+  Speed 4
+  States
+  {
+  Spawn:
+    IMV1 A 10 A_Look
+    Loop
+  Melee:
+    IMV1 EF 8 A_FaceTarget
+    IMV1 G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Missile:
+    IMV1 EF 8 A_FaceTarget
+    IMV1 G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    IMV1 H 2
+    IMV1 H 2 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain.Melee:
+    IMV1 H 6
+    IMV1 H 8 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    IMV1 I 8
+    IMV1 J 8 A_Scream
+    IMV1 K 6
+    IMV1 L 6 A_Fall
+    IMV1 M -1
+    Stop
+  Raise:
+    IMV1 ML 8
+    IMV1 KJI 6
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR ImpVariant1 : BaseImpVariant1
+{
+  States
+  {
+  See2:
+    IMV1 A 1 A_Chase
+    IMV1 AA 1 A_Chase("","")
+    IMV1 A 1 A_Chase
+    IMV1 AA 1 A_Chase("","")
+    IMV1 B 1 A_Chase
+    IMV1 BB 1 A_Chase("","")
+    IMV1 B 1 A_Chase
+    IMV1 BB 1 A_Chase("","")
+    IMV1 C 1 A_Chase
+    IMV1 CC 1 A_Chase("","")
+    IMV1 C 1 A_Chase
+    IMV1 CC 1 A_Chase("","")
+    IMV1 D 1 A_Chase
+    IMV1 DD 1 A_Chase("","")
+    IMV1 D 1 A_Chase
+    IMV1 DD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardImpVariant1 : BaseImpVariant1
+{
+  States
+  {
+  See2:
+    IMV1 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+    Loop
+  }
 }
 
 //===========================================================================
-//
 // Imp (Variant 2)
 //
-// by ItsNaturetoDie (modified by Marty Kirra)
 // Sprites by Vader and ItsNaturetoDie
-//
 //===========================================================================
 
-Actor ImpVariant2 //: DoomImp
+ACTOR BaseImpVariant2 : BaseImp
 {
-    Health 70
-    Radius 18
-    Height 56
-    Mass 100
-    Speed 3
-    PainChance 200
-    Monster
-    +FLOORCLIP
-	Species "DoomImp"
-	SeeSound "xmimp/sight"
-	PainSound "xmimp/pain"
-	DeathSound "xmimp/death"
-	ActiveSound "xmimp/idle"
-	PainChance "Melee", 235
-	PainChance "Sling", 255
-	PainChance "GasShellDamage", 20
-    obituary "%o was caught by a devilish Imp!"
-	HitObituary "%o's heart was clawed out by an Imp!"
-    States
-    {
-    Spawn:
-	  IMV2 A 10 A_Look
-	  Loop
-	See:
-	  IMV2 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
-	  loop
-    Melee:
-	  IMV2 EF 8 A_FaceTarget
-	  IMV2 G 6 A_TroopAttack
-	  Goto See
-    Missile:
-	  IMV2 E 0 A_Jump(140,"See")
-	  IMV2 EF 8 A_FaceTarget
-	  IMV2 G 6 A_TroopAttack
-	  Goto See
-    Pain:
-	  IMV2 H 2
-	  IMV2 H 2 A_Pain
-	  Goto See
-	Pain.Sling:
-	  TNT1 A 0 A_FaceTarget
-      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
-	Pain.Melee:
-	  IMV2 H 6
-	  IMV2 H 8 A_Pain
-	  Goto See
-    Death:
-	  IMV2 I 8
-	  IMV2 J 8 A_Scream
-	  IMV2 K 6
-	  IMV2 L 6 A_Fall
-	  IMV2 M -1
-	  Stop
-	Death.Uppercut:
-	  TNT1 A 0 A_FaceTarget
-	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
-	  TNT1 A 0 Thrustthingz(0,27,0,1)
-	  Goto Death
-    Raise:
-	  IMV2 ML 8
-	  IMV2 KJI 6
-	  Goto See
-    }
+  Health 70
+  Speed 3
+  States
+  {
+  Spawn:
+    IMV2 A 10 A_Look
+    Loop
+  Melee:
+    IMV2 EF 8 A_FaceTarget
+    IMV2 G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Missile:
+    IMV2 EF 8 A_FaceTarget
+    IMV2 G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    IMV2 H 2
+    IMV2 H 2 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain.Melee:
+    IMV2 H 6
+    IMV2 H 8 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    IMV2 I 8
+    IMV2 J 8 A_Scream
+    IMV2 K 6
+    IMV2 L 6 A_Fall
+    IMV2 M -1
+    Stop
+  Raise:
+    IMV2 ML 8
+    IMV2 KJI 6
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR ImpVariant2 : BaseImpVariant2
+{
+  States
+  {
+  See2:
+    IMV2 A 1 A_Chase
+    IMV2 AA 1 A_Chase("","")
+    IMV2 A 1 A_Chase
+    IMV2 AA 1 A_Chase("","")
+    IMV2 B 1 A_Chase
+    IMV2 BB 1 A_Chase("","")
+    IMV2 B 1 A_Chase
+    IMV2 BB 1 A_Chase("","")
+    IMV2 C 1 A_Chase
+    IMV2 CC 1 A_Chase("","")
+    IMV2 C 1 A_Chase
+    IMV2 CC 1 A_Chase("","")
+    IMV2 D 1 A_Chase
+    IMV2 DD 1 A_Chase("","")
+    IMV2 D 1 A_Chase
+    IMV2 DD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardImpVariant2 : BaseImpVariant2
+{
+  States
+  {
+  See2:
+    IMV2 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+    Loop
+  }
 }
 
 //===========================================================================
-//
 // Imp (Variant 3)
 //
-// by Marty Kirra
 // Sprites by ???
-//
 //===========================================================================
 
-Actor ImpVariant3 //: DoomImp
+ACTOR BaseImpVariant3 : BaseImp
 {
-    Health 40
-    Radius 18
-    Height 56
-    Mass 100
-    Speed 5
-    PainChance 200
-    Monster
-    +FLOORCLIP
-	Species "DoomImp"
-	SeeSound "xmimp/sight"
-	PainSound "xmimp/pain"
-	DeathSound "xmimp/death"
-	ActiveSound "xmimp/idle"
-	PainChance "Melee", 235
-	PainChance "Sling", 255
-	PainChance "GasShellDamage", 20
-    obituary "%o was caught by a devilish Imp!"
-	HitObituary "%o's heart was clawed out by an Imp!"
-    States
-    {
-    Spawn:
-	  IMV3 A 10 A_Look
-	  Loop
-	See:
-	  IMV3 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
-	  loop
-    Melee:
-	  IMV3 EF 8 A_FaceTarget
-	  IMV3 G 6 A_TroopAttack
-	  Goto See
-    Missile:
-	  IMV3 E 0 A_Jump(140,"See")
-	  IMV3 EF 8 A_FaceTarget
-	  IMV3 G 6 A_TroopAttack
-	  Goto See
-    Pain:
-	  IMV3 H 2
-	  IMV3 H 2 A_Pain
-	  Goto See
-	Pain.Sling:
-	  TNT1 A 0 A_FaceTarget
-      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
-    Pain.Melee:
-	  IMV3 H 6
-	  IMV3 H 8 A_Pain
-	  Goto See
-    Death:
-	  IMV3 I 8
-	  IMV3 J 8 A_Scream
-	  IMV3 K 6
-	  IMV3 L 6 A_Fall
-	  IMV3 M -1
-	  Stop
-	Death.Uppercut:
-	  TNT1 A 0 A_FaceTarget
-	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
-	  TNT1 A 0 Thrustthingz(0,27,0,1)
-	  Goto Death
-	XDeath:
-	  IMV3 N 5
-	  IMV3 O 5 A_XScream
-	  IMV3 P 5
-	  IMV3 Q 5 A_NoBlocking
-	  IMV3 RST 5
-	  IMV3 U -1
-	  Stop
-    Raise:
-	  IMV3 ML 8
-	  IMV3 KJI 6
-	  Goto See
-    }
+  Health 40
+  Speed 5
+  States
+  {
+  Spawn:
+    IMV3 A 10 A_Look
+    Loop
+  Melee:
+    IMV3 EF 8 A_FaceTarget
+    IMV3 G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Missile:
+    IMV3 EF 8 A_FaceTarget
+    IMV3 G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    IMV3 H 2
+    IMV3 H 2 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain.Melee:
+    IMV3 H 6
+    IMV3 H 8 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    IMV3 I 8
+    IMV3 J 8 A_Scream
+    IMV3 K 6
+    IMV3 L 6 A_Fall
+    IMV3 M -1
+    Stop
+  XDeath:
+    IMV3 N 5
+    IMV3 O 5 A_XScream
+    IMV3 P 5
+    IMV3 Q 5 A_NoBlocking
+    IMV3 RST 5
+    IMV3 U -1
+    Stop
+  Raise:
+    IMV3 ML 8
+    IMV3 KJI 6
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR ImpVariant3 : BaseImpVariant3
+{
+  States
+  {
+  See2:
+    IMV3 A 1 A_Chase
+    IMV3 AA 1 A_Chase("","")
+    IMV3 A 1 A_Chase
+    IMV3 AA 1 A_Chase("","")
+    IMV3 B 1 A_Chase
+    IMV3 BB 1 A_Chase("","")
+    IMV3 B 1 A_Chase
+    IMV3 BB 1 A_Chase("","")
+    IMV3 C 1 A_Chase
+    IMV3 CC 1 A_Chase("","")
+    IMV3 C 1 A_Chase
+    IMV3 CC 1 A_Chase("","")
+    IMV3 D 1 A_Chase
+    IMV3 DD 1 A_Chase("","")
+    IMV3 D 1 A_Chase
+    IMV3 DD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardImpVariant3 : BaseImpVariant3
+{
+  States
+  {
+  See2:
+    IMV3 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+    Loop
+  }
 }
 
 //===========================================================================
-//
 // Imp (Variant 4)
 //
-// by Marty Kirra
 // Sprites by Eriance
-//
 //===========================================================================
 
-Actor ImpVariant4 //: DoomImp
+ACTOR BaseImpVariant4 : BaseImp
 {
-    Health 60
-    Radius 18
-    Height 56
-    Mass 100
-    Speed 5
-    PainChance 200
-    Monster
-    +FLOORCLIP
-	Species "DoomImp"
-	SeeSound "xmimp/sight"
-	PainSound "xmimp/pain"
-	DeathSound "xmimp/death"
-	ActiveSound "xmimp/idle"
-	PainChance "Melee", 235
-	PainChance "Sling", 255
-	PainChance "GasShellDamage", 20
-    obituary "%o was caught by a devilish Imp!"
-	HitObituary "%o's heart was clawed out by an Imp!"
-    States
-    {
-    Spawn:
-	  IMV4 A 10 A_Look
-	  Loop
-	See:
-	  IMV4 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
-	  loop
-    Melee:
-	  IMV4 EF 8 A_FaceTarget
-	  IMV4 G 6 A_TroopAttack
-	  Goto See
-    Missile:
-	  IMV4 E 0 A_Jump(140,"See")
-	  IMV4 EF 8 A_FaceTarget
-	  IMV4 G 6 A_TroopAttack
-	  Goto See
-    Pain:
-	  IMV4 H 2
-	  IMV4 H 2 A_Pain
-	  Goto See
-	Pain.Sling:
-	  TNT1 A 0 A_FaceTarget
-      TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
-    Pain.Melee:
-	  IMV4 H 6
-	  IMV4 H 8 A_Pain
-	  Goto See
-    Death:
-	  IMV4 I 8
-	  IMV4 J 8 A_Scream
-	  IMV4 K 6
-	  IMV4 L 6 A_Fall
-	  IMV4 M -1
-	  Stop
-	Death.Uppercut:
-	  TNT1 A 0 A_FaceTarget
-	  TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
-	  TNT1 A 0 Thrustthingz(0,27,0,1)
-	  Goto Death
-	XDeath:
-	  IMV4 N 5
-	  IMV4 O 5 A_XScream
-	  IMV4 P 5
-	  IMV4 Q 5 A_NoBlocking
-	  IMV4 RST 5
-	  IMV4 U -1
-	  Stop
-    Raise:
-	  IMV4 ML 8
-	  IMV4 KJI 6
-	  Goto See
-    }
+  Health 60
+  Speed 5
+  States
+  {
+  Spawn:
+    IMV4 A 10 A_Look
+    Loop
+  Melee:
+    IMV4 EF 8 A_FaceTarget
+    IMV4 G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Missile:
+    IMV4 EF 8 A_FaceTarget
+    IMV4 G 6 A_TroopAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    IMV4 H 2
+    IMV4 H 2 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain.Melee:
+    IMV4 H 6
+    IMV4 H 8 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    IMV4 I 8
+    IMV4 J 8 A_Scream
+    IMV4 K 6
+    IMV4 L 6 A_Fall
+    IMV4 M -1
+    Stop
+  XDeath:
+    IMV4 N 5
+    IMV4 O 5 A_XScream
+    IMV4 P 5
+    IMV4 Q 5 A_NoBlocking
+    IMV4 RST 5
+    IMV4 U -1
+    Stop
+  Raise:
+    IMV4 ML 8
+    IMV4 KJI 6
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR ImpVariant4 : BaseImpVariant4
+{
+  States
+  {
+  See2:
+    IMV4 A 1 A_Chase
+    IMV4 AA 1 A_Chase("","")
+    IMV4 A 1 A_Chase
+    IMV4 AA 1 A_Chase("","")
+    IMV4 B 1 A_Chase
+    IMV4 BB 1 A_Chase("","")
+    IMV4 B 1 A_Chase
+    IMV4 BB 1 A_Chase("","")
+    IMV4 C 1 A_Chase
+    IMV4 CC 1 A_Chase("","")
+    IMV4 C 1 A_Chase
+    IMV4 CC 1 A_Chase("","")
+    IMV4 D 1 A_Chase
+    IMV4 DD 1 A_Chase("","")
+    IMV4 D 1 A_Chase
+    IMV4 DD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardImpVariant4 : BaseImpVariant4
+{
+  States
+  {
+  See2:
+    IMV4 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+    Loop
+  }
 }

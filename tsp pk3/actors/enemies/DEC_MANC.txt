@@ -1,0 +1,134 @@
+//===========================================================================
+// Fatso Replacements
+//===========================================================================
+
+ACTOR FatsoSkillSpawner : MonsterSkillSpawner replaces Fatso
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"Spawn2")
+    TNT1 A 0 A_SpawnItemEx("FatsoSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("FatsoSpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
+}
+
+ACTOR FatsoSpawner : RandomSpawner
+{
+  DropItem "FatsoV0"
+}
+
+ACTOR FatsoSpawnerHard : RandomSpawner
+{
+  DropItem "HardFatsoV0"
+}
+
+ACTOR BaseFatso : BaseEnemy {}
+
+ACTOR BaseFatsoV0 : BaseFatso
+{
+  Health 600
+  Radius 48
+  Height 64
+  Mass 1000
+  Speed 2
+  PainChance 80
+  PainChance "Melee", 200
+  PainChance "GasShellDamage", 8
+  DamageFactor "GasShellDamage", 0.52
+  SeeSound "fatso/sight"
+  PainSound "fatso/pain"
+  DeathSound "fatso/death"
+  ActiveSound "fatso/active"
+  Obituary "$OB_FATSO"
+  +BOSSDEATH
+  States
+  {
+  Spawn:
+    FATT AB 15 A_Look
+    Loop
+  Missile:
+    FATT G 20 A_FatRaise
+    FATT H 10 Bright A_FatAttack1
+    FATT IG 5
+    FATT H 10 Bright A_FatAttack2
+    FATT IG 5
+    FATT H 10 Bright A_FatAttack3
+    FATT IG 5
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    FATT J 3
+    FATT J 3 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain.Melee:
+    FATT J 5
+    FATT J 5 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    FATT K 6
+    FATT L 6 A_Scream
+    FATT M 6 A_NoBlocking
+    FATT NOPQRS 6
+    FATT T -1 A_BossDeath
+    Stop
+  Raise:
+    FATT R 5
+    FATT QPONMLK 5
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR FatsoV0 : BaseFatsoV0
+{
+  States
+  {
+  See2:
+    FATT A 1 A_Chase
+    FATT AAA 1 A_Chase("","")
+    FATT A 1 A_Chase
+    FATT AAA 1 A_Chase("","")
+    FATT B 1 A_Chase
+    FATT BBB 1 A_Chase("","")
+    FATT B 1 A_Chase
+    FATT BBB 1 A_Chase("","")
+    FATT C 1 A_Chase
+    FATT CCC 1 A_Chase("","")
+    FATT C 1 A_Chase
+    FATT CCC 1 A_Chase("","")
+    FATT D 1 A_Chase
+    FATT DDD 1 A_Chase("","")
+    FATT D 1 A_Chase
+    FATT DDD 1 A_Chase("","")
+    FATT E 1 A_Chase
+    FATT EEE 1 A_Chase("","")
+    FATT E 1 A_Chase
+    FATT EEE 1 A_Chase("","")
+    FATT F 1 A_Chase
+    FATT FFF 1 A_Chase("","")
+    FATT F 1 A_Chase
+    FATT FFF 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardFatsoV0 : BaseFatsoV0
+{
+  States
+  {
+  See2:
+    FATT AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFF 1 A_Chase
+    Loop
+  }
+}

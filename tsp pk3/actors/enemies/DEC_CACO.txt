@@ -1,0 +1,111 @@
+//===========================================================================
+// Cacodemon Replacements
+//===========================================================================
+
+ACTOR CacodemonSkillSpawner : MonsterSkillSpawner replaces Cacodemon
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"Spawn2")
+    TNT1 A 0 A_SpawnItemEx("CacodemonSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("CacodemonSpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
+}
+
+ACTOR CacodemonSpawner : RandomSpawner
+{
+  DropItem "CacodemonV0"
+}
+
+ACTOR CacodemonSpawnerHard : RandomSpawner
+{
+  DropItem "HardCacodemonV0"
+}
+
+ACTOR BaseCacodemon : BaseFloater
+{
+  BloodColor "00 00 FF"
+}
+
+ACTOR BaseCacodemonV0 : BaseCacodemon
+{
+  Health 400
+  Radius 31
+  Height 56
+  Mass 400
+  Speed 3
+  PainChance 128
+  PainChance "Melee", 205
+  PainChance "GasShellDamage", 13
+  SeeSound "caco/sight"
+  PainSound "caco/pain"
+  DeathSound "caco/death"
+  ActiveSound "caco/active"
+  Obituary "$OB_CACO"
+  HitObituary "$OB_CACOHIT"
+  States
+  {
+  Spawn:
+    HEAD A 10 A_Look
+    Loop
+  Missile:
+    HEAD BC 5 A_FaceTarget
+    HEAD D 5 Bright A_HeadAttack
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    HEAD E 3
+    HEAD E 3 A_Pain
+    HEAD F 6
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain.Melee:
+    HEAD E 5
+    HEAD E 3 A_Pain
+    HEAD F 7
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    HEAD G 8
+    HEAD H 8 A_Scream
+    HEAD IJ 8
+    HEAD K 8 A_NoBlocking
+    HEAD L -1 A_SetFloorClip
+    Stop
+  Raise:
+    HEAD L 8 A_UnSetFloorClip
+    HEAD KJIHG 8
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR CacodemonV0 : BaseCacodemonV0
+{
+  States
+  {
+  See2:
+    HEAD A 1 A_Chase
+    HEAD AA 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardCacodemonV0 : BaseCacodemonV0
+{
+  States
+  {
+  See2:
+    HEAD A 1 A_Chase
+    Loop
+  }
+}

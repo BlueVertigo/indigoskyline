@@ -123,14 +123,7 @@ ACTOR MP40Selected : Boolean {}
 #include "Actors/Characters/DEC_MAC.txt" // Little Mac's Player Stuff
 
 //Enemies
-#include "Actors/Enemies/DEC_ENEM.txt" // Generic Enemy Stuff
-#include "Actors/Enemies/DEC_PZMB.txt" // Pistol / Rifle Zombie Enemies
-#include "Actors/Enemies/DEC_SZMB.txt" // Shotgun Zombie Enemies
-#include "Actors/Enemies/DEC_CZMB.txt" // Commando Zombie Enemies
-#include "Actors/Enemies/DEC_IMP.txt"  // Imp Enemies
-#include "Actors/Enemies/DEC_LSOUL.txt"// Lost Soul enemies
-#include "Actors/Enemies/DEC_ARCH.txt"// ArchVile enemies
-//#include "Actors/Enemies/DEC_SCIE.txt"  // Scientist Enemies
+#include "Actors/Enemies/DEC_ENEM.txt" // Enemy Master File
 
 //Mel's Weapons
 #include "Actors/Weapons/Mel/DEC_MWEP1.txt" // Slot 1 Weapons (Mel Melee)

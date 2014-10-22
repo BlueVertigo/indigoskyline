@@ -13,6 +13,8 @@ ACTOR LittleMac : DoomPlayer
 	+THRUSPECIES
 	DamageFactor "Poison", 2.0
 	DamageFactor "GasShellDamage", 1.5
+	DamageFactor "WOGChargeBeam", 0.0 
+	DamageFactor "WOGBeam", 0.0 
 }
 
 ACTOR IsMac : Inventory

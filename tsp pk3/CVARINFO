@@ -1,2 +1,3 @@
 server bool tsp_shellpool = true;
-server bool tsp_usemodel = false;
+server bool tsp_zmelee = false;
+server int tsp_toaster = 0;

@@ -30,9 +30,12 @@ ACTOR SpacePirate : DoomPlayer
 	Player.WeaponSlot 6, MelTestWeapon
     Species "Player"
 	+THRUSPECIES
+	+PLAYERPAWN.NOTHRUSTWHENINVUL
 	DamageFactor "Poison", 2.0
 	DamageFactor "GasShellDamage", 1.5
 	DamageFactor "Shrapnel", 0.5
+	DamageFactor "WOGChargeBeam", 0.0 
+	DamageFactor "WOGBeam", 0.0 
 }
 
 ACTOR IsMel : Inventory

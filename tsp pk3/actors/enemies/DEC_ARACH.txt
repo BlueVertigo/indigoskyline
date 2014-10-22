@@ -1,0 +1,137 @@
+//===========================================================================
+// Arachnotron Replacements
+//===========================================================================
+
+ACTOR ArachnotronSkillSpawner : MonsterSkillSpawner replaces Arachnotron
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"Spawn2")
+    TNT1 A 0 A_SpawnItemEx("ArachnotronSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("ArachnotronSpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
+}
+
+ACTOR ArachnotronSpawner : RandomSpawner
+{
+  DropItem "ArachnotronV0"
+}
+
+ACTOR ArachnotronSpawnerHard : RandomSpawner
+{
+  DropItem "HardArachnotronV0"
+}
+
+ACTOR BaseArachnotron : BaseEnemy {}
+
+ACTOR BaseArachnotronV0 : BaseArachnotron
+{
+  Health 500
+  Radius 64
+  Height 64
+  Mass 600
+  Speed 4
+  PainChance 128
+  PainChance "Melee", 105
+  PainChance "GasShellDamage", 13
+  SeeSound "baby/sight"
+  PainSound "baby/pain"
+  DeathSound "baby/death"
+  ActiveSound "baby/active"
+  Obituary "$OB_BABY"
+  +BOSSDEATH
+  States
+  {
+  Spawn:
+    BSPI AB 10 A_Look
+    Loop
+  See:
+    BSPI A 20
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See2
+  Missile:
+    BSPI A 20 Bright A_FaceTarget
+    BSPI G 4 Bright A_BspiAttack
+    BSPI H 4 Bright
+    BSPI H 1 Bright A_SpidRefire
+    Goto Missile+1
+  Pain:
+    BSPI I 3
+    BSPI I 3 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See2
+  Pain.Melee:
+    BSPI I 5
+    BSPI I 5 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See2
+  Death:
+    BSPI J 20 A_Scream
+    BSPI K 7 A_NoBlocking
+    BSPI LMNO 7
+    BSPI P -1 A_BossDeath
+    Stop
+  Raise:
+    BSPI P 5
+    BSPI ONMLKJ 5
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See2
+  }
+}
+
+ACTOR ArachnotronV0 : BaseArachnotronV0
+{
+  States
+  {
+  See2:
+    BSPI A 0 A_BabyMetal
+    BSPI A 1 A_Chase
+    BSPI AA 1 A_Chase("","")
+    BSPI A 1 A_Chase
+    BSPI AA 1 A_Chase("","")
+    BSPI B 1 A_Chase
+    BSPI BB 1 A_Chase("","")
+    BSPI B 1 A_Chase
+    BSPI BB 1 A_Chase("","")
+    BSPI C 1 A_Chase
+    BSPI CC 1 A_Chase("","")
+    BSPI C 1 A_Chase
+    BSPI CC 1 A_Chase("","")
+    BSPI D 0 A_BabyMetal
+    BSPI D 1 A_Chase
+    BSPI DD 1 A_Chase("","")
+    BSPI D 1 A_Chase
+    BSPI DD 1 A_Chase("","")
+    BSPI E 1 A_Chase
+    BSPI EE 1 A_Chase("","")
+    BSPI E 1 A_Chase
+    BSPI EE 1 A_Chase("","")
+    BSPI F 1 A_Chase
+    BSPI FF 1 A_Chase("","")
+    BSPI F 1 A_Chase
+    BSPI FF 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardArachnotronV0 : BaseArachnotronV0
+{
+  States
+  {
+  See2:
+    BSPI A 0 A_BabyMetal
+    BSPI AAAAAABBBBBBCCCCCC 1 A_Chase
+    BSPI D 0 A_BabyMetal
+    BSPI DDDDDDEEEEEEFFFFFF 1 A_Chase
+    Loop
+  }
+}

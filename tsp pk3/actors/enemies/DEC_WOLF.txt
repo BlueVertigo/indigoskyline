@@ -1,0 +1,130 @@
+//===========================================================================
+// WolfensteinSS Replacements
+//===========================================================================
+
+ACTOR WolfensteinSSSkillSpawner : MonsterSkillSpawner replaces WolfensteinSS
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"Spawn2")
+    TNT1 A 0 A_SpawnItemEx("WolfensteinSSSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("WolfensteinSSSpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
+}
+
+ACTOR WolfensteinSSSpawner : RandomSpawner
+{
+  DropItem "WolfensteinSSV0"
+}
+
+ACTOR WolfensteinSSSpawnerHard : RandomSpawner
+{
+  DropItem "HardWolfensteinSSV0"
+}
+
+ACTOR BaseWolfensteinSS : BaseHumanoid {}
+
+ACTOR BaseWolfensteinSSV0 : BaseWolfensteinSS
+{
+  Health 50
+  Radius 20
+  Height 56
+  Speed 3
+  PainChance 170
+  PainChance "Melee", 235
+  SeeSound "wolfss/sight"
+  PainSound "wolfss/pain"
+  DeathSound "wolfss/death"
+  ActiveSound "wolfss/active"
+  AttackSound "wolfss/attack"
+  Obituary "$OB_WOLFSS"
+  Dropitem TSPPistolAmmo 255
+  DropItem MelMipFowty 30
+  States
+  {
+  Spawn:
+    SSWV AB 10 A_Look
+    Loop
+  Missile:
+    SSWV E 10 A_FaceTarget
+    SSWV F 10 A_FaceTarget
+    SSWV G 4 Bright A_CPosAttack
+    SSWV F 6 A_FaceTarget
+    SSWV G 4 Bright A_CPosAttack
+    SSWV F 1 A_CPosRefire
+    Goto Missile+1
+  Pain:
+    SSWV H 3
+    SSWV H 3 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain.Melee:
+    SSWV H 6
+    SSWV H 6 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    SSWV I 5
+    SSWV J 5 A_Scream
+    SSWV K 5 A_NoBlocking
+    SSWV L 5
+    SSWV M -1
+    Stop
+  XDeath:
+    SSWV N 5 
+    SSWV O 5 A_XScream
+    SSWV P 5 A_NoBlocking
+    SSWV QRSTU 5
+    SSWV V -1
+    Stop
+  Raise:
+    SSWV M 5
+    SSWV LKJI 5
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See 
+  }
+}
+
+ACTOR WolfensteinSSV0 : BaseWolfensteinSSV0
+{
+  States
+  {
+  See2:
+    SSWV A 1 A_Chase
+    SSWV AA 1 A_Chase("","")
+    SSWV A 1 A_Chase
+    SSWV AA 1 A_Chase("","")
+    SSWV B 1 A_Chase
+    SSWV BB 1 A_Chase("","")
+    SSWV B 1 A_Chase
+    SSWV BB 1 A_Chase("","")
+    SSWV C 1 A_Chase
+    SSWV CC 1 A_Chase("","")
+    SSWV C 1 A_Chase
+    SSWV CC 1 A_Chase("","")
+    SSWV D 1 A_Chase
+    SSWV DD 1 A_Chase("","")
+    SSWV D 1 A_Chase
+    SSWV DD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardWolfensteinSSV0 : BaseWolfensteinSSV0
+{
+  States
+  {
+  See2:
+    SSWV AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
+    Loop
+  }
+}

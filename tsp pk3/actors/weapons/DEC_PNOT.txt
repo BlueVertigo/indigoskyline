@@ -1,11 +1,8 @@
 //===========================================================================
-//
 // Punch-Out!!
 //
-// by Marty Kirra
+// Decorate by Marty Kirra
 // Sprites by Marty Kirra, Blox, Scuba Steve, Banjo Entertainment
-// 
-//
 //===========================================================================
 
 ACTOR PunchOut : Weapon

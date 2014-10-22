@@ -1,0 +1,509 @@
+shotgun sounds are from half life 1 and hexen (denoted in sndinfo)
+//Shotgun sounds (half life 1 sounds)
+
+$limit Weapons/ShockShell 0
+$random Weapons/ShockShell {Weapons/ShockShell1 Weapons/ShockShell2 Weapons/ShockShell3}
+Weapons/ShockShell1	spark1
+Weapons/ShockShell2	spark2
+Weapons/ShockShell3	spark3
+Weapons/ShockShell4	spark4
+
+$limit Weapons/ShockArc 0
+$random Weapons/ShockArc {Weapons/ShockArc1 Weapons/ShockArc2 Weapons/ShockArc3 Weapons/ShockArc4 Weapons/ShockArc5 Weapons/ShockArc6 Weapons/ShockArc7 
+
+Weapons/ShockArc8 Weapons/ShockArc9 Weapons/ShockArc10 Weapons/ShockArc11 Weapons/ShockArc12 Weapons/ShockArc13 Weapons/ShockArc14 Weapons/ShockArc15 
+
+Weapons/ShockArc16}
+
+Weapons/ShockArc1	DSHOCK01
+Weapons/ShockArc2	DSHOCK02
+Weapons/ShockArc3	DSHOCK03
+Weapons/ShockArc4	DSHOCK04
+Weapons/ShockArc5	DSHOCK05
+Weapons/ShockArc6	DSHOCK06
+Weapons/ShockArc7	DSHOCK07
+Weapons/ShockArc8	DSHOCK08
+Weapons/ShockArc9	DSHOCK09
+Weapons/ShockArc10	DSHOCK10
+Weapons/ShockArc11	DSHOCK11
+Weapons/ShockArc12	DSHOCK12
+Weapons/ShockArc13	DSHOCK13
+Weapons/ShockArc14	DSHOCK14
+Weapons/ShockArc15	DSHOCK15
+Weapons/ShockArc16	DSHOCK16
+
+$limit Weapons/PoisonShell 0
+Weapons/PoisonShell	HL1STEAM
+
+
+
+
+//Shotgun sounds (hexen sounds)
+
+$limit Weapons/HellShell 0
+Weapons/HellShell	HELL
+
+$limit Weapons/HellShell2 0
+$random Weapons/HellShell2 {Weapons/ShockShell3 Weapons/HellShell4 Weapons/HellShell5 Weapons/HellShell6}
+
+Weapons/HellShell3	HELL3
+Weapons/HellShell4	HELL4
+Weapons/HellShell5	HELL5
+Weapons/HellShell6	HELL6
+
+$limit Weapons/HellShell7 0
+Weapons/HellShell7	HELL7
+
+
+poison pellet sprites are edited sprites from jazz jackrabbit
+
+
+
+poison gas, hellfire trail, hellfire shell shot (main missile, not starburst) are from hexen
+
+
+
+elec.kvx from doom voxel project
+
+
+
+ARWP.kvx, ARWQ.kvx, and ARWR.kvx by voxelbro from /vr/
+list other voxels
+
+models by revae, from voxels by voxelbro, converted to md2 by torridgristle
+Model CrossbowBoltBlueModel   
+{
+   Path "models/"   
+   Model 0 "bolt.md3"  
+   Skin 0 "bolt.png"  
+   Scale 0.2 0.2 0.2  
+   FrameIndex ARMP A 0 0 
+}
+
+Model CrossbowBoltRedModel   
+{
+   Path "models/"   
+   Model 0 "boltred.md3"  
+   Skin 0 "boltred.png"  
+   Scale 0.2 0.2 0.2  
+   FrameIndex ARMR A 0 0 
+}
+
+Model CrossbowBoltBlue  
+{
+   Path "models/"   
+   Model 0 "bolt.md3"  
+   Skin 0 "bolt.png"  
+   Scale 0.2 0.2 0.2  
+   FrameIndex ARMP A 0 0 
+}
+
+Model CrossbowBoltRed
+{
+   Path "models/"   
+   Model 0 "boltred.md3"  
+   Skin 0 "boltred.png"  
+   Scale 0.2 0.2 0.2  
+   FrameIndex ARMR A 0 0 
+}
+
+//Sprites in "Sprite Fixing" folder in sprites are from the Doom 2 Minor Sprite Fixing Project - v1.4 by Revenant100 aka Marphy Black
+SWBEEP.wav is from shadow warrior
+
+
+
+
+Rictus:
+
+Submitted: Captain Toenail
+Decorate: Captain Toenail
+GLDEFs: Dreadopp
+Sounds: Id Software, Raven Software
+Sprites: Id Software, Raven Software
+Sprite Edit: Captain Toenail
+Idea Base: Doom 3 Lost Souls
+rictus/sight		RICTSEE
+rictus/death		RICTDIE
+rictus/active		FIRE09
+rictus/pain		RICTPAIN
+
+RICT
+    DRFX
+
+CFCF flame
+
+
+
+//===========================================================================
+// Imp Replacements
+//
+// New Sounds by Trent Reznor
+//
+//===========================================================================
+//Imp Sounds
+$random xmimp/sight {xmimp/sight1 xmimp/sight2 xmimp/sight3 xmimp/sight4 xmimp/sight5 xmimp/sight6 xmimp/sight7 xmimp/sight8}
+xmimp/sight1             impsi1
+xmimp/sight2             impsi2
+xmimp/sight3             impsi3
+xmimp/sight4             impsi4
+xmimp/sight5             impsi5
+xmimp/sight6             impsi6
+xmimp/sight7             impsi7
+xmimp/sight8             impsi8
+
+$random xmimp/idle {xmimp/idle1 xmimp/idle2 xmimp/idle3 xmimp/idle4 xmimp/idle5 xmimp/idle6 xmimp/idle7 xmimp/idle8 xmimp/idle9 xmimp/idl10 xmimp/idl11 
+
+xmimp/idl12}
+xmimp/idle1             impidle1
+xmimp/idle2             impidle2
+xmimp/idle3             impidle3
+xmimp/idle4             impidle4
+xmimp/idle5             impidle5
+xmimp/idle6             impidle6
+xmimp/idle7             impidle7
+xmimp/idle8             impidle8
+xmimp/idle9             impidle9
+xmimp/idl10             impidl10
+xmimp/idl11             impidl11
+xmimp/idl12             impidl12
+
+$random xmimp/pain {xmimp/pain1 xmimp/pain2 xmimp/pain3 xmimp/pain4 xmimp/pain5 xmimp/pain6 xmimp/pain7 xmimp/pain8 xmimp/pain9}
+xmimp/pain1             imppa1
+xmimp/pain2             imppa2
+xmimp/pain3             imppa3
+xmimp/pain4             imppa4
+xmimp/pain5             imppa5
+xmimp/pain6             imppa6
+xmimp/pain7             imppa7
+xmimp/pain8             imppa8
+xmimp/pain9             imppa9
+
+$random xmimp/death {xmimp/death1 xmimp/death2 xmimp/death3 xmimp/death4 xmimp/death5 xmimp/death6 xmimp/death7 xmimp/death8 xmimp/death9 
+
+xmimp/death10xmimp/death11}
+xmimp/death1             impde1
+xmimp/death2             impde2
+xmimp/death3             impde3
+xmimp/death4             impde4
+xmimp/death5             impde5
+xmimp/death6             impde6
+xmimp/death7             impde7
+xmimp/death8             impde8
+xmimp/death9             impde9
+xmimp/death10             impde10
+xmimp/death11             impde11
+
+
+
+//===========================================================================
+//
+// Imp (Variant 1)
+//
+// Sprites by Vader and ItsNaturetoDie
+//
+//===========================================================================
+    IMV1 EF 8 A_FaceTarget
+
+//===========================================================================
+//
+// Imp (Variant 2)
+//
+// Sprites by Vader and ItsNaturetoDie
+//
+//===========================================================================
+    IMV2
+
+
+//===========================================================================
+//
+// Imp (Variant 3)
+//
+// Sprites by ???
+//
+//===========================================================================
+IMV3
+
+
+
+
+
+
+//===========================================================================
+//
+// Imp (Variant 4)
+//
+// Sprites by Eriance
+//
+//===========================================================================
+IMV4
+
+//===========================================================================
+//
+// Armor
+//
+// Sprites by Sangelothi, BloodyAcid, Infirnex, and Marty Kirra
+//
+//===========================================================================
+  Spawn:
+    FLRM A 13
+    FLRM B 7 Bright
+
+  Spawn:
+    PSRM A 13
+    PSRM B 7 Bright
+    Loop
+
+
+
+//===========================================================================
+// Health
+//
+// Sprites by Sangelothi, BloodyAcid, zrrion the insect,
+// Captain Toenail, and Marty Kirra
+//===========================================================================
+    SPOT ABCDCB 3 Bright
+
+
+  Spawn:
+    MDK1 ABCDEFG 5
+  Spawn:
+    STPK A 1
+  Spawn:
+    ASRM ABCDEFG 7
+    Loop
+
+
+
+//===========================================================================
+// Lost Soul
+//
+// by Ghastly_Death (Sprites by Captain Toenail, color variants by Marty Kirra)
+//===========================================================================
+BaseLostSoulV1 -v3
+
+    1FOR 3FOR
+
+
+
+
+//Scientist Zombie Weapons
+KnifeHit DSKNIFE
+CrowbarHit DSCBAR
+Steam/Loop	STEMLOOP
+Steam/Fire	STEMFIRE
+hazmat/tazer	DSTAZER
+
+
+
+
+//Bullet Casings taken from ww-diaz-v3, by WildWeasel
+DEC_SFX.txt
+
+
+ACTOR 9mmCasingSpawner     //Borrowed from the in-limbo ZNew mod
+{
+	Speed 15
+	PROJECTILE
+	+NOCLIP
+	States
+	{
+	Spawn:
+		TNT1 AA 1 A_CustomMissile("WWPistolCasing",0,0,random(-100,-80),2,random(-15,15))
+		Stop
+	}
+}      
+
+
+//===========================================================================
+// Scientists and Hazmat Zombie, all by Scalliano
+//
+// Decorate by Scalliano (minor formatting changes and See state changes by scroton)
+// Sprites by Scalliano
+//===========================================================================
+
+SCZA
+SCZC
+SCZH
+SCFE
+
+STEM
+
+FSZK
+FSZW
+FSZC
+FSZS
+
+POIS
+HMZP
+  SeeSound "grunt/sight"
+  PainSound "grunt/pain"
+  DeathSound "grunt/death"
+  ActiveSound "grunt/active"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//===========================================================================
+// Pistol Zombie
+//
+// Decorate by WildWeasel and Captain Red, modified by Marty Kirra
+// Sprites by Captain Red
+//===========================================================================
+ZMP1
+
+
+
+
+
+
+//===========================================================================
+// Vexler's Melee Style
+//
+// by Marty Kirra
+// Sprites by Marty Kirra, Blox, Scuba Steve, Banjo Entertainment1
+//===========================================================================
+VLED
+VLEU
+VLEG
+VL1F
+VK1F
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Armor Pickups
+
+armor/lightarmor         larmpck1
+armor/heavyarmor         harmpck1
+armor/armorshard         sarmpck1
+
+//Health Pickups
+
+health/supercharge       SURCHRGE
+health/medkit            MDKPCK1
+health/stimpack          STMPPCK
+health/healthbonus       HLBNPCK
+
+MENUFNT.bmf
+DBIGFONT.bmf
+
+  SeeSound "fzombie/sight"
+  PainSound "fzombie/pain"
+  DeathSound "fzombie/death"
+  ActiveSound "fzombie/idle"
+

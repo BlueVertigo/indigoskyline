@@ -1,418 +1,107 @@
 //===========================================================================
-// Scientists, all by Scalliano
+// Scientists and Hazmat Zombie
+//
+// Sprites by Scalliano
+// Sounds by Scalliano (?)
+// Decorate by Scalliano (minor formatting changes and See state changes by scroton)
 //===========================================================================
 
-
-ACTOR Scientist : RandomSpawner
+ACTOR ScientistSkillSpawner : MonsterSkillSpawner
 {
-	DropItem "FemaleScientist"
-	DropItem "FemaleScientist2"
-	DropItem "FemaleScientist3"
-	DropItem "FemaleScientist4"
-	DropItem "ZombieScientist"
-	DropItem "ZombieScientist2"
-	DropItem "ZombieScientist3"
-	DropItem "ZombieScientist4"
-	DropItem "HazmatZombie"
-
-}
-
-ACTOR FemaleScientist
-{
-  Game Doom
-  obituary "%o was stabbed by a zombie scientist."
-  health 15
-  mass 90
-  speed 3
-  Radius 19
-  Height 52
-  painchance 200
-  PainChance "GasShellDamage", 20
-	SeeSound "fzombie/sight"
-	PainSound "fzombie/pain"
-	DeathSound "fzombie/death"
-	ActiveSound "fzombie/idle"
-  MONSTER
-  +FLOORCLIP
   States
   {
   Spawn:
-    FSZK AB 10 A_Look
-    loop
-  See:
-	FSZK AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
-	loop
-  Melee:
-    FSZK E 4 A_FaceTarget
-    FSZK F 8 A_CustomMeleeAttack (random (1, 5) *5, "KnifeHit", "skeleton/swing")
-    FSZK E 4
-    goto See
-  Pain:
-    FSZK G 3
-    FSZK G 3 A_Pain
-    goto See
-  Death:
-    FSZK H 5
-    FSZK I 5 A_Scream
-    FSZK J 5 A_NoBlocking
-    FSZK K 5
-    FSZK L 5
-    FSZK M 5
-    FSZK N -1
-    stop
-  XDeath:
-    FSZK O 5
-    FSZK P 5 A_XScream
-    FSZK Q 5 A_NoBlocking
-    FSZK RSTUV 5
-    FSZK W -1
-    stop
-  Raise:
-    FSZK MLKJIH 5
-    goto See
-  }
-}
-
-ACTOR FemaleScientist2
-{
-  Game Doom
-  obituary "%o was bludgeoned to death by a zombie scientist."
-  health 15
-  mass 90
-  speed 3
-  Radius 19
-  Height 52
-  painchance 200
-  PainChance "GasShellDamage", 20
-	SeeSound "fzombie/sight"
-	PainSound "fzombie/pain"
-	DeathSound "fzombie/death"
-	ActiveSound "fzombie/idle"
-  MONSTER
-  +FLOORCLIP
-  States
-  {
-   Spawn:
-    FSZW AB 10 A_Look
-    loop
-  See:
-	FSZW AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
-	loop
-  Melee:
-    FSZW E 4 A_FaceTarget
-    FSZW F 8 A_CustomMeleeAttack (random (1, 5) *5, "skeleton/melee", "skeleton/swing")
-    FSZW D 4
-    goto See
-  Pain:
-    FSZW G 3
-    FSZW G 3 A_Pain
-    goto See
-  Death:
-    FSZW H 5
-    FSZW I 5 A_Scream
-    FSZW J 5 A_NoBlocking
-    FSZW K 5
-    FSZW L 5
-    FSZW M 5
-    FSZW N -1
-    stop
-  XDeath:
-    FSZW O 5
-    FSZW P 5 A_XScream
-    FSZW Q 5 A_NoBlocking
-    FSZW RSTUV 5
-    FSZW W -1
-    stop
-  Raise:
-    FSZW MLKJIH 5
-    goto See
-  }
-}
-
-ACTOR FemaleScientist3
-{
-  Game Doom
-  obituary "%o was bludgeoned to death by a zombie scientist."
-  health 15
-  mass 90
-  speed 3
-  Radius 19
-  Height 52
-  painchance 200
-  PainChance "GasShellDamage", 20
-	SeeSound "fzombie/sight"
-	PainSound "fzombie/pain"
-	DeathSound "fzombie/death"
-	ActiveSound "fzombie/idle"
-  MONSTER
-  +FLOORCLIP
-  States
-  {
-   Spawn:
-    FSZC AB 10 A_Look
-    loop
-  See:
-	FSZC AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
-	loop
-  Melee:
-    FSZC E 4 A_FaceTarget
-    FSZC F 8 A_CustomMeleeAttack (random (1, 5) *5, "knifehit", "skeleton/swing")
-    FSZC D 4
-    goto See
-  Pain:
-    FSZC G 3
-    FSZC G 3 A_Pain
-    goto See
-  Death:
-    FSZC H 5
-    FSZC I 5 A_Scream
-    FSZC J 5 A_NoBlocking
-    FSZC K 5
-    FSZC L 5
-    FSZC M 5
-    FSZC N -1
-    stop
-  XDeath:
-    FSZC O 5
-    FSZC P 5 A_XScream
-    FSZC Q 5 A_NoBlocking
-    FSZC RSTUV 5
-    FSZC W -1
-    stop
-  Raise:
-    FSZC MLKJIH 5
-    goto See
-  }
-}
-
-ACTOR FemaleScientist4
-{
-  Game Doom
-  obituary "%o was poisoned by a zombie scientist."
-  health 30
-  mass 90
-  speed 3
-  Radius 19
-  Height 52
-  painchance 200
-  PainChance "GasShellDamage", 20
-	SeeSound "fzombie/sight"
-	PainSound "fzombie/pain"
-	DeathSound "fzombie/death"
-	ActiveSound "fzombie/idle"
-  MONSTER
-  +FLOORCLIP
-  States
-  {
-   Spawn:
-    FSZS AB 10 A_Look
-    loop
-  See:
-	FSZS A 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS A 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS A 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS A 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS A 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS A 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS A 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS A 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS B 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS B 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS B 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS B 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS B 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS B 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS B 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS B 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS C 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS C 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS C 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS C 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS C 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS C 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS C 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS C 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS D 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS D 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS D 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS D 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS D 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS D 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS D 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	FSZS D 1 A_Chase
-	TNT1 A 0 A_JumpIfCloser (128, "Squirt")
-	loop
-  Melee:
-    FSZS E 4 A_FaceTarget
-    FSZS E 0 A_SkelWhoosh
-    FSZS F 8 A_CustomMeleeAttack (random (1, 5) *3, "knifehit", "skeleton/swing")
-    FSZS F 0 A_CustomMissile ("PoisonDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
-	goto See
-  Squirt:
-    FSZS E 4 A_FaceTarget
-    FSZS F 0 A_PlaySound ("skeleton/swing")
-    FSZS F 1 A_CustomMissile ("PoisonDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
-    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
-    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
-    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
-    FSZS F 1 A_CustomMissile ("PoisonDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
-    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
-    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
-    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
-    FSZS D 4
-    goto See
-  Pain:
-    FSZS G 3
-    FSZS G 3 A_Pain
-    goto See
-  Death:
-    FSZS H 5
-    FSZS I 5 A_Scream
-    FSZS J 5 A_NoBlocking
-    FSZS K 5
-    FSZS L 5
-    FSZS M 5
-    FSZS N -1
-    stop
-  XDeath:
-    FSZS O 5
-    FSZS P 5 A_XScream
-    FSZS Q 5 A_NoBlocking
-    FSZS RSTUV 5
-    FSZS W -1
-    stop
-  Raise:
-    FSZS MLKJIH 5
-    goto See
-  }
-}
-
-
-
-actor PoisonDrop
-{
-  Game Doom
-  Radius 3
-  Height 3
-  Scale 0.5
-  Speed 10
-  FastSpeed 15
-  Damage 1
-  PoisonDamage 5
-  Alpha 1
-  bloodcolor "DarkGreen"
-  Decal "BloodSplat"
-  Projectile
-  -NOGRAVITY
-  +RANDOMIZE
-  states
-  {
-  Spawn:
-    POIS ABCD 4
-    goto Active
-  Active:
-    POIS D 4
-    loop
-  Death:
     TNT1 A 0
-    stop
-  }
-}
-
-actor DummyDrop
-{
-  Game Doom
-  Radius 3
-  Height 3
-  Scale 0.5
-  Speed 10
-  FastSpeed 15
-  Damage 0
-  Alpha 1
-  bloodcolor "DarkGreen"
-  Decal "BloodSplat"
-  Projectile
-  -NOGRAVITY
-  +RANDOMIZE
-  states
-  {
-  Spawn:
-    POIS ABCD 4
-    goto Active
-  Active:
-    POIS D 4
-    loop
-  Death:
     TNT1 A 0
-    stop
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"Spawn2")
+    TNT1 A 0 A_SpawnItemEx("ScientistSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("ScientistSpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
   }
 }
 
-ACTOR ZombieScientist
+ACTOR ScientistSpawner : RandomSpawner
 {
-  Game Doom
-  obituary "%o was axe-murdered by a zombie scientist."
-  health 20
-  mass 90
-  speed 2
+  DropItem "ZombieScientistV1"
+  DropItem "ZombieScientistV2"
+  DropItem "ZombieScientistV3"
+  DropItem "ZombieScientistV4"
+  DropItem "FemaleScientistV1"
+  DropItem "FemaleScientistV2"
+  DropItem "FemaleScientistV3"
+  DropItem "FemaleScientistV4"
+  DropItem "HazmatZombie"
+}
+
+ACTOR ScientistSpawnerHard : RandomSpawner
+{
+  DropItem "HardZombieScientistV1"
+  DropItem "HardZombieScientistV2"
+  DropItem "HardZombieScientistV3"
+  DropItem "HardZombieScientistV4"
+  DropItem "HardFemaleScientistV1"
+  DropItem "HardFemaleScientistV2"
+  DropItem "HardFemaleScientistV3"
+  DropItem "HardFemaleScientistV4"
+  DropItem "HardHazmatZombie"
+}
+
+ACTOR BaseScientist : BaseHumanoid
+{
+  Health 20
+  Mass 90
+  Speed 2
   Radius 19
   Height 52
-  painchance 200
-  PainChance "GasShellDamage", 20
-	SeeSound "zombie/sight"
-	PainSound "zombie/pain"
-	DeathSound "zombie/death"
-	ActiveSound "zombie/idle"
-  MONSTER
-  +FLOORCLIP
+  Painchance 200
+  Painchance "GasShellDamage", 20
+  SeeSound "zombie/sight"
+  PainSound "zombie/pain"
+  DeathSound "zombie/death"
+  ActiveSound "zombie/idle"
+  Obituary "%o was axe-murdered by a zombie scientist."
+  -SEEINVISIBLE
+}
+
+ACTOR BaseFemaleScientist : BaseScientist
+{
+  Health 15
+  Speed 3
+  SeeSound "fzombie/sight"
+  PainSound "fzombie/pain"
+  DeathSound "fzombie/death"
+  ActiveSound "fzombie/idle"
+  Obituary "%o was bludgeoned to death by a zombie scientist."
+}
+
+
+//===========================================================================
+// Male Scientists
+//===========================================================================
+
+ACTOR BaseZombieScientistV1 : BaseScientist
+{
   States
   {
-   Spawn:
+  Spawn:
     SCZA AB 10 A_Look
-    loop
-  See:
-    SCZA AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
-    loop
+    Loop
   Melee:
     SCZA E 8 A_FaceTarget
     SCZA F 16 A_CustomMeleeAttack (random (2, 6) *5, "KnifeHit", "skeleton/swing")
     SCZA E 4
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Pain:
     SCZA G 3
     SCZA G 3 A_Pain
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Death:
     SCZA H 5
     SCZA I 5 A_Scream
@@ -421,54 +110,79 @@ ACTOR ZombieScientist
     SCZA L 5
     SCZA M 5
     SCZA N -1
-    stop
+    Stop
   XDeath:
     SCZA O 5
     SCZA P 5 A_XScream
     SCZA Q 5 A_NoBlocking
     SCZA RSTUV 5
     SCZA W -1
-    stop
+    Stop
   Raise:
     SCZA MLKJIH 5
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   }
 }
 
-ACTOR ZombieScientist2
+ACTOR ZombieScientistV1 : BaseZombieScientistV1
 {
-  Game Doom
-  obituary "%o was pried open by a zombie scientist."
-  health 20
-  mass 90
-  speed 2
-  Radius 19
-  Height 52
-  painchance 200
-  PainChance "GasShellDamage", 20
-  seesound "grunt/sight"
-  painsound "grunt/pain"
-  deathsound "grunt/death"
-  activesound "grunt/active"
-  MONSTER
-  +FLOORCLIP
   States
   {
-   Spawn:
+  See2:
+    SCZA A 1 A_Chase
+    SCZA AAA 1 A_Chase("","")
+    SCZA A 1 A_Chase
+    SCZA AAA 1 A_Chase("","")
+    SCZA B 1 A_Chase
+    SCZA BBB 1 A_Chase("","")
+    SCZA B 1 A_Chase
+    SCZA BBB 1 A_Chase("","")
+    SCZA C 1 A_Chase
+    SCZA CCC 1 A_Chase("","")
+    SCZA C 1 A_Chase
+    SCZA CCC 1 A_Chase("","")
+    SCZA D 1 A_Chase
+    SCZA DDD 1 A_Chase("","")
+    SCZA D 1 A_Chase
+    SCZA DDD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardZombieScientistV1 : BaseZombieScientistV1
+{
+  States
+  {
+  See2:
+    SCZA AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+    Loop
+  }
+}
+
+ACTOR BaseZombieScientistV2 : BaseScientist
+{
+  SeeSound "grunt/sight"
+  PainSound "grunt/pain"
+  DeathSound "grunt/death"
+  ActiveSound "grunt/active"
+  Obituary "%o was pried open by a zombie scientist."
+  States
+  {
+  Spawn:
     SCZC AB 10 A_Look
-    loop
-  See:
-    SCZC AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
-    loop
+    Loop
   Melee:
     SCZC E 8 A_FaceTarget
     SCZC F 16 A_CustomMeleeAttack (random (2, 6) *5, "CrowbarHit", "skeleton/swing")
     SCZC E 4
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Pain:
     SCZC G 3
     SCZC G 3 A_Pain
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Death:
     SCZC H 5
     SCZC I 5 A_Scream
@@ -477,54 +191,74 @@ ACTOR ZombieScientist2
     SCZC L 5
     SCZC M 5
     SCZC N -1
-    stop
+    Stop
   XDeath:
     SCZC O 5
     SCZC P 5 A_XScream
     SCZC Q 5 A_NoBlocking
     SCZC RSTUV 5
     SCZC W -1
-    stop
+    Stop
   Raise:
     SCZC MLKJIH 5
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   }
 }
 
-ACTOR ZombieScientist3
+ACTOR ZombieScientistV2 : BaseZombieScientistV2
 {
-  Game Doom
-  obituary "%o was axe-murdered by a zombie scientist."
-  health 20
-  mass 90
-  speed 2
-  Radius 19
-  Height 52
-  painchance 200
-  PainChance "GasShellDamage", 20
-	SeeSound "zombie/sight"
-	PainSound "zombie/pain"
-	DeathSound "zombie/death"
-	ActiveSound "zombie/idle"
-  MONSTER
-  +FLOORCLIP
   States
   {
-   Spawn:
+  See2:
+    SCZC A 1 A_Chase
+    SCZC AAA 1 A_Chase("","")
+    SCZC A 1 A_Chase
+    SCZC AAA 1 A_Chase("","")
+    SCZC B 1 A_Chase
+    SCZC BBB 1 A_Chase("","")
+    SCZC B 1 A_Chase
+    SCZC BBB 1 A_Chase("","")
+    SCZC C 1 A_Chase
+    SCZC CCC 1 A_Chase("","")
+    SCZC C 1 A_Chase
+    SCZC CCC 1 A_Chase("","")
+    SCZC D 1 A_Chase
+    SCZC DDD 1 A_Chase("","")
+    SCZC D 1 A_Chase
+    SCZC DDD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardZombieScientistV2 : BaseZombieScientistV2
+{
+  States
+  {
+  See2:
+    SCZC AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+    Loop
+  }
+}
+
+ACTOR BaseZombieScientistV3 : BaseScientist
+{
+  States
+  {
+  Spawn:
     SCZH AB 10 A_Look
-    loop
-  See:
-    SCZH AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
-    loop
+    Loop
   Melee:
     SCZH E 8 A_FaceTarget
     SCZH F 16 A_CustomMeleeAttack (random (2, 6) *5, "skeleton/melee", "skeleton/swing")
     SCZH E 4
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Pain:
     SCZH G 3
     SCZH G 3 A_Pain
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Death:
     SCZH H 5
     SCZH I 5 A_Scream
@@ -533,46 +267,66 @@ ACTOR ZombieScientist3
     SCZH L 5
     SCZH M 5
     SCZH N -1
-    stop
+    Stop
   XDeath:
     SCZH O 5
     SCZH P 5 A_XScream
     SCZH Q 5 A_NoBlocking
     SCZH RSTUV 5
     SCZH W -1
-    stop
+    Stop
   Raise:
     SCZH MLKJIH 5
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   }
 }
 
-ACTOR ZombieScientist4
+ACTOR ZombieScientistV3 : BaseZombieScientistV3
 {
-  Game Doom
-  obituary "%o was put out by a zombie scientist."
-  health 40
-  mass 90
-  speed 2
-  Radius 19
-  Height 52
-  painchance 200
-  PainChance "GasShellDamage", 20
-	SeeSound "zombie/sight"
-	PainSound "zombie/pain"
-	DeathSound "zombie/death"
-	ActiveSound "zombie/idle"
-  MeleeRange 128
-  MONSTER
-  +FLOORCLIP
   States
   {
-   Spawn:
+  See2:
+    SCZH A 1 A_Chase
+    SCZH AAA 1 A_Chase("","")
+    SCZH A 1 A_Chase
+    SCZH AAA 1 A_Chase("","")
+    SCZH B 1 A_Chase
+    SCZH BBB 1 A_Chase("","")
+    SCZH B 1 A_Chase
+    SCZH BBB 1 A_Chase("","")
+    SCZH C 1 A_Chase
+    SCZH CCC 1 A_Chase("","")
+    SCZH C 1 A_Chase
+    SCZH CCC 1 A_Chase("","")
+    SCZH D 1 A_Chase
+    SCZH DDD 1 A_Chase("","")
+    SCZH D 1 A_Chase
+    SCZH DDD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardZombieScientistV3 : BaseZombieScientistV3
+{
+  States
+  {
+  See2:
+    SCZH AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+    Loop
+  }
+}
+
+ACTOR BaseZombieScientistV4 : BaseScientist
+{
+  Health 40
+  MeleeRange 128
+  Obituary "%o was put out by a zombie scientist."
+  States
+  {
+  Spawn:
     SCFE AB 10 A_Look
-    loop
-  See:
-    SCFE AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
-    loop
+    Loop
   Melee:
     SCFE E 1 A_FaceTarget
     SCFE E 1 A_PlaySound ("Steam/Fire")
@@ -584,11 +338,13 @@ ACTOR ZombieScientist4
     SCFE F 1 A_CustomMissile ("DummyHalonParticle", 32, 8, (0.1)*Random(-3, 3), CMF_OFFSETPITCH, (0.1)*Random(-3, 3))
     SCFE F 1 A_CustomMissile ("DummyHalonParticle", 32, 8, (0.1)*Random(-3, 3), CMF_OFFSETPITCH, (0.1)*Random(-3, 3))
     SCFE F 1 A_CustomMissile ("DummyHalonParticle", 32, 8, (0.1)*Random(-3, 3), CMF_OFFSETPITCH, (0.1)*Random(-3, 3))
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Pain:
     SCFE G 3
     SCFE G 3 A_Pain
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Death:
     SCFE H 5
     SCFE I 5 A_Scream
@@ -597,21 +353,57 @@ ACTOR ZombieScientist4
     SCFE L 5
     SCFE M 5
     SCFE N -1
-    stop
+    Stop
   XDeath:
     SCFE O 5
     SCFE P 5 A_XScream
     SCFE Q 5 A_NoBlocking
     SCFE RSTUV 5
     SCFE W -1
-    stop
+    Stop
   Raise:
     SCFE MLKJIH 5
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   }
 }
 
-Actor HalonParticle
+ACTOR ZombieScientistV4 : BaseZombieScientistV4
+{
+  States
+  {
+  See2:
+    SCFE A 1 A_Chase
+    SCFE AAA 1 A_Chase("","")
+    SCFE A 1 A_Chase
+    SCFE AAA 1 A_Chase("","")
+    SCFE B 1 A_Chase
+    SCFE BBB 1 A_Chase("","")
+    SCFE B 1 A_Chase
+    SCFE BBB 1 A_Chase("","")
+    SCFE C 1 A_Chase
+    SCFE CCC 1 A_Chase("","")
+    SCFE C 1 A_Chase
+    SCFE CCC 1 A_Chase("","")
+    SCFE D 1 A_Chase
+    SCFE DDD 1 A_Chase("","")
+    SCFE D 1 A_Chase
+    SCFE DDD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardZombieScientistV4 : BaseZombieScientistV4
+{
+  States
+  {
+  See2:
+    SCFE AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+    Loop
+  }
+}
+
+ACTOR HalonParticle
 {
   Height 1
   Radius 1
@@ -643,7 +435,7 @@ Actor HalonParticle
   }
 }
 
-Actor DummyHalonParticle
+ACTOR DummyHalonParticle
 {
   Height 1
   Radius 1
@@ -673,60 +465,535 @@ Actor DummyHalonParticle
   }
 }
 
-ACTOR HazmatZombie
+//===========================================================================
+// Female Scientists
+//===========================================================================
+
+ACTOR BaseFemaleScientistV1 : BaseFemaleScientist
 {
-  Game Doom
-  obituary "%o was electrocuted by a zombie scientist."
-  health 20
-  mass 90
-  speed 2
-  Radius 19
-  Height 52
-  painchance 200
-  //PainChance "GasShellDamage", 20
-  DamageFactor "GasShellDamage", 0 //because mask
-	SeeSound "zombie/sight"
-	PainSound "zombie/pain"
-	DeathSound "zombie/death"
-	ActiveSound "zombie/idle"
-  attacksound "hazmat/tazer"
-  MONSTER
-  +FLOORCLIP
+  Obituary "%o was stabbed by a zombie scientist."
   States
   {
-   Spawn:
+  Spawn:
+    FSZK AB 10 A_Look
+    Loop
+  Melee:
+    FSZK E 4 A_FaceTarget
+    FSZK F 8 A_CustomMeleeAttack (random (1, 5) *5, "KnifeHit", "skeleton/swing")
+    FSZK E 4
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    FSZK G 3
+    FSZK G 3 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    FSZK H 5
+    FSZK I 5 A_Scream
+    FSZK J 5 A_NoBlocking
+    FSZK K 5
+    FSZK L 5
+    FSZK M 5
+    FSZK N -1
+    Stop
+  XDeath:
+    FSZK O 5
+    FSZK P 5 A_XScream
+    FSZK Q 5 A_NoBlocking
+    FSZK RSTUV 5
+    FSZK W -1
+    Stop
+  Raise:
+    FSZK MLKJIH 5
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR FemaleScientistV1 : BaseFemaleScientistV1
+{
+  States
+  {
+  See2:
+    FSZK A 1 A_Chase
+    FSZK AAA 1 A_Chase("","")
+    FSZK A 1 A_Chase
+    FSZK AAA 1 A_Chase("","")
+    FSZK B 1 A_Chase
+    FSZK BBB 1 A_Chase("","")
+    FSZK B 1 A_Chase
+    FSZK BBB 1 A_Chase("","")
+    FSZK C 1 A_Chase
+    FSZK CCC 1 A_Chase("","")
+    FSZK C 1 A_Chase
+    FSZK CCC 1 A_Chase("","")
+    FSZK D 1 A_Chase
+    FSZK DDD 1 A_Chase("","")
+    FSZK D 1 A_Chase
+    FSZK DDD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardFemaleScientistV1 : BaseFemaleScientistV1
+{
+  States
+  {
+  See2:
+    FSZK AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+    Loop
+  }
+}
+
+ACTOR BaseFemaleScientistV2 : BaseFemaleScientist
+{
+  States
+  {
+  Spawn:
+    FSZW AB 10 A_Look
+    Loop
+  Melee:
+    FSZW E 4 A_FaceTarget
+    FSZW F 8 A_CustomMeleeAttack (random (1, 5) *5, "skeleton/melee", "skeleton/swing")
+    FSZW D 4
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    FSZW G 3
+    FSZW G 3 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    FSZW H 5
+    FSZW I 5 A_Scream
+    FSZW J 5 A_NoBlocking
+    FSZW K 5
+    FSZW L 5
+    FSZW M 5
+    FSZW N -1
+    Stop
+  XDeath:
+    FSZW O 5
+    FSZW P 5 A_XScream
+    FSZW Q 5 A_NoBlocking
+    FSZW RSTUV 5
+    FSZW W -1
+    Stop
+  Raise:
+    FSZW MLKJIH 5
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR FemaleScientistV2 : BaseFemaleScientistV2
+{
+  States
+  {
+  See2:
+    FSZW A 1 A_Chase
+    FSZW AAA 1 A_Chase("","")
+    FSZW A 1 A_Chase
+    FSZW AAA 1 A_Chase("","")
+    FSZW B 1 A_Chase
+    FSZW BBB 1 A_Chase("","")
+    FSZW B 1 A_Chase
+    FSZW BBB 1 A_Chase("","")
+    FSZW C 1 A_Chase
+    FSZW CCC 1 A_Chase("","")
+    FSZW C 1 A_Chase
+    FSZW CCC 1 A_Chase("","")
+    FSZW D 1 A_Chase
+    FSZW DDD 1 A_Chase("","")
+    FSZW D 1 A_Chase
+    FSZW DDD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardFemaleScientistV2 : BaseFemaleScientistV2
+{
+  States
+  {
+  See2:
+    FSZW AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+    Loop
+  }
+}
+
+ACTOR BaseFemaleScientistV3 : BaseFemaleScientist
+{
+  States
+  {
+  Spawn:
+    FSZC AB 10 A_Look
+    Loop
+  Melee:
+    FSZC E 4 A_FaceTarget
+    FSZC F 8 A_CustomMeleeAttack (random (1, 5) *5, "knifehit", "skeleton/swing")
+    FSZC D 4
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    FSZC G 3
+    FSZC G 3 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    FSZC H 5
+    FSZC I 5 A_Scream
+    FSZC J 5 A_NoBlocking
+    FSZC K 5
+    FSZC L 5
+    FSZC M 5
+    FSZC N -1
+    Stop
+  XDeath:
+    FSZC O 5
+    FSZC P 5 A_XScream
+    FSZC Q 5 A_NoBlocking
+    FSZC RSTUV 5
+    FSZC W -1
+    Stop
+  Raise:
+    FSZC MLKJIH 5
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR FemaleScientistV3 : BaseFemaleScientistV3
+{
+  States
+  {
+  See2:
+    FSZC A 1 A_Chase
+    FSZC AAA 1 A_Chase("","")
+    FSZC A 1 A_Chase
+    FSZC AAA 1 A_Chase("","")
+    FSZC B 1 A_Chase
+    FSZC BBB 1 A_Chase("","")
+    FSZC B 1 A_Chase
+    FSZC BBB 1 A_Chase("","")
+    FSZC C 1 A_Chase
+    FSZC CCC 1 A_Chase("","")
+    FSZC C 1 A_Chase
+    FSZC CCC 1 A_Chase("","")
+    FSZC D 1 A_Chase
+    FSZC DDD 1 A_Chase("","")
+    FSZC D 1 A_Chase
+    FSZC DDD 1 A_Chase("","")
+    Loop
+  }
+}
+
+ACTOR HardFemaleScientistV3 : BaseFemaleScientistV3
+{
+  States
+  {
+  See2:
+    FSZC AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+    Loop
+  }
+}
+
+ACTOR BaseFemaleScientistV4 : BaseFemaleScientist
+{
+  Health 30
+  Obituary "%o was poisoned by a zombie scientist."
+  States
+  {
+  Spawn:
+    FSZS AB 10 A_Look
+    Loop
+  Melee:
+    FSZS E 4 A_FaceTarget
+    FSZS E 0 A_SkelWhoosh
+    FSZS F 8 A_CustomMeleeAttack (random (1, 5) *3, "knifehit", "skeleton/swing")
+    FSZS F 0 A_CustomMissile ("PoisonDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Squirt:
+    FSZS E 4 A_FaceTarget
+    FSZS F 0 A_PlaySound ("skeleton/swing")
+    FSZS F 1 A_CustomMissile ("PoisonDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
+    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
+    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
+    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
+    FSZS F 1 A_CustomMissile ("PoisonDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
+    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
+    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
+    FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
+    FSZS D 4
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Pain:
+    FSZS G 3
+    FSZS G 3 A_Pain
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  Death:
+    FSZS H 5
+    FSZS I 5 A_Scream
+    FSZS J 5 A_NoBlocking
+    FSZS K 5
+    FSZS L 5
+    FSZS M 5
+    FSZS N -1
+    Stop
+  XDeath:
+    FSZS O 5
+    FSZS P 5 A_XScream
+    FSZS Q 5 A_NoBlocking
+    FSZS RSTUV 5
+    FSZS W -1
+    Stop
+  Raise:
+    FSZS MLKJIH 5
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
+  }
+}
+
+ACTOR FemaleScientistV4 : BaseFemaleScientistV4
+{
+  States
+  {
+  See2:
+    FSZS A 1 A_Chase
+    FSZS AAA 1 A_Chase("","")
+    FSZS A 1 A_Chase
+    FSZS AAA 1 A_Chase("","")
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    FSZS BBB 1 A_Chase("","")
+    FSZS B 1 A_Chase
+    FSZS BBB 1 A_Chase("","")
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    FSZS CCC 1 A_Chase("","")
+    FSZS C 1 A_Chase
+    FSZS CCC 1 A_Chase("","")
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    FSZS DDD 1 A_Chase("","")
+    FSZS D 1 A_Chase
+    FSZS DDD 1 A_Chase("","")
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    Loop
+  }
+}
+
+ACTOR HardFemaleScientistV4 : BaseFemaleScientistV4
+{
+  States
+  {
+  See2:
+    FSZS A 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS A 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS A 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS A 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS A 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS A 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS A 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS A 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS B 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS C 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    FSZS D 1 A_Chase
+    TNT1 A 0 A_JumpIfCloser (128, "Squirt")
+    Loop
+  }
+}
+
+ACTOR PoisonDrop
+{
+  Game Doom
+  Radius 3
+  Height 3
+  Scale 0.5
+  Speed 10
+  FastSpeed 15
+  Damage 1
+  PoisonDamage 5
+  Alpha 1
+  bloodcolor "DarkGreen"
+  Decal "BloodSplat"
+  Projectile
+  -NOGRAVITY
+  +RANDOMIZE
+  States
+  {
+  Spawn:
+    POIS ABCD 4
+    goto Active
+  Active:
+    POIS D 4
+    Loop
+  Death:
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR DummyDrop
+{
+  Game Doom
+  Radius 3
+  Height 3
+  Scale 0.5
+  Speed 10
+  FastSpeed 15
+  Damage 0
+  Alpha 1
+  bloodcolor "DarkGreen"
+  Decal "BloodSplat"
+  Projectile
+  -NOGRAVITY
+  +RANDOMIZE
+  States
+  {
+  Spawn:
+    POIS ABCD 4
+    goto Active
+  Active:
+    POIS D 4
+    Loop
+  Death:
+    TNT1 A 0
+    Stop
+  }
+}
+
+//===========================================================================
+// Hazmat Zombie
+//===========================================================================
+
+ACTOR BaseHazmatZombie : BaseScientist
+{
+  Obituary "%o was electrocuted by a zombie scientist."
+  DamageFACTOR "GasShellDamage", 0 //because mask
+  AttackSound "hazmat/tazer"
+  States
+  {
+  Spawn:
     HMZP AB 10 A_Look
-    loop
-  See:
-    HMZP AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
-    loop
+    Loop
   Melee:
     HMZP E 4 A_FaceTarget
     HMZP F 4 Bright A_CustomMeleeAttack (random (2, 12) *3)
     HMZP E 4
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Pain:
     HMZP G 3
     HMZP G 3 A_Pain
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   Death:
     HMZP H 5
     HMZP I 5 A_Scream
     HMZP J 5 A_NoBlocking
     HMZP K 5
     HMZP L -1
-    stop
+    Stop
   XDeath:
     HMZP M 5
     HMZP N 5 A_XScream
     HMZP O 5 A_NoBlocking
     HMZP PQRST 5
     HMZP U -1
-    stop
+    Stop
   Raise:
     HMZP LKJIH 5
-    goto See
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See
   }
 }
 
+ACTOR HazmatZombie : BaseHazmatZombie
+{
+  States
+  {
+  See2:
+    HMZP A 1 A_Chase
+    HMZP AAA 1 A_Chase("","")
+    HMZP A 1 A_Chase
+    HMZP AAA 1 A_Chase("","")
+    HMZP B 1 A_Chase
+    HMZP BBB 1 A_Chase("","")
+    HMZP B 1 A_Chase
+    HMZP BBB 1 A_Chase("","")
+    HMZP C 1 A_Chase
+    HMZP CCC 1 A_Chase("","")
+    HMZP C 1 A_Chase
+    HMZP CCC 1 A_Chase("","")
+    HMZP D 1 A_Chase
+    HMZP DDD 1 A_Chase("","")
+    HMZP D 1 A_Chase
+    HMZP DDD 1 A_Chase("","")
+    Loop
+  }
+}
 
+ACTOR HardHazmatZombie : BaseHazmatZombie
+{
+  States
+  {
+  See2:
+    HMZP AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase
+    Loop
+  }
+}

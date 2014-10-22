@@ -1,86 +1,197 @@
 gameinfo
 {
-	dimcolor = "#000000"
-	dimamount = "0.5"
-	titlemusic = "TSPTitle"
-	creditpage = "SP_CRED"
-	titlepage = "SP_TITLE" 
-	intermissioncounter = false
-	PlayerClasses = "SpacePirate", "Vexler"
-	armoricons = "FLRMA0", 0.5, "PSRMA0"
-	pausesign = "SP_PAUSE"
-	cursorpic = "M_SPCRS1"
-	menufontcolor_title = "GREEN"
-    menufontcolor_label = "GREEN"
-    menufontcolor_value = "GREEN"
-    menufontcolor_action = "GREEN"
-    menufontcolor_header = "GREEN"
-    menufontcolor_highlight = "GREEN"
-    menufontcolor_selection = "GREEN"
+  dimcolor = "#000000"
+  dimamount = "0.5"
+  titlemusic = "TSPTitle"
+  creditpage = "SP_CRED"
+  titlepage = "SP_TITLE" 
+  intermissioncounter = false
+  PlayerClasses = "SpacePirate", "Vexler"
+  armoricons = "FLRMA0", 0.5, "PSRMA0"
+  pausesign = "SP_PAUSE"
+  cursorpic = "M_SPCRS1"
+  menufontcolor_title = "GREEN"
+  menufontcolor_label = "GREEN"
+  menufontcolor_value = "GREEN"
+  menufontcolor_action = "GREEN"
+  menufontcolor_header = "GREEN"
+  menufontcolor_highlight = "GREEN"
+  menufontcolor_selection = "GREEN"
 }
 
 clearskills
 
 skill TSPbaby
 {
-	AutoUseHealth
-	AmmoFactor = 2
-	DamageFactor = 0.5
-	EasyBossBrain
-	SpawnFilter = Baby
-	PicName = "SP_BABY"
-	Name = "$SKILL_BABY"
-	Key = "i"
+  ReplaceActor = "ZombieMan","TSPZombieSpawner" 
+  ReplaceActor = "ShotgunGuy","ShotgunguySpawner" 
+  ReplaceActor = "Chaingunguy","ChaingunnerSpawner" 
+  ReplaceActor = "DoomImp","ImpSpawner" 
+  ReplaceActor = "Archvile","ArchvileSpawner"
+  ReplaceActor = "LostSoul","LostSoulSpawner"
+  ReplaceActor = "Cacodemon","CacodemonSpawner"
+  ReplaceActor = "BaronOfHell","BaronOfHellSpawner"
+  ReplaceActor = "HellKnight","HellKnightSpawner"
+  ReplaceActor = "Demon","DemonSpawner"
+  ReplaceActor = "Spectre","SpectreSpawner"
+  ReplaceActor = "Fatso","FatsoSpawner"
+  ReplaceActor = "PainElemental","PainElementalSpawner"
+  ReplaceActor = "Revenant","RevenantSpawner"
+  ReplaceActor = "Arachnotron","ArachnotronSpawner"
+  ReplaceActor = "Cyberdemon","CyberdemonSpawner"
+  ReplaceActor = "SpiderMastermind","SpiderMastermindSpawner"
+  ReplaceActor = "WolfensteinSS","WolfensteinSSSpawner"
+  AutoUseHealth
+  AmmoFactor = 2
+  DamageFactor = 0.5
+  EasyBossBrain
+  SpawnFilter = Baby
+  PicName = "SP_BABY"
+  Name = "$SKILL_BABY"
+  ACSReturn = 0
+  Key = "i"
 }
 
 skill TSPeasy
 {
-	EasyBossBrain
-	SpawnFilter = Easy
-	PicName = "SP_ROUGH"
-	Name = "$SKILL_EASY"
-	Key = "h"
+  ReplaceActor = "ZombieMan","TSPZombieSpawner" 
+  ReplaceActor = "ShotgunGuy","ShotgunguySpawner" 
+  ReplaceActor = "Chaingunguy","ChaingunnerSpawner" 
+  ReplaceActor = "DoomImp","ImpSpawner" 
+  ReplaceActor = "Archvile","ArchvileSpawner"
+  ReplaceActor = "LostSoul","LostSoulSpawner"
+  ReplaceActor = "Cacodemon","CacodemonSpawner"
+  ReplaceActor = "BaronOfHell","BaronOfHellSpawner"
+  ReplaceActor = "HellKnight","HellKnightSpawner"
+  ReplaceActor = "Demon","DemonSpawner"
+  ReplaceActor = "Spectre","SpectreSpawner"
+  ReplaceActor = "Fatso","FatsoSpawner"
+  ReplaceActor = "PainElemental","PainElementalSpawner"
+  ReplaceActor = "Revenant","RevenantSpawner"
+  ReplaceActor = "Arachnotron","ArachnotronSpawner"
+  ReplaceActor = "Cyberdemon","CyberdemonSpawner"
+  ReplaceActor = "SpiderMastermind","SpiderMastermindSpawner"
+  ReplaceActor = "WolfensteinSS","WolfensteinSSSpawner"
+  EasyBossBrain
+  SpawnFilter = Easy
+  PicName = "SP_ROUGH"
+  Name = "$SKILL_EASY"
+  ACSReturn = 1
+  Key = "h"
 }
 
 skill TSPnormal
 {
-	SpawnFilter = Normal
-	PicName = "SP_HURT"
-	Key = "h"
-	Name = "$SKILL_NORMAL"
-	DefaultSkill
+  ReplaceActor = "ZombieMan","TSPZombieSpawner" 
+  ReplaceActor = "ShotgunGuy","ShotgunguySpawner" 
+  ReplaceActor = "Chaingunguy","ChaingunnerSpawner" 
+  ReplaceActor = "DoomImp","ImpSpawner" 
+  ReplaceActor = "Archvile","ArchvileSpawner"
+  ReplaceActor = "LostSoul","LostSoulSpawner"
+  ReplaceActor = "Cacodemon","CacodemonSpawner"
+  ReplaceActor = "BaronOfHell","BaronOfHellSpawner"
+  ReplaceActor = "HellKnight","HellKnightSpawner"
+  ReplaceActor = "Demon","DemonSpawner"
+  ReplaceActor = "Spectre","SpectreSpawner"
+  ReplaceActor = "Fatso","FatsoSpawner"
+  ReplaceActor = "PainElemental","PainElementalSpawner"
+  ReplaceActor = "Revenant","RevenantSpawner"
+  ReplaceActor = "Arachnotron","ArachnotronSpawner"
+  ReplaceActor = "Cyberdemon","CyberdemonSpawner"
+  ReplaceActor = "SpiderMastermind","SpiderMastermindSpawner"
+  ReplaceActor = "WolfensteinSS","WolfensteinSSSpawner"
+  SpawnFilter = Normal
+  PicName = "SP_HURT"
+  Key = "h"
+  Name = "$SKILL_NORMAL"
+  ACSReturn = 2
+  DefaultSkill
 }
 
-skill TSPGitGud
+skill TSPNormalHard
 {
-	SpawnFilter = Hard
-	PicName = "SP_SEMI"
-	Name = "GitGud"
-	Key = "u"
-	ReplaceActor = "ZombieMan","MKZombieSpawnerGG"
-	ReplaceActor = "ShotgunGuy","MKShotgunguySpawnerGG"
-	ReplaceActor = "Chaingunguy","MKChaingunguySpawnerGG"
+  ReplaceActor = "ZombieMan","TSPZombieSpawner" 
+  ReplaceActor = "ShotgunGuy","ShotgunguySpawner" 
+  ReplaceActor = "Chaingunguy","ChaingunnerSpawner" 
+  ReplaceActor = "DoomImp","ImpSpawner" 
+  ReplaceActor = "Archvile","ArchvileSpawner"
+  ReplaceActor = "LostSoul","LostSoulSpawner"
+  ReplaceActor = "Cacodemon","CacodemonSpawner"
+  ReplaceActor = "BaronOfHell","BaronOfHellSpawner"
+  ReplaceActor = "HellKnight","HellKnightSpawner"
+  ReplaceActor = "Demon","DemonSpawner"
+  ReplaceActor = "Spectre","SpectreSpawner"
+  ReplaceActor = "Fatso","FatsoSpawner"
+  ReplaceActor = "PainElemental","PainElementalSpawner"
+  ReplaceActor = "Revenant","RevenantSpawner"
+  ReplaceActor = "Arachnotron","ArachnotronSpawner"
+  ReplaceActor = "Cyberdemon","CyberdemonSpawner"
+  ReplaceActor = "SpiderMastermind","SpiderMastermindSpawner"
+  ReplaceActor = "WolfensteinSS","WolfensteinSSSpawner"
+  SpawnFilter = Hard
+  PicName = "SP_SEMI"
+  Name = "SEMI-VIOLENCE"
+  ACSReturn = 3
+  Key = "s"
 }
 
 skill TSPhard
 {
-	SpawnFilter = Hard
-	PicName = "SP_ULTRA"
-	Name = "$SKILL_HARD"
-	Key = "u"
+  ReplaceActor = "ZombieMan","TSPZombieSpawnerHard"  
+  ReplaceActor = "ShotgunGuy","ShotgunguySpawnerHard"  
+  ReplaceActor = "Chaingunguy","ChaingunnerSpawnerHard"  
+  ReplaceActor = "DoomImp","ImpSpawnerHard"  
+  ReplaceActor = "Archvile","ArchvileSpawnerHard" 
+  ReplaceActor = "LostSoul","LostSoulSpawnerHard" 
+  ReplaceActor = "Cacodemon","CacodemonSpawnerHard" 
+  ReplaceActor = "BaronOfHell","BaronOfHellSpawnerHard" 
+  ReplaceActor = "HellKnight","HellKnightSpawnerHard" 
+  ReplaceActor = "Demon","DemonSpawnerHard" 
+  ReplaceActor = "Spectre","SpectreSpawnerHard" 
+  ReplaceActor = "Fatso","FatsoSpawnerHard" 
+  ReplaceActor = "PainElemental","PainElementalSpawnerHard" 
+  ReplaceActor = "Revenant","RevenantSpawnerHard" 
+  ReplaceActor = "Arachnotron","ArachnotronSpawnerHard" 
+  ReplaceActor = "Cyberdemon","CyberdemonSpawnerHard" 
+  ReplaceActor = "SpiderMastermind","SpiderMastermindSpawnerHard" 
+  ReplaceActor = "WolfensteinSS","WolfensteinSSSpawnerHard" 
+  SpawnFilter = Hard
+  PicName = "SP_ULTRA"
+  Name = "$SKILL_HARD"
+  ACSReturn = 4
+  Key = "u"
 }
 
 skill TSPnightmare
 {
-	AmmoFactor = 2
-	FastMonsters
-	DisableCheats
-	RespawnTime = 12
-	SpawnFilter = Nightmare
-	PicName = "SP_NMARE"
-	Name = "$SKILL_NIGHTMARE"
-	MustConfirm
-	Key = "n"
+  ReplaceActor = "ZombieMan","TSPZombieSpawnerHard"  
+  ReplaceActor = "ShotgunGuy","ShotgunguySpawnerHard"  
+  ReplaceActor = "Chaingunguy","ChaingunnerSpawnerHard"  
+  ReplaceActor = "DoomImp","ImpSpawnerHard"  
+  ReplaceActor = "Archvile","ArchvileSpawnerHard" 
+  ReplaceActor = "LostSoul","LostSoulSpawnerHard" 
+  ReplaceActor = "Cacodemon","CacodemonSpawnerHard" 
+  ReplaceActor = "BaronOfHell","BaronOfHellSpawnerHard" 
+  ReplaceActor = "HellKnight","HellKnightSpawnerHard" 
+  ReplaceActor = "Demon","DemonSpawnerHard" 
+  ReplaceActor = "Spectre","SpectreSpawnerHard" 
+  ReplaceActor = "Fatso","FatsoSpawnerHard" 
+  ReplaceActor = "PainElemental","PainElementalSpawnerHard" 
+  ReplaceActor = "Revenant","RevenantSpawnerHard" 
+  ReplaceActor = "Arachnotron","ArachnotronSpawnerHard" 
+  ReplaceActor = "Cyberdemon","CyberdemonSpawnerHard" 
+  ReplaceActor = "SpiderMastermind","SpiderMastermindSpawnerHard" 
+  ReplaceActor = "WolfensteinSS","WolfensteinSSSpawnerHard" 
+  AmmoFactor = 2
+  FastMonsters
+  DisableCheats
+  RespawnTime = 12
+  SpawnFilter = Nightmare
+  PicName = "SP_NMARE"
+  Name = "$SKILL_NIGHTMARE"
+  MustConfirm
+  ACSReturn = 5
+  Key = "n"
 }
 
 //skill dante
