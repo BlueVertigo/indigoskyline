@@ -38,6 +38,7 @@ ACTOR MelZekeShotgunNoPool : Weapon
 	  TNT1 A 3 
 	DeselectLoop:
       TNT1 A 0 A_TakeInventory("DropShellsActor", 1)
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0  A_Lower
 	  TNT1 A 1 A_Lower
       Loop
 	Select:
@@ -46,7 +47,9 @@ ACTOR MelZekeShotgunNoPool : Weapon
 	  TNT1 A 0 A_TakeInventory("DahliaSelected", 1)
 	  TNT1 A 0 A_TakeInventory("AmmoBoxSelected", 1)
 	  TNT1 A 0 A_TakeInventory("ToolBoxSelected", 1)
-          TNT1 A 0 A_TakeInventory("MP40Selected", 1)
+      TNT1 A 0 A_TakeInventory("MP40Selected", 1)
+	  TNT1 A 0 A_TakeInventory("SavannahFalconSelected", 1)
+	  TNT1 A 0 A_TakeInventory("MelTestWeapon7Selected", 1)
 	  TNT1 A 0 A_GiveInventory("ZekeSelected", 1)
 	  TNT1 A 0 A_JumpIfInventory("ComboCooldown", 1, "QuickSelect")
       TNT1 A 3 A_PlaySoundEX("zekeshotgun/up", "SoundSlot5")
@@ -56,6 +59,7 @@ ACTOR MelZekeShotgunNoPool : Weapon
 	  STGG A 2
 	SelectLoop:	  
 	  TNT1 A 0 A_TakeInventory("DropShellsActor", 1)
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
 	  STGG A 1 A_Raise
       Loop
 	QuickSelect:

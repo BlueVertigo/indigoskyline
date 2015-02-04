@@ -24,6 +24,7 @@ ACTOR MelAmmoBox50 : Weapon
 	+Weapon.AMMO_OPTIONAL
 	+NOEXTREMEDEATH
 	+WEAPON.NoAlert
+	Tag "K&S AB-50"
    States
    {
    Spawn:
@@ -38,20 +39,24 @@ ACTOR MelAmmoBox50 : Weapon
 	  ABXD ABCDE 1
 	  TNT1 A 6
    DeselectLoop:
-	  TNT1 A 1 A_Lower
-	  Loop
+    TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Lower
+    TNT1 A 1 A_Lower
+    Loop
    Select:
 	  TNT1 A 0 A_TakeInventory("MeleeSelected", 1)
 	  TNT1 A 0 A_TakeInventory("919Selected", 1)
 	  TNT1 A 0 A_TakeInventory("ZekeSelected", 1)
 	  TNT1 A 0 A_TakeInventory("DahliaSelected", 1)
 	  TNT1 A 0 A_TakeInventory("ToolBoxSelected", 1)
-          TNT1 A 0 A_TakeInventory("MP40Selected", 1)
+      TNT1 A 0 A_TakeInventory("MP40Selected", 1)
+	  TNT1 A 0 A_TakeInventory("SavannahFalconSelected", 1)
+	  TNT1 A 0 A_TakeInventory("MelTestWeapon7Selected", 1)
 	  TNT1 A 0 A_GiveInventory("AmmoBoxSelected", 1)
 	  TNT1 A 0 A_PlaySoundEx("AmmoBox/Up", "SoundSlot5")
       TNT1 A 4
 	  ABXU ABCDE 1
    SelectLoop:
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
 	  ABXG A 1 A_Raise
       Loop
    Fire:
@@ -110,15 +115,17 @@ ACTOR MelAmmoBox50 : Weapon
 	  ABXR AUBC 1 A_WeaponReady(WRF_NOFIRE|WRF_NOBOB)
 	  ABXG A 0 A_FireCustomMissile("SpentClip1",3,0,5,0)
 	  ABXR D 1 A_PlayWeaponSound("AmmoBox/Out")
-	  ABXR EFGHIIIIIIIIIIIIIIIIIIIIIIIIIII 1
-	  ABXR J 1 A_PlayWeaponSound("AmmoBox/In")
-	  ABXR KLMNOP 1 
+	  ABXR EFGHIIIIIIIIIIIII 1
+      Goto ReloadWork
 	ReloadWork:
 	  MPTR I 0 A_TakeInventory("AmmoBoxAmmo",1)
 	  MPTR I 0 A_GiveInventory("AmmoBoxMag",1)
 	  MPTR I 0 A_JumpIfInventory("AmmoBoxMag",50,"ReloadFinish")
 	  MPTR I 0 A_JumpifInventory("AmmoBoxAmmo",1,"ReloadWork")
+	  Goto ReloadFinish
 	ReloadFinish:
+	  ABXR J 1 A_PlayWeaponSound("AmmoBox/In")
+	  ABXR KLMNOP 1 
 	  ABXR PSTCBUA 1
 	  ABXG A 2
 	  ABXC C 0 A_PlaySound("ammobox/pull", 6)
@@ -160,7 +167,7 @@ ACTOR AmmoBoxAmmo : Ammo
 	Ammo.BackpackAmount 25
 	Ammo.BackpackMaxAmount 300
 	Inventory.Icon "ABXAA0"
-	Inventory.PickupMessage "Picked up machine gun ammo. [+15 SMG Ammo]"
+	Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
 	Inventory.PickupSound "AmmoBox/In"
 	States
 	{
@@ -172,7 +179,7 @@ ACTOR AmmoBoxAmmo : Ammo
 
 ACTOR BoxOfAmmo : CustomInventory Replaces ClipBox
 {
-    Inventory.PickupMessage "Found an assorted ammo crate. [+30 Pistol Ammo][+60 SMG Ammo][+10 Bolts]"
+    Inventory.PickupMessage "Found an assorted ammo crate. [\cj+30 Pistol Ammo\c-][\cj+60 SMG Ammo\c-][\cv+10 Bolts\c-]"
 	+INVENTORY.AUTOACTIVATE
 	States
 	{
@@ -199,82 +206,6 @@ ACTOR BoxOfAmmo : CustomInventory Replaces ClipBox
 	  Stop
 	PickupFail:
       AMMO A 1
-      Fail
-	}
-}
-
-ACTOR AmmoBox50Pickup : CustomInventory Replaces Chaingun 
-{
-    Inventory.PickupMessage "[Kurdd & Schaumers AB-50] [Class: Sub-Machine Gun, Slot 4]"
-	Inventory.PickupSound "misc/w_pkup"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      ABXP A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
-	  Fail
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
-	  TNT1 A 0 A_GiveInventory("AmmoBoxAmmo", 50)
-	  TNT1 A 0 A_GiveInventory("AmmoBoxJustPickedUp", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
-	  Stop
-	MelPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
-	  TNT1 A 0 A_GiveInventory("AmmoBoxAmmo", 50)
-	  TNT1 A 0 A_GiveInventory("AmmoBoxJustPickedUp", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
-	  Stop
-	AmmoCheck:
-      TNT1 A 0 A_JumpIfInventory("AmmoBoxAmmo", 0, "PickupFail")
-	  TNT1 A 0 A_GiveInventory("AmmoBoxAmmo", 50)
-	  Stop
-	PickupFail:
-      ABXP A 1
-      Fail
-	}
-}
-
-ACTOR AmmoBox50DroppedPickup : CustomInventory
-{
-    Inventory.PickupMessage "[Kurdd & Schaumers AB-50] [Class: Sub-Machine Gun, Slot 4]"
-	Inventory.PickupSound "misc/w_pkup"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      ABXP A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
-	  Fail
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
-	  TNT1 A 0 A_GiveInventory("AmmoBoxAmmo", 25)
-	  TNT1 A 0 A_GiveInventory("AmmoBoxJustPickedUp", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
-	  Stop
-	MelPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
-	  TNT1 A 0 A_GiveInventory("AmmoBoxAmmo", 25)
-	  TNT1 A 0 A_GiveInventory("AmmoBoxJustPickedUp", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
-	  Stop
-	AmmoCheck:
-      TNT1 A 0 A_JumpIfInventory("AmmoBoxAmmo", 0, "PickupFail")
-	  TNT1 A 0 A_GiveInventory("AmmoBoxAmmo", 25)
-	  Stop
-	PickupFail:
-      ABXP A 1
       Fail
 	}
 }
@@ -307,6 +238,7 @@ ACTOR MelMipFowty : Weapon
 	+NOEXTREMEDEATH
 	+WEAPON.CHEATNOTWEAPON
 	+WEAPON.NoAlert
+	Tag "Maschinepistole 40"
    States
    {
    Spawn:
