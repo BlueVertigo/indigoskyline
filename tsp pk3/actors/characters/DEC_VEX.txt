@@ -21,14 +21,16 @@ ACTOR Vexler : DoomPlayer
 	Player.StartItem "AmmoboxMag", 50
 	Player.StartItem "MP40Mag", 30
 	Player.StartItem "ToolboxMag", 5
+	Player.StartItem "WOGClip", 120
 	Player.SoundClass "Vexler"
 	Player.DisplayName "Vexler"
-	Player.Portrait "Mel_Port"
+	Player.Portrait "Vex_Port"
 	Player.WeaponSlot 1, MelCustomCrossbow, VexlerMelee
 	Player.WeaponSlot 2, Mel919mPistol
 	Player.WeaponSlot 3, MelDahliaCrossbow, MelZekeShotgun, MelZekeShotgunNoPool
 	Player.WeaponSlot 4, MelAmmoBox50, MelMipFowty
 	Player.WeaponSlot 5, MelToolbox
+	Player.WeaponSlot 7, MelTestWeapon7
     Species "Player"
 	+THRUSPECIES
 	DamageFactor "Poison", 2.0

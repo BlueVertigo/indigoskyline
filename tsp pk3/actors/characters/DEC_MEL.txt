@@ -7,8 +7,9 @@ ACTOR SpacePirate : DoomPlayer
 	Player.StartItem "StopMelee", 1
 	Player.StartItem "DropCurrentShells", 1
 	Player.StartItem "MeleeButtonActor", 1
-	Player.StartItem "Mel919MPistol"
-	Player.StartItem "MelMelee"
+//	Player.StartItem "MelStartInventory", 1
+//	Player.StartItem "Mel919MPistol"
+//	Player.StartItem "MelMelee"
 	Player.StartItem "AutoPistolMag", 15
 	Player.StartItem "TSPPistolAmmo", 60
 	Player.StartItem "BuckshotShellSelected", 1
@@ -23,9 +24,9 @@ ACTOR SpacePirate : DoomPlayer
 	Player.DisplayName "Mel"
 	Player.Face MCW
 	Player.Portrait "Mel_Port"
-	Player.WeaponSlot 1, MelCustomCrossbow, MelMelee
+	Player.WeaponSlot 1, MelCustomCrossbow, MelMelee, MelNikana
 	Player.WeaponSlot 2, MelSavannahFalcon, Mel919mPistol
-	Player.WeaponSlot 3, MelDahliaCrossbow, MelZekeShotgun, MelZekeShotgunNoPool, MelClassicoShotgun
+	Player.WeaponSlot 3, MelDahliaCrossbow, MelAssaultShotgun, MelZekeShotgun, MelZekeShotgunNoPool, MelClassicoShotgun
 	Player.WeaponSlot 4, MelAmmoBox50, MelMipFowty
 	Player.WeaponSlot 5, MelToolbox
 	Player.WeaponSlot 7, MelTestWeapon7
@@ -37,11 +38,96 @@ ACTOR SpacePirate : DoomPlayer
 	DamageFactor "Shrapnel", 0.5
 	DamageFactor "WOGChargeBeam", 0.0 
 	DamageFactor "WOGBeam", 0.0 
+    DamageFactor "Sling", 0.0
 }
 
 ACTOR IsMel : Inventory
 {
 	Inventory.MaxAmount 1
+}
+
+/*
+ACTOR MelStartInventory : CustomInventory
+{
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+      TNT1 A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 7,"PickupSurvivor")
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 5,"PickupNormal")
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 4,"PickupNormal")
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"PickupNormal")
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 1,"PickupEasy")
+	  Stop
+	PickupEasy:
+	  TNT1 A 0 A_GiveInventory("MelMelee")
+	  TNT1 A 0 A_GiveInventory("MelZekeShotgun")
+	  TNT1 A 0 A_GiveInventory("Mel919mPistol")
+	  Stop
+	PickupNormal:
+	  TNT1 A 0 A_GiveInventory("MelMelee")
+	  TNT1 A 0 A_GiveInventory("Mel919mPistol")
+	  Stop
+	PickupSurvivor:
+	  TNT1 A 0 A_GiveInventory("MelMelee")
+	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow")
+	  TNT1 A 0 A_GiveInventory("Mel919mPistol")
+	  Stop
+	}
+}
+*/
+
+ACTOR TSPEasyModePickup : CustomInventory
+{
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Pickup:
+	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+	  Fail
+	MelPickup:
+	  TNT1 A 0 A_GiveInventory("MelMelee")
+	  TNT1 A 0 A_GiveInventory("MelZekeShotgun")
+	  TNT1 A 0 A_GiveInventory("Mel919mPistol")
+	  Stop
+	}
+}
+
+ACTOR TSPNormalModePickup : CustomInventory
+{
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Pickup:
+	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+	  Fail
+	MelPickup:
+	  TNT1 A 0 A_GiveInventory("MelMelee")
+	  TNT1 A 0 A_GiveInventory("Mel919mPistol")
+	  Stop
+	}
+}
+
+ACTOR TSPSurvivorModePickup : CustomInventory
+{
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Pickup:
+	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+	  Fail
+	MelPickup:
+	  TNT1 A 0 A_GiveInventory("MelMelee")
+	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow")
+	  TNT1 A 0 A_GiveInventory("Mel919mPistol")
+	  Stop
+	}
 }
 
 //actor MelReady : Boolean {}
