@@ -53,12 +53,14 @@ ACTOR Mel919mPistol : Weapon
       TNT1 A 0 A_JumpIfInventory("AutoPistolFullAuto", 1, "AutoDeselect")
 	  MPTD ABCD 1
    DeselectLoop:
-	  TNT1 A 3 A_Lower
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0  A_Lower
+	  TNT1 A 1 A_Lower
       Loop
    AutoDeselect:
       ASTD ABCD 1
    AutoDeselectLoop:
-	  TNT1 A 3 A_Lower
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0  A_Lower
+	  TNT1 A 1 A_Lower
       Loop
    Select:
 	  TNT1 A 0 A_TakeInventory("MeleeSelected", 1)
@@ -66,7 +68,8 @@ ACTOR Mel919mPistol : Weapon
 	  TNT1 A 0 A_TakeInventory("DahliaSelected", 1)
 	  TNT1 A 0 A_TakeInventory("AmmoBoxSelected", 1)
 	  TNT1 A 0 A_TakeInventory("ToolBoxSelected", 1)
-          TNT1 A 0 A_TakeInventory("MP40Selected", 1)
+      TNT1 A 0 A_TakeInventory("MP40Selected", 1)
+	  TNT1 A 0 A_TakeInventory("MelTestWeapon7Selected", 1)
 	  TNT1 A 0 A_GiveInventory("919Selected", 1)
 	  TNT1 A 0 A_PlaySound("919m/select", 5)
 	  TNT1 A 0 A_JumpIfInventory("MelPistolCombo", 1, "PistolComboStart")
@@ -74,11 +77,13 @@ ACTOR Mel919mPistol : Weapon
 	  TNT1 A 0 A_JumpIfInventory("AutoPistolFullAuto", 1, "AutoSelect")
       MPTS ABCD 1
    SelectLoop:
+      TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
 	  MPTG A 1 A_Raise
 	  Loop
    AutoSelect:
       ASTU ABCD 1
    AutoSelectLoop:
+      TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
 	  ASTG A 1 A_Raise
 	  Loop
    Fire:
@@ -355,7 +360,7 @@ ACTOR TSPPistolAmmo : Ammo Replaces Clip
 	Ammo.BackpackMaxAmount 300
 	Ammo.DropAmount 5
 	Inventory.Icon "919AA0"
-	Inventory.PickupMessage "Picked up a pistol magazine. [+5 Pistol Ammo]"
+	Inventory.PickupMessage "Picked up a pistol magazine. [\cj+5 Pistol Ammo\c-]"
 	Inventory.PickupSound "919m/magout"
 	States
 	{
@@ -416,6 +421,7 @@ ACTOR MelSavannahFalcon : Weapon
 	  TNT1 A 0 A_TakeInventory("AmmoBoxSelected", 1)
 	  TNT1 A 0 A_TakeInventory("ToolBoxSelected", 1)
 	  TNT1 A 0 A_TakeInventory("919Selected", 1)
+	  TNT1 A 0 A_TakeInventory("MelTestWeapon7Selected", 1)
 	  TNT1 A 0 A_GiveInventory("SavannahFalconSelected", 1)
 	  TNT1 A 0 A_PlaySound("919m/select", 5)
       TNT1 A 3 SetPlayerProperty(0,1,2)
@@ -476,42 +482,6 @@ ACTOR SavannahFalconMag : Ammo
 {
 	+IGNORESKILL
 	Inventory.MaxAmount 6
-}
-
-ACTOR PistolPickup : CustomInventory Replaces Pistol 
-{
-    Inventory.PickupMessage "[Makoto Type 919 Mod.0] [Class: Pistol, Slot 2]"
-	Inventory.PickupSound "misc/w_pkup"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      919P A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
-	  Fail
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIfInventory("Mel919mPistol", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("Mel919mPistol", 1)
-	  TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 15)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
-	  Stop
-	MelPickup:
-	  TNT1 A 0 A_JumpIfInventory("Mel919mPistol", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("Mel919mPistol", 1)
-	  TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 15)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds")
-	  Stop
-	AmmoCheck:
-      TNT1 A 0 A_JumpIfInventory("TSPPistolAmmo", 0, "PickupFail")
-	  TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 15)
-	  Stop
-	PickupFail:
-      919P A 1
-      Fail
-	}
 }
 
 ACTOR 919mBulletPuff : BulletPuff
