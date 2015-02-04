@@ -1,0 +1,13 @@
+//===========
+// Menu Stuff
+//===========
+
+REMAP SP_HEDR M_TSPHD
+REMAP CONBACK CNBCKHD
+
+//================
+// Character Icons
+//================
+
+REMAP Mel_Port Mel_PHD
+REMAP Vex_Port Vex_PHD
