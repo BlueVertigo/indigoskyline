@@ -3,6 +3,8 @@ gameinfo
   dimcolor = "#000000"
   dimamount = "0.5"
   titlemusic = "TSPTitle"
+  intermissionmusic = "TSPINT"
+  drawreadthis = true
   creditpage = "SP_CRED"
   titlepage = "SP_TITLE" 
   intermissioncounter = false
@@ -14,7 +16,7 @@ gameinfo
   menufontcolor_label = "GREEN"
   menufontcolor_value = "GREEN"
   menufontcolor_action = "GREEN"
-  menufontcolor_header = "GREEN"
+  menufontcolor_header = "YELLOW"
   menufontcolor_highlight = "GREEN"
   menufontcolor_selection = "GREEN"
 }
@@ -46,40 +48,13 @@ skill TSPbaby
   DamageFactor = 0.5
   EasyBossBrain
   SpawnFilter = Baby
-  PicName = "SP_BABY"
-  Name = "$SKILL_BABY"
+//  PicName = "SP_BABY"
+  Name = "Easy Peasy"
   ACSReturn = 0
-  Key = "i"
+  Key = "1"
 }
 
-skill TSPeasy
-{
-  ReplaceActor = "ZombieMan","TSPZombieSpawner" 
-  ReplaceActor = "ShotgunGuy","ShotgunguySpawner" 
-  ReplaceActor = "Chaingunguy","ChaingunnerSpawner" 
-  ReplaceActor = "DoomImp","ImpSpawner" 
-  ReplaceActor = "Archvile","ArchvileSpawner"
-  ReplaceActor = "LostSoul","LostSoulSpawner"
-  ReplaceActor = "Cacodemon","CacodemonSpawner"
-  ReplaceActor = "BaronOfHell","BaronOfHellSpawner"
-  ReplaceActor = "HellKnight","HellKnightSpawner"
-  ReplaceActor = "Demon","DemonSpawner"
-  ReplaceActor = "Spectre","SpectreSpawner"
-  ReplaceActor = "Fatso","FatsoSpawner"
-  ReplaceActor = "PainElemental","PainElementalSpawner"
-  ReplaceActor = "Revenant","RevenantSpawner"
-  ReplaceActor = "Arachnotron","ArachnotronSpawner"
-  ReplaceActor = "Cyberdemon","CyberdemonSpawner"
-  ReplaceActor = "SpiderMastermind","SpiderMastermindSpawner"
-  ReplaceActor = "WolfensteinSS","WolfensteinSSSpawner"
-  EasyBossBrain
-  SpawnFilter = Easy
-  PicName = "SP_ROUGH"
-  Name = "$SKILL_EASY"
-  ACSReturn = 1
-  Key = "h"
-}
-
+/*
 skill TSPnormal
 {
   ReplaceActor = "ZombieMan","TSPZombieSpawner" 
@@ -101,14 +76,14 @@ skill TSPnormal
   ReplaceActor = "SpiderMastermind","SpiderMastermindSpawner"
   ReplaceActor = "WolfensteinSS","WolfensteinSSSpawner"
   SpawnFilter = Normal
-  PicName = "SP_HURT"
-  Key = "h"
-  Name = "$SKILL_NORMAL"
-  ACSReturn = 2
-  DefaultSkill
+//  PicName = "SP_HURT"
+  Key = "2"
+  Name = "Slightly Tense"
+  ACSReturn = 1
 }
+*/
 
-skill TSPNormalHard
+skill TSPMedium
 {
   ReplaceActor = "ZombieMan","TSPZombieSpawner" 
   ReplaceActor = "ShotgunGuy","ShotgunguySpawner" 
@@ -129,10 +104,10 @@ skill TSPNormalHard
   ReplaceActor = "SpiderMastermind","SpiderMastermindSpawner"
   ReplaceActor = "WolfensteinSS","WolfensteinSSSpawner"
   SpawnFilter = Hard
-  PicName = "SP_SEMI"
-  Name = "SEMI-VIOLENCE"
-  ACSReturn = 3
-  Key = "s"
+//  PicName = "SP_SEMI"
+  Name = "Bring It On!"
+  ACSReturn = 1
+  Key = "2"
 }
 
 skill TSPhard
@@ -156,12 +131,45 @@ skill TSPhard
   ReplaceActor = "SpiderMastermind","SpiderMastermindSpawnerHard" 
   ReplaceActor = "WolfensteinSS","WolfensteinSSSpawnerHard" 
   SpawnFilter = Hard
-  PicName = "SP_ULTRA"
-  Name = "$SKILL_HARD"
-  ACSReturn = 4
-  Key = "u"
+  DefaultSkill
+//PicName = "SP_ULTRA"
+  Name = "Ultra-Violence!"
+  ACSReturn = 2
+  Key = "2"
 }
 
+skill TSPhardest
+{
+  ReplaceActor = "ZombieMan","TSPZombieSpawnerHard"  
+  ReplaceActor = "ShotgunGuy","ShotgunguySpawnerHard"  
+  ReplaceActor = "Chaingunguy","ChaingunnerSpawnerHard"  
+  ReplaceActor = "DoomImp","ImpSpawnerHard"  
+  ReplaceActor = "Archvile","ArchvileSpawnerHard" 
+  ReplaceActor = "LostSoul","LostSoulSpawnerHard" 
+  ReplaceActor = "Cacodemon","CacodemonSpawnerHard" 
+  ReplaceActor = "BaronOfHell","BaronOfHellSpawnerHard" 
+  ReplaceActor = "HellKnight","HellKnightSpawnerHard" 
+  ReplaceActor = "Demon","DemonSpawnerHard" 
+  ReplaceActor = "Spectre","SpectreSpawnerHard" 
+  ReplaceActor = "Fatso","FatsoSpawnerHard" 
+  ReplaceActor = "PainElemental","PainElementalSpawnerHard" 
+  ReplaceActor = "Revenant","RevenantSpawnerHard" 
+  ReplaceActor = "Arachnotron","ArachnotronSpawnerHard" 
+  ReplaceActor = "Cyberdemon","CyberdemonSpawnerHard" 
+  ReplaceActor = "SpiderMastermind","SpiderMastermindSpawnerHard" 
+  ReplaceActor = "WolfensteinSS","WolfensteinSSSpawnerHard" 
+  Aggressiveness = 0.5
+  DamageFactor = 1.5
+  MonsterHealth =  1.5
+  MustConfirm
+  SpawnFilter = Hard
+//PicName = "SP_ULTRA"
+  Name = "Purest, Darkest Hell"
+  ACSReturn = 3
+  Key = "5"
+}
+
+/*
 skill TSPnightmare
 {
   ReplaceActor = "ZombieMan","TSPZombieSpawnerHard"  
@@ -193,14 +201,26 @@ skill TSPnightmare
   ACSReturn = 5
   Key = "n"
 }
+*/
 
-//skill dante
-//{
-//  damagefactor = 255
-//  monsterhealth = 0.001
-//  spawnfilter = Hard
-//  name = "Death to Pirates"
-//  textcolor = blue
-//  mustconfirm = "Everything dies in one hit, including you! Ready for this?"
-//}
-//This will probably coming soon.
+skill TSPdante
+{
+  damagefactor = 255
+  monsterhealth = 0.001
+  spawnfilter = Hard
+  name = "Death to Pirates"
+  textcolor = cyan
+  mustconfirm = "Everything dies in one hit, including you! Ready for this?"
+  ACSReturn = 4
+}
+
+skill TSPSurvivor
+{
+  damagefactor = 2.0
+  monsterhealth = 2.0
+  spawnfilter = Hard
+  name = "Lone Survivor"
+  textcolor = Orange
+  mustconfirm = "Stranded on a base with limited supplies and now all Hell is breaking loose. Can you survive the horror?"
+  ACSReturn = 5
+}

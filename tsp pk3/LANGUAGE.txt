@@ -2,35 +2,35 @@
 
 QUITMSG = "It's okay,\nI'm sure you can make a living doing\nsomething less lucrative.";
 QUITMSG1 = "Outlaws never go down easy,\nno matter what happens.";
-QUITMSG2 = "It's just like it is with the stars,\nthere are bright ones,\nand there are those that are dim.";
-QUITMSG3 = "If someone were unfortunate enough\nto make an enemy of the Anten Seven\nand forced to fight against them,\nI would say only this\n\n...farewell, friend.";
+QUITMSG2 = "It's just like it is with the stars,\n\cathere are bright ones,\n\crand there are those that are dim.";
+QUITMSG3 = "If someone were unfortunate enough\nto make an enemy of \cathe Anten Seven\nand forced to fight against them,\nI would say only this\n\n\cc...farewell, friend.";
 QUITMSG4 = "No one's gonna draw you a map.\nYou have to walk your own path.";
-QUITMSG5 = "Believe in yourself and create your own destiny.\n\nDon't fear fate.";
-QUITMSG6 = "What exactly awaits at\nthe Galatic Leyline?";
-QUITMSG7 = "Go to the Galactic Leyline.\nNo one can stop you.";
-QUITMSG8 = "Grab what you want and rip through the dark\nas you run Through The Night!";
+QUITMSG5 = "Believe in yourself and create your own destiny.\n\n\caDon't fear fate.";
+QUITMSG6 = "What exactly awaits at\n\cfthe Galatic Leyline?";
+QUITMSG7 = "Go to \cfthe Galactic Leyline.\nNo one can stop you.";
+QUITMSG8 = "Grab what you want and rip through the dark\nas you run \caThrough The Night!";
 QUITMSG9 = "Are you gonna just keep running away?";
 QUITMSG10 = "Nothing good can ever come from\nstaying with normal people.";
 QUITMSG11 = "You must search for your own dreams young outlaw,\nand then fight.\n\nFight to make them all yours.";
-QUITMSG12 = "The Space Pirate v0.1.3 coming soon\n''Vexler Unbound''";
+QUITMSG12 = "Do you hear them calling for you?\nThey are the only way to stop this invasion.\n\n\cf''Use us.''";
 QUITMSG13 = "If there is the slimmest chance,\nno matter how small,\nyou have to go for it.\nNever give up hope.\nThat's what it means to be an outlaw.";
-QUITMSG14 = "Whaddya doing in my mod? Get outta here.\n...GET OUTTA HERE!";
-DOSY = "[Press the Y Key to exit]";
-TXT_YES = "[Yes]";
-TXT_NO = "[No]";
+QUITMSG14 = "Whaddya doing in my mod? Get outta here.\n\n...\caGET OUTTA HERE!";
+DOSY = "\cd[Press the Y Key to exit]";
+TXT_YES = "\cf[Yes]";
+TXT_NO = "\cf[No]";
 
-STSTR_DQDON = "Omni-Shields on! [+Invincibility!]";
-STSTR_DQDOFF = "Omni-Shields off. [-Invincibility!]";
-STSTR_KFAADDED = "You've been gifted a hyper space arsenal with keys to match.";
-STSTR_FAADDED = "You've been gifted a hyper space arsenal.";
-STSTR_NCON = "Try to save myself, myself keeps slipping away...[+Ghost]";
-STSTR_NCOFF = "Tried to overcome the complications and the catches...[-Ghost]";
+STSTR_DQDON = "\cfOmni-Shields on! [+Invincibility!]";
+STSTR_DQDOFF = "\c-Omni-Shields off. [-Invincibility!]";
+STSTR_KFAADDED = "\cfYou've been gifted a hyper space arsenal with keys to match!";
+STSTR_FAADDED = "\cfYou've been gifted a hyper space arsenal!";
+STSTR_NCON = "\ccTry to save myself, myself keeps slipping away...[+Ghost]";
+STSTR_NCOFF = "\c-Tried to overcome the complications and the catches...[-Ghost]";
 STSTR_BEHOLD = "We should be able to beam you down something useful.";
-STSTR_BEHOLDX = "Use this wisely!";
-STSTR_CHOPPERS = "A chainsaw? What's with you and brutality, anyway?";
-TXT_BUDDHAON = "You have this strange sense of invulnerability...";
+STSTR_BEHOLDX = "\cfUse this wisely!";
+STSTR_CHOPPERS = "\cgA chainsaw? What's with you and brutality, anyway?";
+TXT_BUDDHAON = "\cjYou have this strange sense of invulnerability...";
 TXT_BUDDHAOFF = "But now it looks like that feeling is gone.";
-TXT_DEFAULTPICKUPMSG = "Goddammit Ross.";
+TXT_DEFAULTPICKUPMSG = "\caGoddammit Ross.";
 
 OB_SUICIDE = "%o took matters into %p own hands.";
 OB_FALLING = "%o took a lesson in gravity.";
@@ -48,3 +48,53 @@ OB_FRIENDLY1 = "%k and %o had a bit of a falling out, you see.";
 OB_FRIENDLY2 = "%k took an opportunity to kill %o when they least expected it.";
 OB_FRIENDLY3 = "I'm sure %o would've forgiven %k for that shot.";
 OB_FRIENDLY4 = "%k told %o to get outta here. With lethal force.";
+
+//Key Pickup Messages
+GOTBLUECARD = "Acquired a \chblue keycard\c-!";
+GOTYELWCARD = "Acquired a \ckyellow keycard\c-!";
+GOTREDCARD = "Acquired a \cgred keycard\c-!";
+GOTBLUESKUL = "Acquired a \chblue skull\c- key!";
+GOTYELWSKUL = "Acquired a \ckyellow skull key\c-!";
+GOTREDSKUL = "Acquired a \cgred skull key\c-!";
+PD_BLUEO = "\chBlue key\c- required to activate this object";
+PD_REDO = "\cgRed key\c- required to activate this object";
+PD_YELLOWO = "\ckYellow key\c- required to activate this object";
+PD_BLUEK = "\chBlue key\c- required to open this door";
+PD_REDK = "\cgRed key\c- required to open this door";
+PD_YELLOWK = "\ckYellow key\c- required to open this door";
+PD_BLUECO = "\chBlue card\c- required to activate this object";
+PD_REDCO = "\cgRed card\c- required to activate this object";
+PD_YELLOWCO = "\ckYellow card\c- required to activate this object";
+PD_BLUESO = "\chBlue skull\c- required to activate this object";
+PD_REDSO = "\cgRed skull\c- required to activate this object";
+PD_YELLOWSO = "\ckYellow skull\- required to activate this object";
+
+//Boom Key Pickup Messages
+PD_BLUEC = "\chBlue card\c- required to open this door";
+PD_REDC = "\cgRed card\c- required to open this door";
+PD_YELLOWC = "\ckYellow card\c- required to open this door";
+PD_BLUES = "\chBlue skull\c- required to open this door";
+PD_REDS = "\cgRed skull\c- required to open this door";
+PD_YELLOWS = "\ckYellow skull\c- required to open this door";
+PD_ANY = "Any key will open this door";
+PD_ANYOBJ = "\cdAny key\c- will activate this object";
+PD_ALL3 = "You need all three keys to open this door";
+PD_ALL3O = "You need all three keys to activate this object";
+PD_ALL6 = "You need all six keys to open this door";
+PD_ALL6O = "You need all six keys to activate this object";
+PD_ALLKEYS = "You need all the keys";
+
+SECRETMESSAGE = "\cjYou've discovered a secret area!";
+
+//Menu Junk
+MNU_CHOOSECLASS		= "Character Select";
+MNU_CHOOSESKILL		= "Difficulty Select";
+
+//Startup
+STARTUP1 = "\cdWelcome to The Space Pirate!";
+STARTUP2 = "\cpVersion: 0.2 ALPHA - \ctVexler Unbound";
+STARTUP3 = "Chat with us at \cd#tsp on irc.zandronum.net";
+STARTUP4 = "Or check out the public plan doc at \cdtinyurl.com/tspmanual";
+STARTUP5 = "\cuLOOK TO LA LUNA";
+
+NIGHTMARE = "Welcome to the real deal. \caElite Class\c- monsters spawn more often\nammo drops are \caless frequent\c-,\nand monsters do \camore damage\c- to you.\n\nYou sure you're ready for this?";
