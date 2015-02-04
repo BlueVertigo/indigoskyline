@@ -93,7 +93,7 @@ ACTOR BaseArchvileV0 : BaseArchvile
     Goto See
   Death:
     TNT1 A 0 A_ChangeFlag("NODAMAGE",0)
-    TNT1 A 0 A_KillChildren
+    TNT1 A 0 A_RemoveChildren(1)
     VILE Q 7
     VILE R 7 A_Scream
     VILE S 7 A_NoBlocking

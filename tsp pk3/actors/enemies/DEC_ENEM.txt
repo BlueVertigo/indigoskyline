@@ -59,6 +59,7 @@ ACTOR BaseHumanoid : BaseEnemy
     Goto Death.WOGChargeBeam2
   Death.WOGChargeBeam2:
     TNT1 A 0 A_Stop
+	TNT1 A 0 A_Playsound("weapons/gppbeamdiss",0)
 	TNT1 A 0 A_ChangeVelocity(frandom(-2,2),frandom(-2,2),frandom(0.2,0.8),CVF_REPLACE)
 	TNT1 AAAAA 0 A_SpawnItemEx("WOGMissileSparksSmall",random(-16,16),random(-16,16),random(4,52),0,0,0,0,SXF_NOCHECKPOSITION)
     TNT1 A 0 A_Jump(255,"Death.WOGChargeBeam3")
