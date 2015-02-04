@@ -1,0 +1,75 @@
+////////////////
+// Mel (Emerald)
+////////////////
+
+$playeralias	Emerald      Melody  	*pain100	mel/pain100
+$playeralias	Emerald      Melody  	*pain75		mel/pain75
+$playeralias	Emerald      Melody  	*pain50		mel/pain50
+$playeralias	Emerald      Melody  	*pain25		mel/pain25
+$playeralias	Emerald	    Melody  	*death		mel/death
+$playeralias	Emerald      Melody  	*xdeath		mel/xdeath
+$playeralias	Emerald      Melody  	*gibbed		mel/xdeath
+$playeralias	Emerald      Melody  	*grunt		mel/land
+$playeralias	Emerald	    Melody  	*jump		mel/jump
+$playersound    Emerald	    Melody      *land       melland
+$playeralias    Emerald	    Melody      *usefail    mel/unf
+$playeralias	Emerald   	Melody  	*melee      mel/meleeyell
+$playeralias	Emerald   	Melody  	*strongmelee       mel/strongmeleeyell
+
+/////////////
+// Mel (Ruby)
+/////////////
+
+$playeralias	Ruby      Melody  	*pain100	mel/pain100
+$playeralias	Ruby      Melody  	*pain75		mel/pain75
+$playeralias	Ruby      Melody  	*pain50		mel/pain50
+$playeralias	Ruby      Melody  	*pain25		mel/pain25
+$playeralias	Ruby	    Melody  	*death		mel/death
+$playeralias	Ruby      Melody  	*xdeath		mel/xdeath
+$playeralias	Ruby      Melody  	*gibbed		mel/xdeath
+$playeralias	Ruby      Melody  	*grunt		mel/land
+$playeralias	Ruby	    Melody  	*jump		mel/jump
+$playersound    Ruby	    Melody      *land       melland
+$playeralias    Ruby	    Melody      *usefail    mel/unf
+$playeralias	Ruby   	Melody  	*melee      mel/meleeyell
+$playeralias	Ruby   	Melody  	*strongmelee       mel/strongmeleeyell
+
+/////////////////
+// Mel (Amethyst)
+/////////////////
+
+$playeralias	Amethyst      Melody  	*pain100	mel/pain100
+$playeralias	Amethyst      Melody  	*pain75		mel/pain75
+$playeralias	Amethyst      Melody  	*pain50		mel/pain50
+$playeralias	Amethyst      Melody  	*pain25		mel/pain25
+$playeralias	Amethyst	    Melody  	*death		mel/death
+$playeralias	Amethyst      Melody  	*xdeath		mel/xdeath
+$playeralias	Amethyst      Melody  	*gibbed		mel/xdeath
+$playeralias	Amethyst      Melody  	*grunt		mel/land
+$playeralias	Amethyst	    Melody  	*jump		mel/jump
+$playersound    Amethyst	    Melody      *land       melland
+$playeralias    Amethyst	    Melody      *usefail    mel/unf
+$playeralias	Amethyst   	Melody  	*melee      mel/meleeyell
+$playeralias	Amethyst   	Melody  	*strongmelee       mel/strongmeleeyell
+
+///////////////
+// Mel (Custom)
+///////////////
+
+$playeralias	"Mel (Custom)"      Melody  	*pain100	mel/pain100
+$playeralias	"Mel (Custom)"      Melody  	*pain75		mel/pain75
+$playeralias	"Mel (Custom)"      Melody  	*pain50		mel/pain50
+$playeralias	"Mel (Custom)"      Melody  	*pain25		mel/pain25
+$playeralias	"Mel (Custom)"	    Melody  	*death		mel/death
+$playeralias	"Mel (Custom)"      Melody  	*xdeath		mel/xdeath
+$playeralias	"Mel (Custom)"      Melody  	*gibbed		mel/xdeath
+$playeralias	"Mel (Custom)"      Melody  	*grunt		mel/land
+$playeralias	"Mel (Custom)"	    Melody  	*jump		mel/jump
+$playersound    "Mel (Custom)"	    Melody      *land       melland
+$playeralias    "Mel (Custom)"	    Melody      *usefail    mel/unf
+$playeralias	"Mel (Custom)"   	Melody  	*melee      mel/meleeyell
+$playeralias	"Mel (Custom)"   	Melody  	*strongmelee       mel/strongmeleeyell
+
+///////////
+// Dark Mel
+///////////

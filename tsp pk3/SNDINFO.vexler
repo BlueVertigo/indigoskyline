@@ -1,0 +1,110 @@
+///////////////////////
+// Vexler Player Sounds
+///////////////////////
+
+$playeralias	Vexler      Vexler  	*pain100	vex/pain100
+$playeralias	Vexler      Vexler  	*pain75		vex/pain75
+$playeralias	Vexler      Vexler  	*pain50		vex/pain50
+$playeralias	Vexler      Vexler  	*pain25		vex/pain25
+$playeralias	Vexler	    Vexler  	*death		vex/death
+$playeralias	Vexler      Vexler  	*xdeath		vex/xdeath
+$playeralias	Vexler      Vexler  	*gibbed		vex/xdeath
+$playeralias	Vexler      Vexler  	*grunt		vex/land
+$playeralias	Vexler	    Vexler  	*jump		vex/jump
+$playersound    Vexler	    Vexler      *land       melland
+$playeralias    Vexler	    Vexler      *usefail    vex/unf
+$playeralias	Vexler   	Vexler  	*melee      vex/meleeyell
+$playeralias	Vexler   	Vexler  	*strongmelee       vex/strongmeleeyell
+
+$random vex/pain100 { vexpn101 vexpn102 vexpn103 vexpn104 }
+vexpn101 vexpn101
+vexpn102 vexpn102
+vexpn103 vexpn103
+vexpn104 vexpn104
+
+$random vex/pain75 { vexpn751 vexpn752 vexpn753 vexpn754 }
+vexpn751 vexpn751
+vexpn752 vexpn752
+vexpn753 vexpn753
+vexpn754 vexpn754
+
+$random vex/pain50 { vexpn501 vexpn502 vexpn503 vexpn504 }
+vexpn501 vexpn501
+vexpn502 vexpn502
+vexpn503 vexpn503
+vexpn504 vexpn504
+
+$random vex/pain25 { vexpn251 vexpn252 vexpn253 vexpn254 }
+vexpn251 vexpn251
+vexpn252 vexpn252
+vexpn253 vexpn253
+vexpn254 vexpn254
+
+$random vex/death { vexdth1 vexdth2 vexdth3 }
+vexdth1 vexdth1
+vexdth2 vexdth2
+vexdth3 vexdth3
+
+$random vex/xdeath { vexxdth1 vexxdth2 vexxdth3 }
+vexxdth1 vexxdth1
+vexxdth2 vexxdth2
+vexxdth3 vexxdth3
+
+$random vex/land { vexland1 vexland2 vexland3 }
+vexland1 vexland1
+vexland2 vexland2
+vexland3 vexland3
+
+$random vex/unf { vexunf1 vexunf2 }
+vexunf1 vexunf1
+vexunf2 vexunf2
+
+$random vex/jump { vexjump1 vexjump2 vexjump3 }
+vexjump1 vexjump1
+vexjump2 vexjump2
+vexjump3 vexjump3
+
+////////////////
+//Vexler's Melee
+////////////////
+
+$random vex/meleeyell  { vex/meleeyell1 vex/meleeyell2 vex/meleeyell3 vex/meleeyell4 vex/meleeyell5 vex/meleeyell6 vex/meleeyell7 null null null null null null null null null null null null null null null null }
+vex/meleeyell1 vexha1
+vex/meleeyell2 vexha2
+vex/meleeyell3 vexha3
+vex/meleeyell4 vexha4
+vex/meleeyell5 vexha5
+vex/meleeyell6 vexha6
+vex/meleeyell7 vexha7
+
+$random vex/strongmeleeyell { vex/strongmeleeyell1 vex/strongmeleeyell2 vex/strongmeleeyell3 vex/strongmeleeyell4 null null null null null null null null null null }
+vex/strongmeleeyell1 vexsha1
+vex/strongmeleeyell2 vexsha2
+vex/strongmeleeyell3 vexsha3
+vex/strongmeleeyell4 vexsha4
+
+/////////////////////////
+//Vexler's Pickup Lines
+/////////////////////////
+
+//vexflavpickup/Kushiel					MELPGLV
+//$random vexflavpickup/persephone { vexflavpickup/persphone1 vexflavpickup/persphone2 vexflavpickup/persphone3 vexflavpickup/persphone4 }
+//vexflavpickup/persphone1               MELPBZK1
+//vexflavpickup/persphone2               MELPBZK2
+//vexflavpickup/persphone3               MELPBZK3
+//vexflavpickup/persphone4               MELPBZK4
+//vexflavpickup/Pistol					MELPPST
+//vexflavpickup/Deagle                   MELPDEAG
+//vexflavpickup/zekeshotgun				MELPSHT
+//vexflavpickup/Crossbow					MELPCBOW
+//vexflavpickup/Ammobox50				MELPCUZI
+//$random vexflavpickup/RocketNailgunLauncher {vexflavpickup/RocketLauncher1 vexflavpickup/RocketLauncher2}
+//vexflavpickup/RocketLauncher1			MELPCNL
+//vexflavpickup/RocketLauncher2			MELPCRL
+//$random vexflavpickup/flamethrower {vexflavpickup/Flamethrower1 vexflavpickup/Flamethrower2}
+//vexflavpickup/Flamethrower1			MELPCFL1
+//vexflavpickup/Flamethrower2			MELPCFL2
+//$random vexflavpickup/caster { vexflavpickup/caster1 vexflavpickup/caster2 vexflavpickup/caster3 }
+//vexflavpickup/caster1                  MELPCAS1
+//vexflavpickup/caster2                  MELPCAS2
+//vexflavpickup/caster3                  MELPCAS3

@@ -1,0 +1,124 @@
+/////////////////////////
+// Robo Mel Player Sounds
+/////////////////////////
+
+$playeralias	Melody      Other  	*pain100	robomel/pain100
+$playeralias	Melody      Other  	*pain75		robomel/pain75
+$playeralias	Melody      Other 	*pain50		robomel/pain50
+$playeralias	Melody      Other  	*pain25		robomel/pain25
+$playeralias	Melody	    Other  	*death		robomel/death
+$playeralias	Melody      Other  	*xdeath		robomel/xdeath
+$playeralias	Melody      Other  	*gibbed		robomel/xdeath
+$playeralias	Melody      Other  	*grunt		robomel/land
+$playeralias	Melody	    Other  	*jump		robomel/jump
+$playersound    Melody	    Other      *land       melland
+$playeralias    Melody	    Other      *usefail    robomel/unf
+$playeralias	Melody   	Other  	*melee      robomel/meleeyell
+$playeralias	Melody   	Other  	*strongmelee       robomel/strongmeleeyell
+
+$random robomel/pain25 { robomelpn101 robomelpn102 robomelpn103 robomelpn104 }
+robomelpn101 relpn101
+robomelpn102 relpn102
+robomelpn103 relpn103
+robomelpn104 relpn104
+
+$random robomel/pain50 { robomelpn751 robomelpn752 robomelpn753 robomelpn754 }
+robomelpn751 relpn751
+robomelpn752 relpn752
+robomelpn753 relpn753
+robomelpn754 relpn754
+
+$random robomel/pain75 { robomelpn501 robomelpn502 robomelpn503 robomelpn504 }
+robomelpn501 relpn501
+robomelpn502 relpn502
+robomelpn503 relpn503
+robomelpn504 relpn504
+
+$random robomel/pain100 { robomelpn251 robomelpn252 robomelpn253 robomelpn254 }
+robomelpn251 relpn251
+robomelpn252 relpn252
+robomelpn253 relpn253
+robomelpn254 relpn254
+
+$random robomel/death { robomeldth1 robomeldth2 }
+robomeldth1 reldth1
+robomeldth2 reldth2
+
+$random robomel/xdeath { robomelxdth1 robomelxdth2 }
+robomelxdth1 relxdth1
+robomelxdth2 relxdth2
+
+$random robomel/land { robomelland1 robomelland2  }
+robomelland1 relland1
+robomelland2 relland2
+
+$random robomel/unf { robomelunf1 robomelunf2 }
+robomelunf1 relunf1
+robomelunf2 relunf2
+
+$random robomel/jump { robomeljump1 robomeljump2 robomeljump3 }
+robomeljump1 reljump1
+robomeljump2 reljump2
+robomeljump3 reljump3
+
+//////////////////
+//Robo Mel's Melee
+//////////////////
+
+$random robomel/meleeyell  { robomel/meleeyell1 robomel/meleeyell2 robomel/meleeyell3 robomel/meleeyell4 robomel/meleeyell5 robomel/meleeyell6 null null null null null null null null null null null null null null null null }
+robomel/meleeyell1 relha1
+robomel/meleeyell2 relha2
+robomel/meleeyell3 relha3
+robomel/meleeyell4 relha4
+robomel/meleeyell5 relha5
+robomel/meleeyell6 relha6
+
+$random robomel/strongmeleeyell { robomel/strongmeleeyell1 robomel/strongmeleeyell2 robomel/strongmeleeyell3 robomel/strongmeleeyell4 robomel/strongmeleeyell5 robomel/strongmeleeyell6 null null null null null null null null null null }
+robomel/strongmeleeyell1 relsha1
+robomel/strongmeleeyell2 relsha2
+robomel/strongmeleeyell3 relsha3
+robomel/strongmeleeyell4 relsha4
+robomel/strongmeleeyell5 relsha5
+robomel/strongmeleeyell6 relsha6
+
+/////////////////////////
+//Robo Mel's Pickup Lines
+/////////////////////////
+
+melflavpickuprobo/Kushiel					RELPGLV
+melflavpickuprobo/Pistol					RELPPST
+melflavpickuprobo/zekeshotgun				RELPSHT
+melflavpickuprobo/Crossbow					RELPCBOW
+melflavpickuprobo/Ammobox50				RELPCUZI
+$random melflavpickuprobo/RocketNailgunLauncher {melflavpickuprobo/RocketLauncher1 melflavpickuprobo/RocketLauncher2}
+melflavpickuprobo/RocketLauncher1			RELPCNL
+melflavpickuprobo/RocketLauncher2			RELPCRL
+$random melflavpickuprobo/Flamethrower {melflavpickuprobo/Flamethrower1 melflavpickuprobo/Flamethrower2}
+melflavpickuprobo/Flamethrower1			RELPCFL1
+melflavpickuprobo/Flamethrower2			RELPCFL2
+
+/////////////////////
+//Mel's Mag Manuevers
+/////////////////////
+magpull magpull
+magpush magpush
+magphit magphit
+magsling magsling
+maghit maghit
+magloop magloop
+
+magpunch/charge magphc1
+magpunch/chargefin magphcf1
+magpunch/chargeloop magphcl
+$random magpunch/contact { magpunch/contact1 magpunch/contact2 }
+magpunch/contact1 magphe1
+magpunch/contact2 magphe2
+$random magpunch/wall { magpunch/wall1 magpunch/wall2 magpunch/wall3 }
+magpunch/wall1 magphw1
+magpunch/wall2 magphw2
+magpunch/wall3 magphw3
+
+$random magpunch/miss { magpunch/miss1 magpunch/miss2 magpunch/miss3 }
+magpunch/miss1 magphm1
+magpunch/miss2 magphm2
+magpunch/miss3 magphm3

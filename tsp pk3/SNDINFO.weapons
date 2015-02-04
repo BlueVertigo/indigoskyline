@@ -1,0 +1,324 @@
+//Universal Melee Sounds
+$random basicmelee/miss { basicmelee/miss1 basicmelee/miss2 basicmelee/miss3 basicmelee/miss4 basicmelee/miss5 }
+basicmelee/miss1 bmlmiss1
+basicmelee/miss2 bmlmiss2
+basicmelee/miss3 bmlmiss3
+basicmelee/miss4 bmlmiss4
+basicmelee/miss5 bmlmiss5
+
+$random strongmelee/miss { strongmelee/miss1 strongmelee/miss2 strongmelee/miss3 strongmelee/miss4 strongmelee/miss5 }
+strongmelee/miss1 smlmiss1
+strongmelee/miss2 smlmiss2
+strongmelee/miss3 smlmiss3
+strongmelee/miss4 smlmiss4
+strongmelee/miss5 smlmiss5
+
+$random basicmelee/wall { basicmelee/wall1 basicmelee/wall2 basicmelee/wall3 basicmelee/wall4 }
+basicmelee/wall1 bmlwall1
+basicmelee/wall2 bmlwall2
+basicmelee/wall3 bmlwall3
+basicmelee/wall4 bmlwall4
+
+$random basicmelee/contact { basicmelee/contact1 basicmelee/contact2 basicmelee/contact3 basicmelee/contact4 }
+basicmelee/contact1 bmlhit1
+basicmelee/contact2 bmlhit2
+basicmelee/contact3 bmlhit3
+basicmelee/contact4 bmlhit4
+
+$random strongmelee/wall { strongmelee/wall1 strongmelee/wall2 strongmelee/wall3 strongmelee/wall4 }
+strongmelee/wall1 smlwall1
+strongmelee/wall2 smlwall2
+strongmelee/wall3 smlwall3
+strongmelee/wall4 smlwall4
+
+$random strongmelee/contact { strongmelee/contact1 strongmelee/contact2 strongmelee/contact3 strongmelee/contact4 strongmelee/contact5 }
+strongmelee/contact1 smlhit1
+strongmelee/contact2 smlhit2
+strongmelee/contact3 smlhit3
+strongmelee/contact4 smlhit4
+strongmelee/contact5 smlhit5
+
+$random uppercutmelee/contact { uppercutmelee/contact1 uppercutmelee/contact2 }
+uppercutmelee/contact1 umlhit1
+uppercutmelee/contact2 umlhit2
+
+//Basilisk Nikana
+$random nikana/miss { nikana/miss1 nikana/miss2 nikana/miss3 nikana/miss4 }
+nikana/miss1 niksws1
+nikana/miss2 niksws2
+nikana/miss3 niksws3
+nikana/miss4 niksws4
+
+$random nikana/strongmiss { nikana/strongmiss1 nikana/strongmiss2 nikana/strongmiss3 nikana/strongmiss4 }
+nikana/strongmiss1 nikswh1
+nikana/strongmiss2 nikswh2
+nikana/strongmiss3 nikswh3
+nikana/strongmiss4 nikswh4
+
+$random nikana/stabmiss { nikana/stabmiss1 nikana/stabmiss2 nikana/stabmiss3 }
+nikana/stabmiss1 nikswm1
+nikana/stabmiss2 nikswm2
+nikana/stabmiss3 nikswm3
+
+$random nikana/maguppercut { nikana/maguppercut1 nikana/maguppercut2 }
+nikana/maguppercut1 nikswu1
+nikana/maguppercut2 nikswu2
+
+$random nikana/wall { nikana/wall1 nikana/wall2 nikana/wall3 nikana/wall4 }
+nikana/wall1 nikhtw1
+nikana/wall2 nikhtw2
+nikana/wall3 nikhtw3
+nikana/wall4 nikhtw4
+
+$random nikana/walls { nikana/walls1 nikana/walls2 nikana/walls3 }
+nikana/walls1 nikhtws1
+nikana/walls2 nikhtws2
+nikana/walls3 nikhtws3
+
+$random nikana/contacts { nikana/contacts1 nikana/contacts2 nikana/contacts3 nikana/contacts4 }
+nikana/contacts1 nikhte1
+nikana/contacts2 nikhte2
+nikana/contacts3 nikhte3
+nikana/contacts4 nikhte4
+
+$random nikana/contactb { nikana/contactb1 nikana/contactb2 nikana/contactb3 }
+nikana/contactb1 nikhtb1
+nikana/contactb2 nikhtb2
+nikana/contactb3 nikhtb3
+
+$random nikana/helmbreakerland { nikana/helmbreakerland1 nikana/helmbreakerland2 }
+nikana/helmbreakerland1 nikslm1
+nikana/helmbreakerland2 nikslm2
+
+//MA919m Pistol
+$random 919m/fire { 919m/fire1 919m/fire2 919m/fire3 }
+919m/fire1 PSTFR1
+919m/fire2 PSTFR2
+919m/fire3 PSTFR3
+
+919m/magout pstmgout
+919m/magin1 pstmgin1
+919m/magin2 pstmgin2
+919m/slide pstsld
+919m/cock pstcock
+919m/dry pstempty
+919m/autoselect pstfas
+919m/autodeselect pstfau
+
+919m/select pstsel
+919m/deselect pstdsel
+919m/magflip pstflip
+
+//Zeke Shotgun
+$random zekeshotgun/fire { zekeshotgun/fire1 zekeshotgun/fire2 zekeshotgun/fire3 }
+zekeshotgun/fire1 zekshot1
+zekeshotgun/fire2 zekshot2
+zekeshotgun/fire3 zekshot3
+$random zekeshotgun/doublefire { zekeshotgun/doublefire1 zekeshotgun/doublefire2 zekeshotgun/doublefire3 }
+zekeshotgun/doublefire1 zekdsht1
+zekeshotgun/doublefire2 zekdsht2
+zekeshotgun/doublefire3 zekdsht3
+$random zekeshotgun/pump { zekeshotgun/pump1 zekeshotgun/pump2 zekeshotgun/pump3 }
+zekeshotgun/pump1 zekpump1
+zekeshotgun/pump2 zekpump2
+zekeshotgun/pump3 zekpump3
+$random zekeshotgun/load { zekeshotgun/load1 zekeshotgun/load2 zekeshotgun/load3 }
+zekeshotgun/load1 zekload1
+zekeshotgun/load2 zekload2
+zekeshotgun/load3 zekload3
+zekeshotgun/up zekup1
+zekeshotgun/down zekdown
+
+zekeshotgun/unload1 zekunl1
+zekeshotgun/unload2 zekunl2
+
+zekeshotgun/elfire zekelsht
+zekeshotgun/pofire zekposht
+zekeshotgun/hefire zekfrsht
+
+//Shotgun sounds (half life 1 sounds)
+
+$limit Weapons/ShockShell 0
+$random Weapons/ShockShell {Weapons/ShockShell1 Weapons/ShockShell2 Weapons/ShockShell3}
+Weapons/ShockShell1	spark1
+Weapons/ShockShell2	spark2
+Weapons/ShockShell3	spark3
+Weapons/ShockShell4	spark4
+
+$limit Weapons/ShockArc 0
+$random Weapons/ShockArc {Weapons/ShockArc1 Weapons/ShockArc2 Weapons/ShockArc3 Weapons/ShockArc4 Weapons/ShockArc5 Weapons/ShockArc6 Weapons/ShockArc7 Weapons/ShockArc8 Weapons/ShockArc9 Weapons/ShockArc10 Weapons/ShockArc11 Weapons/ShockArc12 Weapons/ShockArc13 Weapons/ShockArc14 Weapons/ShockArc15 Weapons/ShockArc16}
+
+Weapons/ShockArc1	DSHOCK01
+Weapons/ShockArc2	DSHOCK02
+Weapons/ShockArc3	DSHOCK03
+Weapons/ShockArc4	DSHOCK04
+Weapons/ShockArc5	DSHOCK05
+Weapons/ShockArc6	DSHOCK06
+Weapons/ShockArc7	DSHOCK07
+Weapons/ShockArc8	DSHOCK08
+Weapons/ShockArc9	DSHOCK09
+Weapons/ShockArc10	DSHOCK10
+Weapons/ShockArc11	DSHOCK11
+Weapons/ShockArc12	DSHOCK12
+Weapons/ShockArc13	DSHOCK13
+Weapons/ShockArc14	DSHOCK14
+Weapons/ShockArc15	DSHOCK15
+Weapons/ShockArc16	DSHOCK16
+
+$limit Weapons/PoisonShell 0
+Weapons/PoisonShell	HL1STEAM
+
+//Shotgun sounds (hexen sounds)
+
+$limit Weapons/HellShell 0
+Weapons/HellShell	HELL
+
+$limit Weapons/HellShell2 0
+$random Weapons/HellShell2 {Weapons/ShockShell3 Weapons/HellShell4 Weapons/HellShell5 Weapons/HellShell6}
+
+Weapons/HellShell3	HELL3
+Weapons/HellShell4	HELL4
+Weapons/HellShell5	HELL5
+Weapons/HellShell6	HELL6
+
+$limit Weapons/HellShell7 0
+Weapons/HellShell7	HELL7
+
+//Assault Shotgun
+$random assaultshotgun/fire { assaultshotgun/fire1 assaultshotgun/fire2 }
+assaultshotgun/fire1 atshfire
+assaultshotgun/fire2 atshfir2
+assaultshotgun/magout atshmag1
+assaultshotgun/magin atshmag2
+assaultshotgun/bolt atshbolt
+assaultshotgun/clink atshchmb
+assaultshotgun/dry atshdryf
+
+//Dahlia Crossbow
+$random dahlia/fire { dahlia/fire1 dahlia/fire2 dahlia/fire3 }
+dahlia/fire1 crsbwfr1
+dahlia/fire2 crsbwfr2
+dahlia/fire3 crsbwfr3
+dahlia/up crsbup
+dahlia/down crsbdown
+$random dahlia/load { dahlia/load1 dahlia/load2 dahlia/load3 }
+dahlia/load1 crsbld1
+dahlia/load2 crsbld2
+dahlia/load3 crsbld3
+dahlia/ammo2 crsbam2
+dahlia/ammo1 crsbam1
+dahlia/beep crsbbeep
+
+$limit dahlia/impact 0
+$random dahlia/impact { dahlia/impact1 dahlia/impact2 dahlia/impact3 }
+dahlia/impact1 CRSBIPW1
+dahlia/impact2 CRSBIPW2
+dahlia/impact3 CRSBIPW3
+
+$limit dahlia/impactenemy 0
+$random dahlia/impactenemy { dahlia/impactenemy1 dahlia/impactenemy2 dahlia/impactenemy3 }
+dahlia/impactenemy1 CRSBIPE1
+dahlia/impactenemy2 CRSBIPE2
+dahlia/impactenemy3 CRSBIPE3
+
+$limit dahlia/boltexplode 0
+$random dahlia/boltexplode { dahlia/boltexplode1 dahlia/boltexplode2 dahlia/boltexplode3 }
+dahlia/boltexplode1 CRSBEXP1
+dahlia/boltexplode2 CRSBEXP2
+dahlia/boltexplode3 CRSBEXP3
+
+//Ammo Box 50
+$random ammobox/fire { ammobox/fire1 ammobox/fire2 ammobox/fire3 }
+ammobox/fire1 aboxfr1
+ammobox/fire2 aboxfr2
+ammobox/fire3 aboxfr3
+ammobox/out aboxcout
+ammobox/in aboxcin
+ammobox/pull aboxpull
+ammobox/up ab50up
+ammobox/down ab50down
+
+//Hmm
+mp40/pickup mp40pck
+$random mipfowty/fire { mp40/fire1 mp40/fire2 mp40/fire3 }
+mp40/fire1 mp40fr1
+mp40/fire2 mp40fr2
+mp40/fire3 mp40fr3
+mipfowty/out mp40out
+mipfowty/in  mp40in
+mipfowty/bolt1 mp40bt1
+mipfowty/bolt2 mp40bt2
+mipfowty/up mp40up
+mipfowty/down mp40down
+
+//Kirratech Orion
+orion/start kostart
+orion/stop kostop
+orion/shootloops koshoot
+orion/overheat koovheat
+orion/up koup
+orion/down kodown
+
+orionen/start kestart
+orionen/stop kestop
+orionen/shootloops keshoot
+orionen/overheat keovheat
+
+//The Toolbox
+toolbox/equip RLNGUP2
+toolbox/deequip RLNGDWN2
+toolbox/on RLNGUP
+toolbox/off RLNGDOWN
+toolbox/prime RLNGSTC
+toolbox/rocket RLNGRLST
+toolbox/grind RLNGRND
+toolbox/nailgun RLNGNGST
+toolbox/empty RLNGNO
+toolbox/reload1 RLNGLD1
+toolbox/reload2 RLNGLD2
+
+toolbox/ammo1 RLNGAM1
+toolbox/ammo2 RLNGAM2
+
+$limit toolbox/nailgunimpact 0
+$random toolbox/nailgunimpact { toolbox/nailgunimpact1 toolbox/nailgunimpact2 toolbox/nailgunimpact3 toolbox/nailgunimpact4 toolbox/nailgunimpact5 toolbox/nailgunimpact6 toolbox/nailgunimpact6 toolbox/nailgunimpact7 toolbox/nailgunimpact8 }
+toolbox/nailgunimpact1 RLNGIMW1
+toolbox/nailgunimpact2 RLNGIMW2
+toolbox/nailgunimpact3 RLNGIMW3
+toolbox/nailgunimpact4 RLNGIMW4
+toolbox/nailgunimpact5 RLNGIMW5
+toolbox/nailgunimpact6 RLNGIMW6
+toolbox/nailgunimpact7 RLNGIMW7
+toolbox/nailgunimpact8 RLNGIMW8
+
+$limit toolbox/nailgunflesh 0
+$random toolbox/nailgunflesh { toolbox/nailgunflesh1 toolbox/nailgunflesh2 toolbox/nailgunflesh3 }
+toolbox/nailgunflesh1 RLNGIMF1
+toolbox/nailgunflesh2 RLNGIMF2
+toolbox/nailgunflesh3 RLNGIMF3
+
+$limit toolbox/rocketimpact 0
+$random toolbox/rocketimpact { toolbox/rocketimpact1 toolbox/rocketimpact2 toolbox/rocketimpact3 }
+toolbox/rocketimpact1 RLNGEXP1
+toolbox/rocketimpact2 RLNGEXP2
+toolbox/rocketimpact3 RLNGEXP3
+
+$limit toolbox/rocketfly 0
+$random toolbox/rocketfly { toolbox/rocketfly1 toolbox/rocketfly2 toolbox/rocketfly3 }
+toolbox/rocketfly1 RLNGFLY1
+toolbox/rocketfly2 RLNGFLY2
+toolbox/rocketfly3 RLNGFLY3
+
+//Weapon Junk
+$random weapons/casing  { weapons/casing1 weapons/casing2 weapons/casing3 }
+weapons/casing1			dscasin1
+weapons/casing2			dscasin2
+weapons/casing3			dscasin3
+
+$random weapons/smallclip { sc1 sc2 sc3 sc4 sc5 sc6 }
+sc1 dsbounc1
+sc2 dsbounc2
+sc3 dsbounc3
+sc4 dsbounc4
+sc5 dsbounc5
+sc6 dsbounc6

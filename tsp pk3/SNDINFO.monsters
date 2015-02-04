@@ -1,0 +1,270 @@
+//Zombie Rifle Sound
+rifle/fire dsarfire
+rifle/reload1 zmbrrld1
+rifle/reload2 zmbrrld2
+
+//Zombie Sounds
+$random zombie/sight {zombie/sight1 zombie/sight2 zombie/sight3 zombie/sight4 zombie/sight5 zombie/sight6 zombie/sight7 zombie/sight8 zombie/sight9 zombie/sight10 zombie/sight11 zombie/sight12}
+zombie/sight1            zmsi1
+zombie/sight2            zmsi2
+zombie/sight3            zmsi3
+zombie/sight4            zmsi4
+zombie/sight5            zmsi5
+zombie/sight6            zmsi6
+zombie/sight7            zmsi7
+zombie/sight8            zmsi8
+zombie/sight9            zmsi9
+zombie/sight10           zmsi10
+zombie/sight11           zmsi11
+zombie/sight12           zmsi12
+
+$random zombie/pain {zombie/pain1 zombie/pain2 zombie/pain3 zombie/pain4 zombie/pain5 zombie/pain6 zombie/pain7 zombie/pain8 zombie/pain9 zombie/pain10 zombie/pain11zombie/pain11 zombie/pain12 zombie/pain13}
+zombie/pain1              zmpain1
+zombie/pain2              zmpain2
+zombie/pain3              zmpain3
+zombie/pain4              zmpain4
+zombie/pain5              zmpain5
+zombie/pain6              zmpain6
+zombie/pain7              zmpain7
+zombie/pain8              zmpain8
+zombie/pain9              zmpain9
+zombie/pain10             zmpain10
+zombie/pain11             zmpain11
+zombie/pain12             zmpain12
+zombie/pain13             zmpain13
+
+$random zombie/idle {zombie/idle1 zombie/idle2 zombie/idle3 zombie/idle4 zombie/idle5 zombie/idle6 zombie/idle7 zombie/idle8 zombie/idle9 zombie/idle10 zombie/idle11 zombie/idle12 zombie/idle13 zombie/idle14 zombie/idle15 zombie/idle16 zombie/idle17}
+zombie/idle1              zmidle1
+zombie/idle2              zmidle2
+zombie/idle3              zmidle3
+zombie/idle4              zmidle4
+zombie/idle5              zmidle5
+zombie/idle6              zmidle6
+zombie/idle7              zmidle7
+zombie/idle8              zmidle8
+zombie/idle9              zmidle9
+zombie/idle10             zmidle10
+zombie/idle11             zmidle11
+zombie/idle12             zmidle12
+zombie/idle13             zmidle13
+zombie/idle14             zmidle14
+zombie/idle15             zmidle15
+zombie/idle16             zmidle16
+zombie/idle17             zmidle17
+
+$random zombie/death {zombie/death1 zombie/death2 zombie/death3 zombie/death4 zombie/death5 zombie/death6}
+zombie/death1             zmdeath1
+zombie/death2             zmdeath2
+zombie/death3             zmdeath3
+zombie/death4             zmdeath4
+zombie/death5             zmdeath5
+zombie/death6             zmdeath6
+
+//Female Zombie Sounds
+$random fzombie/sight {fzombie/sight1 fzombie/sight2 fzombie/sight3 fzombie/sight4 fzombie/sight5 fzombie/sight6 fzombie/sight7 fzombie/sight8}
+fzombie/sight1            fzsi1
+fzombie/sight2            fzsi2
+fzombie/sight3            fzsi3
+fzombie/sight4            fzsi4
+fzombie/sight5            fzsi5
+fzombie/sight6            fzsi6
+fzombie/sight7            fzsi7
+fzombie/sight8            fzsi8
+
+$random fzombie/pain {fzombie/pain1 fzombie/pain2 fzombie/pain3 fzombie/pain4 fzombie/pain5 fzombie/pain6 fzombie/pain7 fzombie/pain8}
+fzombie/pain1              fzpain1
+fzombie/pain2              fzpain2
+fzombie/pain3              fzpain3
+fzombie/pain4              fzpain4
+fzombie/pain5              fzpain5
+fzombie/pain6              fzpain6
+fzombie/pain7              fzpain7
+fzombie/pain8              fzpain8
+
+$random fzombie/idle {fzombie/idle1 fzombie/idle2 fzombie/idle3 fzombie/idle4 fzombie/idle5 fzombie/idle6}
+fzombie/idle1              fzidle1
+fzombie/idle2              fzidle2
+fzombie/idle3              fzidle3
+fzombie/idle4              fzidle4
+fzombie/idle5              fzidle5
+fzombie/idle6              fzidle6
+
+$random fzombie/death {fzombie/death1 fzombie/death2 fzombie/death3 fzombie/death4}
+fzombie/death1             fzdeath1
+fzombie/death2             fzdeath2
+fzombie/death3             fzdeath3
+fzombie/death4             fzdeath4
+
+
+//Zombie Commando Sounds
+$random czombie/sight {czombie/sight1 czombie/sight2 czombie/sight3 czombie/sight4 czombie/sight5 czombie/sight6 czombie/sight7 czombie/sight8 czombie/sight9 czombie/sight10 czombie/sight11 czombie/sight12 czombie/sight13 czombie/sight14}
+czombie/sight1            zcsi1
+czombie/sight2            zcsi2
+czombie/sight3            zcsi3
+czombie/sight4            zcsi4
+czombie/sight5            zcsi5
+czombie/sight6            zcsi6
+czombie/sight7            zcsi7
+czombie/sight8            zcsi8
+czombie/sight9            zcsi9
+czombie/sight10           zcsi10
+czombie/sight11           zcsi11
+czombie/sight12           zcsi12
+czombie/sight13           zcsi13
+czombie/sight14           zcsi14
+
+$random czombie/pain {czombie/pain1 czombie/pain2 czombie/pain3 czombie/pain4 czombie/pain5 czombie/pain6}
+czombie/pain1              zcpain1
+czombie/pain2              zcpain2
+czombie/pain3              zcpain3
+czombie/pain4              zcpain4
+czombie/pain5              zcpain5
+czombie/pain6              zcpain6
+
+$random czombie/idle {czombie/idle1 czombie/idle2 czombie/idle3 czombie/idle4 czombie/idle5 czombie/idle6 czombie/idle7 null null null null null null null null null null null null null null null null null null null null null null null null null}
+czombie/idle1              zcidle1
+czombie/idle2              zcidle2
+czombie/idle3              zcidle3
+czombie/idle4              zcidle4
+czombie/idle5              zcidle5
+czombie/idle6              zcidle6
+czombie/idle7              zcidle7
+
+$random czombie/attack {czombie/attack1 czombie/attack2 czombie/attack3 czombie/attack4 czombie/attack5 czombie/attack6}
+czombie/attack1              zcatk1
+czombie/attack2              zcatk2
+czombie/attack3              zcatk3
+czombie/attack4              zcatk4
+czombie/attack5              zcatk5
+czombie/attack6              zcatk6
+
+$random czombie/death {czombie/death1 czombie/death2 czombie/death3 czombie/death4 czombie/death5 czombie/death6}
+czombie/death1             zcdth1
+czombie/death2             zcdth2
+czombie/death3             zcdth3
+czombie/death4             zcdth4
+czombie/death5             zcdth5
+czombie/death6             zcdth6
+czombie/death7             zcdth7
+
+//Specialty Zombie (Judgment Pistol) Sound
+$random swat/sight { swatsight1 swatsight2 swatsight3 swatsight4 swatsight5 swatsight6 swatsight7 swatsight8 swatsight9 swatsight0 }
+$random swat/pain { swatpain1 swatpain2 swatpain3 swatpain swatpain5 swatpain6 swatpain7 swatpain8 swatpain9 }
+$random swat/death { swatdeath1 swatdeath2 swatdeath3 swatdeath4 swatdeath5 swatdeath6 swatdeath7 swatdeath8 swatdeath9 swatdeath0 }
+swatsight1 swatsit1
+swatsight2 swatsit2
+swatsight3 swatsit3
+swatsight4 swatsit4
+swatsight5 swatsit5
+swatsight6 swatsit6
+swatsight7 swatsit7
+swatsight8 swatsit8
+swatsight9 swatsit9
+swatsight0 swatsit0
+swatpain1 swatpn1
+swatpain2 swatpn2
+swatpain3 swatpn3
+swatpain4 swatpn4
+swatpain5 swatpn5
+swatpain6 swatpn6
+swatpain7 swatpn7
+swatpain8 swatpn8
+swatpain9 swatpn9
+swatdeath1 swatdth1
+swatdeath2 swatdth2
+swatdeath3 swatdth3
+swatdeath4 swatdth4
+swatdeath5 swatdth5
+swatdeath6 swatdth6
+swatdeath7 swatdth7
+swatdeath8 swatdth8
+swatdeath9 swatdth9
+swatdeath0 swatdth0
+judgment/clipout dsjdout
+judgment/clipin dsjdin
+judgment/cliphit dsjdhit
+judgment/enemy DSJDENEM
+
+//Scientist Zombie Weapons
+KnifeHit DSKNIFE
+CrowbarHit DSCBAR
+Steam/Loop	STEMLOOP
+Steam/Fire	STEMFIRE
+hazmat/tazer	DSTAZER
+
+//Imp Sounds
+$random xmimp/sight {xmimp/sight1 xmimp/sight2 xmimp/sight3 xmimp/sight4 xmimp/sight5 xmimp/sight6 xmimp/sight7 xmimp/sight8}
+xmimp/sight1             impsi1
+xmimp/sight2             impsi2
+xmimp/sight3             impsi3
+xmimp/sight4             impsi4
+xmimp/sight5             impsi5
+xmimp/sight6             impsi6
+xmimp/sight7             impsi7
+xmimp/sight8             impsi8
+
+$random xmimp/idle {xmimp/idle1 xmimp/idle2 xmimp/idle3 xmimp/idle4 xmimp/idle5 xmimp/idle6 xmimp/idle7 xmimp/idle8 xmimp/idle9 xmimp/idl10 xmimp/idl11 xmimp/idl12}
+xmimp/idle1             impidle1
+xmimp/idle2             impidle2
+xmimp/idle3             impidle3
+xmimp/idle4             impidle4
+xmimp/idle5             impidle5
+xmimp/idle6             impidle6
+xmimp/idle7             impidle7
+xmimp/idle8             impidle8
+xmimp/idle9             impidle9
+xmimp/idl10             impidl10
+xmimp/idl11             impidl11
+xmimp/idl12             impidl12
+
+$random xmimp/pain {xmimp/pain1 xmimp/pain2 xmimp/pain3 xmimp/pain4 xmimp/pain5 xmimp/pain6 xmimp/pain7 xmimp/pain8 xmimp/pain9}
+xmimp/pain1             imppa1
+xmimp/pain2             imppa2
+xmimp/pain3             imppa3
+xmimp/pain4             imppa4
+xmimp/pain5             imppa5
+xmimp/pain6             imppa6
+xmimp/pain7             imppa7
+xmimp/pain8             imppa8
+xmimp/pain9             imppa9
+
+$random xmimp/death {xmimp/death1 xmimp/death2 xmimp/death3 xmimp/death4 xmimp/death5 xmimp/death6 xmimp/death7 xmimp/death8 xmimp/death9 xmimp/death10xmimp/death11}
+xmimp/death1             impde1
+xmimp/death2             impde2
+xmimp/death3             impde3
+xmimp/death4             impde4
+xmimp/death5             impde5
+xmimp/death6             impde6
+xmimp/death7             impde7
+xmimp/death8             impde8
+xmimp/death9             impde9
+xmimp/death10             impde10
+xmimp/death11             impde11
+
+//Lost Soul Sounds
+$Random Forgotten/Sight { 3FORSIG1 3FORSIG2 3FORSIG3 }
+3FORSIG1	3FORSIG1
+3FORSIG2	3FORSIG2
+3FORSIG3	3FORSIG3
+$Random Forgotten/Active { 3FORACT1 3FORACT2 3FORACT3 }
+3FORACT1	3FORACT1
+3FORACT2	3FORACT2
+3FORACT3	3FORACT3
+3FORACT4	3FORACT4
+$Random Forgotten/Pain { 3FORPAI1 3FORPAI2 3FORPAI3 }
+3FORPAI1	3FORPAI1
+3FORPAI2	3FORPAI2
+3FORPAI3	3FORPAI3
+$Random Forgotten/Death { 3FORDEA1 3FORDEA2 3FORDEA3 }
+3FORDEA1	3FORDEA1
+3FORDEA2	3FORDEA2
+3FORDEA3	3FORDEA3
+$Random LostSoul/Explode { SOULEXP1 SOULEXP2 SOULEXP3 }
+SOULEXP1    SOULEXP1
+SOULEXP2    SOULEXP2
+SOULEXP3    SOULEXP3
+
+rictus/sight		RICTSEE
+rictus/death		RICTDIE
+rictus/active		FIRE09
+rictus/pain		RICTPAIN
