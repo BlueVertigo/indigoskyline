@@ -1,11 +1,8 @@
 //===========================================================================
-//
 // Vexler's Melee Style
 //
-// by Marty Kirra
-// Sprites by Marty Kirra, Blox, Scuba Steve, Banjo Entertainment
-// 
-//
+// Decorate by Marty Kirra
+// Sprites by Marty Kirra, Blox, Scuba Steve, Banjo Entertainment1
 //===========================================================================
 
 ACTOR VexlerMelee : Weapon
@@ -90,10 +87,10 @@ ACTOR VexlerMelee : Weapon
 	    TNT1 A 1 A_WeaponReady
 		Goto AfterMelee
 	AltFire:
-		ML1F A 0 A_PlaySoundEX("basicmelee/miss", "SoundSlot5")
-		ML2F A 0 A_PlaySound("*melee")
+		VK1F A 0 A_PlaySoundEX("basicmelee/miss", "SoundSlot5")
+		VK1F A 0 A_PlaySound("*melee")
 	    VK1F ABCD 1
-		ML1F D 0 A_JumpIfInventory("PowerStrength",1,"AltFireBerserk")
+		VK1F D 0 A_JumpIfInventory("PowerStrength",1,"AltFireBerserk")
 		VK1F E 0 A_CustomPunch(3,0,0,"BlankMeleePuff",90)
 		VK1F E 0 A_CustomPunch(3,0,0,"BlankMeleePuff",90)
 		VK1F E 2 A_CustomPunch(3,0,0,"BasicMeleePuff",90)
