@@ -1,7 +1,5 @@
 // Well this is decorative. :P
 
-//Melee Button Press
-
 Actor Boolean : Inventory
 {
     Inventory.MaxAmount 1
@@ -9,8 +7,42 @@ Actor Boolean : Inventory
     -INVBAR
 }
 
+//Characters
+#include "Actors/Characters/DEC_MEL.txt" // Mel's Player Stuff
+#include "Actors/Characters/DEC_VEX.txt" // Vexler's Player Stuff
+
+//Enemies
+#include "Actors/Enemies/DEC_ENEM.txt" // Enemy Master File
+
+//Mel's Weapons
+#include "Actors/Weapons/Mel/DEC_MWEP1.txt" // Slot 1 Weapons (Mel Melee)
+#include "Actors/Weapons/Mel/DEC_MWEP1b.txt" // Slot 1 Weapons (Nikana)
+#include "Actors/Weapons/Mel/DEC_MWEP2.txt" // Slot 2 Weapons (919m, Revolvedeagle)
+#include "Actors/Weapons/Mel/DEC_MWEP3.txt" // Slot 3 Weapons (Zeke)
+#include "Actors/Weapons/Mel/DEC_MWEP3NP.txt" // Slot 3 Weapons (Zeke Shotgun, No Shell Pool Version)
+#include "Actors/Weapons/Mel/DEC_MWEP3b.txt"// Slot 3 Weapons, continued (Dahlia, Leviathan)
+#include "Actors/Weapons/Mel/DEC_MWEP3f.txt" // Assault Shotgun
+#include "Actors/Weapons/Mel/DEC_MWEP4.txt" // Slot 4 Weapons (Ammobox 50)
+#include "Actors/Weapons/Mel/DEC_MWEP5.txt" // Slot 5 Weapons
+//#include "Actors/Weapons/Mel/DEC_MWEP6.txt" // Slot 6 Weapons
+#include "Actors/Weapons/Mel/DEC_MWEP7.txt" // Slot 7 Weapons
+
+//Vexler's Weapons
+#include "Actors/Weapons/Vexler/DEC_VWEP1.txt" // Slot 1 Weapons (Vexler Melee)
+//#include "Actors/Weapons/Vexler/DEC_VWEP2.txt" // Slot 2 Weapons (Revolvedeagle, 919m)
+
+#include "Actors/DEC_SFX.txt" //Special Effects (Casings, Smoke, Etc.)
+#include "Actors/DEC_TEMP.txt" //Blanked out and replaced Actors for the alpha
+#include "Actors/DEC_PICKUPS.txt" //Weapon pickups and such
+
+//Items
+#include "Actors/DEC_ITEM.txt"
+
+
+//Melee Button Press
+
 Actor MeleePressed : Boolean {}
-Actor DropShellsActor : Boolean {}
+Actor PlayingPickupSound : Boolean {}
 
 Actor StartMelee : CustomInventory
 {
@@ -56,7 +88,7 @@ Actor DropCurrentShells : CustomInventory
   }
 }
 
-ACTOR MeleeButtonActor : CustomInventory
+Actor MeleeButtonActor : CustomInventory
 {
   -INVBAR
   +UNDROPPABLE
@@ -75,10 +107,12 @@ ACTOR MeleeButtonActor : CustomInventory
 	  TNT1 A 0 A_JumpIfInventory("919Selected",1,"Mel919Switch")
 	  TNT1 A 0 A_JumpIfInventory("SavannahFalconSelected",1,"MelSavannahFalconSwitch")
 	  TNT1 A 0 A_JumpIfInventory("ZekeSelected",1,"MelZekeSwitch")
+	  TNT1 A 0 A_JumpIfInventory("AssaultShotgunSelected",1,"MelAssaultShotgunSwitch")
 	  TNT1 A 0 A_JumpIfInventory("DahliaSelected",1,"MelDahliaSwitch")
 	  TNT1 A 0 A_JumpIfInventory("AmmoBoxSelected",1,"MelAmmoBoxSwitch")
 	  TNT1 A 0 A_JumpIfInventory("ToolBoxSelected",1,"MelToolBoxSwitch")
 	  TNT1 A 0 A_JumpIfInventory("MP40Selected",1,"MelMipFowtySwitch")
+	  TNT1 A 0 A_JumpIfInventory("MelTestWeapon7Selected",1,"MelTestWeapon7Switch")
 	  Goto Mel919Switch
 	  Mel919Switch:
 	  TNT1 A 0 A_SelectWeapon("Mel919mPistol")
@@ -93,6 +127,9 @@ ACTOR MeleeButtonActor : CustomInventory
 	  MelZekeNoPoolSwitch:
 	  TNT1 A 0 A_SelectWeapon("MelZekeShotgunNoPool")
 	  Fail
+	  MelAssaultShotgunSwitch:
+	  TNT1 A 0 A_SelectWeapon("MelAssaultShotgun")
+	  Fail
 	  MelDahliaSwitch:
 	  TNT1 A 0 A_SelectWeapon("MelDahliaCrossbow")
 	  Fail
@@ -103,44 +140,20 @@ ACTOR MeleeButtonActor : CustomInventory
 	  TNT1 A 0 A_SelectWeapon("MelToolbox")
 	  Fail
 	  MelMipFowtySwitch:
-	  TNT1 A 0 A_GiveInventory("MelMipFowty")
+	  TNT1 A 0 A_SelectWeapon("MelMipFowty")
+	  MelTestWeapon7Switch:
+	  TNT1 A 0 A_SelectWeapon("MelTestWeapon7")
 	  Fail
   }
 }
 
-ACTOR MeleeSelected : Boolean {}
-ACTOR 919Selected : Boolean {}
-ACTOR SavannahFalconSelected : Boolean {}
-ACTOR ZekeSelected : Boolean {}
-ACTOR DahliaSelected : Boolean {}
-ACTOR AmmoBoxSelected : Boolean {}
-ACTOR ToolBoxSelected : Boolean {}
-ACTOR MP40Selected : Boolean {}
-
-//Characters
-#include "Actors/Characters/DEC_MEL.txt" // Mel's Player Stuff
-#include "Actors/Characters/DEC_VEX.txt" // Vexler's Player Stuff
-#include "Actors/Characters/DEC_MAC.txt" // Little Mac's Player Stuff
-
-//Enemies
-#include "Actors/Enemies/DEC_ENEM.txt" // Enemy Master File
-
-//Mel's Weapons
-#include "Actors/Weapons/Mel/DEC_MWEP1.txt" // Slot 1 Weapons (Mel Melee)
-#include "Actors/Weapons/Mel/DEC_MWEP2.txt" // Slot 2 Weapons (919m, Revolvedeagle)
-#include "Actors/Weapons/Mel/DEC_MWEP3.txt" // Slot 3 Weapons (Zeke)
-#include "Actors/Weapons/Mel/DEC_MWEP3NP.txt" // Slot 3 Weapons (Zeke Shotgun, No Shell Pool Version)
-#include "Actors/Weapons/Mel/DEC_MWEP3b.txt"// Slot 3 Weapons, continued (Dahlia, Leviathan)
-#include "Actors/Weapons/Mel/DEC_MWEP4.txt" // Slot 4 Weapons (Ammobox 50)
-#include "Actors/Weapons/Mel/DEC_MWEP5.txt" // Slot 5 Weapons
-#include "Actors/Weapons/Mel/DEC_MWEP6.txt" // Slot 6 Weapons
-
-//Vexler's Weapons
-#include "Actors/Weapons/Vexler/DEC_VWEP1.txt" // Slot 1 Weapons (Vexler Melee)
-//#include "Actors/Weapons/Vexler/DEC_VWEP2.txt" // Slot 2 Weapons (Revolvedeagle, 919m)
-
-#include "Actors/DEC_SFX.txt" //Special Effects (Casings, Smoke, Etc.)
-#include "Actors/DEC_TEMP.txt" //Blanked out and replaced actors for the alpha
-
-//Items
-#include "Actors/DEC_ITEM.txt"
+Actor MeleeSelected : Boolean {}
+Actor 919Selected : Boolean {}
+Actor SavannahFalconSelected : Boolean {}
+Actor ZekeSelected : Boolean {}
+Actor AssaultShotgunSelected : Boolean {}
+Actor DahliaSelected : Boolean {}
+Actor AmmoBoxSelected : Boolean {}
+Actor ToolBoxSelected : Boolean {}
+Actor MP40Selected : Boolean {}
+Actor MelTestWeapon7Selected : Boolean {}
