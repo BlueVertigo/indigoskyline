@@ -11,6 +11,88 @@
 //DisableFullBright
 //}
 
+//Nikana
+//light attack 1
+Brightmap Sprite NIK1B0
+{
+map "brightmaps/weapons/nikana/bmNIK1B.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIK1C0
+{
+map "brightmaps/weapons/nikana/bmNIK1C.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIK1D0
+{
+map "brightmaps/weapons/nikana/bmNIK1D.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIK1E0
+{
+map "brightmaps/weapons/nikana/bmNIK1E.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIK1F0
+{
+map "brightmaps/weapons/nikana/bmNIK1F.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIK1G0
+{
+map "brightmaps/weapons/nikana/bmNIK1G.png"
+DisableFullBright
+}
+
+//heavy attack 1
+Brightmap Sprite NIS1C0
+{
+map "brightmaps/weapons/nikana/bmNIS1C.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIS1D0
+{
+map "brightmaps/weapons/nikana/bmNIS1D.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIS1E0
+{
+map "brightmaps/weapons/nikana/bmNIS1E.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIS1F0
+{
+map "brightmaps/weapons/nikana/bmNIS1F.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIS1G0
+{
+map "brightmaps/weapons/nikana/bmNIS1G.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIS1H0
+{
+map "brightmaps/weapons/nikana/bmNIS1H.png"
+DisableFullBright
+}
+
+Brightmap Sprite NIS1I0
+{
+map "brightmaps/weapons/nikana/bmNIS1I.png"
+DisableFullBright
+}
+
+
 //Revolvodeagle Brightmaps
 Brightmap Sprite SVFGA0
 {
@@ -28,6 +110,13 @@ DisableFullBright
 BrightMap Sprite STGFB0
 {
 map "brightmaps/weapons/melzekeshotgun/BMSTGFB.png"
+DisableFullBright
+}
+
+//Assault Shotgun Brightmaps
+BrightMap Sprite MASGA0
+{
+map "brightmaps/weapons/melassaultshotgun/BMMASGA.png"
 DisableFullBright
 }
 

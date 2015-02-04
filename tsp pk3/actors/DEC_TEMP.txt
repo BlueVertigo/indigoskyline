@@ -27,7 +27,7 @@ ACTOR TempPlasmaRifle replaces PlasmaRifle
 	}
 }
 
-ACTOR TempBFG9000 replaces BFG9000
+ACTOR TempBFG9000 //replaces BFG9000
 {
 	DropItem ToolboxAmmo 255
 	DropItem ToolboxAmmo 255

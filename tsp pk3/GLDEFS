@@ -97,3 +97,38 @@ Frame CFCFN { Light RictusFire2 }
 Frame CFCFO { Light RictusFire3 }
 Frame CFCFP { Light RictusFire4 }
 }
+
+//===========================================================================
+// Soulsphere
+//===========================================================================
+pulselight TSPSOULSPHERE
+{
+    color 0.4 0.3 1.0
+    size 40
+    secondarySize 42
+    interval 2.0
+    offset 0 16 0
+}
+
+object TSPSoulSphere
+{
+    frame LIFE { light TSPSOULSPHERE }
+}
+
+
+//===========================================================================
+// Megasphere
+//===========================================================================
+pulselight TSPMEGASPHERE
+{
+    color 0.0 0.8 0.4
+    size 40
+    secondarySize 42
+    interval 2.0
+    offset 0 16 0
+}
+
+object TSPMegaSphere
+{
+    frame SPOT { light TSPMEGASPHERE }
+}
