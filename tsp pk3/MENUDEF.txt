@@ -7,46 +7,42 @@ DEFAULTLISTMENU
 
 LISTMENU "MainMenu"
 {
-	StaticPatch 44, -20, "SP_HEDR"
-	Position 97, 96
+//	StaticPatch 44, -20, "SP_HEDR"
+	Position 90, 15
+	Linespacing 29
 		
-	TextItem "Start",  "n",	"PlayerclassMenu"
-	TextItem "Config",	     "o",	"OptionsMenu"
-	TextItem "Help",         "h",   "ReadThisMenu"
-	TextItem "Load",         "l",	"LoadGameMenu"
-	TextItem "Save",         "s",	"SaveGameMenu"
-	Font "DBIGFONT", "Red"
-	TextItem "Shut Down",	 "q",	"QuitMenu"
+	PatchItem "SP_NGAME",  "n",	"PlayerclassMenu"
+	PatchItem "SP_CONF",	     "o",	"OptionsMenu"
+	PatchItem "SP_RTHS",         "h",   "ReadThisMenu"
+	PatchItem "SP_LOAD",         "l",	"LoadGameMenu"
+	PatchItem "SP_SAVE",         "s",	"SaveGameMenu"
+	PatchItem "SP_QUIT",	 "q",	"QuitMenu"
 }
 
 ListMenu "SkillMenu"
 {
-		Font "DBIGFONT", "Blue"
-		StaticTextCentered 166, 14, "NEW GAME"
-
-	    Font "DBIGFONT", "Green"
-		StaticTextCentered 166, 38, "$MNU_CHOOSESKILL"
-		Position 48, 63
+		StaticPatch 103, 39, "SPSKILL"
+	    Position 16, 15
+	    Linespacing 29
 }
 
 ListMenu "PlayerclassMenu"
 {
 		NetgameMessage "$NEWGAME"
 		
-		StaticTextCentered 160, 15, "$MNU_CHOOSECLASS"
-		Position 48, 63
-		PlayerDisplay 220, 63, "20 00 00", "80 00 40"
-		MouseWindow 0, 220
+		StaticPatch 103, 39, "SP_CSLT"
+		Font "DBIGFONT", "TSPGreen"
+		Position 32, 18
+		PlayerDisplay 226, 51, "20 00 00", "80 00 40"
 		Selector "M_SPSEL", -34, -8
 }
 
 ListMenu "EpisodeMenu"
 {
 	NetgameMessage "$NEWGAME"
-	
+    StaticPatch 103, 39, "SP_EPIS"	
 	Font "DBIGFONT", "Red"
-	Position 48, 63
-	StaticTextCentered 173, 14, "Select Episode"
+	Position 25, 43
 }
 
 ListMenu "LoadGameMenu"

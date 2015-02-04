@@ -97,4 +97,4 @@ STARTUP3 = "Chat with us at \cd#tsp on irc.zandronum.net";
 STARTUP4 = "Or check out the public plan doc at \cdtinyurl.com/tspmanual";
 STARTUP5 = "\cuLOOK TO LA LUNA";
 
-NIGHTMARE = "Welcome to the real deal. \caElite Class\c- monsters spawn more often\nammo drops are \caless frequent\c-,\nand monsters do \camore damage\c- to you.\n\nYou sure you're ready for this?";
+NIGHTMARE = "Welcome to the real deal.\n\caElite Class\c- monsters spawn more often\nammo drops are \caless frequent\c-,\nand monsters do \camore damage\c- to you.\n\nYou sure you're ready for this?";

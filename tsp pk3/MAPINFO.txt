@@ -48,7 +48,7 @@ skill TSPbaby
   DamageFactor = 0.5
   EasyBossBrain
   SpawnFilter = Baby
-//  PicName = "SP_BABY"
+  PicName = "SPSKILL1"
   Name = "Easy Peasy"
   ACSReturn = 0
   Key = "1"
@@ -103,8 +103,9 @@ skill TSPMedium
   ReplaceActor = "Cyberdemon","CyberdemonSpawner"
   ReplaceActor = "SpiderMastermind","SpiderMastermindSpawner"
   ReplaceActor = "WolfensteinSS","WolfensteinSSSpawner"
-  SpawnFilter = Hard
-//  PicName = "SP_SEMI"
+  DefaultSkill
+  SpawnFilter = Normal
+  PicName = "SPSKILL2"
   Name = "Bring It On!"
   ACSReturn = 1
   Key = "2"
@@ -131,11 +132,10 @@ skill TSPhard
   ReplaceActor = "SpiderMastermind","SpiderMastermindSpawnerHard" 
   ReplaceActor = "WolfensteinSS","WolfensteinSSSpawnerHard" 
   SpawnFilter = Hard
-  DefaultSkill
-//PicName = "SP_ULTRA"
-  Name = "Ultra-Violence!"
+  PicName = "SPSKILL3"
+  Name = "High Intensity!!"
   ACSReturn = 2
-  Key = "2"
+  Key = "3"
 }
 
 skill TSPhardest
@@ -163,10 +163,10 @@ skill TSPhardest
   MonsterHealth =  1.5
   MustConfirm
   SpawnFilter = Hard
-//PicName = "SP_ULTRA"
+  PicName = "SPSKILL4"
   Name = "Purest, Darkest Hell"
   ACSReturn = 3
-  Key = "5"
+  Key = "4"
 }
 
 /*
@@ -208,10 +208,11 @@ skill TSPdante
   damagefactor = 255
   monsterhealth = 0.001
   spawnfilter = Hard
+  PicName = "SPSKILL5"
   name = "Death to Pirates"
-  textcolor = cyan
   mustconfirm = "Everything dies in one hit, including you! Ready for this?"
   ACSReturn = 4
+  Key = "5"
 }
 
 skill TSPSurvivor
@@ -219,8 +220,8 @@ skill TSPSurvivor
   damagefactor = 2.0
   monsterhealth = 2.0
   spawnfilter = Hard
-  name = "Lone Survivor"
-  textcolor = Orange
+  PicName = "SPSKILL6"
   mustconfirm = "Stranded on a base with limited supplies and now all Hell is breaking loose. Can you survive the horror?"
   ACSReturn = 5
+  Key = "6"
 }

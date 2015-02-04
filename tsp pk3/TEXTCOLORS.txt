@@ -1,0 +1,9 @@
+TSPGreen
+{
+	#1d3948  #84bb9b
+Console:
+	#2a3f4b  #2a3f4b    0 127
+	#5da590  #add0a5  128 256
+Flat:
+	#5da590
+}
