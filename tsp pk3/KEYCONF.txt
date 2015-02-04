@@ -3,11 +3,6 @@ addplayerclass SpacePirate
 addplayerclass Vexler
 //addplayerclass LittleMac
 
-addkeysection "The Space Pirate" ew_keysection
-addmenukey "Special/Melee" +Pirate_Melee
-addmenukey "Drop Current Zeke Shells" Pirate_ShellDrop
-addmenukey "Quick Switch Melee" Pirate_MSwitch
-
 defaultbind q +Pirate_Melee
 alias +Pirate_Melee "use StartMelee" //"give Melee"
 alias -Pirate_Melee "use StopMelee" //"give Melee"
