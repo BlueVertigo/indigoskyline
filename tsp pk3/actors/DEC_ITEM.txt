@@ -8,7 +8,7 @@ ACTOR TSPGreenArmorPickup : CustomInventory Replaces GreenArmor
 {
   Radius 20
   Height 16
-  Inventory.PickupMessage "Equipped yourself with a ballistic armor vest. [+100 Armor]"
+  Inventory.PickupMessage "Equipped yourself with a ballistic armor vest. [\cp+100 Armor\c-]"
   Inventory.PickupSound "armor/lightarmor"
   Inventory.Icon "FLRMA0"
   States
@@ -35,7 +35,7 @@ ACTOR TSPBlueArmorPickup : CustomInventory Replaces BlueArmor
 {
   Radius 20
   Height 16
-  Inventory.PickupMessage "Equipped yourself with a palladium-alloy armor. [+200 Armor]"
+  Inventory.PickupMessage "Equipped yourself with a palladium-alloy armor. [\cp+200 Armor\c-]"
   Inventory.PickupSound "armor/heavyarmor"
   Inventory.Icon "PSRMA0"
   States
@@ -62,7 +62,7 @@ ACTOR TSPGreenArmor : BasicArmorPickup
 {
   Radius 20
   Height 16
-  Inventory.PickupMessage "Equipped yourself with a ballistic armor vest. [+100 Armor]"
+  Inventory.PickupMessage "Equipped yourself with a ballistic armor vest. [\cp+100 Armor\c-]"
   Inventory.PickupSound "armor/lightarmor"
   Inventory.Icon "FLRMA0"
   Armor.SavePercent 34
@@ -80,7 +80,7 @@ ACTOR TSPBlueArmor : BasicArmorPickup
 {
   Radius 20
   Height 16
-  Inventory.PickupMessage "Equipped yourself with a palladium-alloy armor. [+200 Armor]"
+  Inventory.PickupMessage "Equipped yourself with a palladium-alloy armor. [\cp+200 Armor\c-]"
   Inventory.PickupSound "armor/heavyarmor"
   Inventory.Icon "PSRMA0"
   Armor.SavePercent 50
@@ -128,7 +128,7 @@ ACTOR TSPArmorBonus : BasicArmorBonus replaces ArmorBonus
 {
   Radius 20
   Height 16
-  Inventory.PickupMessage "Found a nano-shield. [+1 Armor]"
+  Inventory.PickupMessage "Found a nano-shield. [\cp+1 Armor\c-]"
   Inventory.PickupSound "armor/armorshard"
   Inventory.Icon "ARSDD0"
   Armor.SavePercent 100
@@ -160,7 +160,7 @@ ACTOR TSPMegaSphereBlueArmor : TSPBlueArmor
 
 ACTOR TSPMegasphere : Megasphere replaces Megasphere
 {
-  Inventory.PickupMessage "Picked up the Miracle Sphere! [+250 Armor][+200 Health]"
+  Inventory.PickupMessage "\cfPicked up the \ciMiracle Sphere!\c- [\cp+250 Armor\c-][\cn+200 Health\c-]"
   Inventory.PickupSound "health/supercharge"
   +INVENTORY.BIGPOWERUP
   +FLOATBOB
@@ -178,10 +178,25 @@ ACTOR TSPMegasphere : Megasphere replaces Megasphere
   }
 }
 
+ACTOR TSPSoulsphere : Soulsphere replaces Soulsphere
+{
+  Inventory.PickupMessage "\cfPicked up the \cnVitality Sphere!\c- [\cn+100 Health\c-]"
+  Inventory.PickupSound "health/vitalitysphere"
+  +INVENTORY.BIGPOWERUP
+  +FLOATBOB
+  States
+  {
+  Spawn:
+    LIFE ABCDCB 6 Bright
+    Loop
+  }
+}
+
+
 ACTOR TSPMedikit : Medikit Replaces Medikit
 {
-  Inventory.PickupMessage "Picked up a field-grade medikit. [+25 Health]"
-  Health.LowMessage 25, "Picked up a MUCH needed medikit. [+25 Health]"
+  Inventory.PickupMessage "Picked up a field-grade medikit. [\cn+25 Health\c-]"
+  Health.LowMessage 25, "Picked up a MUCH needed medikit. [\cn+25 Health\c-]"
   Inventory.PickupSound "health/medkit"
   Inventory.Icon "MDK1A0"
   States
@@ -194,8 +209,8 @@ ACTOR TSPMedikit : Medikit Replaces Medikit
 
 ACTOR TSPStimpack : Stimpack Replaces Stimpack
 {
-  Inventory.PickupMessage "Picked up a quick-fix medkit. [+10 Health]"
-  Health.LowMessage 25, "Picked up a MUCH needed quick-fix kit. [+10 Health]"
+  Inventory.PickupMessage "Picked up a quick-fix medkit. [\cn+10 Health\c-]"
+  Health.LowMessage 25, "Picked up a MUCH needed quick-fix kit. [\cn+10 Health\c-]"
   Inventory.PickupSound "health/stimpack"
   States
   {
@@ -207,8 +222,8 @@ ACTOR TSPStimpack : Stimpack Replaces Stimpack
 
 ACTOR TSPHealthBonus : HealthBonus Replaces HealthBonus
 {
-  Inventory.PickupMessage "Picked up a vial of veti-gel. [+1 Health]"
-  Health.LowMessage 25, "Picked up a vial of veti-gel. Better find some more. [+1 Health]"
+  Inventory.PickupMessage "Picked up a vial of veti-gel. [\cn+1 Health\c-]"
+  Health.LowMessage 25, "Picked up a vial of veti-gel. Better find some more. [\cn+1 Health\c-]"
   Inventory.PickupSound "health/healthbonus"
   States
   {
