@@ -11,12 +11,17 @@ ACTOR ShotgunguySkillSpawner : MonsterSkillSpawner replaces ShotgunGuy
     TNT1 A 0
     TNT1 A 0
     TNT1 A 0
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"Spawn2")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LSSpawn")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 2,"Spawn2")
     TNT1 A 0 A_SpawnItemEx("ShotgunguySpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
     Stop
   Spawn2:
     TNT1 A 0
     TNT1 A 0 A_SpawnItemEx("ShotgunguySpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  LSSpawn:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("LSShotgunguySpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
     Stop
   }
 }
@@ -24,11 +29,28 @@ ACTOR ShotgunguySkillSpawner : MonsterSkillSpawner replaces ShotgunGuy
 ACTOR ShotgunguySpawner : RandomSpawner 
 {
   DropItem "ShotgunGuyV0", 255,100
+  DropItem "LSJudgmentZombie", 255, 15
 }
 
 ACTOR ShotgunguySpawnerHard : RandomSpawner 
 {
   DropItem "HardShotgunGuyV0", 255,100
+  DropItem "HardJudgmentZombie", 255, 50
+}
+
+ACTOR LSShotgunguySpawner : RandomSpawner 
+{
+  DropItem "LSZombieScientistV1", 255, 150
+  DropItem "LSZombieScientistV2", 255, 150
+  DropItem "LSZombieScientistV3", 255, 150
+  DropItem "LSZombieScientistV4", 255, 150
+  DropItem "LSFemaleScientistV1", 255, 150
+  DropItem "LSFemaleScientistV2", 255, 150
+  DropItem "LSFemaleScientistV3", 255, 150
+  DropItem "LSFemaleScientistV4", 255, 150
+  DropItem "LSHazmatZombie", 255, 150
+  DropItem "LSShotgunGuyV0", 255,100
+  DropItem "LSJudgmentZombie", 255, 50
 }
 
 ACTOR BaseShotgunGuy : BaseZombieHitscanner
@@ -66,7 +88,7 @@ ACTOR BaseShotgunGuyV0 : BaseShotgunGuy
   DropItem BuckshotShellThrown 127
   DropItem BuckshotShellThrown 255
   DropItem BuckshotShellThrown 255
-  DropItem ShotgunPickup 255
+  DropItem ShotgunPickup 150
   //DropItem DropBuckshotShellSpawner 255 These guys are the pretty 4-shell things
   States
   {
@@ -158,5 +180,26 @@ ACTOR HardShotgunGuyV0 : BaseShotgunGuyV0
     SPOS D 1 A_Chase
     SPOS DD 1 A_Chase("","")
     Loop 
+  }
+}
+
+ACTOR LSShotgunGuyV0 : HardShotgunGuyV0
+{
+  Painchance 100
+  PainChance "Melee", 150
+  DropItem BuckshotShellThrown 50
+  DropItem BuckshotShellThrown 50
+  DropItem BuckshotShellThrown 50
+  DropItem BuckshotShellThrown 50
+  DropItem ShotgunPickup 100
+  DropItem TSPArmorBonusDrop 150
+  States
+  {
+  Missile: 
+    SPOS E 10 A_FaceTarget 
+    SPOS F 10 Bright A_CustomBulletAttack(10,2,9,2)
+    SPOS E 10 A_PlaySound("zekeshotgun/pump")
+    TNT1 A 0 A_Jump (256,"See2")
+    Goto See 
   }
 }

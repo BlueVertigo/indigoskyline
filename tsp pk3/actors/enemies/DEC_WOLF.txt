@@ -47,7 +47,7 @@ ACTOR BaseWolfensteinSSV0 : BaseWolfensteinSS
   ActiveSound "wolfss/active"
   AttackSound "wolfss/attack"
   Obituary "$OB_WOLFSS"
-  Dropitem TSPPistolAmmo 255
+  Dropitem TSPPistolAmmoThrown 255
   DropItem MelMipFowty 30
   States
   {
