@@ -3,6 +3,11 @@ server bool tsp_zmelee = false;
 server int tsp_toaster = 0;
 server int tsp_beamstyle = 1;
 server bool tsp_beaminf = false;
+server bool tsp_fistsstart = false;
+server bool tsp_goldenpistol = false;
 
 //Mel Specific
 server bool tsp_melmagpush = false;
+
+//Hmm
+server bool tsp_supersecret = false;

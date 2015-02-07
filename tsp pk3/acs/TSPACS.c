@@ -320,9 +320,25 @@ script "GetBeamInfiniteCVAR" (void)
   SetResultValue(GetCVar("tsp_beaminf"));
 }
 
+script "GetGoldenPistolCVAR" (void)
+{
+  SetResultValue(GetCVar("tsp_goldenpistol"));
+}
+
+script "GetFistsStartCVAR" (void)
+{
+  SetResultValue(GetCVar("tsp_fistsstart"));
+}
+
 script "GetMagPushCVAR" (void)
 {
   SetResultValue(GetCVar("tsp_melmagpush"));
+}
+
+
+script "GetSuperSecretCVAR" (void)
+{
+  SetResultValue(GetCVar("tsp_supersecret"));
 }
 
 script "TSPGetGameSkill" (void)
@@ -784,4 +800,9 @@ script "TSPZekeMessage" (int which, int a1, int a2)
       Terminate;
   }
   SetResultValue(result);
+}
+
+script "TSPSurvivorSlow" (Void)
+{
+   SetActorProperty(0, APROP_SPEED, 0.75);
 }
