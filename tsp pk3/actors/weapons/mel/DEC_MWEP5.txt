@@ -43,14 +43,8 @@ ACTOR MelToolbox : Weapon
     Loop
    Select:
 	  TNT1 A 0 A_TakeInventory("MeleeSelected", 1)
-	  TNT1 A 0 A_TakeInventory("919Selected", 1)
-	  TNT1 A 0 A_TakeInventory("ZekeSelected", 1)
-	  TNT1 A 0 A_TakeInventory("DahliaSelected", 1)
-	  TNT1 A 0 A_TakeInventory("AmmoBoxSelected", 1)
-      TNT1 A 0 A_TakeInventory("MP40Selected", 1)
-	  TNT1 A 0 A_TakeInventory("SavannahFalconSelected", 1)
-	  TNT1 A 0 A_TakeInventory("MelTestWeapon7Selected", 1)
-	  TNT1 A 0 A_GiveInventory("ToolBoxSelected", 1)
+      TNT1 A 0 A_TakeInventory("WeaponSelectMemory", 999)
+	  TNT1 A 0 A_GiveInventory("WeaponSelectMemory", 151)
 	  TNT1 A 5 A_PlaySound("toolbox/equip", 5)
 	  RNLU ABCD 1
 	  RNLU D 0 A_PlaySound("toolbox/on", 6)
@@ -227,40 +221,6 @@ ACTOR ToolboxMag : Ammo
 {
 	+IGNORESKILL
 	Inventory.MaxAmount 5
-}
-
-ACTOR ToolboxAmmo : Ammo Replaces RocketAmmo
-{
-	+IGNORESKILL
-	Inventory.Amount 1
-	Inventory.MaxAmount 30
-	Ammo.BackpackAmount 5
-	Ammo.BackpackMaxAmount 60
-	Ammo.DropAmount 1
-	Scale 0.4
-	Inventory.Icon "SRTPA0"
-	Inventory.PickupMessage "Picked up a Toolbox Rocket. [\cg+1 Toolbox Ammo\c-]"
-	Inventory.PickupSound "toolbox/ammo1"
-	States
-	{
-	Spawn:
-		SRTP A -1
-		Stop
-	}
-}
-
-ACTOR ToolboxRocketBox : ToolboxAmmo replaces RocketBox
-{
-  Inventory.PickupMessage "Picked up a crate of Toolbox Rockets. [\cg+5 Toolbox Ammo\c-]"
-  Inventory.PickupSound "toolbox/ammo2"
-  Inventory.Amount 5
-  scale 1.0
-  States
-  {
-  Spawn:
-    RLNB A -1
-    Stop
-  }
 }
 
 ACTOR ToolboxRocket

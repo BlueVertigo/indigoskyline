@@ -17,7 +17,7 @@ Actor Boolean : Inventory
 //Mel's Weapons
 #include "Actors/Weapons/Mel/DEC_MWEP1.txt" // Slot 1 Weapons (Mel Melee)
 #include "Actors/Weapons/Mel/DEC_MWEP1b.txt" // Slot 1 Weapons (Nikana)
-#include "Actors/Weapons/Mel/DEC_MWEP2.txt" // Slot 2 Weapons (919m, Revolvedeagle)
+#include "Actors/Weapons/Mel/DEC_MWEP2.txt" // Slot 2 Weapons (919m)
 #include "Actors/Weapons/Mel/DEC_MWEP3.txt" // Slot 3 Weapons (Zeke)
 #include "Actors/Weapons/Mel/DEC_MWEP3NP.txt" // Slot 3 Weapons (Zeke Shotgun, No Shell Pool Version)
 #include "Actors/Weapons/Mel/DEC_MWEP3b.txt"// Slot 3 Weapons, continued (Dahlia, Leviathan)
@@ -37,7 +37,11 @@ Actor Boolean : Inventory
 
 //Items
 #include "Actors/DEC_ITEM.txt"
+#include "Actors/DEC_AMMO.txt" // Ammo pickups
+#include "Actors/DEC_SHELLS.txt" // Shell Ammo because wow
 
+//Lone Survivor
+#include "Actors/DEC_LSITEMS.txt" // Lone Survivor Specific Items
 
 //Melee Button Press
 
@@ -88,6 +92,27 @@ Actor DropCurrentShells : CustomInventory
   }
 }
 
+// Weapon Select Memory was adapted from mk-ww, by WildWeasel and Marty Kirra
+// This makes things less clustered for the select state on weapons
+
+ACTOR WeaponSelectMemory : Inventory
+{
+	// Mel Weapons
+	// 112 = Mel Nikana
+	// 121 = Mel 919m
+	// 131 = Mel Zeke Shotgun
+	// 132 = Mel Classico Shotgun
+	// 133 = Mel Assault Shotgun
+	// 134 = Mel Dahlia Crossbow
+	// 141 = Mel Ammobox50
+	// 142 = Mel DGSS Assault Rifle
+	// 149 = Mel MP40
+	// 151 = Mel Toolbox
+	// 171 = Mel WOG
+	Inventory.MaxAmount 999
+}
+
+
 Actor MeleeButtonActor : CustomInventory
 {
   -INVBAR
@@ -104,21 +129,20 @@ Actor MeleeButtonActor : CustomInventory
 	  TNT1 A 0 A_SelectWeapon("MelMelee")
 	  Fail
 	  MelMeleeSwitch:
-	  TNT1 A 0 A_JumpIfInventory("919Selected",1,"Mel919Switch")
-	  TNT1 A 0 A_JumpIfInventory("SavannahFalconSelected",1,"MelSavannahFalconSwitch")
-	  TNT1 A 0 A_JumpIfInventory("ZekeSelected",1,"MelZekeSwitch")
-	  TNT1 A 0 A_JumpIfInventory("AssaultShotgunSelected",1,"MelAssaultShotgunSwitch")
-	  TNT1 A 0 A_JumpIfInventory("DahliaSelected",1,"MelDahliaSwitch")
-	  TNT1 A 0 A_JumpIfInventory("AmmoBoxSelected",1,"MelAmmoBoxSwitch")
-	  TNT1 A 0 A_JumpIfInventory("ToolBoxSelected",1,"MelToolBoxSwitch")
-	  TNT1 A 0 A_JumpIfInventory("MP40Selected",1,"MelMipFowtySwitch")
-	  TNT1 A 0 A_JumpIfInventory("MelTestWeapon7Selected",1,"MelTestWeapon7Switch")
+	  TNT1 A 0 A_JumpIfInventory("WeaponSelectMemory",171,"MelTestWeapon7Switch")
+	  TNT1 A 0 A_JumpIfInventory("WeaponSelectMemory",151,"MelToolBoxSwitch")
+	  TNT1 A 0 A_JumpIfInventory("WeaponSelectMemory",149,"MelMipFowtySwitch")
+	  TNT1 A 0 A_JumpIfInventory("WeaponSelectMemory",141,"MelAmmoBoxSwitch")
+	  TNT1 A 0 A_JumpIfInventory("WeaponSelectMemory",134,"MelDahliaSwitch")
+	  TNT1 A 0 A_JumpIfInventory("WeaponSelectMemory",133,"MelAssaultShotgunSwitch")
+	  TNT1 A 0 A_JumpIfInventory("WeaponSelectMemory",131,"MelZekeSwitch")
+	  TNT1 A 0 A_JumpIfInventory("WeaponSelectMemory",121,"Mel919Switch")
 	  Goto Mel919Switch
 	  Mel919Switch:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"Mel919MagSwitch")
 	  TNT1 A 0 A_SelectWeapon("Mel919mPistol")
-	  Fail
-	  MelSavannahFalconSwitch:
-	  TNT1 A 0 A_SelectWeapon("MelSavannahFalcon")
+	  Mel919MagSwitch:
+	  TNT1 A 0 A_SelectWeapon("Mel919mPistolLS")
 	  Fail
 	  MelZekeSwitch:
 	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"MelZekeNoPoolSwitch")
@@ -148,12 +172,3 @@ Actor MeleeButtonActor : CustomInventory
 }
 
 Actor MeleeSelected : Boolean {}
-Actor 919Selected : Boolean {}
-Actor SavannahFalconSelected : Boolean {}
-Actor ZekeSelected : Boolean {}
-Actor AssaultShotgunSelected : Boolean {}
-Actor DahliaSelected : Boolean {}
-Actor AmmoBoxSelected : Boolean {}
-Actor ToolBoxSelected : Boolean {}
-Actor MP40Selected : Boolean {}
-Actor MelTestWeapon7Selected : Boolean {}
