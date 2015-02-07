@@ -239,11 +239,38 @@ ACTOR SpentClip1 //Pistol Clip
     States
     {
     Spawn:
-      CLP1 C 3
+      919E A 3
       Loop
     Death:
-      CLP1 I 1000
-      CLP1 IIIIIIIIIIIIIIIIIIII 1 A_FadeOut(0.05)
-      Stop
+	  919E B 4
+      919E C 1000
+      919E C 1 A_FadeOut(0.05)
+      Wait
     }
+}
+
+
+ACTOR SpentClip1Thrown
+{
+    Scale 0.75
+    Radius 3
+    Height 3
+    Speed 0
+    Mass 5
+    -NOBLOCKMAP +DROPOFF +MISSILE +NOTELEPORT +FLOORCLIP
+    DeathSound "weapons/smallclip"
+	States
+	{
+	Spawn:
+		9191 ABCDEFGH 2
+		Loop
+	Death:
+		"####" A 0 A_Jump(256,1,2,3)
+		"####" ACG 0 A_Jump(256,"Death1")
+		Stop
+	Death1:
+		"####" "#" 1000
+		"####" "#" 1 A_FadeOut(0.05)
+		Wait
+	}
 }

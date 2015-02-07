@@ -5,11 +5,11 @@ ACTOR TempPlasmaRifle replaces PlasmaRifle
 	DropItem ToolboxAmmo 255
 	DropItem ToolboxAmmo 255
 	DropItem ToolboxAmmo 128
-	DropItem TSPPistolAmmo 128
-	DropItem TSPPistolAmmo 128
-	DropItem AmmoBoxAmmo 255
-	DropItem AmmoBoxAmmo 255
-	DropItem AmmoBoxAmmo 255
+	DropItem TSPPistolAmmoDrop 128
+	DropItem TSPPistolAmmoDrop 128
+	DropItem TSPAmmoBoxAmmoDrop 255
+	DropItem TSPAmmoBoxAmmoDrop 255
+	DropItem TSPAmmoBoxAmmoDrop 255
 	DropItem HellFireShellThrown 128
 	DropItem HellFireShellThrown 128
 	DropItem ElectricShellThrown 128
@@ -35,13 +35,13 @@ ACTOR TempBFG9000 //replaces BFG9000
 	DropItem ToolboxAmmo 255
 	DropItem ToolboxAmmo 128
 	DropItem ToolboxAmmo 128
-	DropItem TSPPistolAmmo 255
-	DropItem TSPPistolAmmo 128
-	DropItem TSPPistolAmmo 128
-	DropItem AmmoBoxAmmo 255
-	DropItem AmmoBoxAmmo 255
-	DropItem AmmoBoxAmmo 255
-	DropItem AmmoBoxAmmo 255
+	DropItem TSPPistolAmmoDrop 255
+	DropItem TSPPistolAmmoDrop 128
+	DropItem TSPPistolAmmoDrop 128
+	DropItem TSPAmmoBoxAmmoDrop 255
+	DropItem TSPAmmoBoxAmmoDrop 255
+	DropItem TSPAmmoBoxAmmoDrop 255
+	DropItem TSPAmmoBoxAmmoDrop 255
 	DropItem HellFireShellThrown 200
 	DropItem HellFireShellThrown 128
 	DropItem ElectricShellThrown 200
@@ -66,7 +66,7 @@ ACTOR TempChainsaw replaces Chainsaw
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 A_SpawnItem("MessyShellSpawner", 1,0)
-		TNT1 A 0 A_SpawnItem("TSPPistolAmmo", 1,0)
+		TNT1 A 0 A_SpawnItem("TSPPistolAmmoDrop", 1,0)
 		Stop
 	}
 }
@@ -77,9 +77,9 @@ ACTOR TempCellAmmoSpawn replaces Cell
 	DropItem ToolboxAmmo 255
 	DropItem ToolboxAmmo 128
 	DropItem ToolboxAmmo 128
-	DropItem TSPPistolAmmo 255
-	DropItem TSPPistolAmmo 128
-	DropItem TSPPistolAmmo 128
+	DropItem TSPPistolAmmoDrop 255
+	DropItem TSPPistolAmmoDrop 128
+	DropItem TSPPistolAmmoDrop 128
 	DropItem HellFireShellThrown 128
 	DropItem HellFireShellThrown 128
 	DropItem ElectricShellThrown 128
@@ -105,9 +105,9 @@ ACTOR TempCellAmmoSpawn2 replaces CellPack
 	DropItem ToolboxAmmo 255
 	DropItem ToolboxAmmo 128
 	DropItem ToolboxAmmo 128
-	DropItem TSPPistolAmmo 255
-	DropItem TSPPistolAmmo 128
-	DropItem TSPPistolAmmo 128
+	DropItem TSPPistolAmmoDrop 255
+	DropItem TSPPistolAmmoDrop 128
+	DropItem TSPPistolAmmoDrop 128
 	DropItem HellFireShellThrown 200
 	DropItem HellFireShellThrown 128
 	DropItem ElectricShellThrown 200

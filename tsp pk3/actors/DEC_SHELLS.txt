@@ -1,0 +1,1133 @@
+ACTOR TSPShells : Ammo
+{
+	Inventory.Amount 4
+	Inventory.MaxAmount 48
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 96
+	Ammo.DropAmount 4
+	Inventory.Icon "TSPSHUD"
+	Inventory.PickupSound "zekeshotgun/load"
+	+IGNORESKILL
+	States
+	{
+	Spawn:
+        BCKS A -1
+		Stop
+	}
+}
+
+ACTOR BuckShotShell : Ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 48
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 96
+	Ammo.DropAmount 4
+	Inventory.Icon "SHELA0"
+	Inventory.PickupSound "zekeshotgun/load"
+	+IGNORESKILL
+	States
+	{
+	Spawn:
+      BCKS A -1
+	  Stop
+	}
+}
+
+ACTOR ElectricShell : Ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 48
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 96
+	Ammo.DropAmount 4
+	Inventory.Icon "SHELA0"
+	Inventory.PickupSound "zekeshotgun/load"
+	+IGNORESKILL
+	States
+	{
+	Spawn:
+      BCKS A -1
+	  Stop
+	}
+}
+
+ACTOR HellFireShell : Ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 48
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 96
+	Ammo.DropAmount 4
+	Inventory.Icon "SHELA0"
+	Inventory.PickupSound "zekeshotgun/load"
+	+IGNORESKILL
+	States
+	{
+	Spawn:
+      BCKS A -1
+	  Stop
+	}
+}
+
+ACTOR PoisonShell : Ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 48
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 96
+	Ammo.DropAmount 4
+	Inventory.Icon "SHELA0"
+	Inventory.PickupSound "zekeshotgun/load"
+	+IGNORESKILL
+	States
+	{
+	Spawn:
+      BCKS A -1
+	  Stop
+	}
+}
+
+ACTOR ShellSpawner replaces Shell
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1
+		TNT1 A 1 A_Jump(26,"PoisonShellSpawn")
+	    TNT1 A 1 A_Jump(43,"HellFireShellSpawn")
+		TNT1 A 1 A_Jump(85,"ElectricShellSpawn")
+		Goto BuckshotShellSpawn
+	BuckshotShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	ElectricShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	HellFireShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	PoisonShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	}
+}
+
+ACTOR ShellBoxSpawnerUNUSED //replaces ShellBox
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1 A_Jump(26,"PoisonShellSpawn")
+	    TNT1 A 1 A_Jump(43,"HellFireShellSpawn")
+		TNT1 A 1 A_Jump(85,"ElectricShellSpawn")
+		Goto BuckshotShellSpawn
+	BuckshotShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckShotShellPickup",-6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckShotShellPickup",-2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckShotShellPickup",2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckShotShellPickup",6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckShotShellPickup",-6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckShotShellPickup",-2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckShotShellPickup",2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckShotShellPickup",6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	ElectricShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	HellFireShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	PoisonShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	}
+}
+
+ACTOR ShellBoxSpawner
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1
+		TNT1 A 1 A_Jump(26,"PoisonShellSpawn")
+	    TNT1 A 1 A_Jump(43,"HellFireShellSpawn")
+		TNT1 A 1 A_Jump(85,"ElectricShellSpawn")
+		Goto BuckshotShellSpawn
+	BuckshotShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Spawn2
+	ElectricShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Spawn2
+	HellFireShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Spawn2
+	PoisonShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Spawn2
+	Spawn2:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1
+		TNT1 A 1 A_Jump(26,"PoisonShellSpawn2")
+	    TNT1 A 1 A_Jump(43,"HellFireShellSpawn2")
+		TNT1 A 1 A_Jump(85,"ElectricShellSpawn2")
+		Goto BuckshotShellSpawn2
+	BuckshotShellSpawn2:
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Spawn3
+	ElectricShellSpawn2:
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Spawn3
+	HellFireShellSpawn2:
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Spawn3
+	PoisonShellSpawn2:
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,-3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Spawn3
+	Spawn3:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1
+		TNT1 A 1 A_Jump(26,"PoisonShellSpawn3")
+	    TNT1 A 1 A_Jump(43,"HellFireShellSpawn3")
+		TNT1 A 1 A_Jump(85,"ElectricShellSpawn3")
+		Goto BuckshotShellSpawn3
+	BuckshotShellSpawn3:
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	ElectricShellSpawn3:
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",-2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("ElectricShellPickup",6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	HellFireShellSpawn3:
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",-2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("HellFireShellPickup",6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	PoisonShellSpawn3:
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",-2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",2,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("PoisonShellPickup",6,3,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	}
+}
+
+
+ACTOR BuckshotShellPickup : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cgbuckshot\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	Radius 24
+	States
+	{
+	Spawn:
+      2SHL A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("BuckShotShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("BuckShotShellNoPool", 1)
+	  Stop
+    PickupFail:
+      2SHL A 1
+      Fail
+	}
+}
+
+ACTOR ElectricShellPickup : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cnshock\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	Radius 24
+	States
+	{
+	Spawn:
+      1SHL A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("ElectricShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("ElectricShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("ElectricShellNoPool", 1)
+	  Stop
+    PickupFail:
+      1SHL A 1
+      Fail
+	}
+}
+
+ACTOR HellFireShellPickup : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cihellfire\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	Radius 24
+	States
+	{
+	Spawn:
+      4SHL A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("HellFireShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("HellFireShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("HellFireShellNoPool", 1)
+	  Stop
+    PickupFail:
+      4SHL A 1
+      Fail
+	}
+}
+
+ACTOR PoisonShellPickup : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cppoison\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	Radius 24
+	States
+	{
+	Spawn:
+      3SHL A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("PoisonShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("PoisonShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("PoisonShellNoPool", 1)
+	  Stop
+    PickupFail:
+      3SHL A 1
+      Fail
+	}
+}
+
+ACTOR BuckshotShellThrown : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cgbuckshot\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+      2SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  2SHL A -1
+	  Stop
+    Crash2:
+	  2SHL C -1
+	  Stop
+	Crash3:
+	  2SHL G -1
+	  Stop
+	Crash4:
+	  2SHL E -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("BuckShotShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("BuckShotShellNoPool", 1)
+	  Stop
+    PickupFail:
+      2SHL A 1
+      Fail
+	}
+}
+
+ACTOR ElectricShellThrown : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cnshock\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+      1SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  1SHL A -1
+	  Stop
+    Crash2:
+	  1SHL C -1
+	  Stop
+	Crash3:
+	  1SHL G -1
+	  Stop
+	Crash4:
+	  1SHL E -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("ElectricShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("ElectricShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("ElectricShellNoPool", 1)
+	  Stop
+    PickupFail:
+      1SHL A 1
+      Fail
+	}
+}
+
+ACTOR HellFireShellThrown : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cihellfire\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+      4SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  4SHL A -1
+	  Stop
+    Crash2:
+	  4SHL C -1
+	  Stop
+	Crash3:
+	  4SHL G -1
+	  Stop
+	Crash4:
+	  4SHL E -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("HellFireShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("HellFireShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("HellFireShellNoPool", 1)
+	  Stop
+    PickupFail:
+      4SHL A 1
+      Fail
+	}
+}
+
+ACTOR PoisonShellThrown : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cppoison\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+      3SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  3SHL A -1
+	  Stop
+    Crash2:
+	  3SHL C -1
+	  Stop
+	Crash3:
+	  3SHL G -1
+	  Stop
+	Crash4:
+	  3SHL E -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("PoisonShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("PoisonShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("PoisonShellNoPool", 1)
+	  Stop
+    PickupFail:
+      3SHL A 1
+      Fail
+	}
+}
+
+ACTOR BuckshotShellDropped : CustomInventory
+{
+    +THRUACTORS
+	+CORPSE
+	States
+	{
+	Spawn:
+      2SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  2SHL A 35
+	  TNT1 A 0 A_SpawnItemEx("BuckshotShellDroppedA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+    Crash2:
+	  2SHL C 35
+	  TNT1 A 0 A_SpawnItemEx("BuckshotShellDroppedB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash3:
+	  2SHL G 35
+	  TNT1 A 0 A_SpawnItemEx("BuckshotShellDroppedC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash4:
+	  2SHL E 35
+	  TNT1 A 0 A_SpawnItemEx("BuckshotShellDroppedD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	}
+}
+
+ACTOR BuckshotShellDroppedA : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cgbuckshot\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+	  2SHL A -1
+	  Loop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("BuckShotShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("BuckShotShellNoPool", 1)
+	  Stop
+    PickupFail:
+      2SHL A 1
+      Fail
+	}
+}
+
+ACTOR BuckshotShellDroppedB : BuckshotShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  2SHL C -1
+	  Loop
+	}
+}
+
+ACTOR BuckshotShellDroppedC : BuckshotShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  2SHL G -1
+	  Loop
+	}
+}
+
+ACTOR BuckshotShellDroppedD : BuckshotShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  2SHL E -1
+	  Loop
+	}
+}
+
+ACTOR ElectricShellDropped : CustomInventory
+{
+    +THRUACTORS
+	+CORPSE
+	States
+	{
+	Spawn:
+      1SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  1SHL A 35
+	  TNT1 A 0 A_SpawnItemEx("ElectricShellDroppedA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+    Crash2:
+	  1SHL C 35
+	  TNT1 A 0 A_SpawnItemEx("ElectricShellDroppedB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash3:
+	  1SHL G 35
+	  TNT1 A 0 A_SpawnItemEx("ElectricShellDroppedC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash4:
+	  1SHL E 35
+	  TNT1 A 0 A_SpawnItemEx("ElectricShellDroppedD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	}
+}
+
+ACTOR ElectricShellDroppedA : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cnshock\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+      1SHL A 1
+	  Loop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("ElectricShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("ElectricShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("ElectricShellNoPool", 1)
+	  Stop
+    PickupFail:
+      1SHL A 1
+      Fail
+	}
+}
+
+ACTOR ElectricShellDroppedB : ElectricShellDroppedA
+{
+	States
+	{
+	Spawn:
+      1SHL C 1
+	  Loop
+	}
+}
+
+ACTOR ElectricShellDroppedC : ElectricShellDroppedA
+{
+	States
+	{
+	Spawn:
+      1SHL G 1
+	  Loop
+	}
+}
+
+ACTOR ElectricShellDroppedD : ElectricShellDroppedA
+{
+	States
+	{
+	Spawn:
+      1SHL E 1
+	  Loop
+	}
+}
+
+ACTOR HellFireShellDropped : CustomInventory
+{
+    +THRUACTORS
+	+CORPSE
+	States
+	{
+	Spawn:
+      4SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  4SHL A 35
+	  TNT1 A 0 A_SpawnItemEx("HellFireShellDroppedA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+    Crash2:
+	  4SHL C 35
+	  TNT1 A 0 A_SpawnItemEx("HellFireShellDroppedB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash3:
+	  4SHL G 35
+	  TNT1 A 0 A_SpawnItemEx("HellFireShellDroppedC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash4:
+	  4SHL E 35
+	  TNT1 A 0 A_SpawnItemEx("HellFireShellDroppedD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	}
+}
+
+ACTOR HellFireShellDroppedA : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cihellfire\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+	  4SHL A 1
+	  Loop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("HellFireShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("HellFireShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("HellFireShellNoPool", 1)
+	  Stop
+    PickupFail:
+      4SHL A 1
+      Fail
+	}
+}
+
+ACTOR HellFireShellDroppedB : HellFireShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  4SHL C 1
+	  Loop
+	}
+}
+
+ACTOR HellFireShellDroppedC : HellFireShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  4SHL G 1
+	  Loop
+	}
+}
+
+ACTOR HellFireShellDroppedD : HellFireShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  4SHL E 1
+	  Loop
+	}
+}
+
+ACTOR PoisonShellDropped : CustomInventory
+{
+    +THRUACTORS
+	+CORPSE
+	States
+	{
+	Spawn:
+      3SHL ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash2")
+	  TNT1 A 0 A_Jump(128,"Crash3")
+	  TNT1 A 0 A_Jump(128,"Crash4")
+	  3SHL A 35
+	  TNT1 A 0 A_SpawnItemEx("PoisonShellDroppedA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+    Crash2:
+	  3SHL C 35
+	  TNT1 A 0 A_SpawnItemEx("PoisonShellDroppedB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash3:
+	  3SHL G 35
+	  TNT1 A 0 A_SpawnItemEx("PoisonShellDroppedC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	Crash4:
+	  3SHL E 35
+	  TNT1 A 0 A_SpawnItemEx("PoisonShellDroppedD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Stop
+	}
+}
+
+ACTOR PoisonShellDroppedA : CustomInventory
+{
+    Inventory.PickupMessage "Picked up a \cppoison\c- shell."
+	Inventory.Amount 1
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+	  3SHL A 1
+	  Loop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
+	  TNT1 A 0 A_JumpIfInventory("TSPShells", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
+	  TNT1 A 0 A_GiveInventory("PoisonShell", 1)
+	  Stop
+	PickupNoPool:
+	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_JumpIfInventory("PoisonShellNoPool", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
+	  TNT1 A 0 A_GiveInventory("PoisonShellNoPool", 1)
+	  Stop
+    PickupFail:
+      3SHL A 1
+      Fail
+	}
+}
+
+ACTOR PoisonShellDroppedB : PoisonShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  3SHL C 1
+	  Loop
+	}
+}
+
+ACTOR PoisonShellDroppedC : PoisonShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  3SHL G 1
+	  Loop
+	}
+}
+
+
+ACTOR PoisonShellDroppedD : PoisonShellDroppedA
+{
+	States
+	{
+	Spawn:
+	  3SHL E 1
+	  Loop
+	}
+}
+
+////Weapon Spawners
+
+	
+ACTOR DropBuckshotShellSpawner // This guy makes all the shotgun guys' drops nice and neat, not in use currently since you said you wanted single shells
+{
+	+CORPSE
+	States
+	{
+	Spawn:
+		BCKS A 1
+		Loop
+	Crash:
+		BCKS A 6
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",-2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",2,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("BuckshotShellPickup",6,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	}
+}
+
+ACTOR MessyShellSpawner
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1
+		TNT1 A 1 A_Jump(26,"PoisonShellSpawn")
+	    TNT1 A 1 A_Jump(43,"HellFireShellSpawn")
+		TNT1 A 1 A_Jump(85,"ElectricShellSpawn")
+		Goto BuckshotShellSpawn
+	BuckshotShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("MessyBuckshotShellSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	ElectricShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("MessyElectricShellSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	HellFireShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("MessyHellFireShellSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	PoisonShellSpawn:
+		TNT1 A 0 A_SpawnItemEx("MessyPoisonShellSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	}
+}
+
+ACTOR MessyBuckshotShellSpawner
+{
+	DropItem BuckshotShellThrown 255
+	DropItem BuckshotShellThrown 255
+	DropItem BuckshotShellThrown 255
+	DropItem BuckshotShellThrown 255
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1 A_NoBlocking
+		Stop
+	}
+}
+
+ACTOR MessyHellFireShellSpawner
+{
+	DropItem HellFireShellThrown 255
+	DropItem HellFireShellThrown 255
+	DropItem HellFireShellThrown 255
+	DropItem HellFireShellThrown 255
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1 A_NoBlocking
+		Stop
+	}
+}
+
+ACTOR MessyElectricShellSpawner
+{
+	DropItem ElectricShellThrown 255
+	DropItem ElectricShellThrown 255
+	DropItem ElectricShellThrown 255
+	DropItem ElectricShellThrown 255
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1 A_NoBlocking
+		Stop
+	}
+}
+
+ACTOR MessyPoisonShellSpawner
+{
+	DropItem PoisonShellThrown 255
+	DropItem PoisonShellThrown 255
+	DropItem PoisonShellThrown 255
+	DropItem PoisonShellThrown 255
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1 A_NoBlocking
+		Stop
+	}
+}
+
+
+ACTOR TSPShellboxSpawner replaces Shellbox
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorSpawn")
+	TNT1 A 0 A_Jump(150, "CrossbowboltSpawner")
+    TNT1 A 0 A_SpawnItemEx("ShellboxSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  CrossbowBoltSpawner:
+    TNT1 A 0 A_Jump(100,"LSSpawn2")
+    TNT1 A 0 A_SpawnItemEx("DahliaNormalAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	Stop  	
+  LoneSurvivorSpawn:
+    TNT1 A 0 A_Jump(100,"Nothing")
+	TNT1 A 0 A_Jump(100,"LSSpawn2")
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("ShellboxSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	Stop
+  LSSpawn2:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("DahliaExplosiveAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	Stop  
+  Nothing:
+    TNT1 A 0
+    Stop
+  }
+}

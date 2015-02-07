@@ -3,13 +3,69 @@
 /////////////////////////
 
 ///////////////////////////
+//
 // Slot 2 Weapons (Pistols)
+//
 ///////////////////////////
 
-ACTOR PistolPickup : CustomInventory Replaces Pistol 
+//Thank you Yholl and SidDoyle for helping me figure this junk out. <3
+ACTOR TSPPistolSpawner replaces Pistol
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_NoBlocking
+		TNT1 A 0 A_JumpIf(CheckClass("SpacePirate", AAPTR_PLAYER1), "MelPickup")
+        TNT1 A 0 A_JumpIf(CheckClass("Vexler", AAPTR_PLAYER1), "VexlerPickup")
+		Stop
+	MelPickup:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 1 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorMelPickup")
+		TNT1 A 0 A_SpawnItemEx("TSPMelPistolPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	LoneSurvivorMelPickUp:
+	    TNT1 A 0
+		TNT1 A 1
+		TNT1 A 0 A_SpawnItemEx("TSPMelPistolPickupLS",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	VexlerPickup:
+		TNT1 A 0
+		TNT1 A 1
+		TNT1 A 0 A_SpawnItemEx("TSPPistolAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+	}
+}
+
+ACTOR TSPFistsOnlyPistol
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+	TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFistsStartCVAR") == true,"FistsOnlyPickup")
+	Stop
+  FistsOnlyPickup:
+    TNT1 A 0
+	TNT1 A 0 A_Jump(150,"Nothing")
+    TNT1 A 0 A_SpawnItemEx("TSPPistolSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)    
+    Stop
+  Nothing:
+    TNT1 A 0
+    Stop
+  }
+}
+///////////////////
+// Starting Pistols
+///////////////////
+
+ACTOR TSPMelPistolPickup : CustomInventory
 {
     Inventory.PickupMessage "[Makoto Type 919 Mod.0] [Class: \cjPistol\c-, Slot \ck2\c-]"
-	Inventory.PickupSound "misc/w_pkup"
+	Inventory.PickupSound "919m/slide"
 	+INVENTORY.AUTOACTIVATE
 	States
 	{
@@ -18,14 +74,7 @@ ACTOR PistolPickup : CustomInventory Replaces Pistol
 	  Stop
 	Pickup:
 	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
 	  Fail
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIfInventory("Mel919mPistol", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("Mel919mPistol", 1)
-	  TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 15)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,1)
-	  Stop
 	MelPickup:
 	  TNT1 A 0 A_JumpIfInventory("Mel919mPistol", 1, "AmmoCheck")
 	  TNT1 A 0 A_GiveInventory("Mel919mPistol", 1)
@@ -35,6 +84,35 @@ ACTOR PistolPickup : CustomInventory Replaces Pistol
 	AmmoCheck:
       TNT1 A 0 A_JumpIfInventory("TSPPistolAmmo", 0, "PickupFail")
 	  TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 15)
+	  Stop
+	PickupFail:
+      919P A 1
+      Fail
+	}
+}
+
+ACTOR TSPMelPistolPickupLS : CustomInventory
+{
+    Inventory.PickupMessage "[Makoto Type 919 Mod.0] [Class: \cjPistol\c-, Slot \ck2\c-]"
+	Inventory.PickupSound "item/pickupls"
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+      919P A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+	  Fail
+	MelPickup:
+	  TNT1 A 0 A_JumpIfInventory("Mel919mPistolLS", 1, "AmmoCheck2")
+	  TNT1 A 0 A_GiveInventory("Mel919mPistolLS", 1)
+	  TNT1 A 0 A_GiveInventory("TSPPistolAmmoMag", 1)
+	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,1)
+	  Stop
+	AmmoCheck2:
+      TNT1 A 0 A_JumpIfInventory("TSPPistolAmmoMag", 0, "PickupFail")
+	  TNT1 A 0 A_GiveInventory("TSPPistolAmmoMag", 1)
 	  Stop
 	PickupFail:
       919P A 1
