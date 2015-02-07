@@ -214,13 +214,19 @@ statusbar normal
     drawswitchableimage keyslot 3 && 6, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", 239, 181;
     drawswitchableimage keyslot 1 && 4, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", 239, 191;
     drawnumber 3, INDEXFONT, gold, ammo TSPPistolAmmo, 288, 173;
+    drawnumber 3, INDEXFONT, gold, ammo TSPPistolAmmoMag, 288, 173;
     drawnumber 3, INDEXFONT, gold, ammo TSPShells, 288, 179;
     drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmo, 288, 185;
     drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmo, 288, 191;
+	drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmoMag, 288, 185;
+    drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmoMag, 288, 191;
     drawnumber 3, INDEXFONT, gold, ammocapacity TSPPistolAmmo, 314, 173;
+    drawnumber 3, INDEXFONT, gold, ammocapacity TSPPistolAmmoMag, 314, 173;
     drawnumber 3, INDEXFONT, gold, ammocapacity TSPShells, 314, 179;
     drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmo, 314, 185;
     drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmo, 314, 191;
+    drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmoMag, 314, 185;
+    drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmoMag, 314, 191;
     gamemode deathmatch, teamgame
     {
         drawnumber 2, DBIGFONT, untranslated, frags, 138, 171;
