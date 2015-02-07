@@ -14,6 +14,11 @@ menu/quit1 quit
 $random menu/quit2 { secretmessage menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 menu/quit1 }//menu/quit2 quit
 secretmessage quit2
 
+//Startup
+misc/startupdone         GAMELOAD
+
+item/pickupls            PCKUPLS
+
 //Armor Pickups
 
 armor/lightarmor         larmpck1
@@ -28,9 +33,13 @@ health/stimpack          STMPPCK
 health/healthbonus       HLBNPCK
 health/vitalitysphere    VITSPHRE
 
-//Startup
-misc/startupdone         GAMELOAD
+//Upgrade
+upgrade/normal           UPGDNM
+upgrade/ls               UPGDLS
 
+//Bounties
+bounty/start            BOUNTST
+bounty/finish           BOUNTFIN
 
 ////Temp Sounds
 
