@@ -96,6 +96,11 @@ $random 919m/fire { 919m/fire1 919m/fire2 919m/fire3 }
 919m/fire2 PSTFR2
 919m/fire3 PSTFR3
 
+$random 919m/goldfire { 919m/goldfire1 919m/goldfire2 919m/goldfire3 }
+919m/goldfire1 GPSFR1
+919m/goldfire2 GPSFR2
+919m/goldfire3 GPSFR3
+
 919m/magout pstmgout
 919m/magin1 pstmgin1
 919m/magin2 pstmgin2

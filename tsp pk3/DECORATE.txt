@@ -43,8 +43,10 @@ Actor Boolean : Inventory
 //Lone Survivor
 #include "Actors/DEC_LSITEMS.txt" // Lone Survivor Specific Items
 
-//Melee Button Press
+//Action! Mode
+#include "Actors/DEC_ASHUN.txt" // Action! Mode Bullets
 
+//Melee Button Press
 Actor MeleePressed : Boolean {}
 Actor PlayingPickupSound : Boolean {}
 
