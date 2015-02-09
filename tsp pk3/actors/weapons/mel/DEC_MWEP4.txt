@@ -188,6 +188,9 @@ ACTOR MelAmmoBox50LS : MelAmmoBox50
 	+WEAPON.CHEATNOTWEAPON
    States
    {
+ 	AutoEmpty:
+	  ABXG A 5 A_PlayWeaponSound("919m/dry")
+	  Goto Reload 
 	Reload:
 	  ABXG A 0 A_JumpIfInventory("AmmoBoxMag", 50, "Ready")
 	  ABXG A 0 A_JumpIfInventory("AmmoBoxAmmoMag", 1, "ReloadStart")

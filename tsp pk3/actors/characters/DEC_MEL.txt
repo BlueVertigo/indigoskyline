@@ -15,7 +15,7 @@ ACTOR SpacePirate : DoomPlayer
 	Player.Face MCW
 	Player.Portrait "Mel_Port"
 	Player.WeaponSlot 1, MelCustomCrossbow, MelMelee, MelNikana
-	Player.WeaponSlot 2, MelSavannahFalcon, Mel919mPistol, Mel919mPistolLS
+	Player.WeaponSlot 2, Mel919mPistol, Mel919mPistolLS, Mel919mPistolGold
 	Player.WeaponSlot 3, MelDahliaCrossbow, MelClassicoShotgun, MelAssaultShotgun, MelZekeShotgun, MelZekeShotgunNoPool
 	Player.WeaponSlot 4, MelAmmoBox50, MelAmmoBox50LS, MelMipFowty
 	Player.WeaponSlot 5, MelToolbox

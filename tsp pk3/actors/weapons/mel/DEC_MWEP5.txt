@@ -62,9 +62,9 @@ ACTOR MelToolbox : Weapon
       RNLF A 0 A_JumpIfInventory("ToolboxHeld", 1, "FireHold") // just hopping through channels. :P
       RNLF A 0 A_PlaySound("toolbox/prime", 5)
       RNLF ABCDE 1
+	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  TNT1 A 0 A_SetPitch(pitch - 1.4)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.2,0.2)))
-	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  RNLF F 0 A_TakeInventory("ToolBoxMag", 1)
 	  RNLF F 2 BRIGHT A_PlaySound("toolbox/rocket", 6)
 	  TNT1 A 0 A_AlertMonsters
@@ -76,9 +76,9 @@ ACTOR MelToolbox : Weapon
 	  Goto FireEnd
    FireHold:
       RNLF E 7
+	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  TNT1 A 0 A_SetPitch(pitch - 1.4)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.2,0.2)))
-	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  RNLF F 0 A_TakeInventory("ToolBoxMag", 1)
 	  RNLF F 2 BRIGHT A_PlaySound("toolbox/rocket", 5)
 	  TNT1 A 0 A_AlertMonsters
@@ -90,9 +90,9 @@ ACTOR MelToolbox : Weapon
 	  Goto FireEnd
    FireHold2:
       RNLF E 7
+	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  TNT1 A 0 A_SetPitch(pitch - 1.4)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.2,0.2)))
-	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  RNLF F 0 A_TakeInventory("ToolBoxMag", 1)
 	  RNLF F 2 BRIGHT A_PlaySound("toolbox/rocket", 6)
 	  TNT1 A 0 A_AlertMonsters
@@ -104,9 +104,9 @@ ACTOR MelToolbox : Weapon
 	  Goto FireEnd
    FireHold3:
       RNLF E 7
+	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  TNT1 A 0 A_SetPitch(pitch - 1.4)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.2,0.2)))
-	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  RNLF F 0 A_TakeInventory("ToolBoxMag", 1)
 	  RNLF F 2 BRIGHT A_PlaySound("toolbox/rocket", 5)
 	  TNT1 A 0 A_AlertMonsters
@@ -118,9 +118,9 @@ ACTOR MelToolbox : Weapon
 	  Goto FireEnd
    FireHold4:
       RNLF E 7
+	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  TNT1 A 0 A_SetPitch(pitch - 1.4)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.2,0.2)))
-	  RNLF F 0 A_SpawnItemEx ("ToolboxRocket",0,1,38,cos(-pitch)*35,0,sin(-pitch)*35,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  RNLF F 0 A_TakeInventory("ToolBoxMag", 1)
 	  RNLF F 2 BRIGHT A_PlaySound("toolbox/rocket", 6)
 	  TNT1 A 0 A_AlertMonsters
@@ -141,9 +141,9 @@ ACTOR MelToolbox : Weapon
 	  RNLE ABCDABCDA 2
 	  RNLF A 0 A_PlaySound("toolbox/prime", 0)
       RNLF ABCDE 1
+	  RNLF FFFFFFFFFFFFFF 0 A_SpawnItemEx ("DummyShrapnel",0,2,44,cos(-pitch),0,sin(-pitch),(random(-400,400)/100),SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  TNT1 A 0 A_SetPitch(pitch - 2.0)
 	  TNT1 A 0 A_SetAngle(angle + (frandom(-0.5,0.5)))
-	  RNLF FFFFFFFFFFFFFF 0 A_SpawnItemEx ("DummyShrapnel",0,2,44,cos(-pitch),0,sin(-pitch),(random(-400,400)/100),SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION)
 	  RNLF F 0 A_TakeInventory("ToolBoxMag", 1)
 	  RNLF F 2 BRIGHT A_PlaySound("toolbox/nailgun", 6)
 	  TNT1 A 0 A_AlertMonsters
