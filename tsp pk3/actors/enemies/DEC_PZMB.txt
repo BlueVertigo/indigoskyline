@@ -68,18 +68,18 @@ ACTOR TSPZombieSpawnerLS : RandomSpawner
   DropItem "LSFemaleScientistV3", 255, 150
   DropItem "LSFemaleScientistV4", 255, 150
   DropItem "LSHazmatZombie", 255, 150
-  DropItem "LSPistolZombie", 255,100
-  DropItem "LSRifleZombieV0", 255, 100
-  DropItem "LSRifleZombieV1", 255, 100
-  DropItem "LSRifleZombieV2", 255, 100
-  DropItem "LSRifleZombieV3", 255, 100
-  DropItem "LSRifleZombieV4", 255, 100
-  DropItem "LSRifleZombieV5", 255, 100
-  DropItem "LSFemaleZombieV1", 255, 100
-  DropItem "LSFemaleZombieV2", 255, 100
+  DropItem "LSPistolZombie", 255, 100
+  DropItem "LSRifleZombieV0", 255, 20
+  DropItem "LSRifleZombieV1", 255, 20
+  DropItem "LSRifleZombieV2", 255, 20
+  DropItem "LSRifleZombieV3", 255, 20
+  DropItem "LSRifleZombieV4", 255, 20
+  DropItem "LSRifleZombieV5", 255, 20
+  DropItem "LSFemaleZombieV1", 255, 20
+  DropItem "LSFemaleZombieV2", 255, 20
   //DropItem "Cultist", 255, 100
-  DropItem "LSJudgmentZombie", 255, 50
-  DropItem "LSShotgunGuyV0", 255, 50
+  DropItem "LSJudgmentZombie", 255, 15
+  DropItem "LSShotgunGuyV0", 255, 15
 }
 
 ACTOR BaseZombie : BaseZombieHitscanner
