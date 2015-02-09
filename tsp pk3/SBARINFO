@@ -1,252 +1,381 @@
-height 32;
-monospacefonts true, "0";
-
-statusbar fullscreen, fullscreenoffsets
+LowerHealthCap false;
+statusbar fullscreen, forcescaled, fullscreenoffsets
 {
-    drawimage "MDK1A0", 20, -2, centerbottom;
-	InInventory not Over100Health
-    {
-			drawnumber 3, DBIGFONT, Gold, health, drawshadow, 86, -19, 0, Red, 50, DarkGreen, 75;
+    //main stats
+    drawimage "HUD_HUD1", 5, -65;
+	drawbar "HUD_HUDa", "HUD_HUDb", Armor (250), vertical, interpolate(5), 5, -65;
+    drawimage "HUD_HUD2", 5, -65;
+	drawbar "HUD_HUDh", "HUD_HUDe", Health, vertical, interpolate(5), 5, -65;
+	//
+	InInventory IsMel
+	{
+    drawimage "HUD_MELA", 5, -65;
+	drawmugshot 5, animatedgodmode, 19, -49;
 	}
+	InInventory IsVexler
+	{
+	drawimage "HUD_VEXA", 5, -65;
+	drawmugshot 5, animatedgodmode, 19, -49;
+	}
+    // helf number stats
+    InInventory not Over100Health
+    {
+	drawnumber 3, TSP_HUDFONT, Gold, health, alignment(left), drawshadow(0,1), interpolate(6), 67, -29, 1, Red, 50, LightBlue, 75;
+	}
+	
 	InInventory Over100Health
     {
-			drawnumber 3, DBIGFONT, Blue, health, drawshadow, 86, -19;
+	drawnumber 3, TSP_HUDFONT, Cyan, health, alignment(left), drawshadow(0,1), interpolate(6), 67, -29, 1;
 	}
-	drawimage armoricon, 20, -24, centerbottom;
-	//DrawSwitchableImage armortype TSPBlueArmor, "", "PSRMA0", 20, -24, centerbottom;
-	//DrawSwitchableImage armortype TSPGreenArmor, "", "FLRMA0", 20, -24, centerbottom;
-	//DrawSwitchableImage armortype TSPMegaSphereBlueArmor, "", "PSRMA0", 20, -24, centerbottom;
-	//DrawSwitchableImage armortype TSPArmorBonus, "", "ARSDD0", 20, -24, centerbottom;
-	//DrawSwitchableImage armortype BlueArmorForMegasphere, "", "FLRMA0", 20, -24, centerbottom;
-	drawnumber 3, DBIGFONT, Green, armor, drawshadow, whennotzero, 86, -39, 0, Green, 50, LightBlue, 101;
-    drawimage ammoicon1, -14, -4, centerbottom;
-    drawnumber 3, DBIGFONT, DarkGreen, ammo1, drawshadow, -25, -20;
-    usesammo
+	// armer number stats
+	drawnumber 3, TSP_HUDFONT, Green, armor, alignment(left), drawshadow(0,1), interpolate(6), whennotzero, 67, -52, 1, Green, 50, Orange, 101;
+    // kiz
+    drawkeybar 6, vertical, reverserows, auto, -10, 2, 0, 3, auto;
+	
+	// ammo number stats
+	
+   usesammo
     {
-        usessecondaryammo
+	      Alpha 0.3
+	      drawimage "HUD_AMOE", -102, -72;
+		  Alpha 0.5
+		  drawimage "HUD_AMOD", -64, -70;
+    }
+	drawnumber 3, TSP_HUDFont, Blue, ammo1, alignment(right), drawshadow(0,1), -68, -70, 1;
+    Alpha 0.6
+    drawnumber 3, TSP_HUDFont, Green, ammo2, alignment(right), drawshadow(0,1), -8, -70, 1;
+//
+// Slot Two (Pistols)
+//	
+// (Mel)
+	IsSelected "Mel919mPistol"
+	{
+	    Alpha 0.6
+		drawbar "HUD_919f", "HUD_919e", AutoPistolMag, horizontal, reverse, -94, -51;
+		Alpha 0.9
+		drawimage "HUD_H919", -70, -42;
+		InInventory AutoPistolFullAuto, 1 
         {
-            drawimage ammoicon2, -14, -22, centerbottom;
-            drawnumber 3, DBIGFONT, green, ammo2, drawshadow, -25, -37;
-            inventorybarnotvisible
-            {
-                drawselectedinventory centerbottom, drawshadow, alwaysshowcounter, DBIGFONT, -14, -39, -26, -56, untranslated;
-            }
+		Alpha 0.8
+		drawimage "HUD_919a", -40, -2, centerbottom;
         }
-        usessecondaryammo not
+		InInventory Not AutoPistolFullAuto, 1 
         {
-            inventorybarnotvisible
-            {
-                drawselectedinventory centerbottom, drawshadow, alwaysshowcounter, DBIGFONT, -14, -21, -26, -38, untranslated;
-            }
+		Alpha 0.8
+		drawimage "HUD_919s", -40, -2, centerbottom;
         }
-    }
-    IsSelected MelZekeShotgun
-    {
-		InInventory BuckshotLoaded
-		{
-			drawimage "SHLHUD2", -14, -39, centerbottom;
-			drawnumber 3, DBIGFONT, Red, BuckShotShell, drawshadow, -25, -54;
-			drawimage "1SHLE0", -14, -56, centerbottom;
-			drawnumber 3, smallfont, LightBlue, ElectricShell, drawshadow, -25, -64;
-			drawimage "3SHLE0", -14, -65, centerbottom;
-			drawnumber 3, smallfont, DarkGreen, PoisonShell, drawshadow, -25, -73;
-			drawimage "4SHLE0", -14, -74, centerbottom;
-			drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -82;
-		}
-		InInventory HellFireLoaded
-		{
-			drawimage "SHLHUD4", -14, -39, centerbottom;
-			drawnumber 3, DBIGFONT, Gold, HellFireShell, drawshadow, -25, -54;
-			drawimage "1SHLE0", -14, -56, centerbottom;
-			drawnumber 3, smallfont, LightBlue, ElectricShell, drawshadow, -25, -64;		
-			drawimage "3SHLE0", -14, -65, centerbottom;
-			drawnumber 3, smallfont, DarkGreen, PoisonShell, drawshadow, -25, -73;
-			drawimage "2SHLE0", -14, -74, centerbottom;
-			drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -82;
-		}
-		InInventory PoisonLoaded
-		{
-			drawimage "SHLHUD3", -14, -39, centerbottom;
-			drawnumber 3, DBIGFONT, DarkGreen, PoisonShell, drawshadow, -25, -54;		
-			drawimage "1SHLE0", -14, -56, centerbottom;
-			drawnumber 3, smallfont, LightBlue, ElectricShell, drawshadow, -25, -64;				
-			drawimage "4SHLE0", -14, -65, centerbottom;
-			drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -73;
-			drawimage "2SHLE0", -14, -74, centerbottom;
-			drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -82;
-		}
-		InInventory ElectricLoaded
-		{
-			drawimage "SHLHUD1", -14, -39, centerbottom;
-			drawnumber 3, DBIGFONT, LightBlue, ElectricShell, drawshadow, -25, -54;	
-			drawimage "3SHLE0", -14, -56, centerbottom;
-			drawnumber 3, smallfont, DarkGreen, PoisonShell, drawshadow, -25, -64;
-			drawimage "4SHLE0", -14, -65, centerbottom;
-			drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -73;
-			drawimage "2SHLE0", -14, -74, centerbottom;
-			drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -82;
-		}
-		InInventory not BuckshotLoaded
-		{
-			InInventory not HellFireLoaded
-			{
-				InInventory not PoisonLoaded
-				{
-					InInventory not ElectricLoaded
-					{
-					drawimage "1SHLE0", -14, -39, centerbottom;
-					drawnumber 3, smallfont, LightBlue, ElectricShell, drawshadow, -25, -47;
-					drawimage "3SHLE0", -14, -48, centerbottom;
-					drawnumber 3, smallfont, DarkGreen, PoisonShell, drawshadow, -25, -56;
-					drawimage "4SHLE0", -14, -57, centerbottom;
-					drawnumber 3, smallfont, Gold, HellFireShell, drawshadow, -25, -65;
-					drawimage "2SHLE0", -14, -66, centerbottom;
-					drawnumber 3, smallfont, Red, BuckShotShell, drawshadow, -25, -74;
-					}
-				}
-			}
-		}		
-	}
-    IsSelected MelZekeShotgunNoPool
-    {
-		InInventory BuckshotLoaded
-		{
-			drawimage "SHLHUD2", -14, -39, centerbottom;
-			drawnumber 3, DBIGFONT, Red, BuckShotShellNoPool, drawshadow, -25, -54;
-			drawimage "1SHLE0", -14, -56, centerbottom;
-			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, drawshadow, -25, -64;
-			drawimage "3SHLE0", -14, -65, centerbottom;
-			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, drawshadow, -25, -73;
-			drawimage "4SHLE0", -14, -74, centerbottom;
-			drawnumber 3, smallfont, Gold, HellFireShellNoPool, drawshadow, -25, -82;
-		}
-		InInventory HellFireLoaded
-		{
-			drawimage "SHLHUD4", -14, -39, centerbottom;
-			drawnumber 3, DBIGFONT, Gold, HellFireShellNoPool, drawshadow, -25, -54;
-			drawimage "1SHLE0", -14, -56, centerbottom;
-			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, drawshadow, -25, -64;		
-			drawimage "3SHLE0", -14, -65, centerbottom;
-			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, drawshadow, -25, -73;
-			drawimage "2SHLE0", -14, -74, centerbottom;
-			drawnumber 3, smallfont, Red, BuckShotShellNoPool, drawshadow, -25, -82;
-		}
-		InInventory PoisonLoaded
-		{
-			drawimage "SHLHUD3", -14, -39, centerbottom;
-			drawnumber 3, DBIGFONT, DarkGreen, PoisonShellNoPool, drawshadow, -25, -54;		
-			drawimage "1SHLE0", -14, -56, centerbottom;
-			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, drawshadow, -25, -64;				
-			drawimage "4SHLE0", -14, -65, centerbottom;
-			drawnumber 3, smallfont, Gold, HellFireShellNoPool, drawshadow, -25, -73;
-			drawimage "2SHLE0", -14, -74, centerbottom;
-			drawnumber 3, smallfont, Red, BuckShotShellNoPool, drawshadow, -25, -82;
-		}
-		InInventory ElectricLoaded
-		{
-			drawimage "SHLHUD1", -14, -39, centerbottom;
-			drawnumber 3, DBIGFONT, LightBlue, ElectricShellNoPool, drawshadow, -25, -54;	
-			drawimage "3SHLE0", -14, -56, centerbottom;
-			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, drawshadow, -25, -64;
-			drawimage "4SHLE0", -14, -65, centerbottom;
-			drawnumber 3, smallfont, Gold, HellFireShellNoPool, drawshadow, -25, -73;
-			drawimage "2SHLE0", -14, -74, centerbottom;
-			drawnumber 3, smallfont, Red, BuckShotShellNoPool, drawshadow, -25, -82;
-		}
-		InInventory not BuckshotLoaded
-		{
-			InInventory not HellFireLoaded
-			{
-				InInventory not PoisonLoaded
-				{
-					InInventory not ElectricLoaded
-					{
-					drawimage "1SHLE0", -14, -39, centerbottom;
-					drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, drawshadow, -25, -47;
-					drawimage "3SHLE0", -14, -48, centerbottom;
-					drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, drawshadow, -25, -56;
-					drawimage "4SHLE0", -14, -57, centerbottom;
-					drawnumber 3, smallfont, Gold, HellFireShellNoPool, drawshadow, -25, -65;
-					drawimage "2SHLE0", -14, -66, centerbottom;
-					drawnumber 3, smallfont, Red, BuckShotShellNoPool, drawshadow, -25, -74;
-					}
-				}
-			}
-		}		
-	}
-    IsSelected MelTestWeapon7
-    {
-		InInventory not WOGHoldFired
-		{
-			drawnumber 3, DBIGFONT, Blue, WOGCharge, drawshadow, whennotzero, -25, -54;
-		}
-		InInventory WOGHoldFired
-		{
-			drawnumber 3, DBIGFONT, LightBlue, WOGCharge, drawshadow, whennotzero, -25, -54;
-		}
-	}
-    usesammo not
-    {
-        inventorybarnotvisible
-        {
-            drawselectedinventory centerbottom, drawshadow, alwaysshowcounter, DBIGFONT, -14, -3, -26, -20, untranslated;
-        }
-    }
-    gamemode deathmatch
-    {
-        drawnumber 2, DBIGFONT, green, frags, drawshadow, -3, 1;
-    }
-    gamemode singleplayer, cooperative, teamgame
-    {
-        drawkeybar 6, vertical, reverserows, auto, -10, 2, 0, 3, auto;
-    }
-}
 
-statusbar normal
-{
-    drawimage "STBAR", 0, 168;
-    drawimage "STTPRCNT", 90, 171;
-    drawimage "STTPRCNT", 221, 171;
-    drawnumber 3, DBIGFONT, untranslated, ammo1, 44, 171;
-    drawnumber 3, DBIGFONT, untranslated, health, 90, 171;
-    drawnumber 3, DBIGFONT, untranslated, armor, 221, 171;
-    drawswitchableimage keyslot 2 && 5, "nullimage", "STKEYS0", "STKEYS3", "STKEYS6", 239, 171;
-    drawswitchableimage keyslot 3 && 6, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", 239, 181;
-    drawswitchableimage keyslot 1 && 4, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", 239, 191;
-    drawnumber 3, INDEXFONT, gold, ammo TSPPistolAmmo, 288, 173;
-    drawnumber 3, INDEXFONT, gold, ammo TSPPistolAmmoMag, 288, 173;
-    drawnumber 3, INDEXFONT, gold, ammo TSPShells, 288, 179;
-    drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmo, 288, 185;
-    drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmo, 288, 191;
-	drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmoMag, 288, 185;
-    drawnumber 3, INDEXFONT, gold, ammo AmmoBoxAmmoMag, 288, 191;
-    drawnumber 3, INDEXFONT, gold, ammocapacity TSPPistolAmmo, 314, 173;
-    drawnumber 3, INDEXFONT, gold, ammocapacity TSPPistolAmmoMag, 314, 173;
-    drawnumber 3, INDEXFONT, gold, ammocapacity TSPShells, 314, 179;
-    drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmo, 314, 185;
-    drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmo, 314, 191;
-    drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmoMag, 314, 185;
-    drawnumber 3, INDEXFONT, gold, ammocapacity AmmoBoxAmmoMag, 314, 191;
-    gamemode deathmatch, teamgame
+	}
+	IsSelected "Mel919mPistolLS"
+	{
+	    Alpha 0.6
+		drawbar "HUD_919f", "HUD_919e", AutoPistolMag, horizontal, reverse, -94, -51;
+		Alpha 0.9
+		drawimage "HUD_H919", -70, -42;
+		InInventory "919mUpgrade", 1
+		{
+		InInventory AutoPistolFullAuto, 1 
+        {
+		Alpha 0.8
+		drawimage "HUD_919a", -40, -2, centerbottom;
+        }
+		InInventory Not AutoPistolFullAuto, 1 
+        {
+		Alpha 0.8
+		drawimage "HUD_919s", -40, -2, centerbottom;
+        }
+		}
+	}
+	
+		IsSelected "Mel919mPistolGold"
+	{
+	    Alpha 0.6
+		drawbar "HUD_919g", "HUD_919e", GoldAutoPistolMag, horizontal, reverse, -94, -51;
+		Alpha 0.9
+		drawimage "HUD_HG91", -46, -42;
+	    Alpha 0.3
+		drawimage "HUD_INF", -31, -70;
+	}
+//
+// Slot Three (Shotguns)
+//
+// (Mel)
+
+	IsSelected "MelDahliaCrossbow"
     {
-        drawnumber 2, DBIGFONT, untranslated, frags, 138, 171;
+        drawnumber 3, TSP_HUDFont, Blue, ammo1, alignment(right), -68, -70, 1;
+        drawnumber 3, TSP_HUDFont, Red, ammo2, alignment(right), -8, -70, 1;
+		InInventory DahliaExplosiveMode, 1 
+        {
+		Alpha 0.9
+		drawimage "HUD_HDCA", -98, -42;
+        InInventory Not DahliaFired, 1
+		Alpha 0.6
+		drawimage "HUD_Dale", -34, -51;
+        }
+		InInventory Not DahliaExplosiveMode, 1 
+        {
+		Alpha 0.9
+		drawimage "HUD_HDCB", -98, -42;
+        InInventory Not DahliaFired, 1
+		Alpha 0.6
+		drawimage "HUD_Dalf", -34, -51;
+        }
+	}
+			
+	IsSelected "MelAssaultShotgun"
+	{
+	    Alpha 0.6
+		drawbar "HUD_ASGf", "HUD_ASGe", AssaultShotgunMag, horizontal, reverse, -76, -51;
+	}
+	IsSelected "MelClassicoShotgun"
+	{
+	    Alpha 0.6
+		drawbar "HUD_CSGf", "HUD_CSGe", ClassicoShotgunMag, horizontal, reverse, -40, -51;
+	}
+//
+// Slot Four (Automatics)
+//		
+// (Mel)
+	IsSelected "MelAmmoBox50"
+	{
+	    Alpha 0.6
+		drawbar "HUD_a50f", "HUD_a50e", AmmoboxMag, horizontal, reverse, -106, -51;
+		Alpha 0.9
+		drawimage "HUD_HAB5", -84, -42;
+	}
+	
+	IsSelected "MelAmmoBox50LS"
+	{
+	    Alpha 0.6
+		drawbar "HUD_a50f", "HUD_a50e", AmmoboxMag, horizontal, reverse, -106, -51;
+		Alpha 0.9
+		drawimage "HUD_HAB5", -84, -42;
+	}
+	IsSelected "MelMipFowty"
+	{
+	    Alpha 0.6
+		drawbar "HUD_mp4f", "HUD_mp4e", mp40Mag, horizontal, reverse, -66, -51;
+		Alpha 0.9
+		drawimage "HUD_HMP4", -97, -42;
+	}
+//
+// Slot Five (Launchers)
+//		
+// (Mel)
+	IsSelected "MelToolbox"
+	{
+	    Alpha 0.6
+		drawbar "HUD_tlbf", "HUD_tlbe", ToolboxMag, horizontal, reverse, -34, -51;
+		Alpha 0.9
+		drawimage "HUD_HTLB", -97, -42;
+	}
+		
+/*
+	IsSelected Not MelMelee
+	{
+	DrawString confont, green, weapontag, -10, -8, 0, alignment(right), drawshadow(0,1);
+	}
+*/
+
+//
+// Using Zeke (Pooled)
+//	
+    IsSelected MelZekeShotgun
+    {	
+		InInventory BuckshotLoaded
+		{
+			Alpha 0.6
+		    drawbar "HUD_ZKGb", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+		    drawnumber 3, TSP_HUDFont, Red, ammo1, alignment(right), -68, -70, 1;
+			Alpha 0.9
+		    drawimage "HUD_HZKB", -93, -42;
+		    Alpha 0.8
+			drawimage "HUD_SHLB", -40, -2, centerbottom;
+			drawnumber 3, smallfont, Red, BuckShotShell, alignment(center), -66, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, LightBlue, ElectricShell, alignment(center), drawshadow(0,1), -49, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, Gold, HellfireShell, alignment(center), drawshadow(0,1), -32, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, DarkGreen, PoisonShell, alignment(center), drawshadow(0,1), -15, -13;
+		}
+		InInventory ElectricLoaded
+		{
+			Alpha 0.6
+		    drawbar "HUD_ZKGl", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+			drawnumber 3, TSP_HUDFont, LightBlue, ammo1, alignment(right), -68, -70, 1;
+			Alpha 0.9
+		    drawimage "HUD_HZKE", -93, -42;
+		    Alpha 0.8
+			drawimage "HUD_SHLE", -40, -2, centerbottom;
+			Alpha 0.4
+			drawnumber 3, smallfont, Red, BuckShotShell, alignment(center), -66, -13;
+			drawnumber 3, smallfont, LightBlue, ElectricShell, alignment(center), drawshadow(0,1), -49, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, Gold, HellfireShell, alignment(center), drawshadow(0,1), -32, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, DarkGreen, PoisonShell, alignment(center), drawshadow(0,1), -15, -13;
+		}
+		InInventory HellfireLoaded
+		{
+			Alpha 0.6
+		    drawbar "HUD_ZKGh", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+		    drawnumber 3, TSP_HUDFont, Gold, ammo1, alignment(right), -68, -70, 1;
+			Alpha 0.9
+		    drawimage "HUD_HZKH", -93, -42;
+			drawimage "HUD_SHLH", -40, -2, centerbottom;
+			Alpha 0.4
+			drawnumber 3, smallfont, Red, BuckShotShell, alignment(center), drawshadow(0,1), -66, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, LightBlue, ElectricShell, alignment(center), drawshadow(0,1), -49, -13;
+			drawnumber 3, smallfont, Gold, HellfireShell, alignment(center), drawshadow(0,1), -32, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, DarkGreen, PoisonShell, alignment(center), drawshadow(0,1), -15, -13;
+		}
+		InInventory PoisonLoaded
+		{
+			Alpha 0.6
+		    drawbar "HUD_ZKGp", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+			drawnumber 3, TSP_HUDFont, DarkGreen, ammo1, alignment(right), -68, -70, 1;
+			Alpha 0.9
+		    drawimage "HUD_HZKP", -93, -42;
+			drawimage "HUD_SHLP", -40, -2, centerbottom;
+			Alpha 0.4
+			drawnumber 3, smallfont, Red, BuckShotShell, alignment(center), drawshadow(0,1), -66, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, LightBlue, ElectricShell, alignment(center), drawshadow(0,1), -49, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, Gold, HellfireShell, alignment(center), drawshadow(0,1), -32, -13;
+			drawnumber 3, smallfont, DarkGreen, PoisonShell, alignment(center), drawshadow(0,1), -15, -13;
+		}
+		InInventory not BuckshotLoaded
+		{
+		InInventory not HellFireLoaded
+		{
+		 InInventory not PoisonLoaded
+		 {
+		  InInventory not ElectricLoaded
+		  {
+		  Alpha 0.6
+		  drawbar "HUD_ZKGf", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+		  drawnumber 3, TSP_HUDFont, Blue, ammo1, alignment(right), -68, -70, 1;
+		  Alpha 0.9
+		  drawimage "HUD_HZKN", -93, -42;
+		  drawimage "HUD_SHLN", -40, -2, centerbottom;
+		  Alpha 0.4
+		  drawnumber 3, smallfont, Red, BuckShotShell, alignment(center), drawshadow(0,1), -66, -13;
+		  Alpha 0.4
+		  drawnumber 3, smallfont, LightBlue, ElectricShell, alignment(center), drawshadow(0,1), -49, -13;
+		  Alpha 0.4
+		  drawnumber 3, smallfont, Gold, HellfireShell, alignment(center), drawshadow(0,1), -32, -13;
+		  Alpha 0.4
+		  drawnumber 3, smallfont, DarkGreen, PoisonShell, alignment(center), drawshadow(0,1), -15, -13;
+		  }
+		}
+	  }
+    }		
     }
-    gamemode cooperative, singleplayer
-    {
-        drawimage "STARMS", 104, 168;
-        drawswitchableimage weaponslot 2, "STGNUM2", "STYSNUM2", 111, 172; 
-        drawswitchableimage weaponslot 3, "STGNUM3", "STYSNUM3", 123, 172;
-        drawswitchableimage weaponslot 4, "STGNUM4", "STYSNUM4", 135, 172;
-        drawswitchableimage weaponslot 5, "STGNUM5", "STYSNUM5", 111, 182;
-        drawswitchableimage weaponslot 6, "STGNUM6", "STYSNUM6", 123, 182;
-        drawswitchableimage weaponslot 7, "STGNUM7", "STYSNUM7", 135, 182;
+
+//
+// Using Zeke (Non-Pooled)
+//
+    IsSelected MelZekeShotgunNoPool
+    {	
+		InInventory BuckshotLoaded
+		{
+			Alpha 0.6
+		    drawbar "HUD_ZKGb", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+		    drawnumber 3, TSP_HUDFont, Red, ammo1, alignment(right), -68, -70, 1;
+			Alpha 0.9
+		    drawimage "HUD_HZKB", -93, -42;
+		    Alpha 0.8
+			drawimage "HUD_SHLB", -40, -2, centerbottom;
+			drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
+		}
+		InInventory ElectricLoaded
+		{
+			Alpha 0.6
+		    drawbar "HUD_ZKGl", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+			drawnumber 3, TSP_HUDFont, LightBlue, ammo1, alignment(right), -68, -70, 1;
+			Alpha 0.9
+		    drawimage "HUD_HZKE", -93, -42;
+		    Alpha 0.8
+			drawimage "HUD_SHLE", -40, -2, centerbottom;
+			Alpha 0.4
+			drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
+			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
+		}
+		InInventory HellfireLoaded
+		{
+			Alpha 0.6
+		    drawbar "HUD_ZKGh", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+		    drawnumber 3, TSP_HUDFont, Gold, ammo1, alignment(right), -68, -70, 1;
+			Alpha 0.9
+		    drawimage "HUD_HZKH", -93, -42;
+			drawimage "HUD_SHLH", -40, -2, centerbottom;
+			Alpha 0.4
+			drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
+			drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
+		}
+		InInventory PoisonLoaded
+		{
+			Alpha 0.6
+		    drawbar "HUD_ZKGp", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+			drawnumber 3, TSP_HUDFont, DarkGreen, ammo1, alignment(right), -68, -70, 1;
+			Alpha 0.9
+		    drawimage "HUD_HZKP", -93, -42;
+			drawimage "HUD_SHLP", -40, -2, centerbottom;
+			Alpha 0.4
+			drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
+			Alpha 0.4
+			drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
+			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
+		}
+		InInventory not BuckshotLoaded
+		{
+		InInventory not HellFireLoaded
+		{
+		 InInventory not PoisonLoaded
+		 {
+		  InInventory not ElectricLoaded
+		  {
+		  Alpha 0.6
+		  drawbar "HUD_ZKGf", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
+		  drawnumber 3, TSP_HUDFont, Blue, ammo1, alignment(right), -68, -70, 1;
+		  Alpha 0.9
+		  drawimage "HUD_HZKN", -93, -42;
+		  drawimage "HUD_SHLN", -40, -2, centerbottom;
+		  Alpha 0.4
+		  drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
+		  Alpha 0.4
+		  drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
+		  Alpha 0.4
+		  drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
+		  Alpha 0.4
+		  drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
+		  }
+		}
+	  }
+    }		
     }
-    gamemode cooperative, deathmatch, teamgame
-    {
-        drawimage translatable "STFBANY", 144, 169;
-    }
-    drawselectedinventory alternateonempty, INDEXFONT, 143, 168
-    {
-        drawmugshot 5, 143, 168;
-    }
+//
+//
+//
 }
