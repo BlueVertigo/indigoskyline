@@ -335,6 +335,10 @@ script "GetMagPushCVAR" (void)
   SetResultValue(GetCVar("tsp_melmagpush"));
 }
 
+script "GetActionModeCVAR" (void)
+{
+  SetResultValue(GetCVar("tsp_actionmode"));
+}
 
 script "GetSuperSecretCVAR" (void)
 {
@@ -363,7 +367,7 @@ script "TSPDifficultyLoadouts" ENTER
   if (GameSkill() == 1) { GiveInventory("TSPNormalModePickup",1); }
   if (GameSkill() == 2) { GiveInventory("TSPNormalModePickup",1); }
   if (GameSkill() == 3) { GiveInventory("TSPNormalModePickup",1); }
-  if (GameSkill() == 4) { GiveInventory("TSPNormalModePickup",1); }
+  if (GameSkill() == 4) { GiveInventory("TSPDTPPickup",1); }
   if (GameSkill() == 5) { GiveInventory("TSPSurvivorModePickup",1); }
 }
 

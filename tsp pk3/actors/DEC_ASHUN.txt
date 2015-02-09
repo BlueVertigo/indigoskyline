@@ -1,0 +1,20 @@
+ACTOR ActionBulletBase
+{
+  Radius 13
+  Height 8
+  Speed 25
+  Damage 1
+  Projectile
+  SeeSound ""
+  DeathSound ""
+  Obituary "AshashashashashashaashashaaaaDoom!"
+  States
+  {
+  Spawn:
+    ACPB A 6 Bright
+    Loop
+  Death:
+    ACPB BCDE 4 Bright
+    Stop
+  }
+}

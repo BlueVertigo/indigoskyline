@@ -250,6 +250,7 @@ OptionMenu "TSPCustomOptions"
     Title "MODIFIERS"
     StaticText      ""
     StaticText      "Gameplay Modifiers", 2
+	Option "Action! Mode",        "tsp_actionmode", "OnOff"
 	Option "Start with Melee Only",          "tsp_fistsstart", "OnOff"
 	Option "Start with Golden Pistol",        "tsp_goldenpistol", "OnOff"
     Option "Zeke Shotgun Pool",              "tsp_shellpool", "ZekeOptions"
@@ -262,7 +263,7 @@ OptionMenu "TSPCustomOptions"
 	StaticText      "Graphical Modifiers", 1
 	Option "Graphical Effect Intensity",            "tsp_toaster", "ToasterOptions"
     StaticText      ""
-	Option "Kano Transformation",           "tsp_supersecret", "OnOff"
+	Option "Kano Transformations",           "tsp_supersecret", "OnOff"
 }
 
 OptionValue ZekeOptions
