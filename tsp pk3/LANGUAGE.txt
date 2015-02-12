@@ -1,6 +1,6 @@
 [enu default]
 
-QUITMSG = "It's okay,\nI'm sure you can make a living doing\nsomething less lucrative.";
+QUITMSG = "I now have a quarrel with you.";
 QUITMSG1 = "Outlaws never go down easy,\nno matter what happens.";
 QUITMSG2 = "It's just like it is with the stars,\n\cathere are bright ones,\n\crand there are those that are dim.";
 QUITMSG3 = "If someone were unfortunate enough\nto make an enemy of \cathe Anten Seven\nand forced to fight against them,\nI would say only this\n\n\cc...farewell, friend.";
