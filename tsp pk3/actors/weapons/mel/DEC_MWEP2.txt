@@ -161,7 +161,7 @@ ACTOR Mel919mPistol : Weapon
 	  Goto Reload
 	AutoPistolReload:
 	  ASTG A 0 A_JumpIfInventory("AutoPistolMag", 15, "Ready")
-	  ASTG A 0 A_JumpIfInventory("TSPPistolAmmo", 1, "ReloadStart")
+	  ASTG A 0 A_JumpIfInventory("TSPPistolAmmo", 1, "APReloadAni")
 //	  ASTG A 0 A_JumpIfInventory("AutoPistolMag", 0, "APReloadAni")
 	  ASTG A 1 A_WeaponReady(WRF_NOFIRE)
 	  Goto Ready
@@ -422,8 +422,7 @@ ACTOR Mel919mPistolLS : Mel919mPistol
 	  Goto Reload
 	AutoPistolReload:
 	  ASTG A 0 A_JumpIfInventory("AutoPistolMag", 15, "Ready")
-	  ASTG A 0 A_JumpIfInventory("TSPPistolAmmoMag", 1, "ReloadStart")
-//	  ASTG A 0 A_JumpIfInventory("AutoPistolMag", 0, "APReloadAni")
+	  ASTG A 0 A_JumpIfInventory("TSPPistolAmmoMag", 1, "APReloadAni")
 	  ASTG A 1 A_WeaponReady(WRF_NOFIRE)
 	  Goto Ready
 	APReloadAni:
