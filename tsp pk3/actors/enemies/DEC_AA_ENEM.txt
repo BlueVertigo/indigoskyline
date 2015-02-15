@@ -149,24 +149,26 @@ ACTOR MonsterSkillSpawner
   +NOCLIP
 }
 
-#include "Actors/Enemies/DEC_PZMB.txt" // Pistol / Rifle Zombie Enemies
-#include "Actors/Enemies/DEC_SZMB.txt" // Shotgun Zombie Enemies
-#include "Actors/Enemies/DEC_CZMB.txt" // Commando Zombie Enemies
-#include "Actors/Enemies/DEC_IMP.txt"  // Imp Enemies
-#include "Actors/Enemies/DEC_LSOUL.txt"// Lost Soul enemies
-#include "Actors/Enemies/DEC_ARCH.txt"// ArchVile enemies
+#include "Actors/Enemies/DEC_B_CYBER.txt" //Cyberdemon Enemies
+#include "Actors/Enemies/DEC_B_SPIDER.txt" //Spiderdemon Enemies
 
-#include "Actors/Enemies/DEC_REVEN.txt" //Revenant Enemies
-#include "Actors/Enemies/DEC_CACO.txt" //Cacodemon Enemies
-#include "Actors/Enemies/DEC_BARON.txt" //Baron Enemies
-#include "Actors/Enemies/DEC_DEMON.txt" //Demon Enemies
-#include "Actors/Enemies/DEC_MANC.txt" //Mancubus Enemies
-#include "Actors/Enemies/DEC_PAIN.txt" //Pain Elemental Enemies
-#include "Actors/Enemies/DEC_ARACH.txt" //Arachnotron Enemies
+#include "Actors/Enemies/DEC_H_PZMB.txt" // Pistol / Rifle Zombie Enemies
+#include "Actors/Enemies/DEC_H_SZMB.txt" // Shotgun Zombie Enemies
+#include "Actors/Enemies/DEC_H_CZMB.txt" // Commando Zombie Enemies
+#include "Actors/Enemies/DEC_H_IMP.txt"  // Imp Enemies
+#include "Actors/Enemies/DEC_H_SCIE.txt"  // Scientist Enemies
+#include "Actors/Enemies/DEC_H_WOLF.txt" //Wolfenstein SS Enemies
 
-#include "Actors/Enemies/DEC_CYBER.txt" //Cyberdemon Enemies
-#include "Actors/Enemies/DEC_SPIDER.txt" //Spiderdemon Enemies
+#include "Actors/Enemies/DEC_M_LSOUL.txt"// Lost Soul enemies
+#include "Actors/Enemies/DEC_M_ARCH.txt"// ArchVile enemies
+#include "Actors/Enemies/DEC_M_REVEN.txt" //Revenant Enemies
+#include "Actors/Enemies/DEC_M_CACO.txt" //Cacodemon Enemies
+#include "Actors/Enemies/DEC_M_BARON.txt" //Baron Enemies
+#include "Actors/Enemies/DEC_M_DEMON.txt" //Demon Enemies
+#include "Actors/Enemies/DEC_M_MANC.txt" //Mancubus Enemies
+#include "Actors/Enemies/DEC_M_PAIN.txt" //Pain Elemental Enemies
+#include "Actors/Enemies/DEC_M_ARACH.txt" //Arachnotron Enemies
 
-#include "Actors/Enemies/DEC_WOLF.txt" //Wolfenstein SS Enemies
+//#include "Actors/Enemies/DEC_WOLF.txt" //Wolfenstein SS Enemies
 
-#include "Actors/Enemies/DEC_SCIE.txt"  // Scientist Enemies
+//#include "Actors/Enemies/DEC_SCIE.txt"  // Scientist Enemies

@@ -142,7 +142,7 @@ Actor MeleeSelected : Boolean {}
 #include "Actors/Characters/DEC_MAC.txt" // Little Mac's Player Stuff
 
 //Enemies
-#include "Actors/Enemies/DEC_ENEM.txt" // Enemy Master File
+#include "Actors/Enemies/DEC_AA_ENEM.txt" // Enemy Master File
 
 //Items
 #include "Actors/DEC_ITEM.txt"
