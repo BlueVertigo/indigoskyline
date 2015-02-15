@@ -153,7 +153,6 @@ ACTOR ShotgunPickup : CustomInventory
       STGP A -1
 	  Stop
 	Pickup:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"PickupNoPool")
 	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
 	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
 	  Fail
@@ -189,43 +188,6 @@ ACTOR ShotgunPickup : CustomInventory
 	PickupFail:
       STGP A 1
       Fail
-	//No shell pool states
-	PickupNoPool:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickupNoPool")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickupNoPool")
-	  Fail
-	VexlerPickupNoPool:
-	  TNT1 A 0 A_JumpIfInventory("MelZekeShotgun", 1, "ShellCheckNoPool")
-	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "GiveVexlerShotgunFullShellsNoPool")
-	  TNT1 A 0 A_JumpIfInventory("BuckShotShellNoPool", 0, "GiveVexlerShotgunFullShellsNoPool")
-	  TNT1 A 0 A_GiveInventory("MelZekeShotgunNoPool", 1)
-	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
-	  TNT1 A 0 A_GiveInventory("BuckShotShellNoPool", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
-	  Stop
-	MelPickupNoPool:
-	  TNT1 A 0 A_JumpIfInventory("MelZekeShotgunNoPool", 1, "ShellCheckNoPool")
-	  TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "GiveMelShotgunFullShellsNoPool")
-	  TNT1 A 0 A_JumpIfInventory("BuckShotShellNoPool", 0, "GiveMelShotgunFullShellsNoPool")
-	  TNT1 A 0 A_GiveInventory("MelZekeShotgunNoPool", 1)
-	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
-	  TNT1 A 0 A_GiveInventory("BuckShotShellNoPool", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
-	  Stop
-    GiveMelShotgunFullShellsNoPool:
-	  TNT1 A 0 A_GiveInventory("MelZekeShotgunNoPool", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
-	  Stop
-    GiveVexlerShotgunFullShellsNoPool:
-	  TNT1 A 0 A_GiveInventory("MelZekeShotgunNoPool", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
-	  Stop
-	ShellCheckNoPool:
-      TNT1 A 0 A_JumpIfInventory("TSPShellsNoPool", 0, "PickupFail")
-	  TNT1 A 0 A_JumpIfInventory("BuckShotShellNoPool", 0, "PickupFail")
-	  TNT1 A 0 A_GiveInventory("TSPShellsNoPool", 1)
-	  TNT1 A 0 A_GiveInventory("BuckShotShellNoPool", 1)
-	  Stop
 	}
 }
 

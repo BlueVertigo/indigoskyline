@@ -179,7 +179,7 @@ statusbar fullscreen, forcescaled, fullscreenoffsets
 */
 
 //
-// Using Zeke (Pooled)
+// Using Zeke
 //	
     IsSelected MelZekeShotgun
     {	
@@ -277,104 +277,7 @@ statusbar fullscreen, forcescaled, fullscreenoffsets
     }		
     }
 
-//
-// Using Zeke (Non-Pooled)
-//
-    IsSelected MelZekeShotgunNoPool
-    {	
-		InInventory BuckshotLoaded
-		{
-			Alpha 0.6
-		    drawbar "HUD_ZKGb", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
-		    drawnumber 3, TSP_HUDFont, Red, ammo1, alignment(right), -68, -70, 1;
-			Alpha 0.9
-		    drawimage "HUD_HZKB", -93, -42;
-		    Alpha 0.8
-			drawimage "HUD_SHLB", -40, -2, centerbottom;
-			drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
-		}
-		InInventory ElectricLoaded
-		{
-			Alpha 0.6
-		    drawbar "HUD_ZKGl", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
-			drawnumber 3, TSP_HUDFont, LightBlue, ammo1, alignment(right), -68, -70, 1;
-			Alpha 0.9
-		    drawimage "HUD_HZKE", -93, -42;
-		    Alpha 0.8
-			drawimage "HUD_SHLE", -40, -2, centerbottom;
-			Alpha 0.4
-			drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
-			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
-		}
-		InInventory HellfireLoaded
-		{
-			Alpha 0.6
-		    drawbar "HUD_ZKGh", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
-		    drawnumber 3, TSP_HUDFont, Gold, ammo1, alignment(right), -68, -70, 1;
-			Alpha 0.9
-		    drawimage "HUD_HZKH", -93, -42;
-			drawimage "HUD_SHLH", -40, -2, centerbottom;
-			Alpha 0.4
-			drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
-			drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
-		}
-		InInventory PoisonLoaded
-		{
-			Alpha 0.6
-		    drawbar "HUD_ZKGp", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
-			drawnumber 3, TSP_HUDFont, DarkGreen, ammo1, alignment(right), -68, -70, 1;
-			Alpha 0.9
-		    drawimage "HUD_HZKP", -93, -42;
-			drawimage "HUD_SHLP", -40, -2, centerbottom;
-			Alpha 0.4
-			drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
-			Alpha 0.4
-			drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
-			drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
-		}
-		InInventory not BuckshotLoaded
-		{
-		InInventory not HellFireLoaded
-		{
-		 InInventory not PoisonLoaded
-		 {
-		  InInventory not ElectricLoaded
-		  {
-		  Alpha 0.6
-		  drawbar "HUD_ZKGf", "HUD_ZKGe", ShotgunMag, horizontal, reverse, -52, -51;
-		  drawnumber 3, TSP_HUDFont, Blue, ammo1, alignment(right), -68, -70, 1;
-		  Alpha 0.9
-		  drawimage "HUD_HZKN", -93, -42;
-		  drawimage "HUD_SHLN", -40, -2, centerbottom;
-		  Alpha 0.4
-		  drawnumber 3, smallfont, Red, BuckShotShellNoPool, alignment(center), drawshadow(0,1), -66, -13;
-		  Alpha 0.4
-		  drawnumber 3, smallfont, LightBlue, ElectricShellNoPool, alignment(center), drawshadow(0,1), -49, -13;
-		  Alpha 0.4
-		  drawnumber 3, smallfont, Gold, HellfireShellNoPool, alignment(center), drawshadow(0,1), -32, -13;
-		  Alpha 0.4
-		  drawnumber 3, smallfont, DarkGreen, PoisonShellNoPool, alignment(center), drawshadow(0,1), -15, -13;
-		  }
-		}
-	  }
-    }		
-    }
+
 //
 //
 //
