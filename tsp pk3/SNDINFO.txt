@@ -40,14 +40,3 @@ upgrade/ls               UPGDLS
 //Bounties
 bounty/start            BOUNTST
 bounty/finish           BOUNTFIN
-
-////Temp Sounds
-
-weapons/plasmarifleunload	DSPLASL1
-weapons/plasmarifleload		DSPLASL2
-
-weapons/gpplaserfire	00041
-weapons/gpplaserhit		00027
-weapons/gppbeamfire		00035
-weapons/gppbeamhit		00023
-weapons/gppbeamdiss		00014

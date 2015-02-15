@@ -66,7 +66,6 @@ ACTOR BaseScientist : BaseHumanoid
   DeathSound "zombie/death"
   ActiveSound "zombie/idle"
   Obituary "%o was axe-murdered by a zombie scientist."
-  -SEEINVISIBLE
 }
 
 ACTOR BaseFemaleScientist : BaseScientist
@@ -96,7 +95,7 @@ ACTOR BaseZombieScientistV1 : BaseScientist
     SCZA E 8 A_FaceTarget
     SCZA F 16 A_CustomMeleeAttack (random (2, 6) *5, "KnifeHit", "skeleton/swing")
     SCZA E 4
-	SCZA A 2
+    SCZA A 2
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -186,7 +185,7 @@ ACTOR BaseZombieScientistV2 : BaseScientist
     SCZC E 8 A_FaceTarget
     SCZC F 16 A_CustomMeleeAttack (random (2, 6) *5, "CrowbarHit", "skeleton/swing")
     SCZC E 4
-	SCZC A 2
+    SCZC A 2
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -275,7 +274,7 @@ ACTOR BaseZombieScientistV3 : BaseScientist
     SCZH E 8 A_FaceTarget
     SCZH F 16 A_CustomMeleeAttack (random (2, 6) *5, "skeleton/melee", "skeleton/swing")
     SCZH E 4
-	SCZH A 2
+    SCZH A 2
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -374,7 +373,7 @@ ACTOR BaseZombieScientistV4 : BaseScientist
     SCFE F 1 A_CustomMissile ("DummyHalonParticle", 32, 8, (0.1)*Random(-3, 3), CMF_OFFSETPITCH, (0.1)*Random(-3, 3))
     SCFE F 1 A_CustomMissile ("DummyHalonParticle", 32, 8, (0.1)*Random(-3, 3), CMF_OFFSETPITCH, (0.1)*Random(-3, 3))
     SCFE F 1 A_CustomMissile ("DummyHalonParticle", 32, 8, (0.1)*Random(-3, 3), CMF_OFFSETPITCH, (0.1)*Random(-3, 3))
-	SCFE A 5
+    SCFE A 3
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -530,7 +529,7 @@ ACTOR BaseFemaleScientistV1 : BaseFemaleScientist
     FSZK E 4 A_FaceTarget
     FSZK F 8 A_CustomMeleeAttack (random (1, 5) *5, "KnifeHit", "skeleton/swing")
     FSZK E 4
-	FSZK A 2
+    FSZK A 2
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -619,7 +618,7 @@ ACTOR BaseFemaleScientistV2 : BaseFemaleScientist
     FSZW E 4 A_FaceTarget
     FSZW F 8 A_CustomMeleeAttack (random (1, 5) *5, "skeleton/melee", "skeleton/swing")
     FSZW D 4
-	FSZW A 2
+    FSZW A 2
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -708,7 +707,7 @@ ACTOR BaseFemaleScientistV3 : BaseFemaleScientist
     FSZC E 4 A_FaceTarget
     FSZC F 8 A_CustomMeleeAttack (random (1, 5) *5, "knifehit", "skeleton/swing")
     FSZC D 4
-	FSZC A 2
+    FSZC A 2
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -799,8 +798,8 @@ ACTOR BaseFemaleScientistV4 : BaseFemaleScientist
     FSZS E 4 A_FaceTarget
     FSZS E 0 A_SkelWhoosh
     FSZS F 8 A_CustomMeleeAttack (random (1, 5) *3, "knifehit", "skeleton/swing")
-    FSZS F 0 A_CustomMissile ("PoisonDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)
-	FSZS A 2
+    FSZS F 0 A_CustomMissile ("PoisonDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
+    FSZS A 2 
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Squirt:
@@ -815,7 +814,7 @@ ACTOR BaseFemaleScientistV4 : BaseFemaleScientist
     FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12)  
     FSZS F 1 A_CustomMissile ("DummyDrop", 32, 8, 0, CMF_OFFSETPITCH, 12) 
     FSZS D 4
-	FSZS A 5
+    FSZS A 4
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -1037,7 +1036,7 @@ ACTOR BaseHazmatZombie : BaseScientist
     HMZP E 4 A_FaceTarget
     HMZP F 4 Bright A_CustomMeleeAttack (random (2, 12) *3)
     HMZP E 4
-	HMZP A 5
+    HMZP A 4
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
   Pain:

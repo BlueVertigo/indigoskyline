@@ -22,7 +22,6 @@ ACTOR MelToolbox : Weapon
 	Obituary "%k was brought closer to god thanks to %o's Toolbox."
 	+Weapon.AMMO_OPTIONAL
 	+WEAPON.NoAlert
-	Tag "Marston Arms RPG-2090"
    States
    {
    Spawn:

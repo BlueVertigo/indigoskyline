@@ -1297,7 +1297,7 @@ ACTOR SuperArchSpirit
     Goto Death
   Heal:
     SPIR A 1
-    Goto See
+    Goto Spawn
   Death:
     SPIR D 4
     SPIR E 4 A_Scream

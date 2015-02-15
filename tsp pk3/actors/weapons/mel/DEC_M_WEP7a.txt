@@ -12,7 +12,7 @@ ACTOR MelTestWeapon7 : DoomWeapon
   +WEAPON.NOALERT
   +Weapon.AMMO_OPTIONAL
   Inventory.PickupMessage "$GOTPLASMA"
-  Tag "UAC Labs Wave Overload Generator"
+  Tag "$TAG_PLASMARIFLE"
   States
   {
   Ready:
@@ -20,7 +20,7 @@ ACTOR MelTestWeapon7 : DoomWeapon
 	PLSF C 0 A_TakeInventory("WOGHold2",99)
 	PLSF C 0 A_TakeInventory("WOGHold3",99)
 	TNT1 A 0 A_TakeInventory("WOGCharge",99)
-	WOGG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+	PKPL A 1 A_WeaponReady(WRF_ALLOWRELOAD)
     Loop
 
   Deselect:
@@ -227,6 +227,7 @@ ACTOR MelTestWeapon7 : DoomWeapon
 	PLSF C 0 A_TakeInventory("WOGHold2",99)
 	PLSF C 0 A_TakeInventory("WOGHold3",99)
 	
+	PLSF C 0 A_SpawnItemEx("BeamOrigin",2,0,36,0,0,0,0,SXF_NOCHECKPOSITION,0,ACS_NamedExecuteWithResult("GetBeamOriginTID"))
 	PLSF C 0 A_GunFlash
 	PLSF C 0 A_AlertMonsters
 	//PLSF C 0 A_Playsound("weapons/plasmaf",0)
@@ -562,6 +563,26 @@ ACTOR WOGLaserTrail
   }
 }
 
+actor BeamOrigin
+{
+	Height 2
+	Radius 2
+	Renderstyle None
+	+NOINTERACTION
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0
+		TNT1 A 0
+		TNT1 A 0
+		TNT1 A 1 
+		TNT1 A 2
+		Stop
+	}
+}
+
+
 Actor BossUnTarget : CustomInventory
 {
   +INVENTORY.AUTOACTIVATE
@@ -797,7 +818,7 @@ ACTOR WOGMissile20 : FastProjectile
 	TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetToasterCVAR") == 1,"XDeathToaster1")
 	TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetToasterCVAR") >= 2,"XDeathToaster2")
 	//TNT1 A 0 A_SeekerMissile(0,0,SMF_LOOK,256,2)
-	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",1,1)
+	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",0,1,1)
 	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeam",3)
 	//TNT1 A 0 A_SpawnItemEx("WOGMissileTrail",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
 	TNT1 A 1
@@ -806,7 +827,7 @@ ACTOR WOGMissile20 : FastProjectile
 	TNT1 A 0 A_Jump(255,"XDeath2")
 	Goto XDeath2
   XDeathToaster1:
-	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",1,4)
+	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",0,4,1)
 	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeam",3)
 	//TNT1 A 0 A_SpawnItemEx("WOGMissileTrail",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
 	TNT1 A 1
@@ -815,7 +836,7 @@ ACTOR WOGMissile20 : FastProjectile
 	TNT1 A 0 A_Jump(255,"XDeath2")
 	Goto XDeath2
   XDeathToaster2:
-	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",1,6)
+	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",0,6,1)
 	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeam",3)
 	//TNT1 A 0 A_SpawnItemEx("WOGMissileTrail",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
 	TNT1 A 1
@@ -836,19 +857,19 @@ ACTOR WOGMissile20 : FastProjectile
 	TNT1 A 0 A_Playsound("weapons/gppbeamhit",0)
 	TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetToasterCVAR") == 1,"DeathToaster1")
 	TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetToasterCVAR") >= 2,"DeathToaster2")
-	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",1,1)
+	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",0,1,1)
 	TNT1 A 0 A_Jump(255,"Death2")
 	TNT1 A 0 A_Jump(255,"Death2")
 	TNT1 A 0 A_Jump(255,"Death2")
 	Goto Death2
   DeathToaster1:
-	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",1,4)
+	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",0,4,1)
 	TNT1 A 0 A_Jump(255,"Death2")
 	TNT1 A 0 A_Jump(255,"Death2")
 	TNT1 A 0 A_Jump(255,"Death2")
 	Goto Death2
   DeathToaster2:
-	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",1,6)
+	TNT1 A 0 ACS_NamedExecuteWithResult("TSPWOGBeamSpawn",0,6,1)
 	TNT1 A 0 A_Jump(255,"Death2")
 	TNT1 A 0 A_Jump(255,"Death2")
 	TNT1 A 0 A_Jump(255,"Death2")

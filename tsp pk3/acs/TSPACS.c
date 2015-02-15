@@ -2,13 +2,11 @@
 #include "commonfuncs.h"
 #library "tspacs"
 
-
-
-  int LastxFixed = 0;
-  int LastyFixed = 0;
-  int LastzFixed = 0;
-  
-  int LastCurve = 0;
+global int 50:PlayerTID[];
+int LastxFixed = 0;
+int LastyFixed = 0;
+int LastzFixed = 0;
+int LastCurve = 0;
     
 script "TSPPickupSounds" (int which)
 {
@@ -200,11 +198,6 @@ script "TSPHUDHealthNumberColor" ENTER
   }
 }
 
-Script "TSPPlayerTID" ENTER
-{
-    Thing_ChangeTid(0,1000+PlayerNumber());
-}
-
 script "TSPIDKFAFix" ENTER
 {
   if(CheckInventory("HellFireShell") >= 92)
@@ -252,8 +245,8 @@ script "TSPIDKFAFix" ENTER
 script "TSPEnterScript1" ENTER
 {
 
-  hudmessage (s:"Blue Vertigo Presents: The Space Pirate \c-(Version: 0.2 ALPHA - \ctVexler Unbound\c-)\n
-  \nr_drawvoxels - If set to true/1 (default), voxels will be used for crossbow bolts and items.\nIf set to true/1, models will be used for the crossbow bolts\nand sprites will be used for items.\nIf you're playing this in GZDoom models will render faster,\nso switch if you're having performance issues,\nbut if you're playing in ZDoom the voxels will render just fine.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_GREEN,1.5,0.375,0.1);
+  hudmessage (s:"Blue Vertigo Presents: The Space Pirate\n \nCvars:\n \ntsp_shellpool - If set to true/1 (default), all shell types share the same ammo pool. If set to false/0, they do not and each has a separate ammo pool.
+  \n\r_drawvoxels - If set to true/1 (default), voxels will be used for crossbow bolts and items. If set to true/1, models will be used for the crossbow bolts and sprites will be used for items. If you're playing this in GZDoom models will render faster, so switch if you're having performance issues, but if you're playing in ZDoom the voxels will render just fine.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_GREEN,1.5,0.375,0.1);
 
   TakeInventory("PlayingPickupSound", 1);
   Terminate;
@@ -371,12 +364,41 @@ script "TSPDifficultyLoadouts" ENTER
   if (GameSkill() == 5) { GiveInventory("TSPSurvivorModePickup",1); }
 }
 
+Script "PlayerTID" ENTER
+{
+  int PlayerNumberCheck = PlayerNumber();
+  int NewBeamOriginTID = UniqueTID();
+  int OriginTIDArrayNo = PlayerNumber() + 300;
+  if(PlayerTID[PlayerNumberCheck] == 0)
+  {
+    int NewPlayerTID = UniqueTID();
+	PlayerTID[PlayerNumberCheck] = NewPlayerTID;
+    Thing_ChangeTid(0,NewPlayerTID);
+  }
+  else if(ActivatorTID () == 0)
+  {
+    Thing_ChangeTid(0,PlayerTID[PlayerNumberCheck]);
+  }
+  if(GetUserVariable(0,"user_beamorigintid") == 0 | PlayerTID[OriginTIDArrayNo] == 0)
+  {
+    PlayerTID[OriginTIDArrayNo] = NewBeamOriginTID;
+    SetUserVariable(0,"user_beamorigintid",NewBeamOriginTID);
+  }
+}
 
-script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
+Script "GetBeamOriginTID" (void)
+{
+  SetResultValue(GetUserVariable(0,"user_beamorigintid"));
+}
+
+script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
 {
   if (GetCVar("tsp_beamstyle") == 0){ int which = 0; }
   else if (GetCVar("tsp_beamstyle") == 2){ which = 2; }
   else { which = 1; }
+
+  if (DivMapUnit == 0){ DivMapUnit = 1; }
+  if (HowClose == 0){ HowClose = 1; }
 
   int Initialx = GetActorX(0) >> 16;
   int Initialy = GetActorY(0) >> 16;
@@ -391,93 +413,64 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
   int Lastx = LastxFixed >> 16;
   int Lasty = LastyFixed >> 16;
   int Lastz = LastzFixed >> 16;
-
-  SetActivatorToTarget(0);
-  
-  int ShooterOffset = GetActorViewHeight(PlayerNumber() + 1000) >> 16;
-
-  int ShooterxFixed = GetActorX(0);
-  int ShooteryFixed = GetActorY(0);
-  int ShooterzFixed = GetActorZ(0);
-
-  int Shooterx = GetActorX(0) >> 16;
-  int Shootery = GetActorY(0) >> 16;
   
   if (FiredByPlayer == 1)
   {
-    int Shooterz = (GetActorZ(0) >> 16) + (ShooterOffset - 7);
-    Lastx = Shooterx;
-    Lasty = Shootery;
-    Lastz = Shooterz;
-    LastxFixed = Shooterx << 16;
-    LastyFixed = Shootery << 16;
-    LastzFixed = Shooterz << 16;
-  }
-  else
-  {
-    Shooterz = GetActorZ(0) >> 16;
+    SetActivator(0,AAPTR_TARGET);
+
+    int OriginTIDArrayNo = PlayerNumber() + 300;
+	
+    LastxFixed = GetActorX(PlayerTID[OriginTIDArrayNo]);
+    LastyFixed = GetActorY(PlayerTID[OriginTIDArrayNo]);
+    LastzFixed = GetActorZ(PlayerTID[OriginTIDArrayNo]);
+
+    Lastx = GetActorX(PlayerTID[OriginTIDArrayNo]) >> 16;
+    Lasty = GetActorY(PlayerTID[OriginTIDArrayNo]) >> 16;
+    Lastz = GetActorZ(PlayerTID[OriginTIDArrayNo]) >> 16;
   }
 
   int Diffx = Initialx - Lastx;
   int Diffy = Initialy - Lasty;
   int Diffz = Initialz - Lastz;
   
-  int DiffSquaredx = abs(Diffx*Diffx);
-  int DiffSquaredy = abs(Diffy*Diffy);
-  int DiffSquaredz = abs(Diffz*Diffz);
-  
-  int DiffSquaredTotal = DiffSquaredx + DiffSquaredy + DiffSquaredz;
-  int LineLengthInteger = sqrt(DiffSquaredTotal);
+  int LineLengthInteger = VectorLength(Diffx,Diffy);
+  LineLengthInteger = VectorLength(Diffz,LineLengthInteger);
+
+  int LineLengthFixed = LineLengthInteger << 16;
   
   if (LineLengthInteger == 0)
   {
     Terminate;
   }
   
-  int LoopIncrementx = (Diffx << 16) / LineLengthInteger;
-  int LoopIncrementy = (Diffy << 16) / LineLengthInteger;
-  int LoopIncrementz = (Diffz << 16) / LineLengthInteger;
-  
-  int LineLengthFloat = LineLengthInteger << 16;
-  
   if (FiredByPlayer == 1)
   {
-    int BezierAmountRandomizer = FixedMul(LineLengthFloat,0.8);//Random(20.0,30.0);
+    int BezierAmountRandomizer = FixedMul(LineLengthFixed,0.8);//Random(20.0,30.0);
   }
   else
   {
     BezierAmountRandomizer = Random(1.5,4.0);
   }
-
-  int t = 0;
-  int Loopx = LastxFixed; 
-  int Loopy = LastyFixed; 
-  int Loopz = LastzFixed;
+  int t, Loopx, Loopy, Loopz;
+  int tminus, tminussq, tminuscu, tsq, tcu;
+  
+  LineLengthInteger = LineLengthInteger * DivMapUnit;
+  
   switch (which)
   {
 
     case 0:
       for (int Position = 0; Position < LineLengthInteger; Position++)
       {
-        Loopx += LoopIncrementx;
-        Loopy += LoopIncrementy;
-        Loopz += LoopIncrementz;
-        if (FiredByPlayer == 1)
+        t = FixedDiv((Position << 16),(LineLengthInteger << 16));
+        if (t < 0){ t =0; }
+        tminus = (1.0-t);
+        Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );
+        Loopy = ( FixedMul(tminus,LastyFixed) + FixedMul(t,InitialyFixed) );
+        Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
+        if (Position % HowClose == 0)
         {
-          if (Position > 16)
-          {
-            if (Position % HowClose == 0)
-            {
-              SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-            }
-          }
-        }
-        else
-        {
-          if (Position % HowClose == 0)
-          {
-            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-          }
+          SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
         }
       }
       LastxFixed = Loopx;
@@ -486,29 +479,29 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
       Terminate;
 
     case 1:
-      int BezierAmount = FixedDiv(LineLengthFloat,BezierAmountRandomizer);
+      int BezierAmount = FixedDiv(LineLengthFixed,BezierAmountRandomizer);
       
       if (LastCurve < 0)
       {
-        int BezierX = ShooterxFixed - InitialxFixed;
+        int BezierX = LastxFixed - InitialxFixed;
         BezierX = BezierX / 2;
-        BezierX = BezierX + ShooterxFixed + random(0.0,BezierAmount);
+        BezierX = BezierX + LastxFixed + random(0.0,BezierAmount);
 
-        int BezierY = ShooteryFixed - InitialyFixed;
+        int BezierY = LastyFixed - InitialyFixed;
         BezierY = BezierY / 2;
-        BezierY = BezierY + ShooteryFixed + random(0.0,BezierAmount);
+        BezierY = BezierY + LastyFixed + random(0.0,BezierAmount);
 
         LastCurve = 1;
       }
       else if (LastCurve > 0)
       {
-        BezierX = ShooterxFixed - InitialxFixed;
+        BezierX = LastxFixed - InitialxFixed;
         BezierX = BezierX / 2;
-        BezierX = BezierX + ShooterxFixed + random(-BezierAmount,0.0);
+        BezierX = BezierX + LastxFixed + random(-BezierAmount,0.0);
 
-        BezierY = ShooteryFixed - InitialyFixed;
+        BezierY = LastyFixed - InitialyFixed;
         BezierY = BezierY / 2;
-        BezierY = BezierY + ShooteryFixed + random(-BezierAmount,0.0);
+        BezierY = BezierY + LastyFixed + random(-BezierAmount,0.0);
 
         LastCurve = -1;
       }
@@ -517,25 +510,25 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
         LastCurve = random(-1000,1000);
         if (LastCurve <= 0)
         {
-          BezierX = ShooterxFixed - InitialxFixed;
+          BezierX = LastxFixed - InitialxFixed;
           BezierX = BezierX / 2;
-          BezierX = BezierX + ShooterxFixed + random(0.0,BezierAmount);
+          BezierX = BezierX + LastxFixed + random(0.0,BezierAmount);
                 
-          BezierY = ShooteryFixed - InitialyFixed;
+          BezierY = LastyFixed - InitialyFixed;
           BezierY = BezierY / 2;
-          BezierY = BezierY + ShooteryFixed + random(0.0,BezierAmount);
+          BezierY = BezierY + LastyFixed + random(0.0,BezierAmount);
               
           LastCurve = 1;
         }
         else if (LastCurve < 0)
         {
-          BezierX = ShooterxFixed - InitialxFixed;
+          BezierX = LastxFixed - InitialxFixed;
           BezierX = BezierX / 2;
-          BezierX = BezierX + ShooterxFixed + random(-BezierAmount,0.0);
+          BezierX = BezierX + LastxFixed + random(-BezierAmount,0.0);
               
-          BezierY = ShooteryFixed - InitialyFixed;
+          BezierY = LastyFixed - InitialyFixed;
           BezierY = BezierY / 2;
-          BezierY = BezierY + ShooteryFixed + random(-BezierAmount,0.0);
+          BezierY = BezierY + LastyFixed + random(-BezierAmount,0.0);
               
           LastCurve = -1;
         }
@@ -547,25 +540,15 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
         {
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
           if (t < 0){ t =0; }
-          Loopx = ( FixedMul(FixedMul((1.0-t),(1.0-t)),LastxFixed) + 2 * FixedMul(FixedMul((1.0-t),t),BezierX) + FixedMul(FixedMul(t,t),InitialxFixed) );
-          Loopy += LoopIncrementy;
-          Loopz += LoopIncrementz;
-          if (FiredByPlayer == 1)
+          tminus = (1.0-t);
+          tminussq = FixedMul(tminus,tminus);
+          tsq = FixedMul(t,t);		
+          Loopx = ( FixedMul(tminussq,LastxFixed) + 2 * FixedMul(FixedMul(tminus,t),BezierX) + FixedMul(tsq,InitialxFixed) );
+          Loopy = ( FixedMul(tminus,LastyFixed) + FixedMul(t,InitialyFixed) );
+          Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
+          if (Position % HowClose == 0)
           {
-            if (Position > 16)
-            {
-              if (Position % HowClose == 0)
-              {
-                SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-              }
-            }
-          }
-          else
-          {
-            if (Position % HowClose == 0)
-            {
-              SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-            }
+            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
           }
         }
       }
@@ -575,25 +558,16 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
         {
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
           if (t < 0){ t =0; }
-          Loopy = ( FixedMul(FixedMul((1.0-t),(1.0-t)),LastyFixed) + 2 * FixedMul(FixedMul((1.0-t),t),BezierY) + FixedMul(FixedMul(t,t),InitialyFixed) );
-          Loopx += LoopIncrementx;
-          Loopz += LoopIncrementz;
-          if (FiredByPlayer == 1)
+          tminus = (1.0-t);
+          tminussq = FixedMul(tminus,tminus);
+          tsq = FixedMul(t,t);		
+          Loopy = ( FixedMul(tminussq,LastyFixed) + 2 * FixedMul(FixedMul(tminus,t),BezierY) + FixedMul(tsq,InitialyFixed) );
+          tminus = (1.0-t);
+          Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );
+          Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
+          if (Position % HowClose == 0)
           {
-            if (Position > 16)
-            {
-              if (Position % HowClose == 0)
-              {
-                SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-              }
-            }
-          }
-          else
-          {
-            if (Position % HowClose == 0)
-            {
-              SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-            }
+            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
           }
         }
       }
@@ -605,20 +579,20 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
     case 2:
       if (LastCurve < 0)
       {
-        int BezierX1 = LastxFixed + random((LineLengthFloat / 8),(LineLengthFloat / 16));
-        int BezierX2 = InitialxFixed - random((LineLengthFloat / 8),(LineLengthFloat / 16));
+        int BezierX1 = LastxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
+        int BezierX2 = InitialxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
 		
-        int BezierY1 = LastyFixed + random((LineLengthFloat / 8),(LineLengthFloat / 16));
-        int BezierY2 = InitialyFixed - random((LineLengthFloat / 8),(LineLengthFloat / 16));
+        int BezierY1 = LastyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
+        int BezierY2 = InitialyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
         LastCurve = 1;
       }
       else if (LastCurve > 0)
       {
-        BezierX1 = LastxFixed - random((LineLengthFloat / 8),(LineLengthFloat / 16));
-        BezierX2 = InitialxFixed + random((LineLengthFloat / 8),(LineLengthFloat / 16));
+        BezierX1 = LastxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
+        BezierX2 = InitialxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
 		
-        BezierY1 = LastyFixed - random((LineLengthFloat / 8),(LineLengthFloat / 16));
-        BezierY2 = InitialyFixed + random((LineLengthFloat / 8),(LineLengthFloat / 16));
+        BezierY1 = LastyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
+        BezierY2 = InitialyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
         LastCurve = -1;
       }
       else
@@ -626,29 +600,23 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
         LastCurve = random(-1000,1000);
         if (LastCurve <= 0)
         {
-          BezierX1 = LastxFixed + random((LineLengthFloat / 8),(LineLengthFloat / 16));
-          BezierX2 = InitialxFixed - random((LineLengthFloat / 8),(LineLengthFloat / 16));
+          BezierX1 = LastxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
+          BezierX2 = InitialxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
 
-          BezierY1 = LastyFixed + random((LineLengthFloat / 8),(LineLengthFloat / 16));
-          BezierY2 = InitialyFixed - random((LineLengthFloat / 8),(LineLengthFloat / 16));
+          BezierY1 = LastyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
+          BezierY2 = InitialyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
           LastCurve = 1;
         }
         else if (LastCurve < 0)
         {
-          BezierX1 = LastxFixed - random((LineLengthFloat / 8),(LineLengthFloat / 16));
-          BezierX2 = InitialxFixed + random((LineLengthFloat / 8),(LineLengthFloat / 16));
+          BezierX1 = LastxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
+          BezierX2 = InitialxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
 
-          BezierY1 = LastyFixed - random((LineLengthFloat / 8),(LineLengthFloat / 16));
-          BezierY2 = InitialyFixed + random((LineLengthFloat / 8),(LineLengthFloat / 16));
+          BezierY1 = LastyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
+          BezierY2 = InitialyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
           LastCurve = -1;
         }
       }
-
-      int tminus;	
-      int tminussq;
-      int tminuscu;
-      int tsq;
-      int tcu;
       if (InitialAngle >= 0.125 & InitialAngle <= 0.375 | InitialAngle >= 0.625 & InitialAngle <= 0.875 )
       {
         for (Position = 0; Position < LineLengthInteger; Position++)
@@ -663,24 +631,13 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
           tcu = FixedMul(tsq,t);
 		  
           Loopx = ( FixedMul(tminuscu,LastxFixed) + 3 * FixedMul(tminussq,FixedMul(t,BezierX1)) + 3 * FixedMul(tminus,FixedMul(tsq,BezierX2)) + FixedMul(tcu,InitialxFixed) );
-          Loopy += LoopIncrementy;
-          Loopz += LoopIncrementz;
-          if (FiredByPlayer == 1)
+
+          Loopy = ( FixedMul(tminus,LastyFixed) + FixedMul(t,InitialyFixed) );
+          Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
+
+          if (Position % HowClose == 0)
           {
-            if (Position > 16)
-            {
-              if (Position % HowClose == 0)
-              {
-                SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-              }
-            }
-          }
-          else
-          {
-            if (Position % HowClose == 0)
-            {
-              SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-            }
+            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
           }
         }
       }
@@ -698,24 +655,13 @@ script "TSPWOGBeamSpawn" (int unused, int HowClose, int FiredByPlayer)
           tcu = FixedMul(tsq,t);
 		  
           Loopy = ( FixedMul(tminuscu,LastyFixed) + 3 * FixedMul(tminussq,FixedMul(t,BezierY1)) + 3 * FixedMul(tminus,FixedMul(tsq,BezierY2)) + FixedMul(tcu,InitialyFixed) );
-          Loopx += LoopIncrementx;
-          Loopz += LoopIncrementz;
-          if (FiredByPlayer == 1)
+
+          Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );
+          Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
+
+          if (Position % HowClose == 0)
           {
-            if (Position > 16)
-            {
-              if (Position % HowClose == 0)
-              {
-                SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-              }
-            }
-          }
-          else
-          {
-            if (Position % HowClose == 0)
-            {
-              SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-            }
+            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
           }
         }
       }

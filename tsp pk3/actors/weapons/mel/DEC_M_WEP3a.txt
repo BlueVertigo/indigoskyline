@@ -804,11 +804,6 @@ ACTOR MelZekeShotgun : Weapon
 	SPMelee:
 	  STGG A 1
 	  STGM ABBCC 1
-	  Goto SPMeleeStart
-	SPMeleeHeld: //This is for whenever melee button is held down!
-	  STGM B 6
-	  STGM CC 1
-	SPMeleeStart:
 	  TNT1 A 0 A_PlaySound("strongmelee/miss", 5)
 	  TNT1 A 0 A_PlaySound("*melee", 6)
 	  STGM DEF 1
@@ -819,9 +814,7 @@ ACTOR MelZekeShotgun : Weapon
 	  STGM G 1 A_CustomPunch(16,0,0,"StrongMeleePuff",90)
 	  Goto SPMeleeA
 	SPMeleeA: 
-	  STGM FEDCCB 1
-	  TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMeleeHeld")
-	  STGM A 1
+	  STGM FEDCCBA 1
 	  STGG A 2
 	  Goto Ready
    }

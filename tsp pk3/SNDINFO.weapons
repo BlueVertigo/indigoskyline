@@ -314,6 +314,18 @@ toolbox/rocketfly1 RLNGFLY1
 toolbox/rocketfly2 RLNGFLY2
 toolbox/rocketfly3 RLNGFLY3
 
+////WOG Beam
+
+weapons/plasmarifleunload	DSPLASL1
+weapons/plasmarifleload		DSPLASL2
+
+weapons/gpplaserfire	00041
+weapons/gpplaserhit		00027
+weapons/gppbeamfire		00035
+weapons/gppbeamhit		00023
+weapons/gppbeamdiss		00014
+
+
 //Weapon Junk
 $random weapons/casing  { weapons/casing1 weapons/casing2 weapons/casing3 }
 weapons/casing1			dscasin1

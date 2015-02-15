@@ -53,10 +53,7 @@ ACTOR LSShotgunguySpawner : RandomSpawner
   DropItem "LSJudgmentZombie", 255, 50
 }
 
-ACTOR BaseShotgunGuy : BaseZombieHitscanner
-{
-  -SEEINVISIBLE
-}
+ACTOR BaseShotgunGuy : BaseZombieHitscanner {}
 
 //===========================================================================
 // Shotgun Zombie (Vanilla)
@@ -88,7 +85,7 @@ ACTOR BaseShotgunGuyV0 : BaseShotgunGuy
   DropItem BuckshotShellThrown 127
   DropItem BuckshotShellThrown 255
   DropItem BuckshotShellThrown 255
-  DropItem ShotgunPickup 150
+  DropItem ShotgunPickup 255
   //DropItem DropBuckshotShellSpawner 255 These guys are the pretty 4-shell things
   States
   {

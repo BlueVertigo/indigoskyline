@@ -10,6 +10,12 @@ ACTOR BaseEnemy
     KEEN A 0 A_Jump (256,"See2")
     KEEN A 1 A_Jump (256,"See2")
     Loop
+  See2:
+    KEEN A 1
+    Loop
+  Spawn2:
+    KEEN A 1
+    Loop
   Pain.Sling:
     TNT1 A 0 A_FaceTarget
     TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
@@ -87,6 +93,7 @@ ACTOR BaseHumanoid : BaseEnemy
 
 ACTOR BaseZombieHitscanner : BaseHumanoid
 {
+  -SEEINVISIBLE
   States
   {
   Spawn:
@@ -97,6 +104,9 @@ ACTOR BaseZombieHitscanner : BaseHumanoid
     TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetZMeleeCVAR") == 0,"Spawn2")
     TNT1 A 0 
     TNT1 A 1 A_ChangeFlag("AVOIDMELEE",1)
+    TNT1 A 0 A_Jump (256,"Spawn2")
+    TNT1 A 0 A_Jump (256,"Spawn2")
+    TNT1 A 1 A_Jump (256,"Spawn2")
     Goto Spawn2
   Death.WOGChargeBeam3:
 	Z01Z WWWWWW 1 A_FadeOut(0.002)

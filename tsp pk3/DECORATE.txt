@@ -7,105 +7,6 @@ Actor Boolean : Inventory
     -INVBAR
 }
 
-//Characters
-#include "Actors/Characters/DEC_MEL.txt" // Mel's Player Stuff
-#include "Actors/Characters/DEC_VEX.txt" // Vexler's Player Stuff
-
-//Enemies
-#include "Actors/Enemies/DEC_ENEM.txt" // Enemy Master File
-
-//Items
-#include "Actors/DEC_ITEM.txt"
-#include "Actors/DEC_AMMO.txt" // Ammo pickups
-#include "Actors/DEC_SHELLS.txt" // Shell Ammo because wow
-
-//Lone Survivor
-#include "Actors/DEC_LSITEMS.txt" // Lone Survivor Specific Items
-
-//Action! Mode
-#include "Actors/DEC_ASHUN.txt" // Action! Mode Bullets
-
-//The rest
-#include "Actors/DEC_SFX.txt" //Special Effects (Casings, Smoke, Etc.)
-#include "Actors/DEC_TEMP.txt" //Blanked out and replaced Actors for the alpha
-#include "Actors/DEC_PICKUPS.txt" //Weapon pickups and such
-
-///////////////////////////////////////////////////////
-// Weapons
-///////////////////////////////////////////////////////
-
-////////////////////////////
-//// SLOT 1 - Melee
-////////////////////////////
-
-// Starting Melee
-#include "Actors/Weapons/Mel/DEC_M_WEP1a.txt" // MEL
-#include "Actors/Weapons/Vexler/DEC_V_WEP1a.txt" // VEXLER
-
-// Nikana
-#include "Actors/Weapons/Mel/DEC_M_WEP1d.txt" // MEL
-
-////////////////////////////////////////////////////////
-//// SLOT 2 - Starting Weapons/Pistols
-////////////////////////////////////////////////////////
-
-// Starting Weapons
-// Mel's 919m.0 Pistol
-#include "Actors/Weapons/Mel/DEC_M_WEP2a.txt" // MEL STANDARD
-#include "Actors/Weapons/Mel/DEC_M_WEP2aLS.txt" // MEL LONE SURVIVOR VARIANT
-#include "Actors/Weapons/Mel/DEC_M_WEP2aG.txt" // MEL GOLD VARIANT
-
-// Vexler's Savannah Falcon
-//#include "Actors/Weapons/Vexler/DEC_V_WEP2.txt" // VEXLER STANDARD
-
-//////////////////////////////////////////
-//// SLOT 3 - Shotguns/Rifles
-//////////////////////////////////////////
-
-// ZEKE SHOTGUN
-#include "Actors/Weapons/Mel/DEC_M_WEP3a.txt" // MEL
-#include "Actors/Weapons/Mel/DEC_M_WEP3aNP.txt" // MEL (NON-POOLED)
-
-// DAHLIA CROSSBOW
-#include "Actors/Weapons/Mel/DEC_M_WEP3b.txt"// MEL
-
-// CLASSICO SHOTGUN
-#include "Actors/Weapons/Mel/DEC_M_WEP3c.txt" // MEL
-
-// ASSAULT SHOTGUN
-#include "Actors/Weapons/Mel/DEC_M_WEP3d.txt" // MEL
-
-////////////////////////////////////
-//// SLOT 4 - Automatics
-////////////////////////////////////
-
-// AMMOBOX 50
-#include "Actors/Weapons/Mel/DEC_M_WEP4a.txt" // MEL
-
-// ???
-#include "Actors/Weapons/Mel/DEC_M_WEP4b.txt" // MEL
-
-///////////////////////////////////////////////////
-//// SLOT 5 - Launchers/Explosives
-///////////////////////////////////////////////////
-
-// THE TOOLBOX
-#include "Actors/Weapons/Mel/DEC_M_WEP5a.txt" // MEL
-
-////////////////////////////////////////////
-//// SLOT 6 - Heavy Weapons
-///////////////////////////////////////////
-
-// ADRANOS FLAMETHROWER
-
-///////////////////////////////////////////////
-//// SLOT 7 - Ultimate Weapons
-///////////////////////////////////////////////
-
-// WOG
-
-#include "Actors/Weapons/Mel/DEC_M_WEP7a.txt" // Slot 7 Weapons
-
 //Melee Button Press
 Actor MeleePressed : Boolean {}
 Actor PlayingPickupSound : Boolean {}
@@ -234,3 +135,103 @@ Actor MeleeButtonActor : CustomInventory
 }
 
 Actor MeleeSelected : Boolean {}
+
+//Characters
+#include "Actors/Characters/DEC_MEL.txt" // Mel's Player Stuff
+#include "Actors/Characters/DEC_VEX.txt" // Vexler's Player Stuff
+#include "Actors/Characters/DEC_MAC.txt" // Little Mac's Player Stuff
+
+//Enemies
+#include "Actors/Enemies/DEC_ENEM.txt" // Enemy Master File
+
+//Items
+#include "Actors/DEC_ITEM.txt"
+#include "Actors/DEC_AMMO.txt" // Ammo pickups
+#include "Actors/DEC_SHELLS.txt" // Shell Ammo because wow
+
+//Lone Survivor
+#include "Actors/DEC_LSITEMS.txt" // Lone Survivor Specific Items
+
+//Action! Mode
+#include "Actors/DEC_ASHUN.txt" // Action! Mode Bullets
+
+//The rest
+#include "Actors/DEC_SFX.txt" //Special Effects (Casings, Smoke, Etc.)
+#include "Actors/DEC_TEMP.txt" //Blanked out and replaced Actors for the alpha
+#include "Actors/DEC_PICKUPS.txt" //Weapon pickups and such
+
+///////////////////////////////////////////////////////
+// Weapons
+///////////////////////////////////////////////////////
+
+////////////////////////////
+//// SLOT 1 - Melee
+////////////////////////////
+
+// Starting Melee
+#include "Actors/Weapons/Mel/DEC_M_WEP1a.txt" // MEL
+#include "Actors/Weapons/Vexler/DEC_V_WEP1a.txt" // VEXLER
+
+// Nikana
+#include "Actors/Weapons/Mel/DEC_M_WEP1d.txt" // MEL
+
+////////////////////////////////////////////////////////
+//// SLOT 2 - Starting Weapons/Pistols
+////////////////////////////////////////////////////////
+
+// Starting Weapons
+// Mel's 919m.0 Pistol
+#include "Actors/Weapons/Mel/DEC_M_WEP2a.txt" // MEL STANDARD
+#include "Actors/Weapons/Mel/DEC_M_WEP2aLS.txt" // MEL LONE SURVIVOR VARIANT
+#include "Actors/Weapons/Mel/DEC_M_WEP2aG.txt" // MEL GOLD VARIANT
+
+// Vexler's Savannah Falcon
+//#include "Actors/Weapons/Vexler/DEC_V_WEP2.txt" // VEXLER STANDARD
+
+//////////////////////////////////////////
+//// SLOT 3 - Shotguns/Rifles
+//////////////////////////////////////////
+
+// ZEKE SHOTGUN
+#include "Actors/Weapons/Mel/DEC_M_WEP3a.txt" // MEL
+#include "Actors/Weapons/Mel/DEC_M_WEP3aNP.txt" // MEL (NON-POOLED)
+
+// DAHLIA CROSSBOW
+#include "Actors/Weapons/Mel/DEC_M_WEP3b.txt"// MEL
+
+// CLASSICO SHOTGUN
+#include "Actors/Weapons/Mel/DEC_M_WEP3c.txt" // MEL
+
+// ASSAULT SHOTGUN
+#include "Actors/Weapons/Mel/DEC_M_WEP3d.txt" // MEL
+
+////////////////////////////////////
+//// SLOT 4 - Automatics
+////////////////////////////////////
+
+// AMMOBOX 50
+#include "Actors/Weapons/Mel/DEC_M_WEP4a.txt" // MEL
+
+// ???
+#include "Actors/Weapons/Mel/DEC_M_WEP4b.txt" // MEL
+
+///////////////////////////////////////////////////
+//// SLOT 5 - Launchers/Explosives
+///////////////////////////////////////////////////
+
+// THE TOOLBOX
+#include "Actors/Weapons/Mel/DEC_M_WEP5a.txt" // MEL
+
+////////////////////////////////////////////
+//// SLOT 6 - Heavy Weapons
+///////////////////////////////////////////
+
+// ADRANOS FLAMETHROWER
+
+///////////////////////////////////////////////
+//// SLOT 7 - Ultimate Weapons
+///////////////////////////////////////////////
+
+// WOG
+
+#include "Actors/Weapons/Mel/DEC_M_WEP7a.txt" // Slot 7 Weapons

@@ -26,7 +26,6 @@ ACTOR MelDahliaCrossbow : Weapon
 	+Weapon.AMMO_OPTIONAL
 	+NOEXTREMEDEATH
 	+WEAPON.NoAlert
-	Tag "Dahlia Crossbow"
    States
    {
    Spawn:
@@ -53,23 +52,17 @@ ACTOR MelDahliaCrossbow : Weapon
 	  TNT1 A 0 A_JumpIfInventory("DahliaFired", 1, "EmptyDeselect")
 	  TNT1 A 0 A_JumpIfInventory("DahliaExplosiveMode", 1, "ExplosiveDeselect")
 	  DCBD ABCD 1 
-	  TNT1 A 3
+	  Goto DeselectLoop
    DeselectLoop:
 	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0  A_Lower
-	  TNT1 A 4 A_Lower
+	  TNT1 A 1 A_Lower
       Loop
    ExplosiveDeselect:
       DCBD IJKL 1
-	  TNT1 A 3
-   ExplosiveDeselectLoop:
-      TNT1 A 4 A_Lower
-      Loop
+	  Goto DeselectLoop
    EmptyDeselect:
       DCBD EFGH 1 
-	  TNT1 A 3
-   EmptyDeselectLoop:
-      TNT1 A 4 A_Lower
-      Loop
+	  Goto DeselectLoop
    Select:
 	  TNT1 A 0 A_TakeInventory("MeleeSelected", 1)
       TNT1 A 0 A_TakeInventory("WeaponSelectMemory", 999)
@@ -307,7 +300,6 @@ ACTOR DahliaNormalMode : Inventory
 {
 	Inventory.MaxAmount 1
 }
-
 
 ACTOR CrossbowBoltBlue : FastProjectile //The second crossbow voxel voxelbro made; to edit the scale look in voxeldef
 {

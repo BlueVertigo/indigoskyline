@@ -49,7 +49,6 @@ ACTOR BaseChaingunner : BaseZombieHitscanner
   PainSound "czombie/pain"
   DeathSound "czombie/death"
   ActiveSound "czombie/idle"
-  -SEEINVISIBLE
   States
   {
   Death.WOGChargeBeam3:
