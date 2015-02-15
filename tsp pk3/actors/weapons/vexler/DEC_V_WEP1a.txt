@@ -1,0 +1,155 @@
+//===========================================================================
+// Vexler's Melee Style
+//
+// Decorate by Marty Kirra
+// Sprites by Marty Kirra, Blox, Scuba Steve, Banjo Entertainment1
+//===========================================================================
+
+ACTOR VexlerMelee : Weapon
+{
+   Inventory.PickupMessage "You relearned your fighting style you apparently dropped [Class: Melee, Slot 1]"
+   Obituary "%o was aggressively beaten down by %k's bare hands."
+   Weapon.Kickback 250
+   Weapon.BobStyle Alpha
+   Weapon.BobSpeed 1.2
+   Weapon.BobRangeY 1.0
+   Weapon.BobRangeX 0.5
+   Tag "Melee"
+	+WEAPON.WIMPY_WEAPON
+	+WEAPON.MELEEWEAPON
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+    +NOEXTREMEDEATH
+	+INVENTORY.UNDROPPABLE
+    States
+    {
+    Spawn:
+      	TNT1 A -1
+      	Loop
+	Deselect:
+	    TNT1 A 0 A_TakeInventory("MeleeSelected", 1)
+		TNT1 A 0 A_JumpIfInventory("ComboCoolDown", 1, "ComboDeselect")
+	    VLED ABCDE 1
+		TNT1 A 3
+		TNT1 A 0 A_TakeInventory("VexPrimaryCombo", 99)
+		TNT1 A 0 A_TakeInventory("VexAlternateCombo", 99)
+		TNT1 A 0 A_TakeInventory("ComboCoolDown", 99)
+	DeselectLoop:
+	    TNT1 A 1 A_Lower
+		Loop
+	Select:
+		TNT1 A 0 A_GiveInventory("MeleeSelected", 1)
+		TNT1 A 4 SetPlayerProperty(0,1,2)
+		VLEU ABCDE 1
+	SelectLoop:
+		VLEG A 1 A_Raise
+		Loop
+	Ready:
+	    TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    VLEG A 1 A_WeaponReady
+		Loop
+	Fire:
+	    VL1F A 0 A_PlaySoundEX("basicmelee/miss", "SoundSlot5")
+	    VL1F ABC 1
+		VL1F D 0 A_JumpIfInventory("PowerStrength",1,"FireBerserk")
+		VL1F D 1 A_CustomPunch(6,0,0,"BasicMeleePuff",70)
+		Goto FireA
+	FireBerserk:
+		VL1F D 1 A_CustomPunch(12,0,0,"BasicMeleePuff",70)
+		Goto FireA
+	FireA:
+		VL1F EFG 1
+		TNT1 A 2
+        TNT1 A 0 A_GiveInventory("VexPrimaryCombo", 1)
+		TNT1 A 0 A_GiveInventory("ComboCoolDown", 1)
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		Goto AfterMelee
+	AltFire:
+		VK1F A 0 A_PlaySoundEX("basicmelee/miss", "SoundSlot5")
+		VK1F A 0 A_PlaySound("*melee")
+	    VK1F ABCD 1
+		VK1F D 0 A_JumpIfInventory("PowerStrength",1,"AltFireBerserk")
+		VK1F E 0 A_CustomPunch(3,0,0,"BlankMeleePuff",90)
+		VK1F E 0 A_CustomPunch(3,0,0,"BlankMeleePuff",90)
+		VK1F E 2 A_CustomPunch(3,0,0,"BasicMeleePuff",90)
+		Goto AltFireA
+	AltFireBerserk:
+	    VK1F E 0 A_CustomPunch(6,0,0,"BlankMeleePuff",90)
+	    VK1F E 0 A_CustomPunch(6,0,0,"BlankMeleePuff",90)
+		VK1F E 2 A_CustomPunch(6,0,0,"BasicMeleePuff",70)
+		Goto FireA
+	AltFireA:
+		VK1F DCBA 1
+		TNT1 A 3
+        TNT1 A 0 A_GiveInventory("VexPrimaryCombo", 1)
+		TNT1 A 0 A_GiveInventory("ComboCoolDown", 1)
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+	    TNT1 A 1 A_WeaponReady
+		Goto AfterMelee
+	AfterMelee:
+		TNT1 A 0 A_TakeInventory("VexPrimaryCombo", 99)
+		TNT1 A 0 A_TakeInventory("VexAlternateCombo", 99)
+		TNT1 A 0 A_TakeInventory("ComboCoolDown", 99)
+	    VLED EDCBA 1
+		VLEG A 1
+		Goto Ready
+	SPMelee:
+		VLED ABCDE 1 
+		TNT1 A 5 A_WeaponReady
+        Goto Ready
+		     }
+}
+
+ACTOR VexPrimaryCombo : Inventory
+{
+   Inventory.MaxAmount 99
+   Inventory.Icon TNT1A0
+}
+
+ACTOR VexAlternateCombo : Inventory
+{
+   Inventory.MaxAmount 99
+   Inventory.Icon TNT1A0
+}

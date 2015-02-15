@@ -1,0 +1,257 @@
+//===========================================================================
+//
+// High-Frequency Basilisk Nikana
+//
+// by Marty Kirra
+// Sprites by Marty Kirra
+//
+//===========================================================================
+
+ACTOR MelNikana : Weapon
+{
+   Inventory.PickupMessage "You relearned your fighting style you apparently dropped [Class: Melee, Slot 1]"
+   Obituary "%o learned why %k is the king of the iron fist."
+   Weapon.Kickback 100
+   Weapon.BobStyle Alpha
+   Weapon.BobSpeed 1.5
+   Weapon.BobRangeY 1.0
+   Weapon.BobRangeX 0.5
+   Tag "H-F Basilisk Nikana"
+	+WEAPON.MELEEWEAPON
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+    +NOEXTREMEDEATH
+   States
+   {
+   Spawn:
+	  NIKP A -1
+	  Stop
+   Ready:
+ 	  TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+      NIKG A 1 A_WeaponReady
+      Loop
+   Deselect:
+      TNT1 A 0 A_PlaySound("dahlia/down", 5)
+   DeselectLoop:
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0  A_Lower
+	  TNT1 A 1 A_Lower
+      Loop
+   Select:
+	  TNT1 A 0 A_TakeInventory("MeleeSelected", 1)
+      TNT1 A 0 A_TakeInventory("WeaponSelectMemory", 999)
+	  TNT1 A 0 A_GiveInventory("WeaponSelectMemory", 112)
+      TNT1 A 0 A_PlaySound("dahlia/up", 6)
+      TNT1 A 4 SetPlayerProperty(0,1,2)
+      TNT1 A 1
+   SelectLoop:
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
+	  DCBG A 1 A_Raise
+	  Loop
+   Fire:
+      TNT1 A 0 A_JumpIf (momZ > 0, "Helmbreaker")
+	  TNT1 A 0 A_JumpIf (momZ < 0, "Helmbreaker")
+	  TNT1 A 0 A_JumpIfInventory("MagPunchToken", 1,"MagPunch")
+	  TNT1 A 0 A_JumpIfInventory("MeleePressed",1,"SPMelee")
+      TNT1 A 3
+	  TNT1 A 0 A_PlaySoundEX("nikana/miss", "SoundSlot5")
+	  NIK1 AB 1
+	  NIK1 C 1 A_CustomPunch(8,0,0,"BasicNikanaPuff",90)
+	  NIK1 DEFG 1
+	  TNT1 A 1
+	  TNT1 A 4 A_WeaponReady
+      Goto Ready
+   AltFire:
+      TNT1 A 0 A_JumpIfInventory("MagSlingToken", 1,"MagSling")
+      TNT1 A 4
+	  TNT1 A 0 A_PlaySound("*strongmelee")
+	  TNT1 A 0 A_PlaySoundEX("nikana/strongmiss", "SoundSlot5")
+	  NIS1 ABCD 1
+	  NIS1 E 1 A_CustomPunch(10,0,0,"StrongNikanaPuff",90)
+	  NIS1 FGHI 1
+	  TNT1 A 5
+	  TNT1 A 3 A_WeaponReady
+      Goto Ready
+	Helmbreaker:
+	  TNT1 A 2 Thrustthingz(0,30,0,0)
+	  TNT1 A 5
+	  TNT1 A 0 Thrustthingz(0,120,1,0)
+	  TNT1 A 0 A_PlaySoundEX("nikana/strongmiss", "SoundSlot5")
+	  NIK1 AB 1
+	  NIK1 C 1 A_CustomPunch(8,0,0,"BasicNikanaPuff",90)
+	  NIK1 DEF 1
+	  Goto Helmloop
+	Helmloop:
+	  NIK1 F 0 A_CheckFloor("HelmFinish")
+	  NIK1 F 1 A_CustomPunch(1,0,0,"BlankMeleePuff",90)
+      Goto Helmloop
+	HelmFinish:
+	  NIKF G 1 A_PlaySound("nikana/helmbreakerland", "SoundSlot6")
+	  TNT1 A 1
+	  TNT1 A 4 A_WeaponReady
+	  Goto AfterMelee
+	AfterMelee:
+		TNT1 A 0 A_TakeInventory("MelNikanaPrimaryCombo", 99)
+		TNT1 A 0 A_TakeInventory("MelNikanaAlternateCombo", 99)
+		TNT1 A 0 A_TakeInventory("MagPunchToken", 99)
+		TNT1 A 0 A_TakeInventory("MagSlingToken", 99)
+		TNT1 A 0 A_TakeInventory("ComboCoolDown", 99)
+	    MLED EDCBA 1
+		MLEG A 1
+		Goto Ready
+	SPMelee:
+	    TNT1 A 0 A_JumpIfInventory("ComboCoolDown", 1, "MagPull")
+		TNT1 A 0 A_GiveInventory("MagPunchToken", 1)
+		TNT1 A 0 A_GiveInventory("MagSlingToken", 1)
+		MLED ABCDE 1 
+		TNT1 A 5 A_WeaponReady
+	MagPull:
+	    TNT1 A 2 A_TakeInventory("ComboCoolDown", 99)
+	    MLGF A 0 A_PlaySound("magpull", "SoundSlot6")
+	    MLGF ABCDEFGH 1
+		TNT1 A 0 A_SetBlend("39 99 0", 0.4, 15)
+		MLGF I 1 A_FireCustomMissile("MagPullProjectile", 0, 0, 0, 0)
+		MLGF JKLM 1
+		TNT1 A 0 A_TakeInventory("MagPunchToken", 99)
+		TNT1 A 0 A_TakeInventory("MagSlingToken", 99)
+		TNT1 A 0 A_GiveInventory("ComboCoolDown", 1)
+		TNT1 A 4
+		TNT1 AAAAAAAAAAAAA 1 A_WeaponReady
+		Goto AfterMelee
+	MagPunch:
+	    TNT1 A 2 A_TakeInventory("ComboCoolDown", 99)
+	    MLGF A 0 A_PlaySound("magpunch/miss", "SoundSlot6")
+		MLGF A 0 A_PlaySound("*strongmelee")
+	    MLGC UVWX 1
+		TNT1 A 0 A_SetBlend("39 99 0", 0.4, 15)
+		TNT1 A 0 A_Recoil(-15)
+		MLGC X 2 A_CustomPunch(20,0,0,"MagPunchPuff",90)
+		MK3F E 0 A_CustomPunch(1,0,0,"BlankMeleePuff",90)
+		MK3F E 0 A_CustomPunch(1,0,0,"BlankMeleePuff",90)
+		MK3F E 0 A_CustomPunch(1,0,0,"BlankMeleePuff",90)
+		MK3F E 0 A_CustomPunch(1,0,0,"BlankMeleePuff",90)
+		MK3F E 0 A_CustomPunch(1,0,0,"BlankMeleePuff",90)
+		MK3F E 0 A_CustomPunch(1,0,0,"BlankMeleePuff",90)
+//		MLGC X 0 A_SpawnItemEx ("MagPushProjectileReflective",0,0,18,cos(-pitch)*60,0,sin(-pitch)*60,0,SXF_NOCHECKPOSITION) 
+//		MLGC X 0 A_SpawnItemEx ("MagPushProjectileReflective",0,15,18,cos(-pitch)*60,0,sin(-pitch)*60,0,SXF_NOCHECKPOSITION)
+//		MLGC X 0 A_SpawnItemEx ("MagPushProjectileReflective",0,-15,18,cos(-pitch)*60,0,sin(-pitch)*60,0,SXF_NOCHECKPOSITION) 
+//		MLGC X 1 A_SpawnItemEx ("MagPushProjectile",20,0,18,cos(-pitch)*200,0,sin(-pitch)*200,0,SXF_NOCHECKPOSITION)
+		MLGC WVU 1
+		TNT1 A 0 A_TakeInventory("MagPunchToken", 99)
+		TNT1 A 0 A_TakeInventory("MagSlingToken", 99)
+		TNT1 A 0 A_GiveInventory("ComboCoolDown", 1)
+		TNT1 A 7
+		TNT1 AAAAAAAAAAAAA 1 A_WeaponReady
+		Goto AfterMelee
+	MagSling:
+	    TNT1 A 2 A_TakeInventory("ComboCoolDown", 99)
+	    MLGF A 0 A_PlaySound("magsling", "SoundSlot6")
+	    MLGF ABCDEFGH 1
+		TNT1 A 0 A_SetBlend("45 55 20", 0.4, 15)
+		MLGF I 0 A_FireCustomMissile("MagSlingActivate", 0, 0, 0, 0)
+		MLGF JKLM 1
+		TNT1 A 0 A_TakeInventory("MagPunchToken", 99)
+		TNT1 A 0 A_TakeInventory("MagSlingToken", 99)
+		TNT1 A 0 A_GiveInventory("ComboCoolDown", 1)
+		TNT1 A 6
+		TNT1 AAAAAAAAAAAAA 1 A_WeaponReady
+		Goto AfterMelee
+		     }
+}
+
+ACTOR MelNikanaPrimaryCombo : Inventory
+{
+   Inventory.MaxAmount 99
+   Inventory.Icon TNT1A0
+}
+
+ACTOR MelNikanaAlternateCombo : Inventory
+{
+   Inventory.MaxAmount 99
+   Inventory.Icon TNT1A0
+}
+
+ACTOR NikanaComboCooldown: Inventory
+{
+   Inventory.MaxAmount 99
+   Inventory.Icon TNT1A0
+}
+
+ACTOR BasicNikanaPuff
+{ 
+   ActiveSound ""
+   AttackSound "nikana/wall"
+   SeeSound "nikana/contacts"
+   DamageType Melee
+   +NOGRAVITY
+   +NOEXTREMEDEATH
+   +PUFFONACTORS
+   Decal "none"
+   States
+   {
+   Spawn:
+   		TNT1 A 0
+    	TNT1 A 1
+    	stop
+  	Crash:
+	  	TNT1 A 0
+	  	TNT1 A 1
+	  	stop
+  	Melee:
+	  	TNT1 A 0
+	  	TNT1 A 1
+	  	stop
+   }
+}
+
+ACTOR StrongNikanaPuff
+{ 
+   ActiveSound ""
+   AttackSound "nikana/walls"
+   SeeSound "nikana/contactb"
+   +NOGRAVITY
+   +NOEXTREMEDEATH
+   +PUFFONACTORS
+   Decal "none"
+   States
+   {
+   Spawn:
+   		TNT1 A 0
+    	TNT1 A 1
+    	stop
+  	Crash:
+	  	TNT1 A 0
+	  	TNT1 A 1
+	  	stop
+  	Melee:
+	  	TNT1 A 0
+	  	TNT1 A 1
+	  	stop
+   }
+}
+
+ACTOR MagUppercutSwordPuff
+{ 
+   ActiveSound ""
+   AttackSound "nikana/walls"
+   SeeSound "nikana/maguppercut"
+   +NOGRAVITY
+   +NOEXTREMEDEATH
+   +PUFFONACTORS
+   Decal "none"
+   States
+   {
+   Spawn:
+   		TNT1 A 0
+    	TNT1 A 1
+    	stop
+  	Crash:
+	  	TNT1 A 0
+	  	TNT1 A 1
+	  	stop
+  	Melee:
+	  	TNT1 A 0
+	  	TNT1 A 1
+	  	stop
+   }
+}
