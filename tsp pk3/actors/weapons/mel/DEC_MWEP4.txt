@@ -173,6 +173,8 @@ ACTOR AmmoBoxMag : Ammo
 	Inventory.MaxAmount 50
 }
 
+
+
 //===========================================================================
 //
 // Kurdd & Schaumers AB-50 (Magazine Version)

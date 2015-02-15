@@ -93,6 +93,7 @@ ACTOR AssaultShotgunMag : Ammo
 	Inventory.MaxAmount 12
 }
 
+
 //===========================================================================
 //
 // Blackwood Arms 220 "Classico" Shotgun

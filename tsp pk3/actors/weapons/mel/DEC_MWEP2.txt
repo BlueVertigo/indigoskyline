@@ -347,6 +347,12 @@ ACTOR NeedstheCock : Inventory
 	Inventory.MaxAmount 1
 }
 
+ACTOR 919mBulletPuff : BulletPuff
+{
+    Decal BulletChip
+    +NOEXTREMEDEATH
+}
+
 //===========================================================================
 //
 // Makoto Arms Type 919m.0 (Magazine Version)
@@ -527,6 +533,7 @@ ACTOR Mel919mPistolLS : Mel919mPistol
    }
 }
 
+
 //===========================================================================
 //
 // Makoto Arms Type 919m.0
@@ -673,10 +680,4 @@ ACTOR GoldAutoPistolMag : Ammo
 {
 	+IGNORESKILL
 	Inventory.MaxAmount 15
-}
-
-ACTOR 919mBulletPuff : BulletPuff
-{
-    Decal BulletChip
-    +NOEXTREMEDEATH
 }
