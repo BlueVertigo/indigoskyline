@@ -200,46 +200,100 @@ script "TSPHUDHealthNumberColor" ENTER
 
 script "TSPIDKFAFix" ENTER
 {
-  if(CheckInventory("HellFireShell") >= 92)
-    {
-    if(CheckInventory("BuckShotShell") >= 92)
-    {
-      if(GetCVar("tsp_shellpool") == true)
-      {
-        TakeInventory("HellFireShell",96);
-        TakeInventory("BuckShotShell",96);
-        TakeInventory("PoisonShell",96);
-        TakeInventory("ElectricShell",96);
-        TakeInventory("TSPShells",96);
-        GiveInventory("HellFireShell",20);
-        GiveInventory("BuckShotShell",36);
-        GiveInventory("PoisonShell",20);
-        GiveInventory("ElectricShell",20);
-        GiveInventory("TSPShells",96);
-        GiveInventory("MelZekeShotgun",1);
-        Delay(6);
-        Restart;
-      }
-      else
-      {
-        TakeInventory("HellFireShell",96);
-        TakeInventory("BuckShotShell",96);
-        TakeInventory("PoisonShell",96);
-        TakeInventory("ElectricShell",96);
-        TakeInventory("TSPShells",96);
-        GiveInventory("MelZekeShotgunNoPool",1);
-        Delay(6);
-        Restart;
-      }
-    }
-      Delay(6);
-      Restart;
-    }
-    else
-    {
-      Delay(6);
-      Restart;
-    }
+  if(CheckInventory("HellFireShell") == 96 && CheckInventory("PoisonShell") == 96){
+    TakeInventory("HellFireShell",0x7FFFFFFF);
+    TakeInventory("PoisonShell",0x7FFFFFFF);
+    TakeInventory("ElectricShell",0x7FFFFFFF);
+    GiveInventory("HellFireShell",32);
+    GiveInventory("PoisonShell",32);
+    GiveInventory("ElectricShell",32);
+    GiveInventory("BuckShotShell",96);
+    GiveInventory("TSPShells",192); }
+  Delay(6);
+  Restart;
+}
+
+script "ShellPoolChange" ENTER
+{
+  int maxshells, elecover, hellover, psnover, overshells, loopcounter;
+  int lastshellpool = GetCVar("tsp_shellpool");
+  Delay(3);
+  while(true){
+    if((GetCVar("tsp_shellpool") != lastshellpool) && !(GetCVar("tsp_shellpool"))){
+      lastshellpool = GetCVar("tsp_shellpool");
+      if(CheckInventory("Backpack2") > 0){ maxshells = 32; }
+       else{ maxshells = 16; }
+      if(CheckInventory("ElectricShell") > maxshells){ 
+	    elecover = CheckInventory("ElectricShell") - maxshells;
+		TakeInventory("ElectricShell",elecover); }
+      if(CheckInventory("HellFireShell") > maxshells){ 
+	    hellover = CheckInventory("HellFireShell") - maxshells;
+		TakeInventory("HellFireShell",hellover); }
+      if(CheckInventory("PoisonShell") > maxshells){ 
+	    psnover = CheckInventory("PoisonShell") - maxshells;
+		TakeInventory("PoisonShell",psnover); }
+      overshells = elecover + hellover + psnover;
+      loopcounter = 0;
+      while(overshells > 0){
+        if(CheckInventory("ElectricShell") < maxshells){ 
+          --overshells;
+          GiveInventory("TSPShells",1);
+          GiveInventory("ElectricShell",1); }
+        if(CheckInventory("HellFireShell") < maxshells){ 
+          --overshells;
+          GiveInventory("TSPShells",1);
+          GiveInventory("HellFireShell",1); }
+        if(CheckInventory("PoisonShell") < maxshells){ 
+          --overshells;
+          GiveInventory("TSPShells",1);
+          GiveInventory("PoisonShell",1); }
+        if(loopcounter > maxshells){ elecover = 0; }
+        ++loopcounter; }}
+    else if(GetCVar("tsp_shellpool") != lastshellpool){
+      lastshellpool = GetCVar("tsp_shellpool"); }
+    Delay(6); }
+}
+
+script "ShellPickup" (int which, int howmany)
+{
+  int shells, maxshells, specshells, maxspecshells, result, giveamt;
+  if(howmany == 0){ howmany = 1; }
+  if(CheckInventory("Backpack2") > 0){ maxshells = 96; }
+   else{ maxshells = 48; }
+  maxspecshells = maxshells / 3;
+  if(GetCVar("tsp_shellpool") == true){
+    shells = CheckInventory("ElectricShell") + CheckInventory("HellFireShell") + CheckInventory("PoisonShell");
+    if(shells < maxshells){ 
+      giveamt = maxshells - shells;
+      result = 1; }}
+  else{
+    switch (which){
+      case 1:
+        specshells = CheckInventory("ElectricShell");
+        break;
+      case 2:
+        specshells = CheckInventory("HellFireShell");
+        break;
+      case 3:
+        specshells = CheckInventory("PoisonShell");
+        break; }
+    if(specshells < maxspecshells){ 
+      giveamt = maxspecshells - specshells;
+      result = 1; }}
+  if(result){
+    if(howmany < giveamt){ giveamt = howmany; } 
+    GiveInventory("TSPShells",giveamt);
+    switch (which){
+      case 1:
+        GiveInventory("ElectricShell",giveamt);
+        break;
+      case 2:
+        GiveInventory("HellFireShell",giveamt);
+        break;
+      case 3:
+        GiveInventory("PoisonShell",giveamt);
+        break; }}
+  setresultvalue(result);
 }
 
 script "TSPEnterScript1" ENTER
@@ -372,7 +426,7 @@ Script "PlayerTID" ENTER
   if(PlayerTID[PlayerNumberCheck] == 0)
   {
     int NewPlayerTID = UniqueTID();
-	PlayerTID[PlayerNumberCheck] = NewPlayerTID;
+    PlayerTID[PlayerNumberCheck] = NewPlayerTID;
     Thing_ChangeTid(0,NewPlayerTID);
   }
   else if(ActivatorTID () == 0)
@@ -419,7 +473,7 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
     SetActivator(0,AAPTR_TARGET);
 
     int OriginTIDArrayNo = PlayerNumber() + 300;
-	
+    
     LastxFixed = GetActorX(PlayerTID[OriginTIDArrayNo]);
     LastyFixed = GetActorY(PlayerTID[OriginTIDArrayNo]);
     LastzFixed = GetActorZ(PlayerTID[OriginTIDArrayNo]);
@@ -542,7 +596,7 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
           if (t < 0){ t =0; }
           tminus = (1.0-t);
           tminussq = FixedMul(tminus,tminus);
-          tsq = FixedMul(t,t);		
+          tsq = FixedMul(t,t);        
           Loopx = ( FixedMul(tminussq,LastxFixed) + 2 * FixedMul(FixedMul(tminus,t),BezierX) + FixedMul(tsq,InitialxFixed) );
           Loopy = ( FixedMul(tminus,LastyFixed) + FixedMul(t,InitialyFixed) );
           Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
@@ -560,7 +614,7 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
           if (t < 0){ t =0; }
           tminus = (1.0-t);
           tminussq = FixedMul(tminus,tminus);
-          tsq = FixedMul(t,t);		
+          tsq = FixedMul(t,t);        
           Loopy = ( FixedMul(tminussq,LastyFixed) + 2 * FixedMul(FixedMul(tminus,t),BezierY) + FixedMul(tsq,InitialyFixed) );
           tminus = (1.0-t);
           Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );
@@ -581,7 +635,7 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
       {
         int BezierX1 = LastxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
         int BezierX2 = InitialxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-		
+        
         int BezierY1 = LastyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
         int BezierY2 = InitialyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
         LastCurve = 1;
@@ -590,7 +644,7 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
       {
         BezierX1 = LastxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
         BezierX2 = InitialxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-		
+        
         BezierY1 = LastyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
         BezierY2 = InitialyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
         LastCurve = -1;
@@ -622,14 +676,14 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
         for (Position = 0; Position < LineLengthInteger; Position++)
         {
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
-		  if (t < 0){ t =0; }
-		  
+          if (t < 0){ t =0; }
+          
           tminus = (1.0-t);
           tminussq = FixedMul(tminus,tminus);
-          tminuscu = FixedMul(tminussq,tminus);	
-          tsq = FixedMul(t,t);		
+          tminuscu = FixedMul(tminussq,tminus);    
+          tsq = FixedMul(t,t);        
           tcu = FixedMul(tsq,t);
-		  
+          
           Loopx = ( FixedMul(tminuscu,LastxFixed) + 3 * FixedMul(tminussq,FixedMul(t,BezierX1)) + 3 * FixedMul(tminus,FixedMul(tsq,BezierX2)) + FixedMul(tcu,InitialxFixed) );
 
           Loopy = ( FixedMul(tminus,LastyFixed) + FixedMul(t,InitialyFixed) );
@@ -646,14 +700,14 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
         for (Position = 0; Position < LineLengthInteger; Position++)
         {
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
-		  if (t < 0){ t =0; }
-		  
+          if (t < 0){ t =0; }
+          
           tminus = (1.0-t);
           tminussq = FixedMul(tminus,tminus);
-          tminuscu = FixedMul(tminussq,tminus);	
-          tsq = FixedMul(t,t);		
+          tminuscu = FixedMul(tminussq,tminus);    
+          tsq = FixedMul(t,t);        
           tcu = FixedMul(tsq,t);
-		  
+          
           Loopy = ( FixedMul(tminuscu,LastyFixed) + 3 * FixedMul(tminussq,FixedMul(t,BezierY1)) + 3 * FixedMul(tminus,FixedMul(tsq,BezierY2)) + FixedMul(tcu,InitialyFixed) );
 
           Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );

@@ -194,7 +194,6 @@ Actor MeleeSelected : Boolean {}
 
 // ZEKE SHOTGUN
 #include "Actors/Weapons/Mel/DEC_M_WEP3a.txt" // MEL
-#include "Actors/Weapons/Mel/DEC_M_WEP3aNP.txt" // MEL (NON-POOLED)
 
 // DAHLIA CROSSBOW
 #include "Actors/Weapons/Mel/DEC_M_WEP3b.txt"// MEL
