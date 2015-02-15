@@ -1,490 +1,431 @@
-shotgun sounds are from half life 1 and hexen (denoted in sndinfo)
-//Shotgun sounds (half life 1 sounds)
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//||====================================================================================================================
+//||  CREDITS
+//||====================================================================================================================
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$limit Weapons/ShockShell 0
-$random Weapons/ShockShell {Weapons/ShockShell1 Weapons/ShockShell2 Weapons/ShockShell3}
-Weapons/ShockShell1	spark1
-Weapons/ShockShell2	spark2
-Weapons/ShockShell3	spark3
-Weapons/ShockShell4	spark4
 
-$limit Weapons/ShockArc 0
-$random Weapons/ShockArc {Weapons/ShockArc1 Weapons/ShockArc2 Weapons/ShockArc3 Weapons/ShockArc4 Weapons/ShockArc5 Weapons/ShockArc6 Weapons/ShockArc7 
+Credits compiled by scroton; if I'm missing someone or something in here is incorrect let me know and I'll fix it.
 
-Weapons/ShockArc8 Weapons/ShockArc9 Weapons/ShockArc10 Weapons/ShockArc11 Weapons/ShockArc12 Weapons/ShockArc13 Weapons/ShockArc14 Weapons/ShockArc15 
+All* resources and code free to use so long as original author is credited; when in doubt ask the original author. 
+All* Marty Kirra and scroton resources are free to use.
 
-Weapons/ShockArc16}
+Feel free to contact me on ZDF, Zand Forums, Doomworld or irc with questions about credits, resource origins or questions about TSP code. 
 
-Weapons/ShockArc1	DSHOCK01
-Weapons/ShockArc2	DSHOCK02
-Weapons/ShockArc3	DSHOCK03
-Weapons/ShockArc4	DSHOCK04
-Weapons/ShockArc5	DSHOCK05
-Weapons/ShockArc6	DSHOCK06
-Weapons/ShockArc7	DSHOCK07
-Weapons/ShockArc8	DSHOCK08
-Weapons/ShockArc9	DSHOCK09
-Weapons/ShockArc10	DSHOCK10
-Weapons/ShockArc11	DSHOCK11
-Weapons/ShockArc12	DSHOCK12
-Weapons/ShockArc13	DSHOCK13
-Weapons/ShockArc14	DSHOCK14
-Weapons/ShockArc15	DSHOCK15
-Weapons/ShockArc16	DSHOCK16
 
-$limit Weapons/PoisonShell 0
-Weapons/PoisonShell	HL1STEAM
+*With the exception of Universal Melee Sounds foleyed by Blue Vertigo Productions; please ask Marty Kirra before using. 
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//||====================================================================================================================
+//||  BY PERSON/ENTITY
+//||====================================================================================================================
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//Shotgun sounds (hexen sounds)
+3D Realms
+--Misdirection Bolt sound (SWBEEP.wav), taken from Shadow Warrior
 
-$limit Weapons/HellShell 0
-Weapons/HellShell	HELL
+amv2k9
+--Upgrade Briefcase sprites (UPGDA0)
+--Stimpack sprites (all STPK sprites) along with Sangelothi and Marty Kirra
 
-$limit Weapons/HellShell2 0
-$random Weapons/HellShell2 {Weapons/ShockShell3 Weapons/HellShell4 Weapons/HellShell5 Weapons/HellShell6}
+Banjo Entertainment
+-??-Mel's Melee Style sprites (all MK1F-MK6F, ML1F-ML8F, MLEF, MLEG, MLEU, MLGC, and MLGF sprites) along with Marty Kirra, Blox, and Scuba Steve
+-??-Vexler's Melee Style sprites (all VLED, VLEU, VLEG, VL1F and VK1F sprites) along with Marty Kirra, Blox, and Scuba Steve
+-??-Punch-Out!! sprites (all LMPG sprites) along with Marty Kirra, Blox, and Scuba Steve
 
-Weapons/HellShell3	HELL3
-Weapons/HellShell4	HELL4
-Weapons/HellShell5	HELL5
-Weapons/HellShell6	HELL6
+Banjo Software
+--Soulsphere sprites (all LIFE sprites) along with Scalliano and Marty Kirra
+--Megasphere sprites (all SPOT sprites) along with Marty Kirra
 
-$limit Weapons/HellShell7 0
-Weapons/HellShell7	HELL7
+BloodyAcid
+--"Green" Armor sprites (all FLRM sprites) along with Marty Kirra
 
+Blox
+-??-Mel's Melee Style sprites (all MK1F-MK6F, ML1F-ML8F, MLEF, MLEG, MLEU, MLGC, and MLGF sprites) along with Marty Kirra, Scuba Steve, and Banjo Entertainment
+-??-Vexler's Melee Style sprites (all VLED, VLEU, VLEG, VL1F and VK1F sprites) along with Marty Kirra, Scuba Steve, and Banjo Entertainment
+-??-Punch-Out!! sprites (all LMPG sprites) along with Marty Kirra, Scuba Steve, and Banjo Entertainment
 
-poison pellet sprites are edited sprites from jazz jackrabbit
+Blue Vertigo Productions
+--Universal Melee Sounds (all bmlmiss*, smlmiss*, bmlwall*, bmlhit*, smlwall*, smlhit*, and umlhit* files) 
 
+Cage
+--Screaming Elemental sprites (all CIEL sprites)
 
+Capcom Production Studio 4 
+--Female Zombie sounds (all fzsi1 - fzsi8, fzpain1 - fzpain8, fzidle1 - fzidle6, and fzdeath1 - fzdeath4 files), from Resident Evil 4
+--Menu sounds (prompt, change, choose, cursor, invalid, activate, dismiss, clear, quit, and all backup* audio files), from Resident Evil 4
+--Lone Survivor upgrade sound (UPGDLS), from Resident Evil 4
 
-poison gas, hellfire trail, hellfire shell shot (main missile, not starburst) are from hexen
+Captain Red
+--Pistol Zombie sprites (all ZMP1 sprites)
+--Pistol Zombie decorate along with WildWeasel, modified by Marty Kirra
+--Ammobox Zombie V1 sprites (all AZV1 sprites)
 
+Captain Toenail
+--Rictus sprites (all RICT sprites), edited from sprites by id Software
+--Base for Lost Soul variants 1-3 sprites (all 1FOR, 2FOR, 3FOR sprites), color variants by Marty Kirra
 
+Cory Whittle
+--Zeke Shotgun shell non-rotated pickup sprites (all BCKS sprites, 1SHL - 4SHL A, C, E, G sprites)
+--Base for Zeke Shotgun shell rotated pickup sprites and hud sprites (all SHLHUD1-SHLHUD4 and TSPSHUD sprites, 1SHL - 4SHL B, D, F, H sprites) 
 
-elec.kvx from doom voxel project
+DavidRaven
+-??-Some or all of the scientist zombie sounds (DSKNIFE, DSCBAR, STEMLOOP, STEMFIRE, DSTAZER) along with id Software, Konami, and Valve Software
 
+Doom Voxel Project
+--Tech pillar voxel (elec.kvx)
 
+Dreadopp
+--Rictus GLDefs
 
-ARWP.kvx, ARWQ.kvx, and ARWR.kvx by voxelbro from /vr/
-list other voxels
+Enjay
+--Cacodemon Elemental sprites (all CMN1, CMN2, and CMFB sprites)
 
-models by revae, from voxels by voxelbro, converted to md2 by torridgristle
-Model CrossbowBoltBlueModel   
-{
-   Path "models/"   
-   Model 0 "bolt.md3"  
-   Skin 0 "bolt.png"  
-   Scale 0.2 0.2 0.2  
-   FrameIndex ARMP A 0 0 
-}
-
-Model CrossbowBoltRedModel   
-{
-   Path "models/"   
-   Model 0 "boltred.md3"  
-   Skin 0 "boltred.png"  
-   Scale 0.2 0.2 0.2  
-   FrameIndex ARMR A 0 0 
-}
-
-Model CrossbowBoltBlue  
-{
-   Path "models/"   
-   Model 0 "bolt.md3"  
-   Skin 0 "bolt.png"  
-   Scale 0.2 0.2 0.2  
-   FrameIndex ARMP A 0 0 
-}
-
-Model CrossbowBoltRed
-{
-   Path "models/"   
-   Model 0 "boltred.md3"  
-   Skin 0 "boltred.png"  
-   Scale 0.2 0.2 0.2  
-   FrameIndex ARMR A 0 0 
-}
-
-//Sprites in "Sprite Fixing" folder in sprites are from the Doom 2 Minor Sprite Fixing Project - v1.4 by Revenant100 aka Marphy Black
-SWBEEP.wav is from shadow warrior
-
-
-
-
-Rictus:
-
-Submitted: Captain Toenail
-Decorate: Captain Toenail
-GLDEFs: Dreadopp
-Sounds: Id Software, Raven Software
-Sprites: Id Software, Raven Software
-Sprite Edit: Captain Toenail
-Idea Base: Doom 3 Lost Souls
-rictus/sight		RICTSEE
-rictus/death		RICTDIE
-rictus/active		FIRE09
-rictus/pain		RICTPAIN
-
-RICT
-    DRFX
-
-CFCF flame
-
-
-
-//===========================================================================
-// Imp Replacements
-//
-// New Sounds by Trent Reznor
-//
-//===========================================================================
-//Imp Sounds
-$random xmimp/sight {xmimp/sight1 xmimp/sight2 xmimp/sight3 xmimp/sight4 xmimp/sight5 xmimp/sight6 xmimp/sight7 xmimp/sight8}
-xmimp/sight1             impsi1
-xmimp/sight2             impsi2
-xmimp/sight3             impsi3
-xmimp/sight4             impsi4
-xmimp/sight5             impsi5
-xmimp/sight6             impsi6
-xmimp/sight7             impsi7
-xmimp/sight8             impsi8
-
-$random xmimp/idle {xmimp/idle1 xmimp/idle2 xmimp/idle3 xmimp/idle4 xmimp/idle5 xmimp/idle6 xmimp/idle7 xmimp/idle8 xmimp/idle9 xmimp/idl10 xmimp/idl11 
-
-xmimp/idl12}
-xmimp/idle1             impidle1
-xmimp/idle2             impidle2
-xmimp/idle3             impidle3
-xmimp/idle4             impidle4
-xmimp/idle5             impidle5
-xmimp/idle6             impidle6
-xmimp/idle7             impidle7
-xmimp/idle8             impidle8
-xmimp/idle9             impidle9
-xmimp/idl10             impidl10
-xmimp/idl11             impidl11
-xmimp/idl12             impidl12
-
-$random xmimp/pain {xmimp/pain1 xmimp/pain2 xmimp/pain3 xmimp/pain4 xmimp/pain5 xmimp/pain6 xmimp/pain7 xmimp/pain8 xmimp/pain9}
-xmimp/pain1             imppa1
-xmimp/pain2             imppa2
-xmimp/pain3             imppa3
-xmimp/pain4             imppa4
-xmimp/pain5             imppa5
-xmimp/pain6             imppa6
-xmimp/pain7             imppa7
-xmimp/pain8             imppa8
-xmimp/pain9             imppa9
-
-$random xmimp/death {xmimp/death1 xmimp/death2 xmimp/death3 xmimp/death4 xmimp/death5 xmimp/death6 xmimp/death7 xmimp/death8 xmimp/death9 
-
-xmimp/death10xmimp/death11}
-xmimp/death1             impde1
-xmimp/death2             impde2
-xmimp/death3             impde3
-xmimp/death4             impde4
-xmimp/death5             impde5
-xmimp/death6             impde6
-xmimp/death7             impde7
-xmimp/death8             impde8
-xmimp/death9             impde9
-xmimp/death10             impde10
-xmimp/death11             impde11
-
-
-
-//===========================================================================
-//
-// Imp (Variant 1)
-//
-// Sprites by Vader and ItsNaturetoDie
-//
-//===========================================================================
-    IMV1 EF 8 A_FaceTarget
-
-//===========================================================================
-//
-// Imp (Variant 2)
-//
-// Sprites by Vader and ItsNaturetoDie
-//
-//===========================================================================
-    IMV2
-
-
-//===========================================================================
-//
-// Imp (Variant 3)
-//
-// Sprites by ???
-//
-//===========================================================================
-IMV3
-
-
-
-
-
-
-//===========================================================================
-//
-// Imp (Variant 4)
-//
-// Sprites by Eriance
-//
-//===========================================================================
-IMV4
-
-//===========================================================================
-//
-// Armor
-//
-// Sprites by Sangelothi, BloodyAcid, Infirnex, and Marty Kirra
-//
-//===========================================================================
-  Spawn:
-    FLRM A 13
-    FLRM B 7 Bright
+Epic MegaGames (creator of Jazz Jackrabbit 2)
+--Base sprite for poison shell pellet sprite edits (all SPSN sprites)
 
-  Spawn:
-    PSRM A 13
-    PSRM B 7 Bright
-    Loop
+Eriance
+--Imp variant 4 sprites (all IMV4 sprites)
 
+GameGrumps
+--Secret menu quit sound (quit2)
 
+Ghastly_Death
+--Forgotten One decorate, used in lost soul variants 1-3
 
-//===========================================================================
-// Health
-//
-// Sprites by Sangelothi, BloodyAcid, zrrion the insect,
-// Captain Toenail, and Marty Kirra
-//===========================================================================
-    SPOT ABCDCB 3 Bright
+id Software
+--Base for Rictus sprited edited by Captain Toenail (all RICT sprites)
+--Rictus sounds (RICTSEE, RICTDIE, RICTPAIN) 
+--Plasma shot sprite used in zeke electric arc sprite edits
+--Bullet puff sprite used in toolbox shrapnel sprite edits
+--Doom 3 Plasma Rifle reloading sounds (DSPLASL1 and DSPLASL2)
+--Lost Soul Sounds (all 3FORSIG*, 3FORACT*, 3FORPAI*, 3FORDEA*, and SOULEXP* files), from Doom 3: ROE
+-??-Some or all of the scientist zombie sounds (DSKNIFE, DSCBAR, STEMLOOP, STEMFIRE, DSTAZER) along with DavidRaven, Konami, and Valve Software
+--A million other base sprites used in the various edits made by various people that are used in this mod
+
+Ijon Tichy
+--commonFuncs.h used in acs
+
+Infirnex
+--Green Armor Bonus sprites (all ARSDsprites)
+--Red Armor Bonus sprites (all ARSE sprites), minor edit by Marty Kirra
+
+InsanityBringer
+--Linear Beam Spawn code from BlasterPistol.wad served as original beam spawn code earlier in development, influenced current code
+
+ItsNaturetoDie 
+--Imp variant 1 and 2 sprites (all IMV1 and IMV2 sprites) along with Vader
+--Chaingunner V1 sprites (all CZV1 sprites) along with Marty Kirra and Mike Lightner
+
+Kinsie
+--Wolfenstien Nazi rotation sprites (all WBLU, WBRN, and WWHT sprites)
+
+Konami
+-??-Some or all of the scientist zombie sounds (DSKNIFE, DSCBAR, STEMLOOP, STEMFIRE, DSTAZER) along with id Software, DavidRaven, and Valve Software
+
+Megaherz
+--Chaingunner V2 sprites (all CZV2 sprites) along with Vader
+
+Mike12
+--AB-50  sprites (all ABXA, ABXC, ABXD, ABXF, ABXG, ABXM, ABXP, ABXR, and ABXU sprites) along with zrrion the insect and Marty Kirra
+
+Mike Lightner
+--Chaingunner V1 sprites (all CZV1 sprites) along with Marty Kirra and ItsNaturetoDie
+
+Nintendo
+--Secret area noise (DSSECRET.mp3), from Super Smash Brothers Brawl
+
+Pillowblaster
+--WOG Beam appearance influenced by Stachanov Beam from Russian Overkill (beam of lens flare sprites what turn into floaty scaled down same sprite)
+
+Raven Software (creator of Hexen)
+--Hellfire shell sounds (HELL.ogg, HELL3.ogg - HELL7.ogg)
+--Hellfire shell sprites (all FX12, HFTR, HLFC, SMK2 sprites)
+--Poison gas cloud sprites (all SPBG sprites)
+--Rictus fire sprites (all DRFX sprites, all CFCF sprites)
+--Rictus fire sound (FIRE09)
+
+Respawn Entertainment
+--Normal upgrade sound (UPGDNM), from Titanfall
+--Bounty sounds (all BOUNT* audio files), from Titanfall
+
+Revae
+--Bolt models based on voxels by voxelbro (bolt.md3, boltred.md3, bolt.png, boltred.png)
+
+Revenant100 (aka Marphy Black)
+--Offset for sprites in "Sprite Fixing" folder, taken from the Doom 2 Minor Sprite Fixing Project - v1.4
 
+Sangelothi
+--Health Bonus sprites (all ASRM and ASRN sprites) along with Marty Kirra
+--Stimpack sprites (all STPK sprites) along with amv2k9 and Marty Kirra
 
-  Spawn:
-    MDK1 ABCDEFG 5
-  Spawn:
-    STPK A 1
-  Spawn:
-    ASRM ABCDEFG 7
-    Loop
+Scalliano
+--Scientist and Hazmat Zombie sprites (all SCZA, SCZC, SCZH, SCFE, STEM, FSZK, FSZW, FSZC, FSZS, POIS, and HMZP sprites)
+--Scientist and Hazmat Zombie original decorate
+--Soulsphere sprites (all LIFE sprites) along with Banjo Software and Marty Kirra
 
+Scuba Steve
+-??-Mel's Melee Style sprites (all MK1F-MK6F, ML1F-ML8F, MLEF, MLEG, MLEU, MLGC, and MLGF sprites) along with Marty Kirra, Blox, and Banjo Entertainment
+--Zeke Shotgun sprites (all STGC, STGD, STGE, STGF, STGG, STGM, STGR, and STGU sprites) along with Snarboo and Marty Kirra
+--Thaddeus Shotgun sprites (all MASF and MASG sprites) along with Sgt. Shivers, Snarboo, and Marty Kirra
+--Classico Shotgun sprites (all MCSG sprites) along with Sgt. Shivers, Snarboo, and Marty Kirra
+-??-Vexler's Melee Style sprites (all VLED, VLEU, VLEG, VL1F and VK1F sprites) along with Marty Kirra, Blox, and Banjo Entertainment
+-??-Punch-Out!! sprites (all LMPG sprites) along with Marty Kirra, Blox, and Banjo Entertainment
+--Toolbox pickup sprite (RNLPA0)
+--Zeke Shotgun pickup sprite (STGPA0) along with Marty Kirra
 
+Sgt. Shivers
+--Thaddeus Shotgun sprites (all MASF and MASG sprites) along with Scuba Steve, Snarboo, and Marty Kirra
+--Classico Shotgun sprites (all MCSG sprites) along with Scuba Steve, Snarboo, and Marty Kirra
 
-//===========================================================================
-// Lost Soul
-//
-// by Ghastly_Death (Sprites by Captain Toenail, color variants by Marty Kirra)
-//===========================================================================
-BaseLostSoulV1 -v3
+Smochi Banzai
+--Mel voice acting work (all MELC*, MELH*, MELS*, MELO*, MELP*, MELDTH*, MELJUMP*, MELLAND*, MELPN*, MELUNF*, and MELXDTH* audio files)
+--Robo Mel voice acting work (all RELH*, RELS*, RELP*, RELDTH*, RELJUMP*, RELLAND*, RELPN*, RELUNF*, and RELXDTH* audio files), mixed by torridGristle
 
-    1FOR 3FOR
+Snarboo
+--Zeke Shotgun sprites (all STGC, STGD, STGE, STGF, STGG, STGM, STGR, and STGU sprites) along with Scuba Steve and Marty Kirra
+--Thaddeus Shotgun sprites (all MASF and MASG sprites) along with Sgt. Shivers, Scuba Steve, and Marty Kirra
+--Classico Shotgun sprites (all MCSG sprites) along with Sgt. Shivers, Scuba Steve, and Marty Kirra
 
+Starbreeze Studios
+--Explosive crossbow beep (CRSBBEEP.ogg)
+
+Stuart Duffield
+--WOG Beam sounds (00014, 00023, 00027, 00035, and 00041), ripped from G-Police by torridGristle
 
+TerminusEst13
+--Toolbox primary fire projectile decorate along with Marty Kirra
 
+torridGristle
+--Robo Mel audio mixing (all RELH*, RELS*, RELP*, RELDTH*, RELJUMP*, RELLAND*, RELPN*, RELUNF*, and RELXDTH* audio files), voiced by Smochi Banzai
+--Ripped WOG Beam sounds (00014, 00023, 00027, 00035, and 00041)from G-Police, sounds created by Stuart Duffield
 
-//Scientist Zombie Weapons
-KnifeHit DSKNIFE
-CrowbarHit DSCBAR
-Steam/Loop	STEMLOOP
-Steam/Fire	STEMFIRE
-hazmat/tazer	DSTAZER
-
-
-
-
-//Bullet Casings taken from ww-diaz-v3, by WildWeasel
-DEC_SFX.txt
-
-
-ACTOR 9mmCasingSpawner     //Borrowed from the in-limbo ZNew mod
-{
-	Speed 15
-	PROJECTILE
-	+NOCLIP
-	States
-	{
-	Spawn:
-		TNT1 AA 1 A_CustomMissile("WWPistolCasing",0,0,random(-100,-80),2,random(-15,15))
-		Stop
-	}
-}      
-
-
-//===========================================================================
-// Scientists and Hazmat Zombie, all by Scalliano
-//
-// Decorate by Scalliano (minor formatting changes and See state changes by scroton)
-// Sprites by Scalliano
-//===========================================================================
-
-SCZA
-SCZC
-SCZH
-SCFE
-
-STEM
-
-FSZK
-FSZW
-FSZC
-FSZS
-
-POIS
-HMZP
-  SeeSound "grunt/sight"
-  PainSound "grunt/pain"
-  DeathSound "grunt/death"
-  ActiveSound "grunt/active"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//===========================================================================
-// Pistol Zombie
-//
-// Decorate by WildWeasel and Captain Red, modified by Marty Kirra
-// Sprites by Captain Red
-//===========================================================================
-ZMP1
-
-
-
-
-
-
-//===========================================================================
-// Vexler's Melee Style
-//
-// by Marty Kirra
-// Sprites by Marty Kirra, Blox, Scuba Steve, Banjo Entertainment1
-//===========================================================================
-VLED
-VLEU
-VLEG
-VL1F
-VK1F
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Trent Reznor
+--New imp sounds (impsi1-impsi8, impidle1-impidl12, imppa1-imppa9, impde1-impde11), taken from Doom3 Alpha
+--New zombie sounds (zmsi1-zmsi12, zmpain1-zmpain13, zmidle1-zmidle17, zmdeath1-zmdeath6), taken from Doom3 Alpha
+--New zombie commando sounds (zcsi1-zcsi14, zcpain1-zcpain6, zcidle1-zcidle7, zcatk1-zcatk6, zcdth1-zcdth7), taken from Doom3 Alpha
+
+Vader
+--Imp variant 1 and 2 sprites (all IMV1 and IMV2 sprites) along with ItsNaturetoDie 
+--Chaingunner V2 sprites (all CZV2 sprites) along with Megaherz
+--Chaingunner V3 sprites (all CZV3 sprites)
+
+Valve Software (creator of Half Life)
+--Spark sounds (spark1.wav - spark4.wav) 
+--Shock arc sounds (DSHOCK01.ogg - DSHOCK16.ogg)
+--Poison shell sound (HL1STEAM.ogg)
+--MP 40 sprites (all MP4C, MP4D, MP4F, MP4G, MP4M, MP4P, MP4R, and MP4U sprites) along with Marty Kirra
+-??-Some or all of the scientist zombie sounds (DSKNIFE, DSCBAR, STEMLOOP, STEMFIRE, DSTAZER) along with id Software, DavidRaven, and Konami
+
+Voxelbro
+--Bolt voxels (ARWP.kvx, ARWQ.kvx, and ARWR.kvx)
+
+WildWeasel
+--Pistol Zombie original decorate along with Captain Red, modified by Marty Kirra
+--919m weapon and ammo pickup sprites (919AA0) and 919PA0) by WildWeasel, edited from wolfenstein ROTT prototype
+--Bullet casings original decorate (WWPistolCasing, SilverPistolCasingSpawner, SilverPistolCasing, RifleCasingSpawner, RifleCasingSpawner2, RifleCasing, RifleCasing2, RiflCaseSmoke, PisCaseSmoke, SpentClip1, and SpentClip1Thrown actors), from ww-diaz-v3
+--Judgement Zombie Sound edits (all swatsit*, swatpn*, and swatdth* files), voiced by Marty Kirra
+
+Wooliewool
+--Ammobox Zombie V2 sprites (all AZV2 sprites)
+
+Zerosene
+--All character portraits (numerous menu and promo files)
+
+zrrion_the_insect
+--AB-50  sprites (all ABXA, ABXC, ABXD, ABXF, ABXG, ABXM, ABXP, ABXR, and ABXU sprites) along with Mike12 and Marty Kirra
+--Toolbox rocket box pickup sprite (RLNBA0) along with and Marty Kirra
+
+????????????
+-??-Imp variant 3 sprites (all IMV3 sprites)
+-??-Toolbox rocket explosion sprites (all MXP1-MXP7 sprites) taken from AEOD, original source unknown
+-??-Decorate for 9mmCasingSpawner actor, taken from the in-limbo ZNew mod, specific author unknown
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//||====================================================================================================================
+//||  BY RESOURCE
+//||====================================================================================================================
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+--Tech pillar voxel (elec.kvx) by Doom Voxel Project
+--Bolt voxels (ARWP.kvx, ARWQ.kvx, and ARWR.kvx) by Voxelbro
+
+
+--All character portraits (numerous menu and promo files) by Zerosene
+
+
+--Bolt models by Revae, based on voxels by voxelbro (bolt.md3, boltred.md3, bolt.png, boltred.png) 
+
+
+--Offset for sprites in "Sprite Fixing" folder from the Doom 2 Minor Sprite Fixing Project - v1.4 by Revenant100 aka Marphy Black
+
+
+--Title Screen music (TSPTITLE.ogg) composed by Marty Kirra
+
+
+--Spark sounds (spark1.wav - spark4.wav) by Valve Software (creator of Half Life)
+--Shock arc sounds (DSHOCK01.ogg - DSHOCK16.ogg) by Valve Software (creator of Half Life)
+--Poison shell sound (HL1STEAM.ogg) by Valve Software (creator of Half Life)
+--Hellfire shell sounds (HELL.ogg, HELL3.ogg - HELL7.ogg) by Raven Software (creator of Hexen)
+--Rictus fire sound (FIRE09) by Raven Software (creator of Hexen)
+--Explosive crossbow beep (CRSBBEEP.ogg) by Starbreeze Studios
+--Rictus sounds (RICTSEE, RICTDIE, RICTPAIN) by id Software
+--New imp sounds (impsi1-impsi8, impidle1-impidl12, imppa1-imppa9, impde1-impde11) by Trent Reznor, taken from Doom3 Alpha
+--New zombie sounds (zmsi1-zmsi12, zmpain1-zmpain13, zmidle1-zmidle17, zmdeath1-zmdeath6) by Trent Reznor, taken from Doom3 Alpha
+--New zombie commando sounds (zcsi1-zcsi14, zcpain1-zcpain6, zcidle1-zcidle7, zcatk1-zcatk6, zcdth1-zcdth7) by Trent Reznor, taken from Doom3 Alpha
+--Female Zombie sounds (all fzsi1 - fzsi8, fzpain1 - fzpain8, fzidle1 - fzidle6, and fzdeath1 - fzdeath4 files) by Capcom Production Studio 4, from Resident Evil 4
+--Judgement Zombie Sounds (all swatsit*, swatpn*, and swatdth* files) voiced by Marty Kirra, edited by WildWeasel
+--Misdirection Bolt sound (SWBEEP.wav) by 3D Realms, taken from Shadow Warrior
+--Beam sounds (00014, 00023, 00027, 00035, and 00041) by Stuart Duffield, ripped from G-Police by torridGristle
+--Doom 3 Plasma Rifle reloading sounds (DSPLASL1 and DSPLASL2) by id Software
+--Lost Soul Sounds (all 3FORSIG*, 3FORACT*, 3FORPAI*, 3FORDEA*, and SOULEXP* files) by id Software, from Doom 3: ROE
+--Menu sounds (prompt, change, choose, cursor, invalid, activate, dismiss, clear, quit, and all backup* audio files) by Capcom Production Studio 4, from Resident Evil 4
+--Secret menu quit sound (quit2) by GameGrumps
+--Secret area noise (DSSECRET.mp3) by Nintendo, from Super Smash Brothers Brawl
+--Bounty sounds (all BOUNT* audio files) by Respawn Entertainment, from Titanfall
+--Normal upgrade sound (UPGDNM) by Respawn Entertainment, from Titanfall
+--Lone Survivor upgrade sound (UPGDLS) by Capcom Production Studio 4, from Resident Evil 4
+--Universal Melee Sounds (all bmlmiss*, smlmiss*, bmlwall*, bmlhit*, smlwall*, smlhit*, and umlhit* files) foleyed by Blue Vertigo Productions
+--Mel audio (all MELC*, MELH*, MELS*, MELO*, MELP*, MELDTH*, MELJUMP*, MELLAND*, MELPN*, MELUNF*, and MELXDTH* audio files) by Smochi Banzai
+--Robo Mel audio (all RELH*, RELS*, RELP*, RELDTH*, RELJUMP*, RELLAND*, RELPN*, RELUNF*, and RELXDTH* audio files) mixed by torridGristle, voiced by Smochi Banzai
+--Vexler audio (all VEXH*, VEXS*, VEXBDTH*, VEXDTH*, VEXPN*, and VEXXDTH* audio files) by Marty Kirra
+
+
+
+--Hellfire shell sprites (all FX12, HFTR, HLFC, SMK2 sprites) by Raven Software (creator of Hexen)
+--Poison gas cloud sprites (all SPBG sprites) by Raven Software (creator of Hexen)
+--Rictus fire sprites (all DRFX sprites, all CFCF sprites) by Raven Software (creator of Hexen)
+--Rictus sprites (all RICT sprites), edited from sprites by id Software by Captain Toenail
+--Imp variant 1 and 2 sprites (all IMV1 and IMV2 sprites) by Vader and ItsNaturetoDie 
+--Imp variant 4 sprites (all IMV4 sprites) by Eriance
+--Lost Soul variants 1-3 sprites (all 1FOR, 2FOR, 3FOR sprites) by Captain Toenail, color variants by Marty Kirra
+--Wolfenstien Nazi rotation sprites (all WBLU, WBRN, and WWHT sprites) by Kinsie
+--Ammobox Zombie V1 sprites (all AZV1 sprites) by Captain Red
+--Ammobox Zombie V2 sprites (all AZV2 sprites) by Wooliewool
+--Cacodemon Elemental sprites (all CMN1, CMN2, and CMFB sprites) by Enjay
+--Screaming Elemental sprites (all CIEL sprites) by Cage
+--Scientist and Hazmat Zombie sprites (all SCZA, SCZC, SCZH, SCFE, STEM, FSZK, FSZW, FSZC, FSZS, POIS, and HMZP sprites) by Scalliano
+--Pistol Zombie sprites (all ZMP1 sprites) by Captain Red
+--Chaingunner V1 sprites (all CZV1 sprites) by Marty Kirra, Mike Lightner and ItsNaturetoDie
+--Chaingunner V2 sprites (all CZV2 sprites) by Vader and Megaherz
+--Chaingunner V3 sprites (all CZV3 sprites) by Vader
+--Health Bonus sprites (all ASRM and ASRN sprites) by Sangelothi and Marty Kirra
+--Stimpack sprites (all STPK sprites) by Sangelothi, amv2k9 and Marty Kirra
+--Green Armor Bonus sprites (all ARSDsprites) by Infirnex
+--Red Armor Bonus sprites (all ARSE sprites) by Infirnex, minor edit by Marty Kirra
+--"Green" Armor sprites (all FLRM sprites) by BloodyAcid and Marty Kirra
+--"Blue" Armor sprites (all PSRM sprites) by Marty Kirra
+--Medikit sprites (all MDK1 sprites) edited by Marty Kirra
+--Soulsphere sprites (all LIFE sprites) by Banjo Software, Scalliano and Marty Kirra
+--Megasphere sprites (all SPOT sprites) by Banjo Software and Marty Kirra
+--Upgrade Briefcase sprites (UPGDA0) by amv2k9
+--Dahlia sprites (all DCBA, DCBB, DCBD, DCBE, DCBF, DCBG, DCBP, DCBR, DCBU, and DCBX sprites) by Marty Kirra
+--Dahlia bolt sprites (all ARZZ sprites) by Marty Kirra
+--Zeke Shotgun pickup sprite (STGPA0) by Marty Kirra and Scuba Steve
+--Zeke Shotgun sprites (all STGC, STGD, STGE, STGF, STGG, STGM, STGR, and STGU sprites) by Scuba Steve, Snarboo, and Marty Kirra
+--Zeke Shotgun shell non-rotated pickup sprites (all BCKS sprites, 1SHL - 4SHL A, C, E, G sprites) by Cory Whittle
+--Zeke Shotgun shell edited sprites (all SHLHUD1-SHLHUD4 and TSPSHUD sprites, 1SHL - 4SHL B, D, F, H sprites) by Cory Whittle (minor edits by scroton)
+--Thaddeus Shotgun sprites (all MASF and MASG sprites) by Sgt. Shivers, Scuba Steve, Snarboo, and Marty Kirra
+--Classico Shotgun sprites (all MCSG sprites)  by Sgt. Shivers, Scuba Steve, Snarboo, and Marty Kirra
+--MP 40 sprites (all MP4C, MP4D, MP4F, MP4G, MP4M, MP4P, MP4R, and MP4U sprites) by Valve Software and Marty Kirra
+--AB-50  sprites (all ABXA, ABXC, ABXD, ABXF, ABXG, ABXM, ABXP, ABXR, and ABXU sprites) by Mike12, zrrion the insect, and Marty Kirra
+--Basilisk Nikana sprites (all NIK1, NIKG, and NIKP sprites) by Marty Kirra
+--Punch-Out!! sprites (all LMPG sprites) by Marty Kirra, Blox, Scuba Steve, Banjo Entertainment
+--Toolbox pickup sprite (RNLPA0) by Scuba Steve
+--Toolbox rocket box pickup sprite (RLNBA0) by zrrion_the_insect and Marty Kirra
+--Toolbox rocket and single rocket pickup sprites (all SRKT and SRTP sprites) by Scuba Steve
+--Toolbox sprites (all RNLD, RNLE, RNLF, RNLG, RNLM, RNLR, and RNLU sprites) by Marty Kirra
+--919m weapon and ammo pickup sprites (919AA0) and 919PA0) by WildWeasel, edited from wolfenstein ROTT prototype
+--919m sprites (all MPTD, MPTE, MPTF, MPTG, MPTM, MPTR, and MPTS sprites) by Marty Kirra
+--Mel HUD sprites (all MCWDEAD, MCWEVL, MCWGOD, MCWKILL, MCWOUCH, MCWST, MCWTL, and MCWTR sprites) by Marty Kirra
+--Poison shell pellet sprite (all SPSN sprites) base by Epic MegaGames (creator of Jazz Jackrabbit 2), edits by scroton
+--WOG Beam death sprites (all C01Z, T01Z, and Z01Z sprites) edited from id Software sprites by scroton
+--Electric arc sprites (all SARC sprites) edited from Doom plasma shot by scroton
+--Toolbox altfire shrapnel sprites (all SHAP sprites) edited from Doom bulletpuff sprite by scroton
+
+
+--commonFuncs.h by Ijon Tichy
+--Rictus GLDefs by Dreadopp
+--Forgotten One decorate, used in lost soul variants 1-3 by Ghastly_Death
+--Scientist and Hazmat Zombie original decorate by Scalliano
+--Pistol Zombie original decorate by WildWeasel and Captain Red, modified by Marty Kirra
+--Bullet casings original decorate (WWPistolCasing, SilverPistolCasingSpawner, SilverPistolCasing, RifleCasingSpawner, RifleCasingSpawner2, RifleCasing, 
+RifleCasing2, RiflCaseSmoke, PisCaseSmoke, SpentClip1, and SpentClip1Thrown actors) by WildWeasel, from ww-diaz-v3
+--Toolbox primary fire projectile decorate by Marty Kirra and TerminusEst13
+--Toolbox weapon animation and "viewed" decorate by Marty Kirra (with minor additions by scroton)
+--Zeke Shotgun weapon animation and "viewed" decorate by Marty Kirra (with minor additions by scroton)
+--Dahlia weapon animation and "viewed" decorate by Marty Kirra (with minor additions by scroton)
+--Mel's Melee Style decorate by Marty Kirra (with minor additions by scroton)
+--919m decorate by Marty Kirra
+--AB-50 decorate by Marty Kirra 
+--MP 40 decorate by Marty Kirra
+--Basilisk Nikana decorate by Marty Kirra
+--Vexler's Melee Style decorate by Marty Kirra
+--Punch-Out!! decorate by Marty Kirra
+--"TSPSurvivorSlow" and "TSPDifficultyLoadouts" acs scripts by Marty Kirra
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////  UNSURE WHO EXACTLY DID WHAT
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+-??-Some or all of the scientist zombie sounds (DSKNIFE, DSCBAR, STEMLOOP, STEMFIRE, DSTAZER) by id Software, DavidRaven, Konami, and Valve Software
+-??-Mel's Melee Style sprites (all MK1F-MK6F, ML1F-ML8F, MLEF, MLEG, MLEU, MLGC, and MLGF sprites) by Marty Kirra, Blox, Scuba Steve, and Banjo Entertainment
+-??-Vexler's Melee Style sprites (all VLED, VLEU, VLEG, VL1F and VK1F sprites) by Marty Kirra, Blox, Scuba Steve, and Banjo Entertainment
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////  WE JUST DON'T KNOW
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+-??-Imp variant 3 sprites (all IMV3 sprites)
+-??-Toolbox rocket explosion sprites (all MXP1-MXP7 sprites) taken from AEOD, original source unknown
+-??-Decorate for 9mmCasingSpawner actor, taken from the in-limbo ZNew mod, specific author unknown
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//||====================================================================================================================
+//||  PLACEHOLDER STUFF
+//||====================================================================================================================
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+--All sprites in TSPSkins.wad
+--Plasma rifle sprites and code, from DRLA and PK enhanced smooth weapons 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//||====================================================================================================================
+//||  CURRENTLY MISSING CREDITS
+//||====================================================================================================================
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+DSRADIO.ogg
+GAMELOAD.ogg
+
+//Zombie Rifle Sound
+rifle/fire dsarfire
+rifle/reload1 zmbrrld1
+rifle/reload2 zmbrrld2
+
+
+judgment/clipout dsjdout
+judgment/clipin dsjdin
+judgment/cliphit dsjdhit
+judgment/enemy DSJDENEM
+
+
+//Startup
+misc/startupdone         GAMELOAD
+
+item/pickupls            PCKUPLS
 
 //Armor Pickups
 
@@ -498,12 +439,244 @@ health/supercharge       SURCHRGE
 health/medkit            MDKPCK1
 health/stimpack          STMPPCK
 health/healthbonus       HLBNPCK
+health/vitalitysphere    VITSPHRE
 
-MENUFNT.bmf
-DBIGFONT.bmf
 
-  SeeSound "fzombie/sight"
-  PainSound "fzombie/pain"
-  DeathSound "fzombie/death"
-  ActiveSound "fzombie/idle"
 
+
+//Basilisk Nikana
+$random nikana/miss { nikana/miss1 nikana/miss2 nikana/miss3 nikana/miss4 }
+nikana/miss1 niksws1
+nikana/miss2 niksws2
+nikana/miss3 niksws3
+nikana/miss4 niksws4
+
+$random nikana/strongmiss { nikana/strongmiss1 nikana/strongmiss2 nikana/strongmiss3 nikana/strongmiss4 }
+nikana/strongmiss1 nikswh1
+nikana/strongmiss2 nikswh2
+nikana/strongmiss3 nikswh3
+nikana/strongmiss4 nikswh4
+
+$random nikana/stabmiss { nikana/stabmiss1 nikana/stabmiss2 nikana/stabmiss3 }
+nikana/stabmiss1 nikswm1
+nikana/stabmiss2 nikswm2
+nikana/stabmiss3 nikswm3
+
+$random nikana/maguppercut { nikana/maguppercut1 nikana/maguppercut2 }
+nikana/maguppercut1 nikswu1
+nikana/maguppercut2 nikswu2
+
+$random nikana/wall { nikana/wall1 nikana/wall2 nikana/wall3 nikana/wall4 }
+nikana/wall1 nikhtw1
+nikana/wall2 nikhtw2
+nikana/wall3 nikhtw3
+nikana/wall4 nikhtw4
+
+$random nikana/walls { nikana/walls1 nikana/walls2 nikana/walls3 }
+nikana/walls1 nikhtws1
+nikana/walls2 nikhtws2
+nikana/walls3 nikhtws3
+
+$random nikana/contacts { nikana/contacts1 nikana/contacts2 nikana/contacts3 nikana/contacts4 }
+nikana/contacts1 nikhte1
+nikana/contacts2 nikhte2
+nikana/contacts3 nikhte3
+nikana/contacts4 nikhte4
+
+$random nikana/contactb { nikana/contactb1 nikana/contactb2 nikana/contactb3 }
+nikana/contactb1 nikhtb1
+nikana/contactb2 nikhtb2
+nikana/contactb3 nikhtb3
+
+$random nikana/helmbreakerland { nikana/helmbreakerland1 nikana/helmbreakerland2 }
+nikana/helmbreakerland1 nikslm1
+nikana/helmbreakerland2 nikslm2
+
+//MA919m Pistol
+$random 919m/fire { 919m/fire1 919m/fire2 919m/fire3 }
+919m/fire1 PSTFR1
+919m/fire2 PSTFR2
+919m/fire3 PSTFR3
+
+$random 919m/goldfire { 919m/goldfire1 919m/goldfire2 919m/goldfire3 }
+919m/goldfire1 GPSFR1
+919m/goldfire2 GPSFR2
+919m/goldfire3 GPSFR3
+
+919m/magout pstmgout
+919m/magin1 pstmgin1
+919m/magin2 pstmgin2
+919m/slide pstsld
+919m/cock pstcock
+919m/dry pstempty
+919m/autoselect pstfas
+919m/autodeselect pstfau
+
+919m/select pstsel
+919m/deselect pstdsel
+919m/magflip pstflip
+
+//Zeke Shotgun
+$random zekeshotgun/fire { zekeshotgun/fire1 zekeshotgun/fire2 zekeshotgun/fire3 }
+zekeshotgun/fire1 zekshot1
+zekeshotgun/fire2 zekshot2
+zekeshotgun/fire3 zekshot3
+$random zekeshotgun/doublefire { zekeshotgun/doublefire1 zekeshotgun/doublefire2 zekeshotgun/doublefire3 }
+zekeshotgun/doublefire1 zekdsht1
+zekeshotgun/doublefire2 zekdsht2
+zekeshotgun/doublefire3 zekdsht3
+$random zekeshotgun/pump { zekeshotgun/pump1 zekeshotgun/pump2 zekeshotgun/pump3 }
+zekeshotgun/pump1 zekpump1
+zekeshotgun/pump2 zekpump2
+zekeshotgun/pump3 zekpump3
+$random zekeshotgun/load { zekeshotgun/load1 zekeshotgun/load2 zekeshotgun/load3 }
+zekeshotgun/load1 zekload1
+zekeshotgun/load2 zekload2
+zekeshotgun/load3 zekload3
+zekeshotgun/up zekup1
+zekeshotgun/down zekdown
+
+zekeshotgun/unload1 zekunl1
+zekeshotgun/unload2 zekunl2
+
+zekeshotgun/elfire zekelsht
+zekeshotgun/pofire zekposht
+zekeshotgun/hefire zekfrsht
+
+//Assault Shotgun
+$random assaultshotgun/fire { assaultshotgun/fire1 assaultshotgun/fire2 }
+assaultshotgun/fire1 atshfire
+assaultshotgun/fire2 atshfir2
+assaultshotgun/magout atshmag1
+assaultshotgun/magin atshmag2
+assaultshotgun/bolt atshbolt
+assaultshotgun/clink atshchmb
+assaultshotgun/dry atshdryf
+
+//Dahlia Crossbow
+$random dahlia/fire { dahlia/fire1 dahlia/fire2 dahlia/fire3 }
+dahlia/fire1 crsbwfr1
+dahlia/fire2 crsbwfr2
+dahlia/fire3 crsbwfr3
+dahlia/up crsbup
+dahlia/down crsbdown
+$random dahlia/load { dahlia/load1 dahlia/load2 dahlia/load3 }
+dahlia/load1 crsbld1
+dahlia/load2 crsbld2
+dahlia/load3 crsbld3
+dahlia/ammo2 crsbam2
+dahlia/ammo1 crsbam1
+
+$limit dahlia/impact 0
+$random dahlia/impact { dahlia/impact1 dahlia/impact2 dahlia/impact3 }
+dahlia/impact1 CRSBIPW1
+dahlia/impact2 CRSBIPW2
+dahlia/impact3 CRSBIPW3
+
+$limit dahlia/impactenemy 0
+$random dahlia/impactenemy { dahlia/impactenemy1 dahlia/impactenemy2 dahlia/impactenemy3 }
+dahlia/impactenemy1 CRSBIPE1
+dahlia/impactenemy2 CRSBIPE2
+dahlia/impactenemy3 CRSBIPE3
+
+$limit dahlia/boltexplode 0
+$random dahlia/boltexplode { dahlia/boltexplode1 dahlia/boltexplode2 dahlia/boltexplode3 }
+dahlia/boltexplode1 CRSBEXP1
+dahlia/boltexplode2 CRSBEXP2
+dahlia/boltexplode3 CRSBEXP3
+
+//Ammo Box 50
+$random ammobox/fire { ammobox/fire1 ammobox/fire2 ammobox/fire3 }
+ammobox/fire1 aboxfr1
+ammobox/fire2 aboxfr2
+ammobox/fire3 aboxfr3
+ammobox/out aboxcout
+ammobox/in aboxcin
+ammobox/pull aboxpull
+ammobox/up ab50up
+ammobox/down ab50down
+
+//Hmm
+mp40/pickup mp40pck
+$random mipfowty/fire { mp40/fire1 mp40/fire2 mp40/fire3 }
+mp40/fire1 mp40fr1
+mp40/fire2 mp40fr2
+mp40/fire3 mp40fr3
+mipfowty/out mp40out
+mipfowty/in  mp40in
+mipfowty/bolt1 mp40bt1
+mipfowty/bolt2 mp40bt2
+mipfowty/up mp40up
+mipfowty/down mp40down
+
+//Kirratech Orion
+orion/start kostart
+orion/stop kostop
+orion/shootloops koshoot
+orion/overheat koovheat
+orion/up koup
+orion/down kodown
+
+orionen/start kestart
+orionen/stop kestop
+orionen/shootloops keshoot
+orionen/overheat keovheat
+
+//The Toolbox
+toolbox/equip RLNGUP2
+toolbox/deequip RLNGDWN2
+toolbox/on RLNGUP
+toolbox/off RLNGDOWN
+toolbox/prime RLNGSTC
+toolbox/rocket RLNGRLST
+toolbox/grind RLNGRND
+toolbox/nailgun RLNGNGST
+toolbox/empty RLNGNO
+toolbox/reload1 RLNGLD1
+toolbox/reload2 RLNGLD2
+
+toolbox/ammo1 RLNGAM1
+toolbox/ammo2 RLNGAM2
+
+$limit toolbox/nailgunimpact 0
+$random toolbox/nailgunimpact { toolbox/nailgunimpact1 toolbox/nailgunimpact2 toolbox/nailgunimpact3 toolbox/nailgunimpact4 toolbox/nailgunimpact5 toolbox/nailgunimpact6 toolbox/nailgunimpact6 toolbox/nailgunimpact7 toolbox/nailgunimpact8 }
+toolbox/nailgunimpact1 RLNGIMW1
+toolbox/nailgunimpact2 RLNGIMW2
+toolbox/nailgunimpact3 RLNGIMW3
+toolbox/nailgunimpact4 RLNGIMW4
+toolbox/nailgunimpact5 RLNGIMW5
+toolbox/nailgunimpact6 RLNGIMW6
+toolbox/nailgunimpact7 RLNGIMW7
+toolbox/nailgunimpact8 RLNGIMW8
+
+$limit toolbox/nailgunflesh 0
+$random toolbox/nailgunflesh { toolbox/nailgunflesh1 toolbox/nailgunflesh2 toolbox/nailgunflesh3 }
+toolbox/nailgunflesh1 RLNGIMF1
+toolbox/nailgunflesh2 RLNGIMF2
+toolbox/nailgunflesh3 RLNGIMF3
+
+$limit toolbox/rocketimpact 0
+$random toolbox/rocketimpact { toolbox/rocketimpact1 toolbox/rocketimpact2 toolbox/rocketimpact3 }
+toolbox/rocketimpact1 RLNGEXP1
+toolbox/rocketimpact2 RLNGEXP2
+toolbox/rocketimpact3 RLNGEXP3
+
+$limit toolbox/rocketfly 0
+$random toolbox/rocketfly { toolbox/rocketfly1 toolbox/rocketfly2 toolbox/rocketfly3 }
+toolbox/rocketfly1 RLNGFLY1
+toolbox/rocketfly2 RLNGFLY2
+toolbox/rocketfly3 RLNGFLY3
+
+//Weapon Junk
+$random weapons/casing  { weapons/casing1 weapons/casing2 weapons/casing3 }
+weapons/casing1			dscasin1
+weapons/casing2			dscasin2
+weapons/casing3			dscasin3
+
+$random weapons/smallclip { sc1 sc2 sc3 sc4 sc5 sc6 }
+sc1 dsbounc1
+sc2 dsbounc2
+sc3 dsbounc3
+sc4 dsbounc4
+sc5 dsbounc5
+sc6 dsbounc6
