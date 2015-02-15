@@ -271,11 +271,11 @@ script "TSPArmorScript" (void)
 
 script "TSPBoltStickScript" (void)
 {
-  int e257zsTracerNewTID = (UniqueTID());
-  Thing_ChangeTID (0,e257zsTracerNewTID);
+  int TracerNewTID = (UniqueTID());
+  Thing_ChangeTID (0,TracerNewTID);
   SetActivator(0,AAPTR_TRACER);
-  int e257zsTracerAngle = GetActorAngle(0);
-  SetActorAngle (e257zsTracerNewTID,e257zsTracerAngle);
+  int TracerAngle = GetActorAngle(0);
+  SetActorAngle (TracerNewTID,TracerAngle);
   Terminate;
 }
 
@@ -712,10 +712,8 @@ script "TSPWOGBeam" (int which)
   }
 }
 
-script "TSPZekeMessage" (int which, int a1, int a2)
+script "TSPZekeMessage" (int which)
 {
-  int result;
-  
   switch (which)
   {
     case 1:
@@ -749,7 +747,6 @@ script "TSPZekeMessage" (int which, int a1, int a2)
       hudmessage (s:"[Poison Shells Selected]";HUDMSG_PLAIN,2,CR_DARKGREEN,1.5,0.375,0.7142857143);
       Terminate;
   }
-  SetResultValue(result);
 }
 
 script "TSPSurvivorSlow" (Void)
