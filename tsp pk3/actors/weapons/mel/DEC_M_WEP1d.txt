@@ -1,6 +1,6 @@
 //===========================================================================
 //
-// High-Frequency ÂBasiliskÂ Nikana
+// High-Frequency Basilisk Nikana
 //
 // by Marty Kirra
 // Sprites by Marty Kirra

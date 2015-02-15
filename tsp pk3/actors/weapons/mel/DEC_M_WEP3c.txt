@@ -1,0 +1,95 @@
+
+//===========================================================================
+//
+// Blackwood Arms 220 "Classico" Shotgun
+//
+// by  Marty Kirra
+// Sprites by Cage and Marty Kirra
+//
+//===========================================================================
+ACTOR MelClassicoShotgun : Weapon
+{
+	Weapon.Kickback 450
+	Weapon.AmmoType	"ClassicoShotgunMag"
+	Weapon.AmmoGive	6
+	Weapon.AmmoUse	1
+	Weapon.AmmoType2 "BuckshotShell"
+	Weapon.AmmoGive2 6
+	Weapon.AmmoUse2	0
+	Weapon.BobStyle Alpha
+	Weapon.BobSpeed 2.0
+	Weapon.BobRangeY 0.3
+	Weapon.BobRangeX 0.4
+	Inventory.PickupMessage "[Blackwood Arms 366 Thaddeus] [Class: Shotgun, Slot 3]"
+	Obituary "%o felt the power of %k's Assault shotgun."
+	Decal BulletChip
+	+Weapon.AMMO_OPTIONAL
+	+NOEXTREMEDEATH
+	Tag "Blackwood Arms 220 Classico"
+   States
+   {
+   Spawn:
+	  DCBP A -1
+	  Stop
+   Ready:
+      MCSG A 1 A_WeaponReady
+      Loop
+   Deselect:
+      TNT1 A 0 A_PlaySound("dahlia/down", 5)
+	  DCBD ABCD 1 
+   DeselectLoop:
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0  A_Lower
+	  TNT1 A 1 A_Lower
+      Loop
+   Select:
+	  TNT1 A 0 A_TakeInventory("MeleeSelected", 1)
+      TNT1 A 0 A_TakeInventory("WeaponSelectMemory", 999)
+	  TNT1 A 0 A_GiveInventory("WeaponSelectMemory", 133)
+      TNT1 A 0 A_PlaySound("dahlia/up", 6)
+      TNT1 A 4 SetPlayerProperty(0,1,2)
+      DCBU ABCD 1
+   SelectLoop:
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
+	  DCBG A 1 A_Raise
+	  Loop
+   Fire:
+      TNT1 A 0 A_JumpIfNoAmmo("Empty")
+      MASG A 2
+	  MASF A 0 A_AlertMonsters
+	  MASF A 0 A_PlayWeaponSound("assaultshotgun/fire2")
+	  MAGF A 0 A_Light2
+	  MASF A 1 BRIGHT A_FireBullets(6.2,3.4,7,5)
+	  MASF B 1 BRIGHT A_Light1
+	  MASF A 0 A_SetPitch(pitch - 1.3)
+	  MASF A 0 A_SetAngle(angle + (frandom(-0.4,0.4)))
+	  MASF BCCD 1
+	  MASG A 3 A_Refire
+      Goto Ready
+	Empty:
+	  MASG A 5 A_PlaySound("assaultshotgun/dry",0)
+	  Goto Reload 
+	Reload:
+	  MASG A 0 A_JumpIfInventory("AssaultShotgunMag", 12, "2")
+	  MASG A 0 A_JumpIfInventory("BuckshotShell", 1, "2")
+	  MASG A 1 A_WeaponReady(WRF_NOFIRE)
+	  Goto Ready
+	ReloadStart:
+	  MASF C 3
+      Goto ReloadWork
+	ReloadWork:
+	  MPTR I 0 A_TakeInventory("BuckshotShell",1)
+	  MPTR I 0 A_GiveInventory("AssaultShotgunMag",1)
+	  MPTR I 0 A_JumpIfInventory("AssaultShotgunMag",12,"ReloadFinish")
+	  MPTR I 0 A_JumpifInventory("BuckshotShell",1,"ReloadWork")
+	  Goto ReloadFinish
+	ReloadFinish:
+	  MASG A 3
+	  Goto Ready
+   }
+}
+
+ACTOR ClassicoShotgunMag : Ammo
+{
+	+IGNORESKILL
+	Inventory.MaxAmount 6
+}
