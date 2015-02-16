@@ -2,12 +2,16 @@
 #include "commonfuncs.h"
 #library "tspacs"
 
-global int 50:PlayerTID[];
-int LastxFixed = 0;
-int LastyFixed = 0;
-int LastzFixed = 0;
-int LastCurve = 0;
-    
+global int 50:GArray50[];
+/*
+  1-64 = Player TIDs
+*/
+  
+int LastxFixedA[64];
+int LastyFixedA[64];
+int LastzFixedA[64];
+int LastCurveA[64];
+  
 script "TSPPickupSounds" (int which)
 {
   if(CheckInventory("PlayingPickupSound") > 0)
@@ -421,67 +425,109 @@ script "TSPDifficultyLoadouts" ENTER
 Script "PlayerTID" ENTER
 {
   int PlayerNumberCheck = PlayerNumber();
-  int NewBeamOriginTID = UniqueTID();
-  int OriginTIDArrayNo = PlayerNumber() + 300;
-  if(PlayerTID[PlayerNumberCheck] == 0)
-  {
+  if(GArray50[PlayerNumberCheck] == 0  ||  ActivatorTID () == 0){
     int NewPlayerTID = UniqueTID();
-    PlayerTID[PlayerNumberCheck] = NewPlayerTID;
-    Thing_ChangeTid(0,NewPlayerTID);
-  }
-  else if(ActivatorTID () == 0)
-  {
-    Thing_ChangeTid(0,PlayerTID[PlayerNumberCheck]);
-  }
-  if(GetUserVariable(0,"user_beamorigintid") == 0 | PlayerTID[OriginTIDArrayNo] == 0)
-  {
-    PlayerTID[OriginTIDArrayNo] = NewBeamOriginTID;
-    SetUserVariable(0,"user_beamorigintid",NewBeamOriginTID);
-  }
+    GArray50[PlayerNumberCheck] = NewPlayerTID;
+    Thing_ChangeTid(0,NewPlayerTID); }
 }
 
-Script "GetBeamOriginTID" (void)
+Script "DProjTID" (void)
 {
-  SetResultValue(GetUserVariable(0,"user_beamorigintid"));
+  int NewTID = UniqueTID();
+  SetUserVariable(0,"user_DProjTID",NewTID);
+  SetResultValue(NewTID);
 }
 
-script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
+Script "BeamTID" (void)
 {
-  if (GetCVar("tsp_beamstyle") == 0){ int which = 0; }
-  else if (GetCVar("tsp_beamstyle") == 2){ which = 2; }
-  else { which = 1; }
+  int pnum = ActivatorTID();
+  SetResultValue(pnum);
+}
 
-  if (DivMapUnit == 0){ DivMapUnit = 1; }
-  if (HowClose == 0){ HowClose = 1; }
+function int GetToaster(int WhichCVar) //More will be done with this later
+{
+  int toaster = GetCVar("tsp_toaster");
+  return toaster;
+}
 
-  int Initialx = GetActorX(0) >> 16;
-  int Initialy = GetActorY(0) >> 16;
-  int Initialz = GetActorZ(0) >> 16;
-  
-  int InitialAngle = GetActorAngle(0);
+function int FixedAngMod(int fAngle)
+{
+  if (fAngle > 1.0){
+    fAngle %= 65536; }
+  else if (fAngle < 0){
+    fAngle %= (-65536);
+    fAngle = fAngle + 65536;}
+  return fAngle;
+}
+
+script "TSPWOGBeamSpawn" (void)
+{
+  int newtid, Position;
+  int LastX, LastY, LastZ, LastXFixed, LastYFixed, LastZFixed;
+  int beamstyle, toaster;
+  int lastcurve;
+  int HowClose, DivMapUnit;
+  int t, Loopx, Loopy, Loopz;
+  int tminus, tminussq, tminuscu, tsq, tcu;
   
   int InitialxFixed = GetActorX(0);
   int InitialyFixed = GetActorY(0);
   int InitialzFixed = GetActorZ(0);
 
-  int Lastx = LastxFixed >> 16;
-  int Lasty = LastyFixed >> 16;
-  int Lastz = LastzFixed >> 16;
+  int Initialx = InitialxFixed >> 16;
+  int Initialy = InitialyFixed >> 16;
+  int Initialz = InitialzFixed >> 16;
+
+  toaster = GetToaster(1);
+
+  if (toaster <= 0){
+    HowClose = 1; 
+    DivMapUnit = 1; }
+  else if (toaster == 1){
+    HowClose = 4; 
+    DivMapUnit = 1; }
+  else{
+    HowClose = 6; 
+    DivMapUnit = 1; }
+
+  newtid = UniqueTID();
+  Thing_ChangeTid(0,newtid);
+
+  SetActivator(0,AAPTR_TARGET);
+
+  if (ClassifyActor(0) &  ACTOR_PLAYER){ int FiredByPlayer = 1; }
+
+  /*
+  if (GetCVar("tsp_beamstyle") == 0){ beamstyle = 0; }
+  else if (GetCVar("tsp_beamstyle") == 2 && FiredByPlayer){ beamstyle = 1; }
+  else if (GetCVar("tsp_beamstyle") == 2){ beamstyle = 2; }
+  else { beamstyle = 1; }  */
+
+  if (GetCVar("tsp_beamstyle") == 0){ beamstyle = 0; }
+  else if (GetCVar("tsp_beamstyle") == 2){ beamstyle = 2; }
+  else { beamstyle = 1; }
+
+  if (FiredByPlayer == 1){
+    int DummyProjTID = GetUserVariable(0,"user_DProjTID");
+    LastxFixed = GetActorX(DummyProjTID);
+    LastyFixed = GetActorY(DummyProjTID);
+    LastzFixed = GetActorZ(DummyProjTID); 
+    lastcurve = 0; 
+	int pnum = PlayerNumber() + 1; }
+  else{
+    pnum = ActivatorTID(); 	
+    LastxFixed = LastxFixedA[pnum];
+    LastyFixed = LastyFixedA[pnum];
+    LastzFixed = LastzFixedA[pnum];
+    lastcurve = LastCurveA[pnum]; }
+
+  int InitialAngle = FixedAngMod(VectorAngle(LastxFixed - InitialxFixed, LastyFixed - InitialyFixed));
+
+  Thing_ChangeTid(newtid,pnum);
   
-  if (FiredByPlayer == 1)
-  {
-    SetActivator(0,AAPTR_TARGET);
-
-    int OriginTIDArrayNo = PlayerNumber() + 300;
-    
-    LastxFixed = GetActorX(PlayerTID[OriginTIDArrayNo]);
-    LastyFixed = GetActorY(PlayerTID[OriginTIDArrayNo]);
-    LastzFixed = GetActorZ(PlayerTID[OriginTIDArrayNo]);
-
-    Lastx = GetActorX(PlayerTID[OriginTIDArrayNo]) >> 16;
-    Lasty = GetActorY(PlayerTID[OriginTIDArrayNo]) >> 16;
-    Lastz = GetActorZ(PlayerTID[OriginTIDArrayNo]) >> 16;
-  }
+  Lastx = LastxFixed >> 16;
+  Lasty = LastyFixed >> 16;
+  Lastz = LastzFixed >> 16;
 
   int Diffx = Initialx - Lastx;
   int Diffy = Initialy - Lasty;
@@ -492,106 +538,67 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
 
   int LineLengthFixed = LineLengthInteger << 16;
   
-  if (LineLengthInteger == 0)
-  {
-    Terminate;
-  }
+  if (LineLengthInteger == 0){ Terminate; }
   
-  if (FiredByPlayer == 1)
-  {
-    int BezierAmountRandomizer = FixedMul(LineLengthFixed,0.8);//Random(20.0,30.0);
-  }
-  else
-  {
-    BezierAmountRandomizer = Random(1.5,4.0);
-  }
-  int t, Loopx, Loopy, Loopz;
-  int tminus, tminussq, tminuscu, tsq, tcu;
+  if (FiredByPlayer == 1){
+    int BezierAmountRandomizer = FixedMul(LineLengthFixed,0.8); }
+  else{ BezierAmountRandomizer = Random(1.5,4.0); }
   
   LineLengthInteger = LineLengthInteger * DivMapUnit;
   
-  switch (which)
+  switch (beamstyle)
   {
-
     case 0:
-      for (int Position = 0; Position < LineLengthInteger; Position++)
-      {
+      for (Position = 0; Position < LineLengthInteger; Position++){
         t = FixedDiv((Position << 16),(LineLengthInteger << 16));
         if (t < 0){ t =0; }
         tminus = (1.0-t);
         Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );
         Loopy = ( FixedMul(tminus,LastyFixed) + FixedMul(t,InitialyFixed) );
         Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
-        if (Position % HowClose == 0)
-        {
-          SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-        }
-      }
-      LastxFixed = Loopx;
-      LastyFixed = Loopy;
-      LastzFixed = Loopz;
-      Terminate;
+        if (Position % HowClose == 0){
+          SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0); }}
+      break;
 
     case 1:
       int BezierAmount = FixedDiv(LineLengthFixed,BezierAmountRandomizer);
-      
-      if (LastCurve < 0)
-      {
+      if (LastCurve < 0){
         int BezierX = LastxFixed - InitialxFixed;
         BezierX = BezierX / 2;
         BezierX = BezierX + LastxFixed + random(0.0,BezierAmount);
-
         int BezierY = LastyFixed - InitialyFixed;
         BezierY = BezierY / 2;
         BezierY = BezierY + LastyFixed + random(0.0,BezierAmount);
-
-        LastCurve = 1;
-      }
-      else if (LastCurve > 0)
-      {
+        LastCurve = 1; }
+      else if (LastCurve > 0){
         BezierX = LastxFixed - InitialxFixed;
         BezierX = BezierX / 2;
         BezierX = BezierX + LastxFixed + random(-BezierAmount,0.0);
-
         BezierY = LastyFixed - InitialyFixed;
         BezierY = BezierY / 2;
         BezierY = BezierY + LastyFixed + random(-BezierAmount,0.0);
-
-        LastCurve = -1;
-      }
-      else
-      {
+        LastCurve = -1; }
+      else{
         LastCurve = random(-1000,1000);
-        if (LastCurve <= 0)
-        {
+        if (LastCurve <= 0){
           BezierX = LastxFixed - InitialxFixed;
           BezierX = BezierX / 2;
           BezierX = BezierX + LastxFixed + random(0.0,BezierAmount);
-                
           BezierY = LastyFixed - InitialyFixed;
           BezierY = BezierY / 2;
           BezierY = BezierY + LastyFixed + random(0.0,BezierAmount);
-              
-          LastCurve = 1;
-        }
-        else if (LastCurve < 0)
-        {
+          LastCurve = 1; }
+        else if (LastCurve < 0){
           BezierX = LastxFixed - InitialxFixed;
           BezierX = BezierX / 2;
-          BezierX = BezierX + LastxFixed + random(-BezierAmount,0.0);
-              
+          BezierX = BezierX + LastxFixed + random(-BezierAmount,0.0);  
           BezierY = LastyFixed - InitialyFixed;
           BezierY = BezierY / 2;
           BezierY = BezierY + LastyFixed + random(-BezierAmount,0.0);
-              
-          LastCurve = -1;
-        }
-      }
-
-      if (InitialAngle >= 0.125 & InitialAngle <= 0.375 | InitialAngle >= 0.625 & InitialAngle <= 0.875 )
-      {
-        for (Position = 0; Position < LineLengthInteger; Position++)
-        {
+          LastCurve = -1; }}
+      
+      if ((InitialAngle >= 0.125 && InitialAngle <= 0.375) || (InitialAngle >= 0.625 && InitialAngle <= 0.875)){
+        for (Position = 0; Position < LineLengthInteger; Position++){
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
           if (t < 0){ t =0; }
           tminus = (1.0-t);
@@ -600,16 +607,10 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
           Loopx = ( FixedMul(tminussq,LastxFixed) + 2 * FixedMul(FixedMul(tminus,t),BezierX) + FixedMul(tsq,InitialxFixed) );
           Loopy = ( FixedMul(tminus,LastyFixed) + FixedMul(t,InitialyFixed) );
           Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
-          if (Position % HowClose == 0)
-          {
-            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-          }
-        }
-      }
-      else
-      {
-        for (Position = 0; Position < LineLengthInteger; Position++)
-        {
+          if (Position % HowClose == 0){
+            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0); }}}
+      else{
+        for (Position = 0; Position < LineLengthInteger; Position++){
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
           if (t < 0){ t =0; }
           tminus = (1.0-t);
@@ -619,111 +620,157 @@ script "TSPWOGBeamSpawn" (int FiredByPlayer, int HowClose, int DivMapUnit)
           tminus = (1.0-t);
           Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );
           Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
-          if (Position % HowClose == 0)
-          {
-            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-          }
-        }
-      }
-      LastxFixed = Loopx;
-      LastyFixed = Loopy;
-      LastzFixed = Loopz;
-      Terminate;
+          if (Position % HowClose == 0){
+            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0); }}}
+      break;
 
     case 2:
-      if (LastCurve < 0)
-      {
+      if (LastCurve < 0){
         int BezierX1 = LastxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
         int BezierX2 = InitialxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        
         int BezierY1 = LastyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
         int BezierY2 = InitialyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        LastCurve = 1;
-      }
-      else if (LastCurve > 0)
-      {
+        LastCurve = 1; }
+      else if (LastCurve > 0){
         BezierX1 = LastxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
         BezierX2 = InitialxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        
         BezierY1 = LastyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
         BezierY2 = InitialyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        LastCurve = -1;
-      }
-      else
-      {
+        LastCurve = -1;}
+      else{
         LastCurve = random(-1000,1000);
-        if (LastCurve <= 0)
-        {
+        if (LastCurve <= 0){
           BezierX1 = LastxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierX2 = InitialxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-
           BezierY1 = LastyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierY2 = InitialyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-          LastCurve = 1;
-        }
-        else if (LastCurve < 0)
-        {
+          LastCurve = 1; }
+        else if (LastCurve < 0){
           BezierX1 = LastxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierX2 = InitialxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-
           BezierY1 = LastyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierY2 = InitialyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-          LastCurve = -1;
-        }
-      }
-      if (InitialAngle >= 0.125 & InitialAngle <= 0.375 | InitialAngle >= 0.625 & InitialAngle <= 0.875 )
-      {
-        for (Position = 0; Position < LineLengthInteger; Position++)
-        {
+          LastCurve = -1; }}
+ 
+      if ( (InitialAngle >= 0.125 && InitialAngle <= 0.375) || (InitialAngle >= 0.625 && InitialAngle <= 0.875) ){
+        for (Position = 0; Position < LineLengthInteger; Position++){
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
           if (t < 0){ t =0; }
-          
           tminus = (1.0-t);
           tminussq = FixedMul(tminus,tminus);
           tminuscu = FixedMul(tminussq,tminus);    
           tsq = FixedMul(t,t);        
           tcu = FixedMul(tsq,t);
-          
           Loopx = ( FixedMul(tminuscu,LastxFixed) + 3 * FixedMul(tminussq,FixedMul(t,BezierX1)) + 3 * FixedMul(tminus,FixedMul(tsq,BezierX2)) + FixedMul(tcu,InitialxFixed) );
-
           Loopy = ( FixedMul(tminus,LastyFixed) + FixedMul(t,InitialyFixed) );
           Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
-
-          if (Position % HowClose == 0)
-          {
-            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-          }
-        }
-      }
-      else
-      {
-        for (Position = 0; Position < LineLengthInteger; Position++)
-        {
+          if (Position % HowClose == 0){
+            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0); }}}
+      else{
+        for (Position = 0; Position < LineLengthInteger; Position++){
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
           if (t < 0){ t =0; }
-          
           tminus = (1.0-t);
           tminussq = FixedMul(tminus,tminus);
           tminuscu = FixedMul(tminussq,tminus);    
           tsq = FixedMul(t,t);        
           tcu = FixedMul(tsq,t);
-          
           Loopy = ( FixedMul(tminuscu,LastyFixed) + 3 * FixedMul(tminussq,FixedMul(t,BezierY1)) + 3 * FixedMul(tminus,FixedMul(tsq,BezierY2)) + FixedMul(tcu,InitialyFixed) );
-
           Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );
           Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
-
-          if (Position % HowClose == 0)
-          {
-            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0);
-          }
-        }
-      }
-      LastxFixed = Loopx;
-      LastyFixed = Loopy;
-      LastzFixed = Loopz;
-      Terminate;
+          if (Position % HowClose == 0){
+            SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0); }}}
+      break;
   }
+
+  LastxFixedA[pnum] = Loopx;
+  LastyFixedA[pnum] = Loopy; 
+  LastzFixedA[pnum] = Loopz; 
+  LastCurveA[pnum] = lastcurve;
+  setresultvalue(1);
+}
+
+
+script 200 (int oldtid,int whichspawn)
+{
+
+  int LastxFixed = GetUserVariable(oldtid,"user_lastx");
+  int LastyFixed = GetUserVariable(oldtid,"user_lasty");
+  int LastzFixed = GetUserVariable(oldtid,"user_lastz");
+  int lastcurve = GetUserVariable(oldtid,"user_lastcurve");
+
+  int InitialxFixed = GetUserVariable(oldtid,"user_initialx");
+  int InitialyFixed = GetUserVariable(oldtid,"user_initialy");
+  int InitialzFixed = GetUserVariable(oldtid,"user_initialz");
+
+  Delay(1);
+  int newtid = UniqueTID();
+  switch (whichspawn)
+  {
+    //case 0:
+      //terminate;
+    case 1:
+      SpawnForced("WOGShooter1",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 2:
+      SpawnForced("WOGShooter2",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 3:
+      SpawnForced("WOGShooter3",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 4:
+      SpawnForced("WOGShooter4",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 5:
+      SpawnForced("WOGShooter5",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 6:
+      SpawnForced("WOGShooter6",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 7:
+      SpawnForced("WOGShooter7",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 8:
+      SpawnForced("WOGShooter8",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 9:
+      SpawnForced("WOGShooter9",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 10:
+      SpawnForced("WOGShooter10",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 11:
+      SpawnForced("WOGShooter11",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 12:
+      SpawnForced("WOGShooter12",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 13:
+      SpawnForced("WOGShooter13",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 14:
+      SpawnForced("WOGShooter14",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 15:
+      SpawnForced("WOGShooter15",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 16:
+      SpawnForced("WOGShooter16",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 17:
+      SpawnForced("WOGShooter17",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 18:
+      SpawnForced("WOGShooter18",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+    case 19:
+      SpawnForced("WOGShooter19",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
+      break;
+  }
+  SetUserVariable(newtid,"user_lastx",LastxFixed);
+  SetUserVariable(newtid,"user_lasty",LastyFixed);
+  SetUserVariable(newtid,"user_lastz",LastzFixed);
+  SetUserVariable(newtid,"user_lastcurve",lastcurve);
 }
 
 script "TSPWOGBeam" (int which)
