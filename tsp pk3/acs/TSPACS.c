@@ -11,7 +11,17 @@ int LastxFixedA[64];
 int LastyFixedA[64];
 int LastzFixedA[64];
 int LastCurveA[64];
-  
+
+function int FixedAngMod(int fAngle)
+{
+  if (fAngle > 1.0){
+    fAngle %= 65536; }
+  else if (fAngle < 0){
+    fAngle %= (-65536);
+    fAngle = fAngle + 65536;}
+  return fAngle;
+}
+
 script "TSPPickupSounds" (int which)
 {
   if(CheckInventory("PlayingPickupSound") > 0)
@@ -228,14 +238,14 @@ script "ShellPoolChange" ENTER
       if(CheckInventory("Backpack2") > 0){ maxshells = 32; }
        else{ maxshells = 16; }
       if(CheckInventory("ElectricShell") > maxshells){ 
-	    elecover = CheckInventory("ElectricShell") - maxshells;
-		TakeInventory("ElectricShell",elecover); }
+        elecover = CheckInventory("ElectricShell") - maxshells;
+        TakeInventory("ElectricShell",elecover); }
       if(CheckInventory("HellFireShell") > maxshells){ 
-	    hellover = CheckInventory("HellFireShell") - maxshells;
-		TakeInventory("HellFireShell",hellover); }
+        hellover = CheckInventory("HellFireShell") - maxshells;
+        TakeInventory("HellFireShell",hellover); }
       if(CheckInventory("PoisonShell") > maxshells){ 
-	    psnover = CheckInventory("PoisonShell") - maxshells;
-		TakeInventory("PoisonShell",psnover); }
+        psnover = CheckInventory("PoisonShell") - maxshells;
+        TakeInventory("PoisonShell",psnover); }
       overshells = elecover + hellover + psnover;
       loopcounter = 0;
       while(overshells > 0){
@@ -329,26 +339,55 @@ script "TSPArmorScript" (void)
 
 script "TSPBoltStickScript" (void)
 {
-  int TracerNewTID = (UniqueTID());
-  Thing_ChangeTID (0,TracerNewTID);
+  int NewTID = UniqueTID();
+  Thing_ChangeTID (0,NewTID);
+  int BoltAngle = GetActorAngle(0); 
+  int BoltX = GetActorZ(0);
   SetActivator(0,AAPTR_TRACER);
   int TracerAngle = GetActorAngle(0);
-  SetActorAngle (TracerNewTID,TracerAngle);
-  Terminate;
+  int TracerX = GetActorZ(0);
+  SetUserVariable(NewTID,"user_height",BoltX - TracerX);
+  SetUserVariable(NewTID,"user_angle",FixedAngMod(BoltAngle - TracerAngle));
 }
 
-script "TSPBoltHurtTracerScript" (void)
+script "TSPBoltExplodeScript" (int which)
 {
-  SetActivator(0,AAPTR_TRACER);
-  Thing_Damage2(0,Random(128,384),MOD_R_SPLASH); 
-  Terminate;
-}
-
-script "TSPBoltHurtTracerScriptNoRadius" (void)
-{
-  SetActivator(0,AAPTR_TRACER);
-  Thing_Damage2(0,Random(30,90),MOD_R_SPLASH); 
-  Terminate;
+  int newtid;
+  int BoltX, BoltY, BoltZ, BoltZVar, TracerX, TracerY, TracerZ;
+  int BoltAngle, TracerAngle;
+  //int BoltPitch, TracerPitch;
+  newtid = UniqueTID();
+  BoltX = GetActorX(0);
+  BoltY = GetActorY(0);
+  BoltZ = GetActorZ(0);
+  BoltZVar = GetUserVariable(0,"user_height");
+  BoltAngle = GetActorAngle(0);
+  //BoltPitch = GetActorPitch(0);
+  if(which == 1){
+    SpawnForced("BoltExplodeDeath",BoltX,BoltY,BoltZ,newtid,BoltAngle);
+    /* SetActorPitch(newtid,BoltPitch); */}
+  else if(which == 2){
+    SetActivator(0,AAPTR_TRACER);
+    TracerX = GetActorX(0);
+    TracerY = GetActorY(0);
+    TracerZ = GetActorZ(0);
+    TracerAngle = GetActorAngle(0);
+    //TracerPitch = GetActorPitch(0);
+    SpawnForced("BoltExplodeXDeath",TracerX,TracerY,TracerZ,newtid,TracerAngle);
+    /* SetActorPitch(newtid,TracerPitch); */}
+  else{
+    SetActivator(0,AAPTR_TRACER);
+    if(CheckFlag(0,"NORADIUSDMG")){
+      Thing_Damage2(0,Random(30,90),"BoltScriptDmg"); }
+    else{
+      Thing_Damage2(0,Random(128,384),"BoltScriptDmg"); }
+    TracerX = GetActorX(0);
+    TracerY = GetActorY(0);
+    TracerZ = GetActorZ(0);
+    TracerAngle = GetActorAngle(0);
+    //TracerPitch = GetActorPitch(0);
+    SpawnForced("BoltExplodeXDeath",TracerX,TracerY,TracerZ + BoltZVar,newtid,TracerAngle);
+    /* SetActorPitch(newtid,TracerPitch); */}
 }
 
 script "GetShellPoolCVAR" (void)
@@ -450,16 +489,6 @@ function int GetToaster(int WhichCVar) //More will be done with this later
   return toaster;
 }
 
-function int FixedAngMod(int fAngle)
-{
-  if (fAngle > 1.0){
-    fAngle %= 65536; }
-  else if (fAngle < 0){
-    fAngle %= (-65536);
-    fAngle = fAngle + 65536;}
-  return fAngle;
-}
-
 script "TSPWOGBeamSpawn" (void)
 {
   int newtid, Position;
@@ -513,9 +542,9 @@ script "TSPWOGBeamSpawn" (void)
     LastyFixed = GetActorY(DummyProjTID);
     LastzFixed = GetActorZ(DummyProjTID); 
     lastcurve = 0; 
-	int pnum = PlayerNumber() + 1; }
+    int pnum = PlayerNumber() + 1; }
   else{
-    pnum = ActivatorTID(); 	
+    pnum = ActivatorTID();     
     LastxFixed = LastxFixedA[pnum];
     LastyFixed = LastyFixedA[pnum];
     LastzFixed = LastzFixedA[pnum];
@@ -688,89 +717,6 @@ script "TSPWOGBeamSpawn" (void)
   LastzFixedA[pnum] = Loopz; 
   LastCurveA[pnum] = lastcurve;
   setresultvalue(1);
-}
-
-
-script 200 (int oldtid,int whichspawn)
-{
-
-  int LastxFixed = GetUserVariable(oldtid,"user_lastx");
-  int LastyFixed = GetUserVariable(oldtid,"user_lasty");
-  int LastzFixed = GetUserVariable(oldtid,"user_lastz");
-  int lastcurve = GetUserVariable(oldtid,"user_lastcurve");
-
-  int InitialxFixed = GetUserVariable(oldtid,"user_initialx");
-  int InitialyFixed = GetUserVariable(oldtid,"user_initialy");
-  int InitialzFixed = GetUserVariable(oldtid,"user_initialz");
-
-  Delay(1);
-  int newtid = UniqueTID();
-  switch (whichspawn)
-  {
-    //case 0:
-      //terminate;
-    case 1:
-      SpawnForced("WOGShooter1",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 2:
-      SpawnForced("WOGShooter2",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 3:
-      SpawnForced("WOGShooter3",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 4:
-      SpawnForced("WOGShooter4",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 5:
-      SpawnForced("WOGShooter5",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 6:
-      SpawnForced("WOGShooter6",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 7:
-      SpawnForced("WOGShooter7",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 8:
-      SpawnForced("WOGShooter8",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 9:
-      SpawnForced("WOGShooter9",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 10:
-      SpawnForced("WOGShooter10",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 11:
-      SpawnForced("WOGShooter11",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 12:
-      SpawnForced("WOGShooter12",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 13:
-      SpawnForced("WOGShooter13",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 14:
-      SpawnForced("WOGShooter14",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 15:
-      SpawnForced("WOGShooter15",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 16:
-      SpawnForced("WOGShooter16",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 17:
-      SpawnForced("WOGShooter17",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 18:
-      SpawnForced("WOGShooter18",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-    case 19:
-      SpawnForced("WOGShooter19",InitialxFixed,InitialyFixed,InitialzFixed,newtid,0);
-      break;
-  }
-  SetUserVariable(newtid,"user_lastx",LastxFixed);
-  SetUserVariable(newtid,"user_lasty",LastyFixed);
-  SetUserVariable(newtid,"user_lastz",LastzFixed);
-  SetUserVariable(newtid,"user_lastcurve",lastcurve);
 }
 
 script "TSPWOGBeam" (int which)
