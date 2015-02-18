@@ -23,7 +23,6 @@ ACTOR MelZekeShotgun : Weapon
 	Weapon.BobRangeX 0.4
 	Inventory.PickupMessage "[Blackwood Arms 240 Zeke] [Class: Shotgun, Slot 3]"
 	Obituary "%o went head to head with %k's shotgun. It went as well as you'd expect."
-	+WEAPON.CHEATNOTWEAPON
 	+NOAUTOFIRE
 	+Weapon.AMMO_OPTIONAL
 	+NOEXTREMEDEATH

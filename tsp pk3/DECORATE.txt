@@ -108,11 +108,7 @@ Actor MeleeButtonActor : CustomInventory
 	  TNT1 A 0 A_SelectWeapon("Mel919mPistolLS")
 	  Fail
 	  MelZekeSwitch:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetShellPoolCVAR") == false,"MelZekeNoPoolSwitch")
 	  TNT1 A 0 A_SelectWeapon("MelZekeShotgun")
-	  Fail
-	  MelZekeNoPoolSwitch:
-	  TNT1 A 0 A_SelectWeapon("MelZekeShotgunNoPool")
 	  Fail
 	  MelAssaultShotgunSwitch:
 	  TNT1 A 0 A_SelectWeapon("MelAssaultShotgun")
