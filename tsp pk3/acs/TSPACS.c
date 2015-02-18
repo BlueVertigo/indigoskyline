@@ -489,13 +489,15 @@ function int GetToaster(int WhichCVar) //More will be done with this later
   return toaster;
 }
 
-script "TSPWOGBeamSpawn" (void)
+script "TSPWOGBeamSpawn" (int FiredByPlayer)
 {
   int newtid, Position;
   int LastX, LastY, LastZ, LastXFixed, LastYFixed, LastZFixed;
   int beamstyle, toaster;
   int lastcurve;
   int HowClose, DivMapUnit;
+  int BezierX, BezierY, BezierAmount;
+  int BezierX1, BezierX2, BezierY1, BezierY2;
   int t, Loopx, Loopy, Loopz;
   int tminus, tminussq, tminuscu, tsq, tcu;
   
@@ -524,9 +526,10 @@ script "TSPWOGBeamSpawn" (void)
 
   SetActivator(0,AAPTR_TARGET);
 
+    /*
   if (ClassifyActor(0) &  ACTOR_PLAYER){ int FiredByPlayer = 1; }
 
-  /*
+
   if (GetCVar("tsp_beamstyle") == 0){ beamstyle = 0; }
   else if (GetCVar("tsp_beamstyle") == 2 && FiredByPlayer){ beamstyle = 1; }
   else if (GetCVar("tsp_beamstyle") == 2){ beamstyle = 2; }
@@ -550,13 +553,13 @@ script "TSPWOGBeamSpawn" (void)
     LastzFixed = LastzFixedA[pnum];
     lastcurve = LastCurveA[pnum]; }
 
-  int InitialAngle = FixedAngMod(VectorAngle(LastxFixed - InitialxFixed, LastyFixed - InitialyFixed));
-
   Thing_ChangeTid(newtid,pnum);
   
   Lastx = LastxFixed >> 16;
   Lasty = LastyFixed >> 16;
   Lastz = LastzFixed >> 16;
+  
+  int InitialAngle = VectorAngle(LastxFixed - InitialxFixed, LastyFixed - InitialyFixed);
 
   int Diffx = Initialx - Lastx;
   int Diffy = Initialy - Lasty;
@@ -566,12 +569,15 @@ script "TSPWOGBeamSpawn" (void)
   LineLengthInteger = VectorLength(Diffz,LineLengthInteger);
 
   int LineLengthFixed = LineLengthInteger << 16;
-  
+
+  int xLengthFixed = abs(LastxFixed - InitialxFixed);
+  int yLengthFixed = abs(LastyFixed - InitialyFixed);
+  int zLengthFixed = abs(LastzFixed - InitialzFixed);
+
   if (LineLengthInteger == 0){ Terminate; }
   
-  if (FiredByPlayer == 1){
-    int BezierAmountRandomizer = FixedMul(LineLengthFixed,0.8); }
-  else{ BezierAmountRandomizer = Random(1.5,4.0); }
+  if (FiredByPlayer == 1){ BezierAmount = 0.5; }
+  else{ BezierAmount = 3.0; }
   
   LineLengthInteger = LineLengthInteger * DivMapUnit;
   
@@ -590,42 +596,25 @@ script "TSPWOGBeamSpawn" (void)
       break;
 
     case 1:
-      int BezierAmount = FixedDiv(LineLengthFixed,BezierAmountRandomizer);
-      if (LastCurve < 0){
-        int BezierX = LastxFixed - InitialxFixed;
-        BezierX = BezierX / 2;
-        BezierX = BezierX + LastxFixed + random(0.0,BezierAmount);
-        int BezierY = LastyFixed - InitialyFixed;
-        BezierY = BezierY / 2;
-        BezierY = BezierY + LastyFixed + random(0.0,BezierAmount);
-        LastCurve = 1; }
-      else if (LastCurve > 0){
-        BezierX = LastxFixed - InitialxFixed;
-        BezierX = BezierX / 2;
-        BezierX = BezierX + LastxFixed + random(-BezierAmount,0.0);
-        BezierY = LastyFixed - InitialyFixed;
-        BezierY = BezierY / 2;
-        BezierY = BezierY + LastyFixed + random(-BezierAmount,0.0);
-        LastCurve = -1; }
-      else{
-        LastCurve = random(-1000,1000);
-        if (LastCurve <= 0){
-          BezierX = LastxFixed - InitialxFixed;
-          BezierX = BezierX / 2;
-          BezierX = BezierX + LastxFixed + random(0.0,BezierAmount);
-          BezierY = LastyFixed - InitialyFixed;
-          BezierY = BezierY / 2;
-          BezierY = BezierY + LastyFixed + random(0.0,BezierAmount);
+      while(BezierX == 0 || BezierY == 0){ //still not sure what is causing the zeroing bug, but this workaround works
+        if (LastCurve < 0){
+          BezierX = random(InitialxFixed,LastxFixed) + FixedMul(xLengthFixed,random(1,BezierAmount));
+          BezierY = random(InitialyFixed,LastyFixed) + FixedMul(yLengthFixed,random(1,BezierAmount));
           LastCurve = 1; }
-        else if (LastCurve < 0){
-          BezierX = LastxFixed - InitialxFixed;
-          BezierX = BezierX / 2;
-          BezierX = BezierX + LastxFixed + random(-BezierAmount,0.0);  
-          BezierY = LastyFixed - InitialyFixed;
-          BezierY = BezierY / 2;
-          BezierY = BezierY + LastyFixed + random(-BezierAmount,0.0);
-          LastCurve = -1; }}
-      
+        else if (LastCurve > 0){
+          BezierX = random(InitialxFixed,LastxFixed) - FixedMul(xLengthFixed,random(1,BezierAmount));
+          BezierY = random(InitialyFixed,LastyFixed) - FixedMul(yLengthFixed,random(1,BezierAmount));
+          LastCurve = -1; }
+        else{
+          LastCurve = random(-1000,1000);
+          if (LastCurve <= 0){
+            BezierX = random(InitialxFixed,LastxFixed) + FixedMul(xLengthFixed,random(1,BezierAmount));
+            BezierY = random(InitialyFixed,LastyFixed) + FixedMul(yLengthFixed,random(1,BezierAmount));
+            LastCurve = 1; }
+          else if (LastCurve < 0){
+            BezierX = random(InitialxFixed,LastxFixed) - FixedMul(xLengthFixed,random(1,BezierAmount));
+            BezierY = random(InitialyFixed,LastyFixed) - FixedMul(yLengthFixed,random(1,BezierAmount));
+            LastCurve = -1; }}}
       if ((InitialAngle >= 0.125 && InitialAngle <= 0.375) || (InitialAngle >= 0.625 && InitialAngle <= 0.875)){
         for (Position = 0; Position < LineLengthInteger; Position++){
           t = FixedDiv((Position << 16),(LineLengthInteger << 16));
@@ -646,7 +635,6 @@ script "TSPWOGBeamSpawn" (void)
           tminussq = FixedMul(tminus,tminus);
           tsq = FixedMul(t,t);        
           Loopy = ( FixedMul(tminussq,LastyFixed) + 2 * FixedMul(FixedMul(tminus,t),BezierY) + FixedMul(tsq,InitialyFixed) );
-          tminus = (1.0-t);
           Loopx = ( FixedMul(tminus,LastxFixed) + FixedMul(t,InitialxFixed) );
           Loopz = ( FixedMul(tminus,LastzFixed) + FixedMul(t,InitialzFixed) );
           if (Position % HowClose == 0){
@@ -654,32 +642,33 @@ script "TSPWOGBeamSpawn" (void)
       break;
 
     case 2:
-      if (LastCurve < 0){
-        int BezierX1 = LastxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        int BezierX2 = InitialxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        int BezierY1 = LastyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        int BezierY2 = InitialyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        LastCurve = 1; }
-      else if (LastCurve > 0){
-        BezierX1 = LastxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        BezierX2 = InitialxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        BezierY1 = LastyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        BezierY2 = InitialyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-        LastCurve = -1;}
-      else{
-        LastCurve = random(-1000,1000);
-        if (LastCurve <= 0){
+      while(BezierX1 == 0 || BezierX2 == 0 || BezierY1 == 0 || BezierY2 == 0){ //still not sure what is causing the zeroing bug, but this workaround works
+        if (LastCurve < 0){
           BezierX1 = LastxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierX2 = InitialxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierY1 = LastyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierY2 = InitialyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
           LastCurve = 1; }
-        else if (LastCurve < 0){
+        else if (LastCurve > 0){
           BezierX1 = LastxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierX2 = InitialxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierY1 = LastyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
           BezierY2 = InitialyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
-          LastCurve = -1; }}
+          LastCurve = -1;}
+        else{
+          LastCurve = random(-1000,1000);
+          if (LastCurve <= 0){
+            BezierX1 = LastxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
+            BezierX2 = InitialxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
+            BezierY1 = LastyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
+            BezierY2 = InitialyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
+            LastCurve = 1; }
+          else if (LastCurve < 0){
+            BezierX1 = LastxFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
+            BezierX2 = InitialxFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
+            BezierY1 = LastyFixed - random((LineLengthFixed / 8),(LineLengthFixed / 16));
+            BezierY2 = InitialyFixed + random((LineLengthFixed / 8),(LineLengthFixed / 16));
+            LastCurve = -1; }}}
  
       if ( (InitialAngle >= 0.125 && InitialAngle <= 0.375) || (InitialAngle >= 0.625 && InitialAngle <= 0.875) ){
         for (Position = 0; Position < LineLengthInteger; Position++){
@@ -711,7 +700,7 @@ script "TSPWOGBeamSpawn" (void)
             SpawnForced("WOGMissileTrail",Loopx,Loopy,Loopz,0,0); }}}
       break;
   }
-
+  
   LastxFixedA[pnum] = Loopx;
   LastyFixedA[pnum] = Loopy; 
   LastzFixedA[pnum] = Loopz; 

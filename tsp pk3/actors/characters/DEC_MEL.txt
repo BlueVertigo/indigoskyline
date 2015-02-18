@@ -29,6 +29,7 @@ ACTOR SpacePirate : DoomPlayer
 	DamageFactor "WOGChargeBeam", 0.0 
 	DamageFactor "WOGBeam", 0.0 
     DamageFactor "Sling", 0.0
+	var int user_DProjTID;
 }
 
 ACTOR IsMel : Inventory
