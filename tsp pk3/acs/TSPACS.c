@@ -492,7 +492,7 @@ script "PMagChange" ENTER
         GiveInventory("TSPPistolAmmoMag",maxmags);
         GiveInventory("PMag15",maxmags); }
       else{
-        mags = CheckInventory("AmmoBoxAmmoMag");
+        mags = CheckInventory("TSPPistolAmmoMag");
         while(ammo > 15 && mags < maxmags){
           ammo = ammo - 15;
           mags++;
@@ -1291,6 +1291,122 @@ script "TSPWOGBeam" (int which)
       SetActorProperty(0,APROP_RenderStyle,STYLE_Add);
       Terminate;
   }
+}
+
+script "WeaponReloads" ENTER
+{
+  int loopshell, abammo, pammo, maxpmags, maxamags;
+  TakeInventory("ShotsFiredPewPew",0x7FFFFFFF);
+  TakeInventory("NeedstheCock",0x7FFFFFFF);
+  TakeInventory("DahliaFired",0x7FFFFFFF);
+  TakeInventory("AB50ShotsFiredPewPew",0x7FFFFFFF);
+  TakeInventory("ToolboxHeld ",0x7FFFFFFF);
+  TakeInventory("ToolboxFired",0x7FFFFFFF);
+  while(CheckInventory("ToolboxAmmo") && CheckInventory("ToolboxMag") < 5){
+    TakeInventory("ToolboxAmmo",1);
+    GiveInventory("ToolboxMag",1); }
+  if(CheckInventory("DahliaNormalMode") && !CheckInventory("DahliaNormalAmmo") && CheckInventory("DahliaExplosiveAmmo")){
+    TakeInventory("DahliaNormalMode",1);
+    GiveInventory("DahliaExplosiveMode",1); }   
+  else if(CheckInventory("DahliaExplosiveMode") && !CheckInventory("DahliaExplosiveAmmo") && CheckInventory("DahliaNormalAmmo")){
+    TakeInventory("DahliaExplosiveMode",1);
+    GiveInventory("DahliaNormalMode",1); }    
+  if(CheckInventory("BuckshotLoaded") && CheckInventory("BuckShotShell")){
+    while(CheckInventory("BuckShotShell") && CheckInventory("ShotgunMag") < 8){
+      TakeInventory("TSPShells",1);
+	  TakeInventory("BuckShotShell",1);
+      GiveInventory("ShotgunMag",1); }}
+  else if(CheckInventory("ElectricLoaded") && CheckInventory("ElectricShell")){
+    while(CheckInventory("ElectricShell") && CheckInventory("ShotgunMag") < 8){
+      TakeInventory("TSPShells",1);
+	  TakeInventory("ElectricShell",1);
+      GiveInventory("ShotgunMag",1); }}
+  else if(CheckInventory("HellFireLoaded") && CheckInventory("HellFireShell")){
+    while(CheckInventory("HellFireShell") && CheckInventory("ShotgunMag") < 8){
+      TakeInventory("TSPShells",1);
+	  TakeInventory("HellFireShell",1);
+      GiveInventory("ShotgunMag",1); }}
+  else if(CheckInventory("PoisonLoaded") && CheckInventory("PoisonShell")){
+    while(CheckInventory("PoisonShell") && CheckInventory("ShotgunMag") < 8){
+      TakeInventory("TSPShells",1);
+	  TakeInventory("PoisonShell",1);
+      GiveInventory("ShotgunMag",1); }}
+  else if(CheckInventory("PoisonLoaded") || CheckInventory("HellFireLoaded") || CheckInventory("ElectricLoaded") || CheckInventory("BuckshotLoaded")){
+    loopshell = 8;
+	while(loopshell){
+      TakeInventory("BuckshotLoaded",0x7FFFFFFF);
+      TakeInventory("ElectricLoaded",0x7FFFFFFF);
+      TakeInventory("HellFireLoaded",0x7FFFFFFF);
+      TakeInventory("PoisonLoaded",0x7FFFFFFF);
+      if(CheckInventory("BuckShotShell") >= loopshell){
+        loopshell = 0;
+		GiveInventory("BuckshotLoaded",1);
+  	    while(CheckInventory("BuckShotShell") && CheckInventory("ShotgunMag") < 8){
+          TakeInventory("TSPShells",1);
+	      TakeInventory("BuckShotShell",1);
+          GiveInventory("ShotgunMag",1); }}
+      else if(CheckInventory("ElectricShell") >= loopshell){
+        loopshell = 0;
+		GiveInventory("ElectricLoaded",1);
+	    while(CheckInventory("ElectricShell") && CheckInventory("ShotgunMag") < 8){
+          TakeInventory("TSPShells",1);
+	      TakeInventory("ElectricShell",1);
+          GiveInventory("ShotgunMag",1); }}
+      else if(CheckInventory("HellFireShell") >= loopshell){
+        loopshell = 0;
+		GiveInventory("HellFireLoaded",1);
+	    while(CheckInventory("HellFireShell") && CheckInventory("ShotgunMag") < 8){
+          TakeInventory("TSPShells",1);
+	      TakeInventory("HellFireShell",1);
+          GiveInventory("ShotgunMag",1); }}
+      else if(CheckInventory("PoisonShell") >= loopshell){
+        loopshell = 0;
+		GiveInventory("PoisonLoaded",1);
+	    while(CheckInventory("PoisonShell") && CheckInventory("ShotgunMag") < 8){
+          TakeInventory("TSPShells",1);
+	      TakeInventory("PoisonShell",1);
+          GiveInventory("ShotgunMag",1); }}
+      --loopshell; }}
+  if(!GetCVar("tsp_usemags") && GameSkill() < 5){
+    while(CheckInventory("TSPPistolAmmo") && CheckInventory("AutoPistolMag") < 15){
+      TakeInventory("TSPPistolAmmo",1);
+      GiveInventory("AutoPistolMag",1); }
+    while(CheckInventory("TSPPistolAmmo") && CheckInventory("MP40Mag") < 30){
+      TakeInventory("TSPPistolAmmo",1);
+      GiveInventory("MP40Mag",1); }
+    while(CheckInventory("AmmoBoxAmmo") && CheckInventory("AmmoBoxMag") < 50){
+      TakeInventory("AmmoBoxAmmo",1);
+      GiveInventory("AmmoBoxMag",1); }}
+  else{
+    pammo = CountPMags();
+	ClearPMags(1);
+    abammo = CountAMags();
+	ClearAMags(1);
+    if(CheckInventory("Backpack2") || CheckInventory("Backpack")){ 
+	  maxpmags = 15;
+	  maxamags = 10; }
+    else{ 
+	  maxpmags = 10;
+	  maxamags = 5; }
+    while(pammo && CheckInventory("AutoPistolMag") < 15){
+      --pammo;
+      GiveInventory("AutoPistolMag",1); }
+    while(pammo && CheckInventory("MP40Mag") < 30){
+      --pammo;
+      GiveInventory("MP40Mag",1); }
+    while(abammo && CheckInventory("AmmoBoxMag") < 50){
+      --abammo;
+      GiveInventory("AmmoBoxMag",1); }
+    while(pammo >= 15 && CheckInventory("TSPPistolAmmoMag") < maxpmags){
+      pammo -= 15;
+	  GiveInventory("PMag15",1);
+      GiveInventory("TSPPistolAmmoMag",1); }
+    while(abammo >= 50 && CheckInventory("AmmoBoxAmmoMag") < maxamags){
+      abammo -= 50;
+	  GiveInventory("AMag50",1);
+      GiveInventory("AmmoBoxAmmoMag",1); }
+    if(pammo){ GivePMag(pammo,0,1); }
+    if(abammo){ GiveAMag(abammo,0,1); }}
 }
 
 /*//////////////////////////////////////////
