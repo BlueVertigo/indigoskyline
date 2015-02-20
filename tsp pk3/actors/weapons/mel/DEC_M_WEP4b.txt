@@ -147,8 +147,8 @@ ACTOR MelMipFowty : Weapon
 	  MP4G A 4 A_PlayWeaponSound("919m/dry")
 	  Goto Reload 
 	Reload:
-	  MP4G A 0 A_JumpIfInventory("MP40Mag", 30, "Ready")
-	  MP4G A 0 A_JumpIfInventory("TSPPistolAmmo", 1, "ReloadStart")
+	  MP4G A 0 A_JumpIf(ACS_NamedExecuteWithResult("MP40ReloadCheck",1),"Ready")
+	  MP4G A 0 A_JumpIf(ACS_NamedExecuteWithResult("MP40ReloadCheck"),"ReloadStart")
 	  MP4G A 1 A_WeaponReady(WRF_NOFIRE)
 	  Goto Ready
 	ReloadStart:
@@ -156,9 +156,9 @@ ACTOR MelMipFowty : Weapon
 	  MP4R ABCDDDDDD 1
 	  MP4R D 0 A_PlaySound("mipfowty/out", 5)
 	  MP4R EFGHI 1
-	  MP4R I 0 A_FireCustomMissile("SpentClip1",3,0,5,0)
+	  MP4R I 0 ACS_NamedExecuteWithResult("MP40MagOut")
 	  MP4R IIIIIIIIIIIIIIIIIIII 1
-	  Goto ReloadWork
+	  Goto ReloadFinish
 	ReloadStartFull:
 	  MP4C AB 1
 	  MP4C C 0 A_PlaySound("mipfowty/bolt1", 5)
@@ -166,14 +166,11 @@ ACTOR MelMipFowty : Weapon
 	  MP4R ABCDDDDDD 1
 	  MP4R D 0 A_PlaySound("mipfowty/out", 5)
 	  MP4R EFGHI 1
-	  MP4R I 0 A_FireCustomMissile("SpentClip1",3,0,5,0)
+	  MP4R I 0 ACS_NamedExecuteWithResult("MP40MagOut")
 	  MP4R IIIIIIIIIIIIIIIIIIII 1
-	ReloadWork:
-	  MPTR I 0 A_TakeInventory("TSPPistolAmmo",1)
-	  MPTR I 0 A_GiveInventory("MP40Mag",1)
-	  MPTR I 0 A_JumpIfInventory("MP40Mag",30,"ReloadFinish")
-	  MPTR I 0 A_JumpifInventory("TSPPistolAmmo",1,"ReloadWork")
+	  Goto ReloadFinish
 	ReloadFinish:
+	  MPTR I 0 ACS_NamedExecuteWithResult("MP40MagIn")
 	  MP4R M 0 A_PlaySound("mipfowty/in", 5)
 	  MP4R JKLMNOPPQQRS 1
 	  MP4C MMMLLKKJJ 1
