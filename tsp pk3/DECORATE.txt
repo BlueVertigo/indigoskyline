@@ -1,11 +1,7 @@
-// Well this is decorative. :P
+// DEFINITIONS
+#include "Actors/DEC_DEFS.txt"
 
-Actor Boolean : Inventory
-{
-    Inventory.MaxAmount 1
-    +UNDROPPABLE
-    -INVBAR
-}
+// Well this is decorative. :P
 
 //Melee Button Press
 Actor MeleePressed : Boolean {}
@@ -142,8 +138,10 @@ Actor MeleeSelected : Boolean {}
 
 //Items
 #include "Actors/DEC_ITEM.txt"
-#include "Actors/DEC_AMMO.txt" // Ammo pickups
-#include "Actors/DEC_SHELLS.txt" // Shell Ammo because wow
+#include "Actors/DEC_AMMO_PISTOL.txt" // Pistol Ammo
+#include "Actors/DEC_AMMO_SHELLS.txt" // Shell Ammo
+#include "Actors/DEC_AMMO_AB50.txt" // AB-50 Ammo
+#include "Actors/DEC_AMMO_MISC.txt" // Other ammo pickups
 
 //Lone Survivor
 #include "Actors/DEC_LSITEMS.txt" // Lone Survivor Specific Items
@@ -154,7 +152,7 @@ Actor MeleeSelected : Boolean {}
 //The rest
 #include "Actors/DEC_SFX.txt" //Special Effects (Casings, Smoke, Etc.)
 #include "Actors/DEC_TEMP.txt" //Blanked out and replaced Actors for the alpha
-#include "Actors/DEC_PICKUPS.txt" //Weapon pickups and such
+#include "Actors/DEC_WEP_PICKUPS.txt" //Weapon pickups and such
 
 ///////////////////////////////////////////////////////
 // Weapons

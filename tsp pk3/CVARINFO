@@ -4,6 +4,8 @@ server int tsp_toaster = 0;
 server int tsp_beamstyle = 1;
 server bool tsp_beaminf = false;
 server bool tsp_fistsstart = false;
+server bool tsp_fullmags = false;
+server bool tsp_usemags = false;
 server bool tsp_goldenpistol = false;
 server bool tsp_actionmode = false;
 

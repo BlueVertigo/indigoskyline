@@ -1,0 +1,515 @@
+//============
+// Pistol Ammo
+//============
+
+ACTOR TSPPistolAmmo : Ammo
+{
+	+IGNORESKILL
+	Inventory.Amount 5
+	Inventory.MaxAmount 150
+	Ammo.BackpackAmount 15
+	Ammo.BackpackMaxAmount 300
+	Ammo.DropAmount 5
+	Inventory.Icon "919AA0"
+	Inventory.PickupMessage "Picked up a pistol magazine. [\cj+5 Pistol Ammo\c-]"
+	Inventory.PickupSound "919m/magout"
+	Tag "Pistol Ammo"
+	States
+	{
+	Spawn:
+		919A A -1
+		Stop
+	}
+}
+
+ACTOR TSPPistolAmmoMag : Ammo //Magazine version for LS
+{
+	+IGNORESKILL
+	Inventory.Amount 1
+	Inventory.MaxAmount 10
+	Ammo.BackpackAmount 1
+	Ammo.BackpackMaxAmount 15
+	Ammo.DropAmount 1
+	Inventory.Icon "919AA0"
+	Inventory.PickupMessage "Picked up a pistol magazine. [\cj+1 Pistol Magazine\c-]"
+	Inventory.PickupSound "919m/magout"
+	Tag "Pistol Ammo"
+	States
+	{
+	Spawn:
+		919A A -1
+		Stop
+	}
+}
+
+ACTOR TSPPistolAmmoDummy : Ammo //Dummy ammo for status bar
+{
+	+IGNORESKILL
+	Inventory.Amount 1
+	Inventory.MaxAmount 300
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 300
+	Ammo.DropAmount 1
+	Inventory.Icon "919AA0"
+	Tag "Pistol Ammo"
+	States
+	{
+	Spawn:
+		919A A -1
+		Stop
+	}
+}
+
+ACTOR MP40DummyAmmo : Ammo //Dummy ammo for status bar
+{
+	+IGNORESKILL
+	Inventory.Amount 1
+	Inventory.MaxAmount 300
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 300
+	Ammo.DropAmount 1
+	Inventory.Icon "919AA0"
+	Tag "Pistol Ammo"
+	States
+	{
+	Spawn:
+		919A A -1
+		Stop
+	}
+}
+
+ACTOR TSPPistolAmmoDrop replaces Clip
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorSpawn")
+    Goto SpawnAmmo
+  LoneSurvivorSpawn:
+    TNT1 A 0 A_Jump(155,"SpawnAmmo")
+	Stop
+  SpawnAmmo:
+    TNT1 A 0 A_SpawnItemEx("BasePistolMag",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
+}
+
+Actor PMag15 : Boolean { Inventory.MaxAmount 15 }
+Actor PMag14 : PMag15 {}
+Actor PMag13 : PMag15 {}
+Actor PMag12 : PMag15 {}
+Actor PMag11 : PMag15 {}
+Actor PMag10 : PMag15 {}
+Actor PMag9 : PMag15 {}
+Actor PMag8 : PMag15 {}
+Actor PMag7 : PMag15 {}
+Actor PMag6 : PMag15 {}
+Actor PMag5 : PMag15 {}
+Actor PMag4 : PMag15 {}
+Actor PMag3 : PMag15 {}
+Actor PMag2 : PMag15 {}
+Actor PMag1 : PMag15 {}
+
+ACTOR PistolAmmoDropper
+{
+  Height 2
+  Radius 2
+  +NOINTERACTION
+  +NOCLIP
+  +THRUACTORS
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFullMagCVAR"),"Drop15")
+    TNT1 A 0 A_Jump(256,"Drop5","Drop6","Drop7","Drop8","Drop9","Drop10","Drop11","Drop12","Drop13","Drop14","Drop15")
+    Wait
+  Drop5:
+    TNT1 A 0 A_DropItem("PistolMag5")
+    Stop
+  Drop6:
+    TNT1 A 0 A_DropItem("PistolMag6")
+    Stop
+  Drop7:
+    TNT1 A 0 A_DropItem("PistolMag7")
+    Stop
+  Drop8:
+    TNT1 A 0 A_DropItem("PistolMag8")
+    Stop
+  Drop9:
+    TNT1 A 0 A_DropItem("PistolMag9")
+    Stop
+  Drop10:
+    TNT1 A 0 A_DropItem("PistolMag10")
+    Stop
+  Drop11:
+    TNT1 A 0 A_DropItem("PistolMag11")
+    Stop
+  Drop12:
+    TNT1 A 0 A_DropItem("PistolMag12")
+    Stop
+  Drop13:
+    TNT1 A 0 A_DropItem("PistolMag13")
+    Stop
+  Drop14:
+    TNT1 A 0 A_DropItem("PistolMag14")
+    Stop
+  Drop15:
+    TNT1 A 0 A_DropItem("PistolMag15")
+    Stop
+  }
+}
+
+ACTOR BasePistolMag : CustomInventory 
+{
+    Inventory.PickupMessage ""
+	Inventory.PickupSound "919m/magout"
+	DeathSound "weapons/smallclip"
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+      919F ABCDEFGH 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
+	  Wait
+    Crash1:
+	  919F A -1 A_Scream
+	  Stop
+    Crash2:
+	  919F C -1 A_Scream
+	  Stop
+	Crash3:
+	  919F G -1 A_Scream
+	  Stop
+	Crash4:
+	  919F E -1 A_Scream
+	  Stop
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",16,0,1),"PickupSuccess")
+	  Fail
+	PickupSuccess:
+	  TNT1 A 0 A_RailWait
+	  Stop
+	}
+}
+
+ACTOR PistolMag1 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",1,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag2 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",2,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag3 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",3,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag4 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",4,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag5 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",5,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag6 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",6,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag7 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",7,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag8 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",8,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag9 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",9,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag10 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",10,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag11 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",11,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag12 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",12,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag13 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",13,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag14 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",14,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+ACTOR PistolMag15 : BasePistolMag
+{
+	States
+	{
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",15,0,1),"PickupSuccess")
+	  Fail
+	}
+}
+
+Actor BaseThrowPMag : CustomInventory
+{
+  +INVENTORY.AUTOACTIVATE
+  Inventory.Amount 1
+  Inventory.MaxAmount 1
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("SpentClip1",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag1 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag1",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag2 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag2",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag3 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag3",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag4 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag4",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag5 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag5",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag6 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag6",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag7 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag7",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag8 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag8",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag9 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag9",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag10 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag10",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag11 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag11",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag12 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag12",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag13 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag13",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag14 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag14",3,0,-4,-12)
+    Stop
+  }
+}
+
+Actor ThrowPMag15 : BaseThrowPMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("PistolMag15",3,0,-4,-12)
+    Stop
+  }
+}

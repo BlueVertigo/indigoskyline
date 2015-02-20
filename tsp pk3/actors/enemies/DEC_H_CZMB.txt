@@ -137,7 +137,7 @@ ACTOR ChaingunnerV0 : BaseChaingunnerV0
   }
 }
 
-ACTOR     HardChaingunnerV0 : BaseChaingunnerV0
+ACTOR HardChaingunnerV0 : BaseChaingunnerV0
 {
   States
   {

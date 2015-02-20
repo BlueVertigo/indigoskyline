@@ -30,6 +30,9 @@ ACTOR SpacePirate : DoomPlayer
 	DamageFactor "WOGBeam", 0.0 
     DamageFactor "Sling", 0.0
 	var int user_DProjTID;
+	var int user_PMagInGun;
+	var int user_AMagInGun;
+	var int user_MP40MagInGun;	
 }
 
 ACTOR IsMel : Inventory
@@ -49,7 +52,6 @@ ACTOR TSPLoadOut : CustomInventory
 	States
 	{
 	Pickup:
-	  TNT1 A 0 A_GiveInventory("BuckshotShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("ShotgunMag", 8)
 	  TNT1 A 0 A_GiveInventory("BuckshotShellSelected", 1)
 	  TNT1 A 0 A_GiveInventory("BuckshotLoaded", 1)
@@ -72,7 +74,7 @@ ACTOR TSPEasyModePickup : CustomInventory
 	  Fail
 	MelPickup:
 	  TNT1 A 0 A_GiveInventory("AutoPistolMag", 15)
-	  TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 75)
+	  //TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 75)
 	  TNT1 A 0 A_GiveInventory("TSPLoadOut", 1)
 	  TNT1 A 0 A_GiveInventory("TSPCarryLimit", 10)
 	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFistsStartCVAR") == true,"MelMeleeOnlyPickup")
@@ -97,7 +99,7 @@ ACTOR TSPNormalModePickup : CustomInventory
 	  Fail
 	MelPickup:
 	  TNT1 A 0 A_GiveInventory("AutoPistolMag", 15)
-	  TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 60)
+	  //TNT1 A 0 A_GiveInventory("TSPPistolAmmo", 60)
 	  TNT1 A 0 A_GiveInventory("TSPLoadOut", 1)
 	  TNT1 A 0 A_GiveInventory("TSPCarryLimit", 6)
 	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFistsStartCVAR") == true,"MelMeleeOnlyPickup")
@@ -120,11 +122,11 @@ ACTOR TSPSurvivorModePickup : CustomInventory
 	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
 	  Fail
 	MelPickup:
-	  TNT1 A 0 ACS_NamedExecute("TSPSurvivorSlow")
 	  TNT1 A 0 A_GiveInventory("TSPSurvivorArmor")
 	  TNT1 A 0 A_GiveInventory("TSPLoadOut", 1)
 	  TNT1 A 0 A_GiveInventory("AutoPistolMag", 15)
 	  TNT1 A 0 A_GiveInventory("TSPPistolAmmoMag", 2)
+	  TNT1 A 0 A_GiveInventory("PMag15", 2)	  
 	  TNT1 A 0 A_GiveInventory("AmmoboxAmmoMag", 1)
 	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFistsStartCVAR") == true,"MelMeleeOnlyPickup")
 	  TNT1 A 0 A_GiveInventory("TSPCarryLimit", 4)

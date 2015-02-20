@@ -366,7 +366,6 @@ RifleCasing2, RiflCaseSmoke, PisCaseSmoke, SpentClip1, and SpentClip1Thrown acto
 --Basilisk Nikana decorate by Marty Kirra
 --Vexler's Melee Style decorate by Marty Kirra
 --Punch-Out!! decorate by Marty Kirra
---"TSPSurvivorSlow" and "TSPDifficultyLoadouts" acs scripts by Marty Kirra
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

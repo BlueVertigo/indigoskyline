@@ -18,8 +18,8 @@ ACTOR MelAmmoBox50LS : MelAmmoBox50
 	  ABXG A 5 A_PlayWeaponSound("919m/dry")
 	  Goto Reload 
 	Reload:
-	  ABXG A 0 A_JumpIfInventory("AmmoBoxMag", 50, "Ready")
-	  ABXG A 0 A_JumpIfInventory("AmmoBoxAmmoMag", 1, "ReloadStart")
+	  ABXG A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50ReloadCheck",1),"Ready")
+	  ABXG A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50ReloadCheck"),"ReloadStart")
 	  ABXG A 1 A_WeaponReady(WRF_NOFIRE)
 	  Goto Ready
 	ReloadStart:
@@ -30,15 +30,10 @@ ACTOR MelAmmoBox50LS : MelAmmoBox50
 	ReloadCont:
 	  ABXG A 5 A_WeaponReady(WRF_NOFIRE|WRF_NOBOB)
 	  ABXR AUBC 1 A_WeaponReady(WRF_NOFIRE|WRF_NOBOB)
-	  ABXG A 0 A_FireCustomMissile("SpentClip1",3,0,5,0)
+	  ABXG A 0 ACS_NamedExecuteWithResult("AMagOut")
 	  ABXR D 1 A_PlayWeaponSound("AmmoBox/Out")
 	  ABXR EFGHIIIIIIIIIIIII 1
-      Goto ReloadWork
-	ReloadWork:
-	  MPTR I 0 A_TakeInventory("AmmoBoxAmmoMag",1)
-	  MPTR I 0 A_GiveInventory("AmmoBoxMag",50)
-	  Goto ReloadFinish
-	ReloadFinish:
+	  MPTR I 0 ACS_NamedExecuteWithResult("AMagIn")
 	  ABXR J 1 A_PlayWeaponSound("AmmoBox/In")
 	  ABXR KLMNOP 1 
 	  ABXR PSTCBUA 1
@@ -90,7 +85,7 @@ ACTOR MelMipFowty : Weapon
 	Weapon.AmmoType	"MP40Mag"
 	Weapon.AmmoGive	0
 	Weapon.AmmoUse	1
-	Weapon.AmmoType2 "TSPPistolAmmo"
+	Weapon.AmmoType2 "MP40DummyAmmo"
 	Weapon.AmmoGive2 0
 	Weapon.AmmoUse2	0
 	Weapon.BobStyle Alpha

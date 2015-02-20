@@ -254,13 +254,17 @@ OptionMenu "TSPCustomOptions"
 	Option "Start with Melee Only",          "tsp_fistsstart", "OnOff"
 	Option "Start with Golden Pistol",        "tsp_goldenpistol", "OnOff"
     Option "Zeke Shotgun Pool",              "tsp_shellpool", "ZekeOptions"
-	Option "WOG Beam Style",                 "tsp_beamstyle", "WOGBeamOptions"
+	Option "Magazine Reloading (Pistol & AB-50)",        "tsp_usemags", "OnOff"
+	Option "Magazine Pickups Always Full",        "tsp_fullmags", "OnOff"
+    StaticText      ""
+    StaticText      "Cheats", 2
 	Option "WOG Beam Infinite Mode",         "tsp_beaminf", "OnOff"
 	StaticText      ""
 	StaticText      "Mel Specific Modifiers", 2
     Option "Alternate Special Attack",    "tsp_melmagpush", "MelMagSpecialFire"
 	StaticText      ""
 	StaticText      "Graphical Modifiers", 1
+	Option "WOG Beam Style",                 "tsp_beamstyle", "WOGBeamOptions"
 	Option "Graphical Effect Intensity",            "tsp_toaster", "ToasterOptions"
     StaticText      ""
 	Option "Kano Transformations",           "tsp_supersecret", "OnOff"
@@ -274,7 +278,7 @@ OptionValue ZekeOptions
     
 OptionValue WOGBeamOptions
 {
-    1, "Default"
+    1, "Quadratic Bezier Curve (Default)"
 	2, "Cubic Bezier Curve"
 	0, "Straight Line"
 }

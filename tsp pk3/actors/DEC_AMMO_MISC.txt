@@ -1,0 +1,137 @@
+//////////////////////
+// MISC AMMO PICKUPS
+//////////////////////
+
+//===============
+// Crossbow Bolts
+//===============
+
+ACTOR DahliaNormalAmmo : Ammo
+{
+	Inventory.Amount 10
+	Inventory.MaxAmount 40
+	Ammo.BackpackAmount 30
+	Ammo.BackpackMaxAmount 60
+	Inventory.Icon "DCBAA0"
+	Inventory.PickupMessage "Picked up a box of crossbow bolts. [\cv+10 Crossbow Bolts\c-]"
+	Inventory.PickupSound "dahlia/normalammo"
+	States
+	{
+	Spawn:
+		DCBA A -1
+		Stop
+	}
+}
+
+ACTOR DahliaExplosiveAmmo : Ammo
+{
+	Inventory.Amount 10
+	Inventory.MaxAmount 20
+	Ammo.BackpackAmount 20
+	Ammo.BackpackMaxAmount 40
+	Inventory.Icon "DCBXA0"
+	Inventory.PickupMessage "Picked up a box of explosive bolts. [\cj+10 Explosive Bolts\c-]"
+	Inventory.PickupSound "dahlia/explosiveammo"
+	States
+	{
+	Spawn:
+		DCBX A -1
+		Stop
+	}
+}
+
+//===================
+// Multi Ammo Pickups
+//===================
+
+ACTOR TSPBoxofAmmoDrop replaces ClipBox
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorSpawn")
+    TNT1 A 0 A_SpawnItemEx("BoxOfAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  LoneSurvivorSpawn:
+    TNT1 A 0 A_Jump(100,"Nothing")
+	TNT1 A 0 A_Jump(100,"LSSpawn2")
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("BoxOfAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	Stop
+  LSSpawn2:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("DahliaExplosiveAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	Stop  
+  Nothing:
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR BoxOfAmmo : CustomInventory
+{
+    Inventory.PickupMessage ""
+	Inventory.PickupSound "dahlia/normalammo"
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+      AMMO A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,2000060,1000000,0),"Success1")
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2000030,2000000,0),"Success2")
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0),"Success3") 
+	  Fail
+	Success1:
+	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2000030,2000000,0)
+	  Goto Success2
+	Success2:
+	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0)
+	  TNT1 A 0 ACS_NamedExecuteWithResult("ClipboxMessage")
+      Stop
+	}
+}
+
+//==============
+// Launcher Ammo
+//==============
+
+ACTOR ToolboxAmmo : Ammo Replaces RocketAmmo
+{
+	+IGNORESKILL
+	Inventory.Amount 1
+	Inventory.MaxAmount 30
+	Ammo.BackpackAmount 5
+	Ammo.BackpackMaxAmount 60
+	Ammo.DropAmount 1
+	Scale 0.4
+	Inventory.Icon "SRTPA0"
+	Inventory.PickupMessage "Picked up a  Rocket. [\cg+1 Launcher Ammo\c-]"
+	Inventory.PickupSound "toolbox/ammo1"
+	States
+	{
+	Spawn:
+		SRTP A -1
+		Stop
+	}
+}
+
+ACTOR ToolboxRocketBox : ToolboxAmmo replaces RocketBox
+{
+  +IGNORESKILL
+  Inventory.PickupMessage "Picked up a crate of Rockets. [\cg+5 Launcher Ammo\c-]"
+  Inventory.PickupSound "toolbox/ammo2"
+  Inventory.Amount 5
+  scale 1.0
+  States
+  {
+  Spawn:
+    RLNB A -1
+    Stop
+  }
+}

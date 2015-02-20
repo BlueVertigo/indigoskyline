@@ -1,3 +1,7 @@
+//============
+// Shells
+//============
+
 ACTOR TSPShells : Ammo
 {
 	Inventory.Amount 4

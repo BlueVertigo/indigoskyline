@@ -1,0 +1,1295 @@
+//=============
+// Ammobox Ammo
+//=============
+
+ACTOR AmmoBoxAmmo : Ammo
+{
+	+IGNORESKILL
+	Inventory.Amount 15
+	Inventory.MaxAmount 150
+	Ammo.BackpackAmount 25
+	Ammo.BackpackMaxAmount 300
+	Inventory.Icon "ABXAA0"
+	Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
+	Inventory.PickupSound "AmmoBox/In"
+	States
+	{
+	Spawn:
+		ABXA A -1
+		Stop
+	}
+}
+
+ACTOR AmmoBoxAmmoMag : Ammo
+{
+	+IGNORESKILL
+	Inventory.Amount 1
+	Inventory.MaxAmount 5
+	Ammo.BackpackAmount 1
+	Ammo.BackpackMaxAmount 10
+	Inventory.Icon "ABXAA0"
+	Inventory.PickupMessage "Picked up machine gun ammo. [\cj+1 SMG Magazine\c-]"
+	Inventory.PickupSound "AmmoBox/In"
+	States
+	{
+	Spawn:
+		ABXA A -1
+		Stop
+	}
+}
+
+
+ACTOR AmmoBoxAmmoDummy : Ammo //Dummy ammo for status bar
+{
+	+IGNORESKILL
+	Inventory.Amount 15
+	Inventory.MaxAmount 300
+	Ammo.BackpackAmount 25
+	Ammo.BackpackMaxAmount 300
+	Inventory.Icon "ABXAA0"
+	States
+	{
+	Spawn:
+		ABXA A -1
+		Stop
+	}
+}
+
+ACTOR TSPAmmoBoxAmmoDrop
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorSpawn")
+    Goto SpawnAmmo
+  LoneSurvivorSpawn:
+    TNT1 A 0 A_Jump(155,"SpawnAmmo")
+	Stop
+  SpawnAmmo:
+    TNT1 A 0 A_SpawnItemEx("BaseAB50Mag",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
+}
+
+Actor AMag50 : Boolean { Inventory.MaxAmount 10 }
+Actor AMag49 : AMag50 {}
+Actor AMag48 : AMag50 {}
+Actor AMag47 : AMag50 {}
+Actor AMag46 : AMag50 {}
+Actor AMag45 : AMag50 {}
+Actor AMag44 : AMag50 {}
+Actor AMag43 : AMag50 {}
+Actor AMag42 : AMag50 {}
+Actor AMag41 : AMag50 {}
+Actor AMag40 : AMag50 {}
+Actor AMag39 : AMag50 {}
+Actor AMag38 : AMag50 {}
+Actor AMag37 : AMag50 {}
+Actor AMag36 : AMag50 {}
+Actor AMag35 : AMag50 {}
+Actor AMag34 : AMag50 {}
+Actor AMag33 : AMag50 {}
+Actor AMag32 : AMag50 {}
+Actor AMag31 : AMag50 {}
+Actor AMag30 : AMag50 {}
+Actor AMag29 : AMag50 {}
+Actor AMag28 : AMag50 {}
+Actor AMag27 : AMag50 {}
+Actor AMag26 : AMag50 {}
+Actor AMag25 : AMag50 {}
+Actor AMag24 : AMag50 {}
+Actor AMag23 : AMag50 {}
+Actor AMag22 : AMag50 {}
+Actor AMag21 : AMag50 {}
+Actor AMag20 : AMag50 {}
+Actor AMag19 : AMag50 {}
+Actor AMag18 : AMag50 {}
+Actor AMag17 : AMag50 {}
+Actor AMag16 : AMag50 {}
+Actor AMag15 : AMag50 {}
+Actor AMag14 : AMag50 {}
+Actor AMag13 : AMag50 {}
+Actor AMag12 : AMag50 {}
+Actor AMag11 : AMag50 {}
+Actor AMag10 : AMag50 {}
+Actor AMag9 : AMag50 {}
+Actor AMag8 : AMag50 {}
+Actor AMag7 : AMag50 {}
+Actor AMag6 : AMag50 {}
+Actor AMag5 : AMag50 {}
+Actor AMag4 : AMag50 {}
+Actor AMag3 : AMag50 {}
+Actor AMag2 : AMag50 {}
+Actor AMag1 : AMag50 {}
+
+ACTOR AB50AmmoDropper
+{
+  Height 2
+  Radius 2
+  +NOINTERACTION
+  +NOCLIP
+  +THRUACTORS
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFullMagCVAR"),"Drop50")
+    TNT1 A 0 A_Jump(256,"Drop20","Drop21","Drop22","Drop23","Drop24","Drop25","Drop26","Drop27","Drop28","Drop29","Drop30","Drop31","Drop32","Drop33","Drop34","Drop35","Drop36","Drop37","Drop38","Drop39","Drop40","Drop41","Drop42","Drop43","Drop44","Drop45","Drop46","Drop47","Drop48","Drop49","Drop50")
+    Wait
+  Drop20:
+    TNT1 A 0 A_DropItem("AB50Mag20")
+    Stop
+  Drop21:
+    TNT1 A 0 A_DropItem("AB50Mag21")
+    Stop
+  Drop22:
+    TNT1 A 0 A_DropItem("AB50Mag22")
+    Stop
+  Drop23:
+    TNT1 A 0 A_DropItem("AB50Mag23")
+    Stop
+  Drop24:
+    TNT1 A 0 A_DropItem("AB50Mag24")
+    Stop
+  Drop25:
+    TNT1 A 0 A_DropItem("AB50Mag25")
+    Stop
+  Drop26:
+    TNT1 A 0 A_DropItem("AB50Mag26")
+    Stop
+  Drop27:
+    TNT1 A 0 A_DropItem("AB50Mag27")
+    Stop
+  Drop28:
+    TNT1 A 0 A_DropItem("AB50Mag28")
+    Stop
+  Drop29:
+    TNT1 A 0 A_DropItem("AB50Mag29")
+    Stop
+  Drop30:
+    TNT1 A 0 A_DropItem("AB50Mag30")
+    Stop
+  Drop31:
+    TNT1 A 0 A_DropItem("AB50Mag31")
+    Stop
+  Drop32:
+    TNT1 A 0 A_DropItem("AB50Mag32")
+    Stop
+  Drop33:
+    TNT1 A 0 A_DropItem("AB50Mag33")
+    Stop
+  Drop34:
+    TNT1 A 0 A_DropItem("AB50Mag34")
+    Stop
+  Drop35:
+    TNT1 A 0 A_DropItem("AB50Mag35")
+    Stop
+  Drop36:
+    TNT1 A 0 A_DropItem("AB50Mag36")
+    Stop
+  Drop37:
+    TNT1 A 0 A_DropItem("AB50Mag37")
+    Stop
+  Drop38:
+    TNT1 A 0 A_DropItem("AB50Mag38")
+    Stop
+  Drop39:
+    TNT1 A 0 A_DropItem("AB50Mag39")
+    Stop
+  Drop40:
+    TNT1 A 0 A_DropItem("AB50Mag40")
+    Stop
+  Drop41:
+    TNT1 A 0 A_DropItem("AB50Mag41")
+    Stop
+  Drop42:
+    TNT1 A 0 A_DropItem("AB50Mag42")
+    Stop
+  Drop43:
+    TNT1 A 0 A_DropItem("AB50Mag43")
+    Stop
+  Drop44:
+    TNT1 A 0 A_DropItem("AB50Mag44")
+    Stop
+  Drop45:
+    TNT1 A 0 A_DropItem("AB50Mag45")
+    Stop
+  Drop46:
+    TNT1 A 0 A_DropItem("AB50Mag46")
+    Stop
+  Drop47:
+    TNT1 A 0 A_DropItem("AB50Mag47")
+    Stop
+  Drop48:
+    TNT1 A 0 A_DropItem("AB50Mag48")
+    Stop
+  Drop49:
+    TNT1 A 0 A_DropItem("AB50Mag49")
+    Stop
+  Drop50:
+    TNT1 A 0 A_DropItem("AB50Mag50")
+    Stop
+  }
+}
+
+ACTOR BaseAB50Mag : CustomInventory 
+{
+    Inventory.PickupMessage "Picked up machine gun ammo. [\cj+1 SMG Magazine\c-]"
+	Inventory.PickupSound "919m/magout"
+	DeathSound "weapons/smallclip"
+	+INVENTORY.AUTOACTIVATE
+	+CORPSE
+	States
+	{
+	Spawn:
+      ABXA A 2
+	  Loop
+	Crash:
+	  TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
+	  Wait
+    Crash1:
+	  ABXA A -1 A_Scream
+	  Stop
+    Crash2:
+	  ABXA A -1 A_Scream
+	  Stop
+	Crash3:
+	  ABXA A -1 A_Scream
+	  Stop
+	Crash4:
+	  ABXA A -1 A_Scream
+	  Stop
+	Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",51,0,1),"PickupSuccess")
+	  Fail
+	PickupSuccess:
+	  TNT1 A 0 A_RailWait
+	  Stop
+	}
+}
+
+ACTOR AB50Mag1 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",1,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag2 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",2,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag3 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",3,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag4 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",4,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag5 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",5,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag6 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",6,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag7 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",7,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag8 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",8,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag9 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",9,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag10 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",10,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+
+ACTOR AB50Mag11 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",11,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag12 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",12,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag13 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",13,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag14 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",14,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag15 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",15,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag16 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",16,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag17 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",17,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag18 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",18,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag19 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",19,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag20 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",20,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+
+ACTOR AB50Mag21 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",21,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag22 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",22,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag23 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",23,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag24 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",24,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag25 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",25,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag26 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",26,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag27 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",27,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag28 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",28,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag29 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",29,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag30 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",30,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+
+ACTOR AB50Mag31 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",31,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag32 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",32,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag33 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",33,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag34 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",34,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag35 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",35,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag36 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",36,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag37 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",37,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag38 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",38,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag39 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",39,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag40 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",40,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+
+ACTOR AB50Mag41 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",41,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag42 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",42,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag43 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",43,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag44 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",44,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag45 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",45,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag46 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",46,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag47 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",47,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag48 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",48,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag49 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",49,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50Mag50 : BaseAB50Mag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",50,0,1),"PickupSuccess")
+    Stop
+  }
+}
+
+Actor BaseThrowAMag : CustomInventory
+{
+  +INVENTORY.AUTOACTIVATE
+  Inventory.Amount 1
+  Inventory.MaxAmount 1
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("SpentClip1",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag1 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag1",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag2 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag2",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag3 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag3",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag4 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag4",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag5 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag5",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag6 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag6",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag7 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag7",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag8 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag8",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag9 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag9",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag10 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag10",3,0,5,0)
+    Stop
+  }
+}
+
+
+Actor ThrowAMag11 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag11",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag12 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag12",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag13 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag13",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag14 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag14",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag15 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag15",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag16 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag16",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag17 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag17",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag18 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag18",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag19 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag19",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag20 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag20",3,0,5,0)
+    Stop
+  }
+}
+
+
+Actor ThrowAMag21 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag21",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag22 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag22",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag23 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag23",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag24 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag24",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag25 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag25",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag26 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag26",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag27 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag27",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag28 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag28",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag29 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag29",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag30 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag30",3,0,5,0)
+    Stop
+  }
+}
+
+
+Actor ThrowAMag31 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag31",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag32 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag32",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag33 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag33",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag34 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag34",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag35 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag35",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag36 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag36",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag37 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag37",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag38 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag38",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag39 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag39",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag40 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag40",3,0,5,0)
+    Stop
+  }
+}
+
+
+Actor ThrowAMag41 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag41",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag42 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag42",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag43 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag43",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag44 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag44",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag45 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag45",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag46 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag46",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag47 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag47",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag48 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag48",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag49 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag49",3,0,5,0)
+    Stop
+  }
+}
+
+Actor ThrowAMag50 : BaseThrowAMag
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_FireCustomMissile("AB50Mag50",3,0,5,0)
+    Stop
+  }
+}

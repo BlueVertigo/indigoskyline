@@ -119,7 +119,6 @@ ACTOR BasePistolZombie : BaseZombie
   Painchance 200
   AttackSound "919m/fire"
   Obituary "%o was murdered by a pistol zombie."
-  Dropitem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
   States
   {
@@ -154,6 +153,8 @@ ACTOR BasePistolZombie : BaseZombie
   Death:
     ZMP1 H 5
     ZMP1 I 5 A_Scream
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMP1 J 5 A_NoBlocking
     ZMP1 K 5
     ZMP1 L -1
@@ -161,6 +162,8 @@ ACTOR BasePistolZombie : BaseZombie
   XDeath:
     ZMP1 M 5
     ZMP1 N 5 A_XScream
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMP1 O 5 A_NoBlocking
     ZMP1 PQRST 5
     ZMP1 U -1
@@ -213,8 +216,6 @@ ACTOR HardPistolZombie : BasePistolZombie
 
 ACTOR LSPistolZombie : HardPistolZombie
 {
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -228,6 +229,9 @@ ACTOR LSPistolZombie : HardPistolZombie
     ZMP1 E 0 A_GiveInventory("AutoPistolMag",1)
     TNT1 A 0 A_Jump (256,"See2")
     Goto See
+
+
+
   }
 }
 
@@ -246,9 +250,7 @@ ACTOR BaseRifleZombieV0 : BaseZombie
   Speed 2
   Painchance 200
   Obituary "%o was taken out by a member of the walking dead."
-  Dropitem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   States
   {
   Spawn2: 
@@ -294,6 +296,8 @@ ACTOR BaseRifleZombieV0 : BaseZombie
   Death:
     POSS H 5
     POSS I 5 A_Scream
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     POSS J 5 A_NoBlocking
     POSS K 5
     POSS L -1
@@ -301,6 +305,8 @@ ACTOR BaseRifleZombieV0 : BaseZombie
   XDeath:
     POSS M 5
     POSS N 5 A_XScream
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     POSS O 5 A_NoBlocking
     POSS PQRST 5
     POSS U -1
@@ -350,8 +356,6 @@ ACTOR HardRifleZombieV0 : BaseRifleZombieV0
 
 ACTOR LSRifleZombieV0 : HardRifleZombieV0
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -403,9 +407,7 @@ ACTOR BaseRifleZombieV1 : BaseZombie
   Health 35
   Speed 3
   PainChance "GasShellDamage", 18
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   Obituary "%o joined the ranks of the undead."
   States
   {
@@ -452,6 +454,8 @@ ACTOR BaseRifleZombieV1 : BaseZombie
   Death: 
     ZMV1 H 5 
     ZMV1 I 5 A_Scream 
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)	
     ZMV1 J 5 A_Fall 
     ZMV1 K 5 
     ZMV1 L -1 
@@ -460,6 +464,8 @@ ACTOR BaseRifleZombieV1 : BaseZombie
     ZMV1 O 5
     ZMV1 P 5 A_XScream
     ZMV1 Q 5
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV1 R 5 A_Fall
     ZMV1 ST 5
     ZMV1 U -1
@@ -508,8 +514,6 @@ ACTOR HardRifleZombieV1 : BaseRifleZombieV1
 
 ACTOR LSRifleZombieV1 : HardRifleZombieV1
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -561,9 +565,7 @@ ACTOR BaseRifleZombieV2 : BaseZombie
   Health 35
   Speed 3
   PainChance "GasShellDamage", 18
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   Obituary "%o was riddled with bullets thanks to a zombie."
   States
   {
@@ -610,6 +612,8 @@ ACTOR BaseRifleZombieV2 : BaseZombie
   Death: 
     ZMV2 H 5 
     ZMV2 I 5 A_Scream 
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV2 J 5 A_Fall 
     ZMV2 K 5 
     ZMV2 L -1 
@@ -618,6 +622,8 @@ ACTOR BaseRifleZombieV2 : BaseZombie
     ZMV2 O 5
     ZMV2 P 5 A_XScream
     ZMV2 Q 5
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV2 R 5 A_Fall
     ZMV2 ST 5
     ZMV2 U -1
@@ -670,8 +676,6 @@ ACTOR HardRifleZombieV2 : BaseRifleZombieV2
 
 ACTOR LSRifleZombieV2 : HardRifleZombieV2
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -723,9 +727,7 @@ ACTOR BaseRifleZombieV3 : BaseZombie
   Health 35
   Speed 3
   PainChance "GasShellDamage", 18
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   Obituary "%o met their demise at the hands of a zombie."
   States
   {
@@ -772,6 +774,8 @@ ACTOR BaseRifleZombieV3 : BaseZombie
   Death: 
     ZMV3 H 5 
     ZMV3 I 5 A_Scream 
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)	
     ZMV3 J 5 A_Fall 
     ZMV3 K 5 
     ZMV3 L -1 
@@ -780,6 +784,8 @@ ACTOR BaseRifleZombieV3 : BaseZombie
     ZMV3 O 5
     ZMV3 P 5 A_XScream
     ZMV3 Q 5
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)	
     ZMV3 R 5 A_Fall
     ZMV3 ST 5
     ZMV3 U -1
@@ -832,8 +838,6 @@ ACTOR HardRifleZombieV3 : BaseRifleZombieV3
 
 ACTOR LSRifleZombieV3 : HardRifleZombieV3
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -885,9 +889,7 @@ ACTOR BaseRifleZombieV4 : BaseZombie
   Health 35
   Speed 3
   PainChance "GasShellDamage", 18
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   Obituary "%o met their demise at the hands of a former human."
   States
   {
@@ -934,6 +936,8 @@ ACTOR BaseRifleZombieV4 : BaseZombie
   Death: 
     ZMV4 H 5 
     ZMV4 I 5 A_Scream 
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV4 J 5 A_Fall 
     ZMV4 K 5 
     ZMV4 L -1 
@@ -942,6 +946,8 @@ ACTOR BaseRifleZombieV4 : BaseZombie
     ZMV4 O 5
     ZMV4 P 5 A_XScream
     ZMV4 Q 5
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV4 R 5 A_Fall
     ZMV4 ST 5
     ZMV4 U -1
@@ -991,8 +997,6 @@ ACTOR HardRifleZombieV4 : BaseRifleZombieV4
 
 ACTOR LSRifleZombieV4 : HardRifleZombieV4
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -1044,9 +1048,7 @@ ACTOR BaseRifleZombieV5 : BaseZombie
   Health 35
   Speed 3
   PainChance "GasShellDamage", 18
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   Obituary "%o fell victim to a rifle zombie."
   States
   {
@@ -1093,6 +1095,8 @@ ACTOR BaseRifleZombieV5 : BaseZombie
   Death: 
     ZMV5 H 5 
     ZMV5 I 5 A_Scream 
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV5 J 5 A_Fall 
     ZMV5 K 5 
     ZMV5 L -1 
@@ -1101,6 +1105,8 @@ ACTOR BaseRifleZombieV5 : BaseZombie
     ZMV5 O 5
     ZMV5 P 5 A_XScream
     ZMV5 Q 5
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV5 R 5 A_Fall
     ZMV5 ST 5
     ZMV5 U -1
@@ -1149,8 +1155,6 @@ ACTOR HardRifleZombieV5 : BaseRifleZombieV5
 
 ACTOR LSRifleZombieV5 : HardRifleZombieV5
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -1201,9 +1205,7 @@ ACTOR BaseFemaleZombieV1 : BaseFemaleZombie
 {
   Health 35
   Speed 4
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   Obituary "%o no longer lives thanks to a zombie."
   States
   {
@@ -1250,6 +1252,8 @@ ACTOR BaseFemaleZombieV1 : BaseFemaleZombie
   Death: 
     FMZ1 H 5 
     FMZ1 I 5 A_Scream 
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     FMZ1 J 5 A_Fall 
     FMZ1 KLM 5
     FMZ1 N -1 
@@ -1258,6 +1262,8 @@ ACTOR BaseFemaleZombieV1 : BaseFemaleZombie
     FMZ1 O 5
     FMZ1 P 5 A_XScream
     FMZ1 Q 5
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     FMZ1 R 5 A_Fall
     FMZ1 STUV 5
     FMZ1 W -1
@@ -1307,8 +1313,6 @@ ACTOR HardFemaleZombieV1 : BaseFemaleZombieV1
 
 ACTOR LSFemaleZombieV1 : HardFemaleZombieV1
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -1359,9 +1363,7 @@ ACTOR BaseFemaleZombieV2 : BaseFemaleZombie
 {
   Health 35
   Speed 4
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   Obituary "%o no longer lives thanks to a zombie."
   States
   {
@@ -1408,6 +1410,8 @@ ACTOR BaseFemaleZombieV2 : BaseFemaleZombie
   Death: 
     FMZ2 H 5 
     FMZ2 I 5 A_Scream 
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     FMZ2 J 5 A_Fall 
     FMZ2 KLM 5
     FMZ2 N -1 
@@ -1416,6 +1420,8 @@ ACTOR BaseFemaleZombieV2 : BaseFemaleZombie
     FMZ2 O 5
     FMZ2 P 5 A_XScream
     FMZ2 Q 5
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     FMZ2 R 5 A_Fall
     FMZ2 STUV 5
     FMZ2 W -1
@@ -1465,8 +1471,6 @@ ACTOR HardFemaleZombieV2 : BaseFemaleZombieV2
 
 ACTOR LSFemaleZombieV2 : HardFemaleZombieV2
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 50
   DropItem "TSPFistsOnlyPistol" 50
   Painchance 100
   PainChance "Melee", 255
@@ -1518,9 +1522,7 @@ ACTOR BaseCultist : BaseZombie
   Health 35
   Speed 3
   PainChance "GasShellDamage", 18
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   SeeSound "cultist/sight"
   PainSound "cultist/pain"
   DeathSound "cultist/death"
@@ -1552,6 +1554,8 @@ ACTOR BaseCultist : BaseZombie
   Death: 
     ZMV1 H 5 
     ZMV1 I 5 A_Scream 
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV1 J 5 A_Fall 
     ZMV1 K 5 
     ZMV1 L -1 
@@ -1560,6 +1564,8 @@ ACTOR BaseCultist : BaseZombie
     ZMV1 O 5
     ZMV1 P 5 A_XScream
     ZMV1 Q 5
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,50)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     ZMV1 R 5 A_Fall
     ZMV1 ST 5
     ZMV1 U -1
@@ -1626,10 +1632,7 @@ ACTOR BaseJudgmentZombie : BaseZombie
   Speed 6
   //PainChance "GasShellDamage", 5
   DamageFACTOR "GasShellDamage", 0 //because mask
-  DropItem TSPPistolAmmoThrown 255
-  DropItem TSPPistolAmmoThrown 255
   DropItem "TSPFistsOnlyPistol" 255
-  Dropitem "AmmoBoxAmmo" 30
   SeeSound "swat/sight"
   PainSound "swat/pain"
   DeathSound "swat/death"
@@ -1678,6 +1681,9 @@ ACTOR BaseJudgmentZombie : BaseZombie
   Death:
     JDGZ H 4 A_ChangeFlag("NOTARGET",0)
     JDGZ I 4 A_Scream
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,100)
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,100)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     JDGZ J 4 A_NoBlocking
     JDGZ KLM 4
     JDGZ N -1
@@ -1685,6 +1691,9 @@ ACTOR BaseJudgmentZombie : BaseZombie
   XDeath:
     JDGZ O 5 A_ChangeFlag("NOTARGET",0)
     JDGZ P 5 A_XScream
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,100)
+	"####" "#" 0 ACS_NamedExecuteWithResult("PMagSpawn",255,100)
+	"####" "#" 0 ACS_NamedExecuteWithResult("AMagSpawn",30)
     JDGZ Q 5 A_NoBlocking
     JDGZ RSTU 5
     JDGZ V -1
@@ -1779,9 +1788,6 @@ ACTOR HardJudgmentZombie : BaseJudgmentZombie
 
 ACTOR LSJudgmentZombie : HardJudgmentZombie
 { 
-  Dropitem "AmmoBoxAmmo" 0
-  Dropitem "TSPPistolAmmoThrown" 100
-  Dropitem "TSPPistolAmmoThrown" 100
   DropItem "TSPFistsOnlyPistol" 50
   Dropitem "TSPRedHealthBonus" 150
   Dropitem "TSPRedHealthBonus" 150

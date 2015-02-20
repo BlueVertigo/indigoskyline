@@ -10,8 +10,7 @@
 
 ACTOR Mel919mPistolLS : Mel919mPistol
 {
-	Weapon.AmmoType2 "TSPPistolAmmoMag"
-	+WEAPON.CHEATNOTWEAPON
+    Weapon.AmmoType2 "TSPPistolAmmoMag"
    States
    {
    Spawn:
@@ -81,13 +80,13 @@ ACTOR Mel919mPistolLS : Mel919mPistol
 	  ASTS JI 1
 	Reload:
 	  MPTG A 0 A_JumpIfInventory("919MUpgrade", 1, "UpgradeReload")
-	  MPTG A 0 A_JumpIfInventory("AutoPistolMag", 15, "Ready")
+	  MPTG A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolReloadCheck",1), "Ready")
 	  MPTG A 0 A_JumpIfInventory("TSPPistolAmmoMag", 1, "ReloadStart")
 	  MPTG A 0 A_JumpIfInventory("AutoPistolFullAuto", 1, "AutoEmptyReady")
 	  MPTG A 1 A_WeaponReady(WRF_NOSECONDARY|WRF_NOFIRE)
 	  Goto Ready
 	UpgradeReload:
-	  MPTG A 0 A_JumpIfInventory("AutoPistolMag", 15, "Ready")
+	  MPTG A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolReloadCheck",1), "Ready")
 	  MPTG A 0 A_JumpIfInventory("TSPPistolAmmoMag", 1, "ReloadStart")
 	  MPTG A 0 A_JumpIfInventory("AutoPistolFullAuto", 1, "AutoEmptyReady")
 	  MPTG A 1 A_WeaponReady(WRF_NOFIRE)
@@ -100,19 +99,14 @@ ACTOR Mel919mPistolLS : Mel919mPistol
 	ReloadCont:
 	  TNT1 A 0 A_TakeInventory("ShotsFiredPewPew", 99)
       MPTG BCD 1
-      TNT1 A 0 A_TakeInventory("AutoPistolMag",15)
-	  MPTG D 0 A_FireCustomMissile("SpentClip1",3,0,-4,-12)
+	  MPTG D 0 ACS_NamedExecuteWithResult("PMagOut")	  
 	  MPTR A 1 A_PlaySound("919m/magout", 5)
 	  MPTR BCD 1
 	  MPTR EEEEEEEEEEEEEEEEEEEE 1
 	  TNT1 A 0 A_PlaySound("919m/magin1", 6)
 	  MPTR FGH 1
 	  MPTR I 1
-	ReloadWork:
-	  MPTR I 0 A_TakeInventory("TSPPistolAmmoMag",1)
-	  MPTR I 0 A_GiveInventory("AutoPistolMag",15)
-	  Goto ReloadFinish
-	ReloadFinish:
+	  MPTR I 0 ACS_NamedExecuteWithResult("PMagIn")
 	  MPTR JKLMNNNNOP 1
 	  MPTR Q 1 A_PlaySound("919m/magin2", 5)
 	  MPTR QRSTUVWX 1
