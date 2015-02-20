@@ -1001,6 +1001,8 @@ script "RocketPickup" (int howmany, int msg)
   setresultvalue(result);
 }
 
+//Beam and other scripts
+
 script "TSPBeamDeath" (void)
 {
   SetActorProperty(0,APROP_RenderStyle,STYLE_Add);
@@ -1292,7 +1294,7 @@ script "TSPWOGBeam" (int which)
       Terminate;
   }
 }
-
+    
 script "WeaponReloads" ENTER
 {
   int loopshell, abammo, pammo, maxpmags, maxamags;
@@ -1314,57 +1316,57 @@ script "WeaponReloads" ENTER
   if(CheckInventory("BuckshotLoaded") && CheckInventory("BuckShotShell")){
     while(CheckInventory("BuckShotShell") && CheckInventory("ShotgunMag") < 8){
       TakeInventory("TSPShells",1);
-	  TakeInventory("BuckShotShell",1);
+      TakeInventory("BuckShotShell",1);
       GiveInventory("ShotgunMag",1); }}
   else if(CheckInventory("ElectricLoaded") && CheckInventory("ElectricShell")){
     while(CheckInventory("ElectricShell") && CheckInventory("ShotgunMag") < 8){
       TakeInventory("TSPShells",1);
-	  TakeInventory("ElectricShell",1);
+      TakeInventory("ElectricShell",1);
       GiveInventory("ShotgunMag",1); }}
   else if(CheckInventory("HellFireLoaded") && CheckInventory("HellFireShell")){
     while(CheckInventory("HellFireShell") && CheckInventory("ShotgunMag") < 8){
       TakeInventory("TSPShells",1);
-	  TakeInventory("HellFireShell",1);
+      TakeInventory("HellFireShell",1);
       GiveInventory("ShotgunMag",1); }}
   else if(CheckInventory("PoisonLoaded") && CheckInventory("PoisonShell")){
     while(CheckInventory("PoisonShell") && CheckInventory("ShotgunMag") < 8){
       TakeInventory("TSPShells",1);
-	  TakeInventory("PoisonShell",1);
+      TakeInventory("PoisonShell",1);
       GiveInventory("ShotgunMag",1); }}
   else if(CheckInventory("PoisonLoaded") || CheckInventory("HellFireLoaded") || CheckInventory("ElectricLoaded") || CheckInventory("BuckshotLoaded")){
     loopshell = 8;
-	while(loopshell){
+    while(loopshell){
       TakeInventory("BuckshotLoaded",0x7FFFFFFF);
       TakeInventory("ElectricLoaded",0x7FFFFFFF);
       TakeInventory("HellFireLoaded",0x7FFFFFFF);
       TakeInventory("PoisonLoaded",0x7FFFFFFF);
       if(CheckInventory("BuckShotShell") >= loopshell){
         loopshell = 0;
-		GiveInventory("BuckshotLoaded",1);
-  	    while(CheckInventory("BuckShotShell") && CheckInventory("ShotgunMag") < 8){
+        GiveInventory("BuckshotLoaded",1);
+          while(CheckInventory("BuckShotShell") && CheckInventory("ShotgunMag") < 8){
           TakeInventory("TSPShells",1);
-	      TakeInventory("BuckShotShell",1);
+          TakeInventory("BuckShotShell",1);
           GiveInventory("ShotgunMag",1); }}
       else if(CheckInventory("ElectricShell") >= loopshell){
         loopshell = 0;
-		GiveInventory("ElectricLoaded",1);
-	    while(CheckInventory("ElectricShell") && CheckInventory("ShotgunMag") < 8){
+        GiveInventory("ElectricLoaded",1);
+        while(CheckInventory("ElectricShell") && CheckInventory("ShotgunMag") < 8){
           TakeInventory("TSPShells",1);
-	      TakeInventory("ElectricShell",1);
+          TakeInventory("ElectricShell",1);
           GiveInventory("ShotgunMag",1); }}
       else if(CheckInventory("HellFireShell") >= loopshell){
         loopshell = 0;
-		GiveInventory("HellFireLoaded",1);
-	    while(CheckInventory("HellFireShell") && CheckInventory("ShotgunMag") < 8){
+        GiveInventory("HellFireLoaded",1);
+        while(CheckInventory("HellFireShell") && CheckInventory("ShotgunMag") < 8){
           TakeInventory("TSPShells",1);
-	      TakeInventory("HellFireShell",1);
+          TakeInventory("HellFireShell",1);
           GiveInventory("ShotgunMag",1); }}
       else if(CheckInventory("PoisonShell") >= loopshell){
         loopshell = 0;
-		GiveInventory("PoisonLoaded",1);
-	    while(CheckInventory("PoisonShell") && CheckInventory("ShotgunMag") < 8){
+        GiveInventory("PoisonLoaded",1);
+        while(CheckInventory("PoisonShell") && CheckInventory("ShotgunMag") < 8){
           TakeInventory("TSPShells",1);
-	      TakeInventory("PoisonShell",1);
+          TakeInventory("PoisonShell",1);
           GiveInventory("ShotgunMag",1); }}
       --loopshell; }}
   if(!GetCVar("tsp_usemags") && GameSkill() < 5){
@@ -1379,15 +1381,15 @@ script "WeaponReloads" ENTER
       GiveInventory("AmmoBoxMag",1); }}
   else{
     pammo = CountPMags();
-	ClearPMags(1);
+    ClearPMags(1);
     abammo = CountAMags();
-	ClearAMags(1);
+    ClearAMags(1);
     if(CheckInventory("Backpack2") || CheckInventory("Backpack")){ 
-	  maxpmags = 15;
-	  maxamags = 10; }
+      maxpmags = 15;
+      maxamags = 10; }
     else{ 
-	  maxpmags = 10;
-	  maxamags = 5; }
+      maxpmags = 10;
+      maxamags = 5; }
     while(pammo && CheckInventory("AutoPistolMag") < 15){
       --pammo;
       GiveInventory("AutoPistolMag",1); }
@@ -1399,11 +1401,11 @@ script "WeaponReloads" ENTER
       GiveInventory("AmmoBoxMag",1); }
     while(pammo >= 15 && CheckInventory("TSPPistolAmmoMag") < maxpmags){
       pammo -= 15;
-	  GiveInventory("PMag15",1);
+      GiveInventory("PMag15",1);
       GiveInventory("TSPPistolAmmoMag",1); }
     while(abammo >= 50 && CheckInventory("AmmoBoxAmmoMag") < maxamags){
       abammo -= 50;
-	  GiveInventory("AMag50",1);
+      GiveInventory("AMag50",1);
       GiveInventory("AmmoBoxAmmoMag",1); }
     if(pammo){ GivePMag(pammo,0,1); }
     if(abammo){ GiveAMag(abammo,0,1); }}
@@ -1497,7 +1499,7 @@ script "AmmoGiveLS" (int which, int GiveNormal, int GiveLS, int msgthrow)
     ammogive2 = Nammo;
     maggive = Nmag; 
     nummags = Nfmags; }
-	
+    
   if(nummags > 1){
     ammogive = ammogive2 / nummags;
     ammogive = ammogive2 - (ammogive * nummags);
@@ -1505,7 +1507,7 @@ script "AmmoGiveLS" (int which, int GiveNormal, int GiveLS, int msgthrow)
     ammogive = ammogive2 + ammogive; }
   else{
     ammogive = ammogive2; }
-
+	
   switch (which){
     case 2:
       result = ACS_NamedExecuteWithResult("PistolMagPickup",maggive,ammogive,msgthrow);
