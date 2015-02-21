@@ -15,8 +15,8 @@ ACTOR TSPPistolSpawner replaces Pistol
 	Spawn:
 		TNT1 A 0
 		TNT1 A 1 A_NoBlocking
-		TNT1 A 0 A_JumpIf(CheckClass("SpacePirate", AAPTR_PLAYER1), "MelPickup")
-        TNT1 A 0 A_JumpIf(CheckClass("Vexler", AAPTR_PLAYER1), "VexlerPickup")
+		TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("CheckClass",MEL_CLASS),"MelPickup")
+        TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("CheckClass",VEX_CLASS),"VexlerPickup")
 		Stop
 	MelPickup:
 		TNT1 A 0

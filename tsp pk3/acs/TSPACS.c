@@ -23,6 +23,19 @@ function int FixedAngMod(int fAngle)
   return fAngle;
 }
 
+script "CheckClass" (int which)
+{
+  int result;
+  switch (which){
+    case 1:
+	  if(CheckActorClass(0,"SpacePirate")){ result = 1; }
+      break;
+    case 2:
+      if(CheckActorClass(0,"Vexler")){ result = 1; }
+      break; }
+  SetResultValue(result);
+}
+
 script "GetShellPoolCVAR" (void)  //These all gonna get replaced soon
 {
   SetResultValue(GetCVar("tsp_shellpool"));

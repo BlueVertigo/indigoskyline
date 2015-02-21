@@ -7,6 +7,9 @@ Actor Boolean : Inventory
 
 Actor AlreadyGotOne : Boolean {}
 
+const int MEL_CLASS               = 1;
+const int VEX_CLASS               = 2;
+
 //Definitions intended for use in "AmmoGiveLS" script
 
 const int AMMOGIVE_Pistol         = 2;
