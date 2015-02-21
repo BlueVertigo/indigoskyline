@@ -304,6 +304,10 @@ script "TSPDifficultyLoadouts" ENTER
     else if(GameSkill() >= 5){ 
       SetActorProperty(0, APROP_SPEED, 0.75);
       GiveInventory("TSPSurvivorModePickup",1); }}
+  Delay(1);
+  if(GetCVar("tsp_zmelee")){ SetWeapon("MelMelee"); }
+  else if(GameSkill() >= 5){ SetWeapon("Mel919mPistolLS"); }
+  else{ SetWeapon("Mel919mPistol"); }
 }
 
 script "TSPIDKFAFix" ENTER
