@@ -91,6 +91,9 @@ ACTOR MelTestWeapon7 : DoomWeapon
 
 
   AltFire:
+	PLSF C 0 A_JumpIfInventory("WOGAltFireEnabled",1,"AltFireEnabled")
+	Goto Ready
+  AltFireEnabled:
 	PLSF C 0 A_JumpIfInventory("WOGMag",4,"AltFireChecked")
 	Goto Empty
   AltFireChecked:
@@ -103,6 +106,9 @@ ACTOR MelTestWeapon7 : DoomWeapon
 
 
   AltHold:
+	PLSF C 0 A_JumpIfInventory("WOGAltFireEnabled",1,"AltHoldEnabled")
+	Goto Ready
+  AltHoldEnabled:
 	PLSF C 0 A_JumpIfInventory("WOGCharge", 20, "AltHold4")
 	PLSF C 0 A_JumpIfInventory("WOGCharge", 12, "AltHold3Check")
 	PLSF C 0 A_JumpIfInventory("WOGCharge", 4, "AltHold2Check")
@@ -391,6 +397,19 @@ ACTOR WOGCharge : Ammo
 	Inventory.MaxAmount 20
 }
 
+actor WOGHold1 : Boolean {}
+actor WOGHold2 : Boolean {}
+actor WOGHold3 : Boolean {}
+actor WOGHoldFired : Boolean {}
+
+ACTOR WOGAltFireEnabled : Ammo //Making it  it's own ammo type so idfa/idkfa gives it
+{
+	+IGNORESKILL
+	+UNDROPPABLE
+	Inventory.MaxAmount 1
+}
+
+/*
 ACTOR MelTestWeapon7Pickup : CustomInventory Replaces BFG9000
 {
     Inventory.PickupMessage "[Marston Arms RPG-2090 (The Toolbox)] [Class: Projectile Weapon, Slot 5]"
@@ -425,11 +444,7 @@ ACTOR MelTestWeapon7Pickup : CustomInventory Replaces BFG9000
       Fail
 	}
 }
-
-actor WOGHold1 : Boolean {}
-actor WOGHold2 : Boolean {}
-actor WOGHold3 : Boolean {}
-actor WOGHoldFired : Boolean {}
+*/
 
 actor DummyWOGLaser
 {
