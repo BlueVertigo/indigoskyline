@@ -1327,6 +1327,9 @@ script "WeaponReloads" UNLOADING
       while(CheckInventory("ToolboxAmmo") && CheckInventory("ToolboxMag") < 5){
         TakeInventory("ToolboxAmmo",1);
         GiveInventory("ToolboxMag",1); }
+      while(CheckInventory("Cell") && CheckInventory("WOGMag") < 120){
+        TakeInventory("Cell",1);
+        GiveInventory("WOGMag",1); }
       if(CheckInventory("DahliaNormalMode") && !CheckInventory("DahliaNormalAmmo") && CheckInventory("DahliaExplosiveAmmo")){
         TakeInventory("DahliaNormalMode",1);
         GiveInventory("DahliaExplosiveMode",1); }   
