@@ -276,7 +276,18 @@ statusbar fullscreen, forcescaled, fullscreenoffsets
 	  }
     }		
     }
-
+	
+    IsSelected MelTestWeapon7
+    {
+		InInventory not WOGHoldFired
+		{
+			drawnumber 3, TSP_HUDFont, Blue, WOGCharge, alignment(right), drawshadow(0,1), whennotzero, -68, -86, 1;
+		}
+		InInventory WOGHoldFired
+		{
+			drawnumber 3, TSP_HUDFont, LightBlue, WOGCharge, alignment(right), drawshadow(0,1), whennotzero, -68, -86, 1;
+		}
+	}
 
 //
 //
