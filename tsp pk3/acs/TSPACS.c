@@ -97,7 +97,7 @@ script "TSPSetProjectilePitch" (void)  //Gonna redo in a bit
   Terminate;
 }
 
-script "TSPEnterScript1" ENTER
+/*script "TSPEnterScript1" ENTER
 {
 
   hudmessage (s:"Blue Vertigo Presents: The Space Pirate\n \nCvars:\n \ntsp_shellpool - If set to true/1 (default), all shell types share the same ammo pool. If set to false/0, they do not and each has a separate ammo pool.
@@ -107,7 +107,7 @@ script "TSPEnterScript1" ENTER
   Terminate;
 }
 
-/*script "TSPArmorScript" (void)
+script "TSPArmorScript" (void)
 {
   if(CheckInventory("BasicArmor") >= 1)
   {
