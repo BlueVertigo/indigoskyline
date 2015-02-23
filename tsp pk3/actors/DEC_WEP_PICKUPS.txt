@@ -285,7 +285,7 @@ ACTOR AmmoBox50Pickup : CustomInventory Replaces Chaingun
 	States
 	{
 	Spawn:
-      919P A -1
+      ABXP A -1
 	  Stop
 	Pickup:
 	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
@@ -330,7 +330,7 @@ ACTOR AmmoBox50DroppedPickup : CustomInventory
 	States
 	{
 	Spawn:
-      919P A -1
+      ABXP A -1
 	  Stop
 	Pickup:
 	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
