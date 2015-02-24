@@ -442,6 +442,7 @@ script "ShellPoolChange" ENTER
 script "ShellPickup" (int which, int howmany, int msg)
 {
   int shells, maxshells, specshells, maxspecshells, result, giveamt;
+  if(!howmany){ howmany = 1; }
   if(CheckInventory("Backpack2") || CheckInventory("Backpack")){ maxshells = 96; }
    else{ maxshells = 48; }
   if(which==4){ maxspecshells = maxshells; }
@@ -484,7 +485,7 @@ script "ShellPickup" (int which, int howmany, int msg)
         GiveInventory("PoisonShell",giveamt);
         if(msg){ ShellMessage(3,giveamt); }
         break;
-      case 3:
+      case 4:
         GiveInventory("BuckShotShell",giveamt);
         if(msg){ ShellMessage(4,giveamt); }
         break; }}
