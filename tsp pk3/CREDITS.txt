@@ -47,6 +47,9 @@ Blox
 -??-Vexler's Melee Style sprites (all VLED, VLEU, VLEG, VL1F and VK1F sprites) along with Marty Kirra, Scuba Steve, and Banjo Entertainment
 -??-Punch-Out!! sprites (all LMPG sprites) along with Marty Kirra, Scuba Steve, and Banjo Entertainment
 
+Blue Shadow
+--Conversion of DBIGFONT (dbigfont.lmp)
+
 Blue Vertigo Productions
 --Universal Melee Sounds (all bmlmiss*, smlmiss*, bmlwall*, bmlhit*, smlwall*, smlhit*, and umlhit* files) 
 
@@ -125,6 +128,9 @@ Kinsie
 Konami
 -??-Some or all of the scientist zombie sounds (DSKNIFE, DSCBAR, STEMLOOP, STEMFIRE, DSTAZER) along with id Software, DavidRaven, and Valve Software
 
+Kyle873
+--Zipping .bat used in Git (_zip.bat)
+
 Megaherz
 --Chaingunner V2 sprites (all CZV2 sprites) along with Vader
 
@@ -139,6 +145,7 @@ Nintendo
 
 Pillowblaster
 --WOG Beam appearance influenced by Stachanov Beam from Russian Overkill (beam of lens flare sprites what turn into floaty scaled down same sprite)
+--Base sprite for pistol reload sprites (all MPTR* sprites) used in edits by Marty Kirra
 
 Raven Software (creator of Hexen)
 --Hellfire shell sounds (HELL.ogg, HELL3.ogg - HELL7.ogg)
@@ -341,6 +348,7 @@ zrrion_the_insect
 --Toolbox sprites (all RNLD, RNLE, RNLF, RNLG, RNLM, RNLR, and RNLU sprites) by Marty Kirra
 --919m weapon and ammo pickup sprites (919AA0) and 919PA0) by WildWeasel, edited from wolfenstein ROTT prototype
 --919m sprites (all MPTD, MPTE, MPTF, MPTG, MPTM, MPTR, and MPTS sprites) by Marty Kirra
+--919m reload sprites (all MPTR* sprites) by Pillow Blaster and Marty Kirra
 --Mel HUD sprites (all MCWDEAD, MCWEVL, MCWGOD, MCWKILL, MCWOUCH, MCWST, MCWTL, and MCWTR sprites) by Marty Kirra
 --Poison shell pellet sprite (all SPSN sprites) base by Epic MegaGames (creator of Jazz Jackrabbit 2), edits by scroton
 --WOG Beam death sprites (all C01Z, T01Z, and Z01Z sprites) edited from id Software sprites by scroton
