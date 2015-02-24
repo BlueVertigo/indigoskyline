@@ -355,10 +355,10 @@ ACTOR AmmoBox50DroppedPickup : CustomInventory
 	  TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
 	  Goto Success
 	AmmoCheck:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,1000025,1000025,0),"Success2")
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50025,50025,0),"Success2")
 	  Fail
 	Success:
-	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,1000025,1000025,0)
+	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50025,50025,0)
 	  TNT1 A 0 ACS_NamedExecuteAlways("TSPPickupSounds",0,4)
 	  Stop
 	Success2:

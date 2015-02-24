@@ -46,6 +46,11 @@ script "GetToasterCVAR" (void)
   SetResultValue(GetCVar("tsp_toaster"));
 }
 
+script "GetUseMagsCVAR" (void)
+{
+  SetResultValue(GetCVar("tsp_usemags"));
+}
+
 script "GetFullMagCVAR" (void)
 {
   SetResultValue(GetCVar("tsp_fullmags"));
@@ -592,6 +597,7 @@ script "PMagOut" (void)
     GiveInventory("TSPPistolAmmo",loadedammo);
     SetUserVariable(0,"user_PMagInGun",ammobuffer);
     TakePMag(0,1,0); }
+  else if(GetCVar("tsp_forcethrowmags")){ TakePMag(0,1,0); }
   else{
     if(!loadedammo){ TakePMag(0,1,0); }
     else{
@@ -673,6 +679,7 @@ script "MP40MagOut" (void)
     GiveInventory("TSPPistolAmmo",loadedammo);
     SetUserVariable(0,"user_MP40MagInGun",ammobuffer);
     TakePMag(0,1,0); }
+  else if(GetCVar("tsp_forcethrowmags")){ TakePMag(0,1,0); }
   else{
     if(!loadedammo){ TakePMag(0,1,0); }
     else{
@@ -857,6 +864,7 @@ script "AMagOut" (void)
     GiveInventory("AmmoBoxAmmo",loadedammo);
     SetUserVariable(0,"user_AMagInGun",ammobuffer);
     TakeAMag(0,1,0); }
+  else if(GetCVar("tsp_forcethrowmags")){ TakeAMag(0,1,0); }
   else{
     if(!loadedammo){
       TakeAMag(0,1,0); }

@@ -4,78 +4,78 @@
 
 ACTOR TSPPistolAmmo : Ammo
 {
-	+IGNORESKILL
-	Inventory.Amount 5
-	Inventory.MaxAmount 150
-	Ammo.BackpackAmount 15
-	Ammo.BackpackMaxAmount 300
-	Ammo.DropAmount 5
-	Inventory.Icon "919AA0"
-	Inventory.PickupMessage "Picked up a pistol magazine. [\cj+5 Pistol Ammo\c-]"
-	Inventory.PickupSound "919m/magout"
-	Tag "Pistol Ammo"
-	States
-	{
-	Spawn:
-		919A A -1
-		Stop
-	}
+    +IGNORESKILL
+    Inventory.Amount 5
+    Inventory.MaxAmount 150
+    Ammo.BackpackAmount 15
+    Ammo.BackpackMaxAmount 300
+    Ammo.DropAmount 5
+    Inventory.Icon "919AA0"
+    Inventory.PickupMessage "Picked up a pistol magazine. [\cj+5 Pistol Ammo\c-]"
+    Inventory.PickupSound "919m/magout"
+    Tag "Pistol Ammo"
+    States
+    {
+    Spawn:
+        919A A -1
+        Stop
+    }
 }
 
 ACTOR TSPPistolAmmoMag : Ammo //Magazine version for LS
 {
-	+IGNORESKILL
-	Inventory.Amount 1
-	Inventory.MaxAmount 10
-	Ammo.BackpackAmount 1
-	Ammo.BackpackMaxAmount 15
-	Ammo.DropAmount 1
-	Inventory.Icon "919AA0"
-	Inventory.PickupMessage "Picked up a pistol magazine. [\cj+1 Pistol Magazine\c-]"
-	Inventory.PickupSound "919m/magout"
-	Tag "Pistol Ammo"
-	States
-	{
-	Spawn:
-		919A A -1
-		Stop
-	}
+    +IGNORESKILL
+    Inventory.Amount 1
+    Inventory.MaxAmount 10
+    Ammo.BackpackAmount 1
+    Ammo.BackpackMaxAmount 15
+    Ammo.DropAmount 1
+    Inventory.Icon "919AA0"
+    Inventory.PickupMessage "Picked up a pistol magazine. [\cj+1 Pistol Magazine\c-]"
+    Inventory.PickupSound "919m/magout"
+    Tag "Pistol Ammo"
+    States
+    {
+    Spawn:
+        919A A -1
+        Stop
+    }
 }
 
 ACTOR TSPPistolAmmoDummy : Ammo //Dummy ammo for status bar
 {
-	+IGNORESKILL
-	Inventory.Amount 1
-	Inventory.MaxAmount 300
-	Ammo.BackpackAmount 0
-	Ammo.BackpackMaxAmount 300
-	Ammo.DropAmount 1
-	Inventory.Icon "919AA0"
-	Tag "Pistol Ammo"
-	States
-	{
-	Spawn:
-		919A A -1
-		Stop
-	}
+    +IGNORESKILL
+    Inventory.Amount 1
+    Inventory.MaxAmount 300
+    Ammo.BackpackAmount 0
+    Ammo.BackpackMaxAmount 300
+    Ammo.DropAmount 1
+    Inventory.Icon "919AA0"
+    Tag "Pistol Ammo"
+    States
+    {
+    Spawn:
+        919A A -1
+        Stop
+    }
 }
 
 ACTOR MP40DummyAmmo : Ammo //Dummy ammo for status bar
 {
-	+IGNORESKILL
-	Inventory.Amount 1
-	Inventory.MaxAmount 300
-	Ammo.BackpackAmount 0
-	Ammo.BackpackMaxAmount 300
-	Ammo.DropAmount 1
-	Inventory.Icon "919AA0"
-	Tag "Pistol Ammo"
-	States
-	{
-	Spawn:
-		919A A -1
-		Stop
-	}
+    +IGNORESKILL
+    Inventory.Amount 1
+    Inventory.MaxAmount 300
+    Ammo.BackpackAmount 0
+    Ammo.BackpackMaxAmount 300
+    Ammo.DropAmount 1
+    Inventory.Icon "919AA0"
+    Tag "Pistol Ammo"
+    States
+    {
+    Spawn:
+        919A A -1
+        Stop
+    }
 }
 
 ACTOR TSPPistolAmmoDrop replaces Clip
@@ -89,11 +89,16 @@ ACTOR TSPPistolAmmoDrop replaces Clip
     TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorSpawn")
     Goto SpawnAmmo
   LoneSurvivorSpawn:
-    TNT1 A 0 A_Jump(155,"SpawnAmmo")
-	Stop
-  SpawnAmmo:
-    TNT1 A 0 A_SpawnItemEx("BasePistolMag",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    TNT1 A 0 A_Jump(155,"SpawnAmmo2")
     Stop
+  SpawnAmmo:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetUseMagsCVAR"),"SpawnAmmo2") 
+	TNT1 A 0 A_SpawnItemEx("PistolMag15",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  SpawnAmmo2:
+    TNT1 A 0 A_SpawnItemEx("BasePistolMagM",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+
   }
 }
 
@@ -126,8 +131,15 @@ ACTOR PistolAmmoDropper
     TNT1 A 0
     TNT1 A 0
     TNT1 A 0
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFullMagCVAR"),"Drop15")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetUseMagsCVAR"),"Spawn2")    
     TNT1 A 0 A_Jump(256,"Drop5","Drop6","Drop7","Drop8","Drop9","Drop10","Drop11","Drop12","Drop13","Drop14","Drop15")
+    Wait
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFullMagCVAR"),"DropM15")
+    TNT1 A 0 A_Jump(256,"DropM5","DropM6","DropM7","DropM8","DropM9","DropM10","DropM11","DropM12","DropM13","DropM14","DropM15")
     Wait
   Drop5:
     TNT1 A 0 A_DropItem("PistolMag5")
@@ -162,193 +174,428 @@ ACTOR PistolAmmoDropper
   Drop15:
     TNT1 A 0 A_DropItem("PistolMag15")
     Stop
+  DropM5:
+    TNT1 A 0 A_DropItem("PistolMagM5")
+    Stop
+  DropM6:
+    TNT1 A 0 A_DropItem("PistolMagM6")
+    Stop
+  DropM7:
+    TNT1 A 0 A_DropItem("PistolMagM7")
+    Stop
+  DropM8:
+    TNT1 A 0 A_DropItem("PistolMagM8")
+    Stop
+  DropM9:
+    TNT1 A 0 A_DropItem("PistolMagM9")
+    Stop
+  DropM10:
+    TNT1 A 0 A_DropItem("PistolMagM10")
+    Stop
+  DropM11:
+    TNT1 A 0 A_DropItem("PistolMagM11")
+    Stop
+  DropM12:
+    TNT1 A 0 A_DropItem("PistolMagM12")
+    Stop
+  DropM13:
+    TNT1 A 0 A_DropItem("PistolMagM13")
+    Stop
+  DropM14:
+    TNT1 A 0 A_DropItem("PistolMagM14")
+    Stop
+  DropM15:
+    TNT1 A 0 A_DropItem("PistolMagM15")
+    Stop
   }
 }
 
 ACTOR BasePistolMag : CustomInventory 
 {
-    Inventory.PickupMessage ""
-	Inventory.PickupSound "919m/magout"
-	DeathSound "weapons/smallclip"
-	+INVENTORY.AUTOACTIVATE
-	+CORPSE
-	States
-	{
-	Spawn:
+    Inventory.PickupMessage "Picked up a pistol magazine. [\cj+5 Pistol Ammo\c-]"
+    Inventory.PickupSound "919m/magout"
+    DeathSound "weapons/smallclip"
+    +INVENTORY.AUTOACTIVATE
+    +CORPSE
+    States
+    {
+    Spawn:
       919F ABCDEFGH 2
-	  Loop
-	Crash:
-	  TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
-	  Wait
+      Loop
+    Crash:
+      TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
+      Wait
     Crash1:
-	  919F A -1 A_Scream
-	  Stop
+      919F A -1 A_Scream
+      Stop
     Crash2:
-	  919F C -1 A_Scream
-	  Stop
-	Crash3:
-	  919F G -1 A_Scream
-	  Stop
-	Crash4:
-	  919F E -1 A_Scream
-	  Stop
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",16,0,1),"PickupSuccess")
-	  Fail
-	PickupSuccess:
-	  TNT1 A 0 A_RailWait
-	  Stop
-	}
+      919F C -1 A_Scream
+      Stop
+    Crash3:
+      919F G -1 A_Scream
+      Stop
+    Crash4:
+      919F E -1 A_Scream
+      Stop
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",16,0,0),"PickupSuccess")
+      Fail
+    PickupSuccess:
+      TNT1 A 0 A_RailWait
+      Stop
+    }
 }
 
 ACTOR PistolMag1 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",1,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",1,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag2 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",2,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",2,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag3 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",3,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",3,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag4 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",4,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",4,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag5 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",5,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",5,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag6 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",6,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",6,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag7 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",7,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",7,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag8 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",8,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",8,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag9 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",9,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",9,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag10 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",10,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",10,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag11 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",11,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",11,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag12 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",12,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",12,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag13 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",13,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",13,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag14 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",14,0,1),"PickupSuccess")
-	  Fail
-	}
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",14,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 ACTOR PistolMag15 : BasePistolMag
 {
-	States
-	{
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",15,0,1),"PickupSuccess")
-	  Fail
-	}
+    Inventory.PickupMessage "Picked up a pistol magazine. [\cj+15 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",15,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR BasePistolMagM : CustomInventory 
+{
+    Inventory.PickupMessage "Picked up a pistol magazine. [\cj+1 Pistol Magazine\c-]"
+    Inventory.PickupSound "919m/magout"
+    DeathSound "weapons/smallclip"
+    +INVENTORY.AUTOACTIVATE
+    +CORPSE
+    States
+    {
+    Spawn:
+      919F ABCDEFGH 2
+      Loop
+    Crash:
+      TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
+      Wait
+    Crash1:
+      919F A -1 A_Scream
+      Stop
+    Crash2:
+      919F C -1 A_Scream
+      Stop
+    Crash3:
+      919F G -1 A_Scream
+      Stop
+    Crash4:
+      919F E -1 A_Scream
+      Stop
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",16,0,0),"PickupSuccess")
+      Fail
+    PickupSuccess:
+      TNT1 A 0 A_RailWait
+      Stop
+    }
+}
+
+ACTOR PistolMagM1 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+1 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",1,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM2 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+2 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",2,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM3 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+3 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",3,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM4 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+4 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",4,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM5 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+5 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",5,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM6 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+6 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",6,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM7 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+7 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",7,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM8 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+8 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",8,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM9 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+9 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",9,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM10 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+10 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",10,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM11 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+11 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",11,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM12 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+12 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",12,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM13 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+13 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",13,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM14 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+14 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",14,0,0),"PickupSuccess")
+      Fail
+    }
+}
+
+ACTOR PistolMagM15 : BasePistolMagM
+{
+    Inventory.PickupMessage "Picked up a used pistol magazine. [\cj+15 Pistol Ammo\c-]"
+    States
+    {
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("PistolMagPickup",15,0,0),"PickupSuccess")
+      Fail
+    }
 }
 
 Actor BaseThrowPMag : CustomInventory

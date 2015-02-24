@@ -4,55 +4,55 @@
 
 ACTOR AmmoBoxAmmo : Ammo
 {
-	+IGNORESKILL
-	Inventory.Amount 15
-	Inventory.MaxAmount 150
-	Ammo.BackpackAmount 25
-	Ammo.BackpackMaxAmount 300
-	Inventory.Icon "ABXAA0"
-	Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
-	Inventory.PickupSound "AmmoBox/In"
-	States
-	{
-	Spawn:
-		ABXA A -1
-		Stop
-	}
+    +IGNORESKILL
+    Inventory.Amount 15
+    Inventory.MaxAmount 150
+    Ammo.BackpackAmount 25
+    Ammo.BackpackMaxAmount 300
+    Inventory.Icon "ABXAA0"
+    Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
+    Inventory.PickupSound "AmmoBox/In"
+    States
+    {
+    Spawn:
+        ABXA A -1
+        Stop
+    }
 }
 
 ACTOR AmmoBoxAmmoMag : Ammo
 {
-	+IGNORESKILL
-	Inventory.Amount 1
-	Inventory.MaxAmount 5
-	Ammo.BackpackAmount 1
-	Ammo.BackpackMaxAmount 10
-	Inventory.Icon "ABXAA0"
-	Inventory.PickupMessage "Picked up machine gun ammo. [\cj+1 SMG Magazine\c-]"
-	Inventory.PickupSound "AmmoBox/In"
-	States
-	{
-	Spawn:
-		ABXA A -1
-		Stop
-	}
+    +IGNORESKILL
+    Inventory.Amount 1
+    Inventory.MaxAmount 5
+    Ammo.BackpackAmount 1
+    Ammo.BackpackMaxAmount 10
+    Inventory.Icon "ABXAA0"
+    Inventory.PickupMessage "Picked up machine gun ammo. [\cj+1 SMG Magazine\c-]"
+    Inventory.PickupSound "AmmoBox/In"
+    States
+    {
+    Spawn:
+        ABXA A -1
+        Stop
+    }
 }
 
 
 ACTOR AmmoBoxAmmoDummy : Ammo //Dummy ammo for status bar
 {
-	+IGNORESKILL
-	Inventory.Amount 15
-	Inventory.MaxAmount 300
-	Ammo.BackpackAmount 25
-	Ammo.BackpackMaxAmount 300
-	Inventory.Icon "ABXAA0"
-	States
-	{
-	Spawn:
-		ABXA A -1
-		Stop
-	}
+    +IGNORESKILL
+    Inventory.Amount 15
+    Inventory.MaxAmount 300
+    Ammo.BackpackAmount 25
+    Ammo.BackpackMaxAmount 300
+    Inventory.Icon "ABXAA0"
+    States
+    {
+    Spawn:
+        ABXA A -1
+        Stop
+    }
 }
 
 ACTOR TSPAmmoBoxAmmoDrop
@@ -67,7 +67,7 @@ ACTOR TSPAmmoBoxAmmoDrop
     Goto SpawnAmmo
   LoneSurvivorSpawn:
     TNT1 A 0 A_Jump(155,"SpawnAmmo")
-	Stop
+    Stop
   SpawnAmmo:
     TNT1 A 0 A_SpawnItemEx("BaseAB50Mag",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
     Stop
@@ -138,8 +138,15 @@ ACTOR AB50AmmoDropper
     TNT1 A 0
     TNT1 A 0
     TNT1 A 0
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFullMagCVAR"),"Drop50")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetUseMagsCVAR"),"Spawn2")
     TNT1 A 0 A_Jump(256,"Drop20","Drop21","Drop22","Drop23","Drop24","Drop25","Drop26","Drop27","Drop28","Drop29","Drop30","Drop31","Drop32","Drop33","Drop34","Drop35","Drop36","Drop37","Drop38","Drop39","Drop40","Drop41","Drop42","Drop43","Drop44","Drop45","Drop46","Drop47","Drop48","Drop49","Drop50")
+    Wait
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0    
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFullMagCVAR"),"DropM50")
+    TNT1 A 0 A_Jump(256,"DropM20","DropM21","DropM22","DropM23","DropM24","DropM25","DropM26","DropM27","DropM28","DropM29","DropM30","DropM31","DropM32","DropM33","DropM34","DropM35","DropM36","DropM37","DropM38","DropM39","DropM40","DropM41","DropM42","DropM43","DropM44","DropM45","DropM46","DropM47","DropM48","DropM49","DropM50")
     Wait
   Drop20:
     TNT1 A 0 A_DropItem("AB50Mag20")
@@ -234,43 +241,136 @@ ACTOR AB50AmmoDropper
   Drop50:
     TNT1 A 0 A_DropItem("AB50Mag50")
     Stop
-  }
+  DropM20:
+    TNT1 A 0 A_DropItem("AB50MagM20")
+    Stop
+  DropM21:
+    TNT1 A 0 A_DropItem("AB50MagM21")
+    Stop
+  DropM22:
+    TNT1 A 0 A_DropItem("AB50MagM22")
+    Stop
+  DropM23:
+    TNT1 A 0 A_DropItem("AB50MagM23")
+    Stop
+  DropM24:
+    TNT1 A 0 A_DropItem("AB50MagM24")
+    Stop
+  DropM25:
+    TNT1 A 0 A_DropItem("AB50MagM25")
+    Stop
+  DropM26:
+    TNT1 A 0 A_DropItem("AB50MagM26")
+    Stop
+  DropM27:
+    TNT1 A 0 A_DropItem("AB50MagM27")
+    Stop
+  DropM28:
+    TNT1 A 0 A_DropItem("AB50MagM28")
+    Stop
+  DropM29:
+    TNT1 A 0 A_DropItem("AB50MagM29")
+    Stop
+  DropM30:
+    TNT1 A 0 A_DropItem("AB50MagM30")
+    Stop
+  DropM31:
+    TNT1 A 0 A_DropItem("AB50MagM31")
+    Stop
+  DropM32:
+    TNT1 A 0 A_DropItem("AB50MagM32")
+    Stop
+  DropM33:
+    TNT1 A 0 A_DropItem("AB50MagM33")
+    Stop
+  DropM34:
+    TNT1 A 0 A_DropItem("AB50MagM34")
+    Stop
+  DropM35:
+    TNT1 A 0 A_DropItem("AB50MagM35")
+    Stop
+  DropM36:
+    TNT1 A 0 A_DropItem("AB50MagM36")
+    Stop
+  DropM37:
+    TNT1 A 0 A_DropItem("AB50MagM37")
+    Stop
+  DropM38:
+    TNT1 A 0 A_DropItem("AB50MagM38")
+    Stop
+  DropM39:
+    TNT1 A 0 A_DropItem("AB50MagM39")
+    Stop
+  DropM40:
+    TNT1 A 0 A_DropItem("AB50MagM40")
+    Stop
+  DropM41:
+    TNT1 A 0 A_DropItem("AB50MagM41")
+    Stop
+  DropM42:
+    TNT1 A 0 A_DropItem("AB50MagM42")
+    Stop
+  DropM43:
+    TNT1 A 0 A_DropItem("AB50MagM43")
+    Stop
+  DropM44:
+    TNT1 A 0 A_DropItem("AB50MagM44")
+    Stop
+  DropM45:
+    TNT1 A 0 A_DropItem("AB50MagM45")
+    Stop
+  DropM46:
+    TNT1 A 0 A_DropItem("AB50MagM46")
+    Stop
+  DropM47:
+    TNT1 A 0 A_DropItem("AB50MagM47")
+    Stop
+  DropM48:
+    TNT1 A 0 A_DropItem("AB50MagM48")
+    Stop
+  DropM49:
+    TNT1 A 0 A_DropItem("AB50MagM49")
+    Stop
+  DropM50:
+    TNT1 A 0 A_DropItem("AB50MagM50")
+    Stop 
+ }
 }
 
 ACTOR BaseAB50Mag : CustomInventory 
 {
-    Inventory.PickupMessage "Picked up machine gun ammo. [\cj+1 SMG Magazine\c-]"
-	Inventory.PickupSound "919m/magout"
-	DeathSound "weapons/smallclip"
-	+INVENTORY.AUTOACTIVATE
-	+CORPSE
-	States
-	{
-	Spawn:
+    Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
+    Inventory.PickupSound "919m/magout"
+    DeathSound "weapons/smallclip"
+    +INVENTORY.AUTOACTIVATE
+    +CORPSE
+    States
+    {
+    Spawn:
       ABXA A 2
-	  Loop
-	Crash:
-	  TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
-	  Wait
+      Loop
+    Crash:
+      TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
+      Wait
     Crash1:
-	  ABXA A -1 A_Scream
-	  Stop
+      ABXA A -1 A_Scream
+      Stop
     Crash2:
-	  ABXA A -1 A_Scream
-	  Stop
-	Crash3:
-	  ABXA A -1 A_Scream
-	  Stop
-	Crash4:
-	  ABXA A -1 A_Scream
-	  Stop
-	Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",51,0,1),"PickupSuccess")
-	  Fail
-	PickupSuccess:
-	  TNT1 A 0 A_RailWait
-	  Stop
-	}
+      ABXA A -1 A_Scream
+      Stop
+    Crash3:
+      ABXA A -1 A_Scream
+      Stop
+    Crash4:
+      ABXA A -1 A_Scream
+      Stop
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",51,0,0),"PickupSuccess")
+      Fail
+    PickupSuccess:
+      TNT1 A 0 A_RailWait
+      Stop
+    }
 }
 
 ACTOR AB50Mag1 : BaseAB50Mag
@@ -278,7 +378,7 @@ ACTOR AB50Mag1 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",1,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",1,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -288,7 +388,7 @@ ACTOR AB50Mag2 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",2,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",2,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -298,7 +398,7 @@ ACTOR AB50Mag3 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",3,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",3,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -308,7 +408,7 @@ ACTOR AB50Mag4 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",4,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",4,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -318,7 +418,7 @@ ACTOR AB50Mag5 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",5,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",5,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -328,7 +428,7 @@ ACTOR AB50Mag6 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",6,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",6,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -338,7 +438,7 @@ ACTOR AB50Mag7 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",7,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",7,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -348,7 +448,7 @@ ACTOR AB50Mag8 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",8,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",8,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -358,7 +458,7 @@ ACTOR AB50Mag9 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",9,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",9,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -368,7 +468,7 @@ ACTOR AB50Mag10 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",10,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",10,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -379,7 +479,7 @@ ACTOR AB50Mag11 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",11,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",11,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -389,7 +489,7 @@ ACTOR AB50Mag12 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",12,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",12,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -399,7 +499,7 @@ ACTOR AB50Mag13 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",13,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",13,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -409,7 +509,7 @@ ACTOR AB50Mag14 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",14,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",14,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -419,7 +519,7 @@ ACTOR AB50Mag15 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",15,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",15,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -429,7 +529,7 @@ ACTOR AB50Mag16 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",16,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",16,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -439,7 +539,7 @@ ACTOR AB50Mag17 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",17,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",17,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -449,7 +549,7 @@ ACTOR AB50Mag18 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",18,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",18,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -459,7 +559,7 @@ ACTOR AB50Mag19 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",19,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",19,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -469,7 +569,7 @@ ACTOR AB50Mag20 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",20,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",20,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -480,7 +580,7 @@ ACTOR AB50Mag21 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",21,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",21,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -490,7 +590,7 @@ ACTOR AB50Mag22 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",22,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",22,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -500,7 +600,7 @@ ACTOR AB50Mag23 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",23,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",23,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -510,7 +610,7 @@ ACTOR AB50Mag24 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",24,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",24,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -520,7 +620,7 @@ ACTOR AB50Mag25 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",25,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",25,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -530,7 +630,7 @@ ACTOR AB50Mag26 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",26,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",26,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -540,7 +640,7 @@ ACTOR AB50Mag27 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",27,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",27,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -550,7 +650,7 @@ ACTOR AB50Mag28 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",28,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",28,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -560,7 +660,7 @@ ACTOR AB50Mag29 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",29,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",29,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -570,7 +670,7 @@ ACTOR AB50Mag30 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",30,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",30,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -581,7 +681,7 @@ ACTOR AB50Mag31 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",31,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",31,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -591,7 +691,7 @@ ACTOR AB50Mag32 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",32,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",32,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -601,7 +701,7 @@ ACTOR AB50Mag33 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",33,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",33,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -611,7 +711,7 @@ ACTOR AB50Mag34 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",34,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",34,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -621,7 +721,7 @@ ACTOR AB50Mag35 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",35,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",35,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -631,7 +731,7 @@ ACTOR AB50Mag36 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",36,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",36,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -641,7 +741,7 @@ ACTOR AB50Mag37 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",37,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",37,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -651,7 +751,7 @@ ACTOR AB50Mag38 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",38,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",38,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -661,7 +761,7 @@ ACTOR AB50Mag39 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",39,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",39,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -671,7 +771,7 @@ ACTOR AB50Mag40 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",40,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",40,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -682,7 +782,7 @@ ACTOR AB50Mag41 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",41,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",41,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -692,7 +792,7 @@ ACTOR AB50Mag42 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",42,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",42,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -702,7 +802,7 @@ ACTOR AB50Mag43 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",43,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",43,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -712,7 +812,7 @@ ACTOR AB50Mag44 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",44,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",44,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -722,7 +822,7 @@ ACTOR AB50Mag45 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",45,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",45,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -732,7 +832,7 @@ ACTOR AB50Mag46 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",46,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",46,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -742,7 +842,7 @@ ACTOR AB50Mag47 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",47,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",47,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -752,7 +852,7 @@ ACTOR AB50Mag48 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",48,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",48,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -762,7 +862,7 @@ ACTOR AB50Mag49 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",49,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",49,0,0),"PickupSuccess")
     Stop
   }
 }
@@ -772,7 +872,597 @@ ACTOR AB50Mag50 : BaseAB50Mag
   States
   {
   Pickup:
-    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",50,0,1),"PickupSuccess")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",50,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR BaseAB50MagM : CustomInventory 
+{
+    Inventory.PickupMessage "Picked up a full SMG magazine. [\cj+1 SMG Magazine\c-]"
+    Inventory.PickupSound "919m/magout"
+    DeathSound "weapons/smallclip"
+    +INVENTORY.AUTOACTIVATE
+    +CORPSE
+    States
+    {
+    Spawn:
+      ABXA A 2
+      Loop
+    Crash:
+      TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
+      Wait
+    Crash1:
+      ABXA A -1 A_Scream
+      Stop
+    Crash2:
+      ABXA A -1 A_Scream
+      Stop
+    Crash3:
+      ABXA A -1 A_Scream
+      Stop
+    Crash4:
+      ABXA A -1 A_Scream
+      Stop
+    Pickup:
+      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",51,0,0),"PickupSuccess")
+      Fail
+    PickupSuccess:
+      TNT1 A 0 A_RailWait
+      Stop
+    }
+}
+
+ACTOR AB50MagM1 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+1 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",1,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM2 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+2 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",2,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM3 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+3 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",3,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM4 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+4 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",4,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM5 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+5 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",5,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM6 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+6 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",6,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM7 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+7 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",7,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM8 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+8 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",8,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM9 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+9 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",9,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM10 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+10 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",10,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+
+ACTOR AB50MagM11 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+11 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",11,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM12 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+12 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",12,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM13 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+13 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",13,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM14 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+14 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",14,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM15 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+15 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",15,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM16 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+16 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",16,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM17 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+17 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",17,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM18 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+18 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",18,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM19 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+19 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",19,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM20 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+20 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",20,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+
+ACTOR AB50MagM21 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+21 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",21,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM22 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+22 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",22,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM23 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+23 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",23,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM24 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+24 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",24,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM25 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+25 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",25,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM26 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+26 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",26,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM27 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+27 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",27,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM28 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+28 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",28,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM29 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+29 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",29,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM30 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+30 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",30,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+
+ACTOR AB50MagM31 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+31 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",31,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM32 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+32 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",32,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM33 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+33 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",33,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM34 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+34 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",34,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM35 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+35 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",35,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM36 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+36 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",36,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM37 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+37 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",37,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM38 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+38 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",38,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM39 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+39 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",39,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM40 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+40 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",40,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+
+ACTOR AB50MagM41 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+41 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",41,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM42 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+42 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",42,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM43 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+43 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",43,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM44 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+44 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",44,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM45 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+45 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",45,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM46 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+46 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",46,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM47 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+47 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",47,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM48 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+48 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",48,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM49 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+49 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",49,0,0),"PickupSuccess")
+    Stop
+  }
+}
+
+ACTOR AB50MagM50 : BaseAB50MagM
+{
+  Inventory.PickupMessage "Picked up a used SMG magazine. [\cj+50 SMG Ammo\c-]"
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",50,0,0),"PickupSuccess")
     Stop
   }
 }
