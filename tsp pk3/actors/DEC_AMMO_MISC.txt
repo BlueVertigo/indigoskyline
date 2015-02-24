@@ -54,13 +54,17 @@ ACTOR TSPBoxofAmmoDrop replaces ClipBox
     TNT1 A 0
     TNT1 A 0
     TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorSpawn")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetUseMagsCVAR"),"Spawn2")
     TNT1 A 0 A_SpawnItemEx("BoxOfAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  Spawn2:
+    TNT1 A 0 A_SpawnItemEx("BoxOfAmmoMag",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
     Stop
   LoneSurvivorSpawn:
     TNT1 A 0 A_Jump(100,"Nothing")
 	TNT1 A 0 A_Jump(100,"LSSpawn2")
     TNT1 A 0
-    TNT1 A 0 A_SpawnItemEx("BoxOfAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    TNT1 A 0 A_SpawnItemEx("BoxOfAmmoMag",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
 	Stop
   LSSpawn2:
     TNT1 A 0
@@ -74,7 +78,7 @@ ACTOR TSPBoxofAmmoDrop replaces ClipBox
 
 ACTOR BoxOfAmmo : CustomInventory
 {
-    Inventory.PickupMessage ""
+    Inventory.PickupMessage "Found an assorted ammo crate. [\cj+30 Pistol Ammo\c-][\cj+60 SMG Ammo\c-][\cv+10 Bolts\c-]"
 	Inventory.PickupSound "dahlia/normalammo"
 	+INVENTORY.AUTOACTIVATE
 	States
@@ -92,7 +96,34 @@ ACTOR BoxOfAmmo : CustomInventory
 	  Goto Success2
 	Success2:
 	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0)
-	  TNT1 A 0 ACS_NamedExecuteWithResult("ClipboxMessage")
+	Success3:
+	  TNT1 A 0 A_RailWait
+      Stop
+	}
+}
+
+ACTOR BoxOfAmmoMag : CustomInventory
+{
+    Inventory.PickupMessage "Found an assorted ammo crate. [\cj+2 Pistol Magazines\c-][\cj+1 SMG Magazine\c-][\cv+5 Bolts\c-]"
+	Inventory.PickupSound "dahlia/normalammo"
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+      AMMO A -1
+	  Stop
+	Pickup:
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,2000060,1000000,0),"Success1")
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2000030,2000000,0),"Success2")
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0),"Success3") 
+	  Fail
+	Success1:
+	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2000030,2000000,0)
+	  Goto Success2
+	Success2:
+	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0)
+	Success3:
+	  TNT1 A 0 A_RailWait
       Stop
 	}
 }
