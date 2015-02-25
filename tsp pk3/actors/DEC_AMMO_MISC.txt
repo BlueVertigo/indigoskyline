@@ -87,12 +87,12 @@ ACTOR BoxOfAmmo : CustomInventory
       AMMO A -1
 	  Stop
 	Pickup:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,2000060,1000000,0),"Success1")
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2000030,2000000,0),"Success2")
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,2050060,1050000,0),"Success1")
+	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2015030,2015000,0),"Success2")
 	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0),"Success3") 
 	  Fail
 	Success1:
-	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2000030,2000000,0)
+	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2015030,2015000,0)
 	  Goto Success2
 	Success2:
 	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0)
@@ -102,30 +102,9 @@ ACTOR BoxOfAmmo : CustomInventory
 	}
 }
 
-ACTOR BoxOfAmmoMag : CustomInventory
+ACTOR BoxOfAmmoMag : BoxOfAmmo
 {
     Inventory.PickupMessage "Found an assorted ammo crate. [\cj+2 Pistol Magazines\c-][\cj+1 SMG Magazine\c-][\cv+5 Bolts\c-]"
-	Inventory.PickupSound "dahlia/normalammo"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      AMMO A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,2000060,1000000,0),"Success1")
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2000030,2000000,0),"Success2")
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0),"Success3") 
-	  Fail
-	Success1:
-	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,2000030,2000000,0)
-	  Goto Success2
-	Success2:
-	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Bolt,10,5,0)
-	Success3:
-	  TNT1 A 0 A_RailWait
-      Stop
-	}
 }
 
 //==============

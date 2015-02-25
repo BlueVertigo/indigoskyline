@@ -555,7 +555,7 @@ script "PistolMagPickup" (int howmanyclip, int howmanyammo, int msg)
     if(CheckInventory("Backpack2") || CheckInventory("Backpack")){ maxmags = 15; }
     else{ maxmags = 10; }
     mags = CheckInventory("TSPPistolAmmoMag");
-    if(howmanyclip == 16){ howmanyclip = 15; }
+    if(howmanyclip > 15){ howmanyclip = 15; }
     if(mags < maxmags){
       GivePMag(howmanyclip,msg,1);
       setresultvalue(1); }
@@ -822,7 +822,7 @@ script "AB50MagPickup" (int howmanyclip, int howmanyammo, int msg)
     if(CheckInventory("Backpack2") || CheckInventory("Backpack")){ maxmags = 10; }
     else{ maxmags = 5; }
     mags = CheckInventory("AmmoBoxAmmoMag");
-    if(howmanyclip == 51){ howmanyclip = 50; }
+    if(howmanyclip > 50){ howmanyclip = 50; }
     if(mags < maxmags){
       GiveAMag(howmanyclip,msg,1);
       setresultvalue(1); }
@@ -845,8 +845,8 @@ script "AB50ReloadCheck" (int which)
   else{
     if((!GetCVar("tsp_usemags") && GameSkill() < 5)){
       if (!CheckInventory("AmmoBoxAmmo") || CheckInventory("AmmoBoxMag") == 50){ result = 1; }}
-    else if((CheckInventory("AmmoBoxMag") >= GetLargestAMag()) || !CheckInventory("TSPPistolAmmoMag")){
-      result = 1; }}
+    else if((CheckInventory("AmmoBoxMag") >= GetLargestAMag()) || !CheckInventory("AmmoBoxAmmoMag")){
+	  result = 1; }}
   setresultvalue(result);
 }
 
@@ -1491,32 +1491,32 @@ script "AmmoGiveLS" (int which, int GiveNormal, int GiveLS, int msgthrow)
   int ammogive, ammogive2, maggive, result, nummags;
   int Nmag, Nfmags, Nammo, LSmag, LSfmags, LSammo;
 
-  if(GiveNormal > 1000000){ 
+  if(GiveNormal >= 1000000){ 
     Nmag = GiveNormal % 1000000;
     Nfmags = (GiveNormal - Nmag) / 1000000;
-    if(Nmag > 1000){
+    if(Nmag >= 1000){
       Nammo = Nmag % 1000;
       Nmag = (Nmag - Nammo) / 1000; }
     else{
       Nammo = Nmag;
       Nmag = 0x7FFFFFFF; }}
-  else if(GiveNormal > 1000){ 
+  else if(GiveNormal >= 1000){ 
     Nammo = GiveNormal % 1000;
     Nmag = (GiveNormal - Nammo) / 1000; }
   else{
     Nammo = GiveNormal;
     Nmag = GiveNormal; }
 
-  if(GiveLS > 1000000){ 
+  if(GiveLS >= 1000000){ 
     LSmag = GiveLS % 1000000;
     LSfmags = (GiveLS - LSmag) / 1000000;
-    if(LSmag > 1000){
+    if(LSmag >= 1000){
       LSammo = LSmag % 1000;
       LSmag = (LSmag - LSammo) / 1000; }
     else{
       LSammo = LSmag;
       LSmag = 0x7FFFFFFF; }}
-  else if(GiveLS > 1000){ 
+  else if(GiveLS >= 1000){ 
     LSammo = GiveLS % 1000;
     LSmag = (GiveLS - LSammo) / 1000; }
   else{
@@ -1542,7 +1542,8 @@ script "AmmoGiveLS" (int which, int GiveNormal, int GiveLS, int msgthrow)
 	
   switch (which){
     case 2:
-      result = ACS_NamedExecuteWithResult("PistolMagPickup",maggive,ammogive,msgthrow);
+      if(maggive == 0x7FFFFFFF){ maggive = 15; }
+	  result = ACS_NamedExecuteWithResult("PistolMagPickup",maggive,ammogive,msgthrow);
       while(nummags > 1){
         ACS_NamedExecuteWithResult("PistolMagPickup",maggive,ammogive2,msgthrow);
         --nummags; }
@@ -1560,6 +1561,7 @@ script "AmmoGiveLS" (int which, int GiveNormal, int GiveLS, int msgthrow)
       result = ACS_NamedExecuteWithResult("ShellPickup",3,ammogive,msgthrow);
       break;
     case 4:
+      if(maggive == 0x7FFFFFFF){ maggive = 50; }
       result = ACS_NamedExecuteWithResult("AB50MagPickup",maggive,ammogive,msgthrow);
       while(nummags > 1){
         ACS_NamedExecuteWithResult("AB50MagPickup",maggive,ammogive2,msgthrow);
