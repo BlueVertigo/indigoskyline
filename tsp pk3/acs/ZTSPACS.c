@@ -17,14 +17,38 @@ int LastyFixedA[64];
 int LastzFixedA[64];
 int LastCurveA[64];
 
+script "ImpMissile" (void)
+{
+  int result, rand, speed;
+  rand = random(0,2);
+  if(GameSkill() < 2 || !rand){ result = 0; }
+  else if(GameSkill() == 2){
+    rand = random(1,255);
+	if(rand < 76){ 
+	  result = 1;
+	  if(GetCVar("sv_fastmonsters")){ speed = 20.0; }
+	  else{ speed = 10.0; }
+	  ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }
+    else{ result = 0; }}
+  else{
+	result = 1;
+	if(GameSkill() == 3 || GetCVar("sv_fastmonsters")){ speed = 20.0; }
+	else if(GameSkill() == 5){ speed = 15.0; }
+	if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }
+    else{ ProjInt_BruteRand(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }}
+  //if(result){ SetActorState(0,"MissileFinish"); }
+  //else{ SetActorState(0,"Melee2"); }
+  SetResultValue(result);
+}
+
 script "MonsterEnter" (void)
 {
-  if(GameSkill() >= 0) { GiveInventory("Diff0",1); }
-  if(GameSkill() >= 1) { GiveInventory("Diff1",1); }
-  if(GameSkill() >= 2) { GiveInventory("Diff2",1); }
-  if(GameSkill() >= 3) { GiveInventory("Diff3",1); }
-  if(GameSkill() >= 4) { GiveInventory("Diff4",1); }
-  if(GameSkill() >= 5) { GiveInventory("Diff5",1); }
+  if(GameSkill() >= 0){ GiveInventory("Diff0",1); }
+  if(GameSkill() >= 1){ GiveInventory("Diff1",1); }
+  if(GameSkill() >= 2){ GiveInventory("Diff2",1); }
+  if(GameSkill() >= 3){ GiveInventory("Diff3",1); }
+  if(GameSkill() >= 4){ GiveInventory("Diff4",1); }
+  if(GameSkill() >= 5){ GiveInventory("Diff5",1); }
 }
 
 script "CheckClass" (int which)

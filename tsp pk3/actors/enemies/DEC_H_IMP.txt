@@ -91,13 +91,25 @@ ACTOR BaseImp : BaseHumanoid
     "####" AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase
     Loop
   Melee:
-    "####" EF 8 A_FaceTarget
-    "####" G 6 A_TroopAttack
-    "####" "#" 0 A_Jump (256,"See2")
-    Goto See
+    Goto Missile
+  Melee2:
+	"####" "#" 0 A_JumpIfInventory("Diff5",1,"Melee2LS")
+	"####" "#" 0 A_JumpIfInventory("Diff3",1,"Melee2Hard")
+    "####" "#" 0 A_CustomComboAttack("DoomImpBall", 32, 3 * random(1, 8), "imp/melee")
+    Goto MissileFinish
+  Melee2Hard:
+    "####" "#" 0 A_CustomComboAttack("FastDoomImpBall", 32, 3 * random(1, 8), "imp/melee")
+    Goto MissileFinish
+  Melee2LS:
+    "####" "#" 0 A_CustomComboAttack("FastDoomImpBallLS", 32, 3 * random(1, 8), "imp/melee")
+    Goto MissileFinish
   Missile:
     "####" EF 8 A_FaceTarget
-    "####" G 6 A_TroopAttack
+	"####" "#" 0 A_JumpIfCloser(256,"Melee2")
+    "####" "#" 0 A_JumpIf(ACS_NamedExecuteWithResult("ImpMissile"),"MissileFinish")
+    Goto Melee2
+  MissileFinish:
+    "####" G 6
     "####" "#" 0 A_Jump (256,"See2")
     Goto See
   Pain:
@@ -135,6 +147,9 @@ ACTOR BaseImp : BaseHumanoid
     Goto Death.WOGChargeBeamFinish
   }
 }
+
+ACTOR FastDoomImpBall : DoomImpBall { Speed 20 }
+ACTOR FastDoomImpBallLS : DoomImpBall { Speed 15 }
 
 //===========================================================================
 // Vanilla Imp (Variant 0)

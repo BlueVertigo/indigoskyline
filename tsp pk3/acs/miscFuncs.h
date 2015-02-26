@@ -7,10 +7,11 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
   int t, t_inc, sml_t, n, nmax, i, imax, diff, smldiff;
   int X_spd, Y_spd, Z_spd;
   int check = 1, check2 = 1;
-  int oldstid, oldttid;
+  int oldstid, oldttid, stid_z, ttid_z;
 
   if(!stid || ThingCount(T_NONE,stid) > 1){
-    oldstid = ActivatorTID();
+    stid_z = 1;
+	oldstid = ActivatorTID();
 	stid = UniqueTID();
 	Thing_ChangeTID(0, stid); }
   else{ oldstid = stid; }
@@ -36,7 +37,8 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
     sY -= FixedMul(sin(s_ang),yoff); }
 
   if(!ttid || ThingCount(T_NONE,ttid) > 1){
-    SetActivator(0, AAPTR_TARGET);
+    ttid_z = 1;
+	SetActivator(0, AAPTR_TARGET);
 	oldttid = ActivatorTID();
 	ttid = UniqueTID();
 	Thing_ChangeTID(0, ttid); }
@@ -114,7 +116,9 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
   X_spd = FixedDiv(tXf - sX, t);
   Y_spd = FixedDiv(tYf - sY, t);
   p_ang = VectorAngle(tXf - sX, tYf - sY);
-  
+
+  if(!ptid || ThingCount(T_NONE,stid) > 1){ ptid = UniqueTID(); }
+
   SpawnProjectile (stid, ptype, 0, 0, 0, 0, ptid); 
   SetActivator(ptid); 
   SetPointer(AAPTR_TARGET, stid); //so doesn't collide with it
@@ -123,8 +127,9 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
   SetActorVelocity(ptid,X_spd,Y_spd,Z_spd,0,0);
   SetActorAngle(stid, p_ang);
 
-  Thing_ChangeTID(stid, oldstid);
-  Thing_ChangeTID(ttid, oldttid);
+  if(stid_z){ Thing_ChangeTID(stid, oldstid); }
+  if(ttid_z){ Thing_ChangeTID(ttid, oldttid); }
+  SetActivator(stid); 
   return t;
 }
 
@@ -136,10 +141,11 @@ function int ProjInt_BruteRand(int stid, int ttid, int spd, int ptid, int xoff, 
   int X_spd, Y_spd, Z_spd, XY_spd;
   int t, tt, t_inc, sml_t, n, nmax, i, imax, diff, smldiff;
   int check = 1, check2 = 1;
-  int oldstid, oldttid;
+  int oldstid, oldttid, stid_z, ttid_z;
 
   if(!stid || ThingCount(T_NONE,stid) > 1){
-    oldstid = ActivatorTID();
+    stid_z = 1;
+	oldstid = ActivatorTID();
 	stid = UniqueTID();
 	Thing_ChangeTID(0, stid); }
   else{ oldstid = stid; }
@@ -165,7 +171,8 @@ function int ProjInt_BruteRand(int stid, int ttid, int spd, int ptid, int xoff, 
     sY -= FixedMul(sin(s_ang),yoff); }
 
   if(!ttid || ThingCount(T_NONE,ttid) > 1){
-    SetActivator(0, AAPTR_TARGET);
+    ttid_z = 1;
+	SetActivator(0, AAPTR_TARGET);
 	oldttid = ActivatorTID();
 	ttid = UniqueTID();
 	Thing_ChangeTID(0, ttid); }
@@ -246,6 +253,8 @@ function int ProjInt_BruteRand(int stid, int ttid, int spd, int ptid, int xoff, 
   X_spd = FixedMul(cos(p_ang), XY_spd);
   Y_spd = FixedMul(sin(p_ang), XY_spd);
   
+  if(!ptid || ThingCount(T_NONE,stid) > 1){ ptid = UniqueTID(); }
+
   SpawnProjectile (stid, ptype, 0, 0, 0, 0, ptid); 
   SetActivator(ptid); 
   SetPointer(AAPTR_TARGET, stid); //so doesn't collide with it
@@ -254,8 +263,9 @@ function int ProjInt_BruteRand(int stid, int ttid, int spd, int ptid, int xoff, 
   SetActorVelocity(ptid,X_spd,Y_spd,Z_spd,0,0);
   SetActorAngle(stid, p_ang);
   
-  Thing_ChangeTID(stid, oldstid);
-  Thing_ChangeTID(ttid, oldttid);
+  if(stid_z){ Thing_ChangeTID(stid, oldstid); }
+  if(ttid_z){ Thing_ChangeTID(ttid, oldttid); }
+  SetActivator(stid); 
   return t;
 }
 
