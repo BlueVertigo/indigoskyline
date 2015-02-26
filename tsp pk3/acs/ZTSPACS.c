@@ -1,7 +1,11 @@
 #include "zcommon.acs"
 #include "commonfuncs.h"
-#include "wepFuncs.h"
-#library "tspacs"
+#include "mathFuncs.h"
+#include "miscFuncs.h"
+
+#include "TSPwepFuncs.h"
+
+#library "ZTSPACS"
 
 global int 50:GArray50[];
 /*
@@ -13,14 +17,14 @@ int LastyFixedA[64];
 int LastzFixedA[64];
 int LastCurveA[64];
 
-function int FixedAngMod(int fAngle)
+script "MonsterEnter" (void)
 {
-  if (fAngle > 1.0){
-    fAngle %= 65536; }
-  else if (fAngle < 0){
-    fAngle %= (-65536);
-    fAngle = fAngle + 65536;}
-  return fAngle;
+  if(GameSkill() >= 0) { GiveInventory("Diff0",1); }
+  if(GameSkill() >= 1) { GiveInventory("Diff1",1); }
+  if(GameSkill() >= 2) { GiveInventory("Diff2",1); }
+  if(GameSkill() >= 3) { GiveInventory("Diff3",1); }
+  if(GameSkill() >= 4) { GiveInventory("Diff4",1); }
+  if(GameSkill() >= 5) { GiveInventory("Diff5",1); }
 }
 
 script "CheckClass" (int which)

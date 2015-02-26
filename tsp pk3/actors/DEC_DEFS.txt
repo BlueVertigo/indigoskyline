@@ -5,7 +5,17 @@ Actor Boolean : Inventory
     -INVBAR
 }
 
+Actor Counter: Inventory { Inventory.MaxAmount 0x7FFFFFFF }
+
 Actor AlreadyGotOne : Boolean {}
+Actor AGO_Spawn : Boolean {}
+
+Actor Diff0 : Boolean {}
+Actor Diff1 : Boolean {}
+Actor Diff2 : Boolean {}
+Actor Diff3 : Boolean {}
+Actor Diff4 : Boolean {}
+Actor Diff5 : Boolean {}
 
 const int MEL_CLASS               = 1;
 const int VEX_CLASS               = 2;

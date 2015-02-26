@@ -12,11 +12,11 @@ ACTOR ChaingunnerSkillSpawner : MonsterSkillSpawner replaces Chaingunguy
     TNT1 A 0
     TNT1 A 0
     TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 3,"Spawn2")
-    TNT1 A 0 A_SpawnItemEx("ChaingunnerSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    TNT1 A 0 A_SpawnItemEx("ChaingunnerSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_TRANSFERSPECIAL|SXF_TRANSFERAMBUSHFLAG)
     Stop
   Spawn2:
     TNT1 A 0
-    TNT1 A 0 A_SpawnItemEx("ChaingunnerSpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    TNT1 A 0 A_SpawnItemEx("ChaingunnerSpawnerHard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_TRANSFERSPECIAL|SXF_TRANSFERAMBUSHFLAG)
     Stop
   }
 }

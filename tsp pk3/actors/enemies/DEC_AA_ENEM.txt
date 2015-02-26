@@ -6,9 +6,9 @@ ACTOR BaseEnemy
   States
   {
   See:
-    KEEN A 0 A_Jump (256,"See2")
-    KEEN A 0 A_Jump (256,"See2")
-    KEEN A 1 A_Jump (256,"See2")
+    "####" A 0 A_Jump (256,"See2")
+    "####" A 0 A_Jump (256,"See2")
+    "####" A 1 A_Jump (256,"See2")
     Loop
   See2:
     KEEN A 1
@@ -17,36 +17,36 @@ ACTOR BaseEnemy
     KEEN A 1
     Loop
   Pain.Sling:
-    TNT1 A 0 A_FaceTarget
-    TNT1 A 0 A_CustomMissile("MagSlingShot", 32, 0)
-    TNT1 A 0 A_Jump (256,"Pain.Melee")
+    "####" A 0 A_FaceTarget
+    "####" A 0 A_CustomMissile("MagSlingShot", 32, 0)
+    "####" A 0 A_Jump (256,"Pain.Melee")
     Goto Pain.Melee
   Pain.Melee:
-    KEEN A 0 A_Jump (256,"Pain")
-    KEEN A 0 A_Jump (256,"Pain")
-    KEEN A 1 A_Jump (256,"Pain")
+    "####" A 0 A_Jump (256,"Pain")
+    "####" A 0 A_Jump (256,"Pain")
+    "####" A 1 A_Jump (256,"Pain")
     Loop
   Death.Uppercut:
-    TNT1 A 0 A_FaceTarget
-    TNT1 A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
-    TNT1 A 0 Thrustthingz(0,27,0,1)
-    TNT1 A 0 A_Jump (256,"Death")
-    TNT1 A 0 A_Jump (256,"Death")
+    "####" A 0 A_FaceTarget
+    "####" A 0 Thrustthing(angle*256/360+192, random(3,4), 0, 0)
+    "####" A 0 Thrustthingz(0,27,0,1)
+    "####" A 0 A_Jump (256,"Death")
+    "####" A 0 A_Jump (256,"Death")
     Goto Death2
   Death2:
-    KEEN A 0 A_Jump (256,"Death")
-    KEEN A 0 A_Jump (256,"Death")
-    KEEN A 1 A_Jump (256,"Death")
+    "####" A 0 A_Jump (256,"Death")
+    "####" A 0 A_Jump (256,"Death")
+    "####" A 1 A_Jump (256,"Death")
     Loop
   Death.BoltScriptDmg:
-    KEEN A 0 A_Jump (256,"XDeath")
-    KEEN A 0 A_Jump (256,"XDeath")
-    KEEN A 1 A_Jump (256,"XDeath")
+    "####" A 0 A_Jump (256,"XDeath")
+    "####" A 0 A_Jump (256,"XDeath")
+    "####" A 1 A_Jump (256,"XDeath")
 	Goto XDeath
   XDeath:
-    KEEN A 0 A_Jump (256,"Death")
-    KEEN A 0 A_Jump (256,"Death")
-    KEEN A 1 A_Jump (256,"Death")
+    "####" A 0 A_Jump (256,"Death")
+    "####" A 0 A_Jump (256,"Death")
+    "####" A 1 A_Jump (256,"Death")
     Loop
   }
 }
