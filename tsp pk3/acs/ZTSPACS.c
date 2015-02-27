@@ -737,7 +737,7 @@ script "MP40ReloadCheck" (int which)
   else{
     if((!GetCVar("tsp_usemags") && GameSkill() < 5)){
       if (!CheckInventory("TSPPistolAmmo") || CheckInventory("MP40Mag") == 30){ result = 1; }}
-    else if((CheckInventory("MP40Mag") >= GetLargestPMag()) || !CheckInventory("TSPPistolAmmoMag")){
+    else if((CheckInventory("MP40Mag") >= (GetLargestPMag() * 2) ) || !CheckInventory("TSPPistolAmmoMag")){
       result = 1; }}
   setresultvalue(result);
 }
@@ -808,7 +808,7 @@ script "MP40MagIn" (void)
     GiveInventory("MP40Mag",ammobuffer);
     while(CheckInventory("MP40Mag") < 30 && CheckInventory("TSPPistolAmmo")){
       TakeInventory("TSPPistolAmmo",1);
-      GiveInventory("AutoPistolMag",1); }}
+      GiveInventory("MP40Mag",1); }}
   else{
     if(CheckInventory("Backpack2") || CheckInventory("Backpack")){ maxmags = 15; }
     else{ maxmags = 10; }
@@ -817,7 +817,7 @@ script "MP40MagIn" (void)
     largestmag2 = GetLargestPMag();
     TakePMag(largestmag2,0,1);
     largestmag = largestmag + largestmag2;
-    GiveInventory("AutoPistolMag",largestmag);
+    GiveInventory("MP40Mag",largestmag);
     if(ammobuffer){ GivePMag(ammobuffer,0,1); }}
 }
 
