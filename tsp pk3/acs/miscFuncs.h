@@ -11,9 +11,9 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
 
   if(!stid || ThingCount(T_NONE,stid) > 1){
     stid_z = 1;
-	oldstid = ActivatorTID();
-	stid = UniqueTID();
-	Thing_ChangeTID(0, stid); }
+    oldstid = ActivatorTID();
+    stid = UniqueTID();
+    Thing_ChangeTID(0, stid); }
   else{ oldstid = stid; }
 
   sX = GetActorX(stid);
@@ -38,10 +38,10 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
 
   if(!ttid || ThingCount(T_NONE,ttid) > 1){
     ttid_z = 1;
-	SetActivator(0, AAPTR_TARGET);
-	oldttid = ActivatorTID();
-	ttid = UniqueTID();
-	Thing_ChangeTID(0, ttid); }
+    SetActivator(0, AAPTR_TARGET);
+    oldttid = ActivatorTID();
+    ttid = UniqueTID();
+    Thing_ChangeTID(0, ttid); }
   else{ oldttid = ttid; }
 
   tX = GetActorX(ttid);
@@ -145,9 +145,9 @@ function int ProjInt_BruteRand(int stid, int ttid, int spd, int ptid, int xoff, 
 
   if(!stid || ThingCount(T_NONE,stid) > 1){
     stid_z = 1;
-	oldstid = ActivatorTID();
-	stid = UniqueTID();
-	Thing_ChangeTID(0, stid); }
+    oldstid = ActivatorTID();
+    stid = UniqueTID();
+    Thing_ChangeTID(0, stid); }
   else{ oldstid = stid; }
 
   sX = GetActorX(stid);
@@ -172,10 +172,10 @@ function int ProjInt_BruteRand(int stid, int ttid, int spd, int ptid, int xoff, 
 
   if(!ttid || ThingCount(T_NONE,ttid) > 1){
     ttid_z = 1;
-	SetActivator(0, AAPTR_TARGET);
-	oldttid = ActivatorTID();
-	ttid = UniqueTID();
-	Thing_ChangeTID(0, ttid); }
+    SetActivator(0, AAPTR_TARGET);
+    oldttid = ActivatorTID();
+    ttid = UniqueTID();
+    Thing_ChangeTID(0, ttid); }
   else{ oldttid = ttid; }
 
   tX = GetActorX(ttid);

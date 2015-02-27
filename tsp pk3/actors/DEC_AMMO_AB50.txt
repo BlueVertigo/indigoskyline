@@ -4,55 +4,55 @@
 
 ACTOR AmmoBoxAmmo : Ammo
 {
-    +IGNORESKILL
-    Inventory.Amount 15
-    Inventory.MaxAmount 150
-    Ammo.BackpackAmount 25
-    Ammo.BackpackMaxAmount 300
-    Inventory.Icon "ABXAA0"
-    Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
-    Inventory.PickupSound "AmmoBox/In"
-    States
-    {
-    Spawn:
-        ABXA A -1
-        Stop
-    }
+  +IGNORESKILL
+  Inventory.Amount 15
+  Inventory.MaxAmount 150
+  Ammo.BackpackAmount 25
+  Ammo.BackpackMaxAmount 300
+  Inventory.Icon "ABXAA0"
+  Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
+  Inventory.PickupSound "AmmoBox/In"
+  States
+  {
+  Spawn:
+    ABXA A -1
+    Stop
+  }
 }
 
 ACTOR AmmoBoxAmmoMag : Ammo
 {
-    +IGNORESKILL
-    Inventory.Amount 1
-    Inventory.MaxAmount 5
-    Ammo.BackpackAmount 1
-    Ammo.BackpackMaxAmount 10
-    Inventory.Icon "ABXAA0"
-    Inventory.PickupMessage "Picked up machine gun ammo. [\cj+1 SMG Magazine\c-]"
-    Inventory.PickupSound "AmmoBox/In"
-    States
-    {
-    Spawn:
-        ABXA A -1
-        Stop
-    }
+  +IGNORESKILL
+  Inventory.Amount 1
+  Inventory.MaxAmount 5
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 10
+  Inventory.Icon "ABXAA0"
+  Inventory.PickupMessage "Picked up machine gun ammo. [\cj+1 SMG Magazine\c-]"
+  Inventory.PickupSound "AmmoBox/In"
+  States
+  {
+  Spawn:
+    ABXA A -1
+    Stop
+  }
 }
 
 
 ACTOR AmmoBoxAmmoDummy : Ammo //Dummy ammo for status bar
 {
-    +IGNORESKILL
-    Inventory.Amount 15
-    Inventory.MaxAmount 300
-    Ammo.BackpackAmount 25
-    Ammo.BackpackMaxAmount 300
-    Inventory.Icon "ABXAA0"
-    States
-    {
-    Spawn:
-        ABXA A -1
-        Stop
-    }
+  +IGNORESKILL
+  Inventory.Amount 15
+  Inventory.MaxAmount 300
+  Ammo.BackpackAmount 25
+  Ammo.BackpackMaxAmount 300
+  Inventory.Icon "ABXAA0"
+  States
+  {
+  Spawn:
+    ABXA A -1
+    Stop
+  }
 }
 
 ACTOR TSPAmmoBoxAmmoDrop
@@ -144,7 +144,7 @@ ACTOR AB50AmmoDropper
   Spawn2:
     TNT1 A 0
     TNT1 A 0
-    TNT1 A 0    
+    TNT1 A 0  
     TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFullMagCVAR"),"DropM50")
     TNT1 A 0 A_Jump(256,"DropM20","DropM21","DropM22","DropM23","DropM24","DropM25","DropM26","DropM27","DropM28","DropM29","DropM30","DropM31","DropM32","DropM33","DropM34","DropM35","DropM36","DropM37","DropM38","DropM39","DropM40","DropM41","DropM42","DropM43","DropM44","DropM45","DropM46","DropM47","DropM48","DropM49","DropM50")
     Wait
@@ -339,38 +339,38 @@ ACTOR AB50AmmoDropper
 
 ACTOR BaseAB50Mag : CustomInventory 
 {
-    Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
-    Inventory.PickupSound "919m/magout"
-    DeathSound "weapons/smallclip"
-    +INVENTORY.AUTOACTIVATE
-    +CORPSE
-    States
-    {
-    Spawn:
-      ABXA A 2
-      Loop
-    Crash:
-      TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
-      Wait
-    Crash1:
-      ABXA A -1 A_Scream
-      Stop
-    Crash2:
-      ABXA A -1 A_Scream
-      Stop
-    Crash3:
-      ABXA A -1 A_Scream
-      Stop
-    Crash4:
-      ABXA A -1 A_Scream
-      Stop
-    Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",51,0,0),"PickupSuccess")
-      Fail
-    PickupSuccess:
-      TNT1 A 0 A_RailWait
-      Stop
-    }
+  Inventory.PickupMessage "Picked up machine gun ammo. [\cj+15 SMG Ammo\c-]"
+  Inventory.PickupSound "919m/magout"
+  DeathSound "weapons/smallclip"
+  +INVENTORY.AUTOACTIVATE
+  +CORPSE
+  States
+  {
+  Spawn:
+    ABXA A 2
+    Loop
+  Crash:
+    TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
+    Wait
+  Crash1:
+    ABXA A -1 A_Scream
+    Stop
+  Crash2:
+    ABXA A -1 A_Scream
+    Stop
+  Crash3:
+    ABXA A -1 A_Scream
+    Stop
+  Crash4:
+    ABXA A -1 A_Scream
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",51,0,0),"PickupSuccess")
+    Fail
+  PickupSuccess:
+    TNT1 A 0 A_RailWait
+    Stop
+  }
 }
 
 ACTOR AB50Mag1 : BaseAB50Mag
@@ -879,38 +879,38 @@ ACTOR AB50Mag50 : BaseAB50Mag
 
 ACTOR BaseAB50MagM : CustomInventory 
 {
-    Inventory.PickupMessage "Picked up a full SMG magazine. [\cj+1 SMG Magazine\c-]"
-    Inventory.PickupSound "919m/magout"
-    DeathSound "weapons/smallclip"
-    +INVENTORY.AUTOACTIVATE
-    +CORPSE
-    States
-    {
-    Spawn:
-      ABXA A 2
-      Loop
-    Crash:
-      TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
-      Wait
-    Crash1:
-      ABXA A -1 A_Scream
-      Stop
-    Crash2:
-      ABXA A -1 A_Scream
-      Stop
-    Crash3:
-      ABXA A -1 A_Scream
-      Stop
-    Crash4:
-      ABXA A -1 A_Scream
-      Stop
-    Pickup:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",51,0,0),"PickupSuccess")
-      Fail
-    PickupSuccess:
-      TNT1 A 0 A_RailWait
-      Stop
-    }
+  Inventory.PickupMessage "Picked up a full SMG magazine. [\cj+1 SMG Magazine\c-]"
+  Inventory.PickupSound "919m/magout"
+  DeathSound "weapons/smallclip"
+  +INVENTORY.AUTOACTIVATE
+  +CORPSE
+  States
+  {
+  Spawn:
+    ABXA A 2
+    Loop
+  Crash:
+    TNT1 A 0 A_Jump(85,"Crash1","Crash2","Crash3","Crash4")
+    Wait
+  Crash1:
+    ABXA A -1 A_Scream
+    Stop
+  Crash2:
+    ABXA A -1 A_Scream
+    Stop
+  Crash3:
+    ABXA A -1 A_Scream
+    Stop
+  Crash4:
+    ABXA A -1 A_Scream
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AB50MagPickup",51,0,0),"PickupSuccess")
+    Fail
+  PickupSuccess:
+    TNT1 A 0 A_RailWait
+    Stop
+  }
 }
 
 ACTOR AB50MagM1 : BaseAB50MagM

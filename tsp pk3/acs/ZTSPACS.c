@@ -11,7 +11,7 @@ global int 50:GArray50[];
 /*
   1-64 = Player TIDs
 */
-  
+    
 int LastxFixedA[64];
 int LastyFixedA[64];
 int LastzFixedA[64];
@@ -24,17 +24,17 @@ script "ImpMissile" (void)
   if(GameSkill() < 2 || !rand){ result = 0; }
   else if(GameSkill() == 2){
     rand = random(1,255);
-	if(rand < 76){ 
-	  result = 1;
-	  if(GetCVar("sv_fastmonsters")){ speed = 20.0; }
-	  else{ speed = 10.0; }
-	  ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }
+    if(rand < 76){ 
+      result = 1;
+      if(GetCVar("sv_fastmonsters")){ speed = 20.0; }
+      else{ speed = 10.0; }
+      ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }
     else{ result = 0; }}
   else{
-	result = 1;
-	if(GameSkill() == 3 || GetCVar("sv_fastmonsters")){ speed = 20.0; }
-	else if(GameSkill() == 5){ speed = 15.0; }
-	if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }
+    result = 1;
+    if(GameSkill() == 3 || GetCVar("sv_fastmonsters")){ speed = 20.0; }
+    else if(GameSkill() == 5){ speed = 15.0; }
+    if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }
     else{ ProjInt_BruteRand(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }}
   //if(result){ SetActorState(0,"MissileFinish"); }
   //else{ SetActorState(0,"Melee2"); }
@@ -48,17 +48,17 @@ script "BaronMissile" (void)
   if(GameSkill() < 2 || !rand){ result = 0; }
   else if(GameSkill() == 2){
     rand = random(1,255);
-	if(rand < 76){ 
-	  result = 1;
-	  if(GetCVar("sv_fastmonsters")){ speed = 20.0; }
-	  else{ speed = 15.0; }
-	  ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall"); }
+    if(rand < 76){ 
+      result = 1;
+      if(GetCVar("sv_fastmonsters")){ speed = 20.0; }
+      else{ speed = 15.0; }
+      ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall"); }
     else{ result = 0; }}
   else{
-	result = 1;
-	if(GameSkill() == 3 || GetCVar("sv_fastmonsters")){ speed = 20.0; }
-	else if(GameSkill() == 5){ speed = 15.0; }
-	if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall"); }
+    result = 1;
+    if(GameSkill() == 3 || GetCVar("sv_fastmonsters")){ speed = 20.0; }
+    else if(GameSkill() == 5){ speed = 15.0; }
+    if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall"); }
     else{ ProjInt_BruteRand(0,0,speed,0,16.0,1.0,32.0,"BaronBall"); }}
   //if(result){ SetActorState(0,"MissileFinish"); }
   //else{ SetActorState(0,"Melee2"); }
@@ -80,7 +80,7 @@ script "CheckClass" (int which)
   int result;
   switch (which){
     case 1:
-	  if(CheckActorClass(0,"SpacePirate")){ result = 1; }
+      if(CheckActorClass(0,"SpacePirate")){ result = 1; }
       break;
     case 2:
       if(CheckActorClass(0,"Vexler")){ result = 1; }
@@ -898,7 +898,7 @@ script "AB50ReloadCheck" (int which)
     if((!GetCVar("tsp_usemags") && GameSkill() < 5)){
       if (!CheckInventory("AmmoBoxAmmo") || CheckInventory("AmmoBoxMag") == 50){ result = 1; }}
     else if((CheckInventory("AmmoBoxMag") >= GetLargestAMag()) || !CheckInventory("AmmoBoxAmmoMag")){
-	  result = 1; }}
+      result = 1; }}
   setresultvalue(result);
 }
 
@@ -1369,15 +1369,15 @@ script "TSPWOGBeam" (int which)
 script "WeaponReloads" UNLOADING
 {
   for(int i = 0; i < 7; i++){
-	if(PlayerInGame(i)){ 
-	  if(i == 0){ SetActivator(0,AAPTR_PLAYER1); }
-	  else if(i == 1){ SetActivator(0,AAPTR_PLAYER2); }
-	  else if(i == 2){ SetActivator(0,AAPTR_PLAYER3); }
-	  else if(i == 3){ SetActivator(0,AAPTR_PLAYER4); }
-	  else if(i == 4){ SetActivator(0,AAPTR_PLAYER5); }
-	  else if(i == 5){ SetActivator(0,AAPTR_PLAYER6); }
-	  else if(i == 6){ SetActivator(0,AAPTR_PLAYER7); }
-	  else if(i == 7){ SetActivator(0,AAPTR_PLAYER8); }
+    if(PlayerInGame(i)){ 
+      if(i == 0){ SetActivator(0,AAPTR_PLAYER1); }
+      else if(i == 1){ SetActivator(0,AAPTR_PLAYER2); }
+      else if(i == 2){ SetActivator(0,AAPTR_PLAYER3); }
+      else if(i == 3){ SetActivator(0,AAPTR_PLAYER4); }
+      else if(i == 4){ SetActivator(0,AAPTR_PLAYER5); }
+      else if(i == 5){ SetActivator(0,AAPTR_PLAYER6); }
+      else if(i == 6){ SetActivator(0,AAPTR_PLAYER7); }
+      else if(i == 7){ SetActivator(0,AAPTR_PLAYER8); }
       int loopshell = 0, abammo = 0, pammo = 0, maxpmags = 0, maxamags = 0;
       TakeInventory("ShotsFiredPewPew",0x7FFFFFFF);
       TakeInventory("NeedstheCock",0x7FFFFFFF);
@@ -1591,11 +1591,11 @@ script "AmmoGiveLS" (int which, int GiveNormal, int GiveLS, int msgthrow)
     ammogive = ammogive2 + ammogive; }
   else{
     ammogive = ammogive2; }
-	
+    
   switch (which){
     case 2:
       if(maggive == 0x7FFFFFFF){ maggive = 15; }
-	  result = ACS_NamedExecuteWithResult("PistolMagPickup",maggive,ammogive,msgthrow);
+      result = ACS_NamedExecuteWithResult("PistolMagPickup",maggive,ammogive,msgthrow);
       while(nummags > 1){
         ACS_NamedExecuteWithResult("PistolMagPickup",maggive,ammogive2,msgthrow);
         --nummags; }

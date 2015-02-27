@@ -4,19 +4,19 @@ function void ShellMessage(int which, int howmany)
 {
   switch(which){
     case 1:
-	  if(howmany > 1){ hudmessage(s:"Picked up ",d:howmany,s:" \cnshock\c- shells.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
+      if(howmany > 1){ hudmessage(s:"Picked up ",d:howmany,s:" \cnshock\c- shells.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       else{ hudmessage(s:"Picked up a \cnshock\c- shell.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       break;
     case 2:
-	  if(howmany > 1){ hudmessage(s:"Picked up ",d:howmany,s:" \cihellfire\c- shells.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
+      if(howmany > 1){ hudmessage(s:"Picked up ",d:howmany,s:" \cihellfire\c- shells.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       else{ hudmessage(s:"Picked up a \cihellfire\c- shell.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       break;
     case 3:
-	  if(howmany > 1){ hudmessage(s:"Picked up ",d:howmany,s:" \cppoison\c- shells.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
+      if(howmany > 1){ hudmessage(s:"Picked up ",d:howmany,s:" \cppoison\c- shells.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       else{ hudmessage(s:"Picked up a \cppoison\c- shell.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       break;
     case 4:
-	  if(howmany > 1){ hudmessage(s:"Picked up ",d:howmany,s:" \cgbuckshot\c- shells.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
+      if(howmany > 1){ hudmessage(s:"Picked up ",d:howmany,s:" \cgbuckshot\c- shells.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       else{ hudmessage(s:"Picked up a \cgbuckshot\c- shell.";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       break; }
 }
@@ -27,15 +27,15 @@ function void BoltMessage(int which, int howmany)
 {
   switch(which){
     case 1:
-	  if(howmany > 1){ hudmessage(s:"Picked up a box of crossbow bolts. [\cv+",d:howmany,s:" Crossbow Bolts\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
+      if(howmany > 1){ hudmessage(s:"Picked up a box of crossbow bolts. [\cv+",d:howmany,s:" Crossbow Bolts\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       else{ hudmessage(s:"Picked up a crossbow bolt. [\cv+1 Crossbow Bolt\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       break;
     case 2:
-	  if(howmany > 1){ hudmessage(s:"Picked up a box of explosive bolts. [\cj+",d:howmany,s:" Explosive Bolts\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
+      if(howmany > 1){ hudmessage(s:"Picked up a box of explosive bolts. [\cj+",d:howmany,s:" Explosive Bolts\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       else{ hudmessage(s:"Picked up an explosive bolt. [\cj+1 Explosive Bolt\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       break;
     case 3:
-	  if(howmany > 1){ hudmessage(s:"Picked up a box of crossbow bolts. [\cv+",d:howmany,s:" Crossbow Bolts\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
+      if(howmany > 1){ hudmessage(s:"Picked up a box of crossbow bolts. [\cv+",d:howmany,s:" Crossbow Bolts\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       else{ hudmessage(s:"Picked up a crossbow bolt. [\cv+1 Crossbow Bolt\c-]";HUDMSG_PLAIN|HUDMSG_LOG,2,CR_RED,0.0,0.0,1.0); }
       break; }
 }

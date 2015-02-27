@@ -1,46 +1,46 @@
 ACTOR Vexler : DoomPlayer
 {
-	Player.ViewHeight 49
-	Player.AttackZOffset 22
-	Player.JumpZ 8.5
-	Player.ForwardMove 1.2, 1.2
-	Player.SideMove 0.7, 0.7
-	Player.StartItem "IsVexler", 1
-    Player.StartItem "StartMelee", 1
-	Player.StartItem "StopMelee", 1
-	Player.StartItem "DropCurrentShells", 1
-	Player.StartItem "MeleeButtonActor", 1
-	Player.StartItem "Mel919MPistol"
-	Player.StartItem "VexlerMelee"
-	Player.StartItem "AutoPistolMag", 15
-	Player.StartItem "TSPPistolAmmo", 60
-	Player.StartItem "BuckshotShellSelected", 1
-	Player.StartItem "ShotgunMag", 8
-	Player.StartItem "BuckshotShellSelected", 1
-	Player.StartItem "BuckshotLoaded", 1
-	Player.StartItem "AmmoboxMag", 50
-	Player.StartItem "MP40Mag", 30
-	Player.StartItem "ToolboxMag", 5
-	Player.StartItem "WOGClip", 120
-	Player.SoundClass "Vexler"
-	Player.DisplayName "Vexler"
-	Player.Portrait "Vex_Port"
-	Player.WeaponSlot 1, MelCustomCrossbow, VexlerMelee
-	Player.WeaponSlot 2, Mel919mPistol
-	Player.WeaponSlot 3, MelDahliaCrossbow, MelZekeShotgun, MelZekeShotgunNoPool
-	Player.WeaponSlot 4, MelAmmoBox50, MelMipFowty
-	Player.WeaponSlot 5, MelToolbox
-	Player.WeaponSlot 7, MelTestWeapon7
-    Species "Player"
-	+THRUSPECIES
-	DamageFactor "Poison", 2.0
-	DamageFactor "GasShellDamage", 1.5
-	DamageFactor "Shrapnel", 0.5
-	DamageFactor "WOGChargeBeam", 0.0 
-	DamageFactor "WOGBeam", 0.0 
+  Player.ViewHeight 49
+  Player.AttackZOffset 22
+  Player.JumpZ 8.5
+  Player.ForwardMove 1.2, 1.2
+  Player.SideMove 0.7, 0.7
+  Player.StartItem "IsVexler", 1
+  Player.StartItem "StartMelee", 1
+  Player.StartItem "StopMelee", 1
+  Player.StartItem "DropCurrentShells", 1
+  Player.StartItem "MeleeButtonActor", 1
+  Player.StartItem "Mel919MPistol"
+  Player.StartItem "VexlerMelee"
+  Player.StartItem "AutoPistolMag", 15
+  Player.StartItem "TSPPistolAmmo", 60
+  Player.StartItem "BuckshotShellSelected", 1
+  Player.StartItem "ShotgunMag", 8
+  Player.StartItem "BuckshotShellSelected", 1
+  Player.StartItem "BuckshotLoaded", 1
+  Player.StartItem "AmmoboxMag", 50
+  Player.StartItem "MP40Mag", 30
+  Player.StartItem "ToolboxMag", 5
+  Player.StartItem "WOGClip", 120
+  Player.SoundClass "Vexler"
+  Player.DisplayName "Vexler"
+  Player.Portrait "Vex_Port"
+  Player.WeaponSlot 1, MelCustomCrossbow, VexlerMelee
+  Player.WeaponSlot 2, Mel919mPistol
+  Player.WeaponSlot 3, MelDahliaCrossbow, MelZekeShotgun, MelZekeShotgunNoPool
+  Player.WeaponSlot 4, MelAmmoBox50, MelMipFowty
+  Player.WeaponSlot 5, MelToolbox
+  Player.WeaponSlot 7, MelTestWeapon7
+  Species "Player"
+  +THRUSPECIES
+  DamageFactor "Poison", 2.0
+  DamageFactor "GasShellDamage", 1.5
+  DamageFactor "Shrapnel", 0.5
+  DamageFactor "WOGChargeBeam", 0.0 
+  DamageFactor "WOGBeam", 0.0 
 }
 
 ACTOR IsVexler : Inventory
 {
-	Inventory.MaxAmount 1
+  Inventory.MaxAmount 1
 }

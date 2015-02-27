@@ -46,8 +46,8 @@ ACTOR TSP919mUpgradeKit : CustomInventory
 
 ACTOR 919mUpgrade : Inventory
 {
-	+IGNORESKILL
-	Inventory.MaxAmount 1
+  +IGNORESKILL
+  Inventory.MaxAmount 1
 }
 
 ACTOR TSPMeleeSpecialKit : CustomInventory
@@ -75,6 +75,6 @@ ACTOR TSPMeleeSpecialKit : CustomInventory
 
 ACTOR MeleeSpecialUpgrade : Inventory
 {
-	+IGNORESKILL
-	Inventory.MaxAmount 1
+  +IGNORESKILL
+  Inventory.MaxAmount 1
 }

@@ -1,0 +1,135 @@
+/*
+Pointlight HazmatZombieAttack
+{
+  Color 0.0 0.0 1.0
+  Size 28
+}
+
+Object HazmatZombie
+{
+Frame HMZPF { Light HazmatZombieAttack }
+}*/
+
+//===========================================================================
+// Shotgun 
+//===========================================================================
+
+Pointlight ShockShellArcLight
+{
+  Color 0.1 0.1 0.2
+  Size 12
+  dontlightself 1
+}
+
+Pointlight PoisonShellLight
+{
+  Color 0.1 0.2 0
+  Size 12
+}
+
+Pointlight HellFireShellLight
+{
+  Color 0.3 0.1 0
+  Size 32
+  dontlightself 1
+}
+
+Pointlight SmallHellFireShellLight
+{
+  Color 0.3 0.1 0
+  Size 24
+  dontlightself 1
+}
+
+Pointlight TinyFireShellLight
+{
+  Color 0.3 0.1 0
+  Size 10
+  dontlightself 1
+}
+
+//===========================================================================
+// Rictus GLDEFS by Dreadopp
+//===========================================================================
+
+Flickerlight2 RictusFire
+{
+  Color 1.0 0.8 0.0
+  Size 20
+  SecondarySize 25
+  Interval 1
+  Offset 0 0 0
+}
+
+Pointlight RictusFire2
+{
+  Color 0.7 0.5 0.0
+  Size 20
+}
+
+Pointlight RictusFire3
+{
+  Color 0.5 0.3 0.0
+  Size 15
+}
+
+Pointlight RictusFire4
+{
+  Color 0.3 0.1 0.0
+  Size 10
+}
+
+Object RictusFireA
+{
+  Frame CFCFA { Light RictusFire }
+  Frame CFCFB { Light RictusFire }
+  Frame CFCFC { Light RictusFire }
+  Frame CFCFD { Light RictusFire }
+  Frame CFCFE { Light RictusFire }
+  Frame CFCFF { Light RictusFire }
+  Frame CFCFG { Light RictusFire }
+  Frame CFCFH { Light RictusFire }
+  Frame CFCFI { Light RictusFire }
+  Frame CFCFJ { Light RictusFire }
+  Frame CFCFK { Light RictusFire }
+  Frame CFCFL { Light RictusFire }
+  Frame CFCFM { Light RictusFire }
+  Frame CFCFN { Light RictusFire2 }
+  Frame CFCFO { Light RictusFire3 }
+  Frame CFCFP { Light RictusFire4 }
+}
+
+//===========================================================================
+// Soulsphere
+//===========================================================================
+
+pulselight TSPSOULSPHERE
+{
+  Color 0.4 0.3 1.0
+  Size 40
+  SecondarySize 42
+  Interval 2.0
+  Offset 0 16 0
+}
+
+object TSPSoulSphere
+{
+  frame LIFE { light TSPSOULSPHERE }
+}
+
+//===========================================================================
+// Megasphere
+//===========================================================================
+pulselight TSPMEGASPHERE
+{
+  Color 0.0 0.8 0.4
+  Size 40
+  SecondarySize 42
+  Interval 2.0
+  Offset 0 16 0
+}
+
+object TSPMegaSphere
+{
+  frame SPOT { light TSPMEGASPHERE }
+}

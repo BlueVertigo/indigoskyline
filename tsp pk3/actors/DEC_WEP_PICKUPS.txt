@@ -10,31 +10,31 @@
 
 ACTOR TSPPistolSpawner replaces Pistol
 {
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 1 A_NoBlocking
-		TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("CheckClass",MEL_CLASS),"MelPickup")
-        TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("CheckClass",VEX_CLASS),"VexlerPickup")
-		Stop
-	MelPickup:
-		TNT1 A 0
-		TNT1 A 0
-		TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorMelPickup")
-		TNT1 A 0 A_SpawnItemEx("TSPPistolPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		Stop
-	LoneSurvivorMelPickUp:
-	    TNT1 A 0
-		TNT1 A 0
-		TNT1 A 0 A_SpawnItemEx("TSPPistolPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		Stop
-	VexlerPickup:
-		TNT1 A 0
-		TNT1 A 0
-		TNT1 A 0 A_SpawnItemEx("TSPPistolAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		Stop
-	}
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 1 A_NoBlocking
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("CheckClass",MEL_CLASS),"MelPickup")
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("CheckClass",VEX_CLASS),"VexlerPickup")
+    Stop
+  MelPickup:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LoneSurvivorMelPickup")
+    TNT1 A 0 A_SpawnItemEx("TSPPistolPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  LoneSurvivorMelPickUp:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("TSPPistolPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  VexlerPickup:
+    TNT1 A 0
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("TSPPistolAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
 }
 
 ACTOR TSPFistsOnlyPistol
@@ -45,12 +45,12 @@ ACTOR TSPFistsOnlyPistol
     TNT1 A 0
     TNT1 A 0
     TNT1 A 0
-	TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFistsStartCVAR") == true,"FistsOnlyPickup")
-	Stop
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("GetFistsStartCVAR") == true,"FistsOnlyPickup")
+    Stop
   FistsOnlyPickup:
     TNT1 A 0
-	TNT1 A 0 A_Jump(150,"Nothing")
-    TNT1 A 0 A_SpawnItemEx("TSPPistolSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)    
+    TNT1 A 0 A_Jump(150,"Nothing")
+    TNT1 A 0 A_SpawnItemEx("TSPPistolSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)  
     Stop
   Nothing:
     TNT1 A 0
@@ -64,37 +64,37 @@ ACTOR TSPFistsOnlyPistol
 
 ACTOR TSPPistolPickup : CustomInventory
 {
-    Inventory.PickupMessage "[Makoto Type 919 Mod.0] [Class: \cjPistol\c-, Slot \ck2\c-]"
-	Inventory.PickupSound "919m/slide"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      919P A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  Fail
-	MelPickup:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"MelPickupLS")
-	  TNT1 A 0 A_JumpIfInventory("Mel919mPistol", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("Mel919mPistol", 1)
-	  Goto MelSuccess
-	MelPickupLS:
-	  TNT1 A 0 A_JumpIfInventory("Mel919mPistolLS", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("Mel919mPistolLS", 1)
-	  Goto MelSuccess
-	AmmoCheck:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,1000015,1000000,0),"Success2")
-	  Fail
-	MelSuccess:
-	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,1000015,1000000,0)
-	  TNT1 A 0 ACS_NamedExecuteAlways("TSPPickupSounds",0,1)
-	  Stop
-	Success2:
-	  TNT1 A 0 A_RailWait
-      Stop
-	}
+  Inventory.PickupMessage "[Makoto Type 919 Mod.0] [Class: \cjPistol\c-, Slot \ck2\c-]"
+  Inventory.PickupSound "919m/slide"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    919P A -1
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+    Fail
+  MelPickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"MelPickupLS")
+    TNT1 A 0 A_JumpIfInventory("Mel919mPistol", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("Mel919mPistol", 1)
+    Goto MelSuccess
+  MelPickupLS:
+    TNT1 A 0 A_JumpIfInventory("Mel919mPistolLS", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("Mel919mPistolLS", 1)
+    Goto MelSuccess
+  AmmoCheck:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,1000015,1000000,0),"Success2")
+    Fail
+  MelSuccess:
+    TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_Pistol,1000015,1000000,0)
+    TNT1 A 0 ACS_NamedExecuteAlways("TSPPickupSounds",0,1)
+    Stop
+  Success2:
+    TNT1 A 0 A_RailWait
+    Stop
+  }
 }
 
 ///////////////////////////////////
@@ -103,174 +103,174 @@ ACTOR TSPPistolPickup : CustomInventory
 
 ACTOR ShotgunOrDahliaSpawner replaces Shotgun
 {
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 1 A_NoBlocking
-		TNT1 A 0 A_Jump(102,"Spawn2")
-		TNT1 A 0 A_SpawnItemEx("ShotgunPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		Stop
-	Spawn2:
-		TNT1 A 0
-		TNT1 A 1
-		TNT1 A 0 A_SpawnItemEx("CrossbowPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		Stop
-	}
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 1 A_NoBlocking
+    TNT1 A 0 A_Jump(102,"Spawn2")
+    TNT1 A 0 A_SpawnItemEx("ShotgunPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  Spawn2:
+    TNT1 A 0
+    TNT1 A 1
+    TNT1 A 0 A_SpawnItemEx("CrossbowPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    Stop
+  }
 }
 
 ACTOR ShotgunPickup : CustomInventory
 {
-    Inventory.PickupMessage "[Blackwood Arms 240 Zeke] [Class: \cjShotgun\c-, Slot \ck3\c-]"
-	Inventory.PickupSound "misc/w_pkup"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      STGP A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
-	  Fail
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelZekeShotgun", 1, "ShellCheck")
-	  TNT1 A 0 A_JumpIfInventory("BuckShotShell", 0, "GiveVexlerShotgunFullShells")
-	  TNT1 A 0 A_GiveInventory("MelZekeShotgun", 1)
-	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
-	  TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
-	  Stop
-	MelPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelZekeShotgun", 1, "ShellCheck")
-	  TNT1 A 0 A_JumpIfInventory("BuckShotShell", 0, "GiveMelShotgunFullShells")
-	  TNT1 A 0 A_GiveInventory("MelZekeShotgun", 1)
-	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
-	  TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
-	  Stop
-    GiveMelShotgunFullShells:
-	  TNT1 A 0 A_GiveInventory("MelZekeShotgun", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
-	  Stop
-    GiveVexlerShotgunFullShells:
-	  TNT1 A 0 A_GiveInventory("MelZekeShotgun", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
-	  Stop
-	ShellCheck:
-      TNT1 A 0 A_JumpIfInventory("BuckShotShell", 0, "PickupFail")
-	  TNT1 A 0 A_GiveInventory("TSPShells", 1)
-	  TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
-	  Stop
-	PickupFail:
-      STGP A 1
-      Fail
-	}
+  Inventory.PickupMessage "[Blackwood Arms 240 Zeke] [Class: \cjShotgun\c-, Slot \ck3\c-]"
+  Inventory.PickupSound "misc/w_pkup"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    STGP A -1
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+    TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+    Fail
+  VexlerPickup:
+    TNT1 A 0 A_JumpIfInventory("MelZekeShotgun", 1, "ShellCheck")
+    TNT1 A 0 A_JumpIfInventory("BuckShotShell", 0, "GiveVexlerShotgunFullShells")
+    TNT1 A 0 A_GiveInventory("MelZekeShotgun", 1)
+    TNT1 A 0 A_GiveInventory("TSPShells", 1)
+    TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
+    Stop
+  MelPickup:
+    TNT1 A 0 A_JumpIfInventory("MelZekeShotgun", 1, "ShellCheck")
+    TNT1 A 0 A_JumpIfInventory("BuckShotShell", 0, "GiveMelShotgunFullShells")
+    TNT1 A 0 A_GiveInventory("MelZekeShotgun", 1)
+    TNT1 A 0 A_GiveInventory("TSPShells", 1)
+    TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
+    Stop
+  GiveMelShotgunFullShells:
+    TNT1 A 0 A_GiveInventory("MelZekeShotgun", 1)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
+    Stop
+  GiveVexlerShotgunFullShells:
+    TNT1 A 0 A_GiveInventory("MelZekeShotgun", 1)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,2)
+    Stop
+  ShellCheck:
+    TNT1 A 0 A_JumpIfInventory("BuckShotShell", 0, "PickupFail")
+    TNT1 A 0 A_GiveInventory("TSPShells", 1)
+    TNT1 A 0 A_GiveInventory("BuckShotShell", 1)
+    Stop
+  PickupFail:
+    STGP A 1
+    Fail
+  }
 }
 
 ACTOR ShotgunSpawner
 {
-	DropItem PoisonShellThrown 60
-	DropItem HellFireShellThrown 70
-	DropItem HellFireShellThrown 70
-	DropItem ElectricShellThrown 100
-	DropItem ElectricShellThrown 100
-	DropItem BuckshotShellThrown 255
-	DropItem BuckshotShellThrown 255
-	DropItem BuckshotShellThrown 255
-	DropItem BuckshotShellThrown 255
-	DropItem BuckshotShellThrown 255
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 1
-		TNT1 A 0 A_SpawnItemEx("ShotgunPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		TNT1 A 1 A_NoBlocking
-		Stop
-	}
+  DropItem PoisonShellThrown 60
+  DropItem HellFireShellThrown 70
+  DropItem HellFireShellThrown 70
+  DropItem ElectricShellThrown 100
+  DropItem ElectricShellThrown 100
+  DropItem BuckshotShellThrown 255
+  DropItem BuckshotShellThrown 255
+  DropItem BuckshotShellThrown 255
+  DropItem BuckshotShellThrown 255
+  DropItem BuckshotShellThrown 255
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 1
+    TNT1 A 0 A_SpawnItemEx("ShotgunPickup",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+    TNT1 A 1 A_NoBlocking
+    Stop
+  }
 }
 
 ACTOR CrossbowPickup : CustomInventory
 {
-    Inventory.PickupMessage "[''Dahlia'' Custom Concealable Weapon] [Class: \chBow\c-, Slot \ck3\c-]"
-	Inventory.PickupSound "misc/w_pkup"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      DCBP A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
-	  Fail
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,3)
-	  Stop
-	MelPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,3)
-	  Stop
-	AmmoCheck:
-      TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 0, "AmmoCheck2")
-	  TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
-	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",5)
-	  Stop
-	AmmoCheck2:
-      TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 0, "PickupFail")
-	  TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
-	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",5)
-	  Stop
-	PickupFail:
-      DCBP A 1
-      Fail
-	}
+  Inventory.PickupMessage "[''Dahlia'' Custom Concealable Weapon] [Class: \chBow\c-, Slot \ck3\c-]"
+  Inventory.PickupSound "misc/w_pkup"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    DCBP A -1
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+    TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+    Fail
+  VexlerPickup:
+    TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,3)
+    Stop
+  MelPickup:
+    TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,3)
+    Stop
+  AmmoCheck:
+    TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 0, "AmmoCheck2")
+    TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
+    TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",5)
+    Stop
+  AmmoCheck2:
+    TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 0, "PickupFail")
+    TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
+    TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",5)
+    Stop
+  PickupFail:
+    DCBP A 1
+    Fail
+  }
 }
 
 ACTOR CrossbowSSGPickup : CustomInventory Replaces SuperShotgun
 {
-    Inventory.PickupMessage "[''Dahlia'' Custom Concealable Weapon] [Class: \cvBow\c-, Slot \ck3\c-]"
-	Inventory.PickupSound "misc/w_pkup"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      DCBP A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
-	  Fail
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
-	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo", 5)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,3)
-	  Stop
-	MelPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
-	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo", 5)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,3)
-	  Stop
-	AmmoCheck:
-      TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 0, "AmmoCheck2")
-	  TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
-	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",10)
-	  Stop
-	AmmoCheck2:
-      TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 0, "PickupFail")
-	  TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
-	  TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",10)
-	  Stop
-	PickupFail:
-      DCBP A 1
-      Fail
-	}
+  Inventory.PickupMessage "[''Dahlia'' Custom Concealable Weapon] [Class: \cvBow\c-, Slot \ck3\c-]"
+  Inventory.PickupSound "misc/w_pkup"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    DCBP A -1
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+    TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+    Fail
+  VexlerPickup:
+    TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
+    TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo", 5)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,3)
+    Stop
+  MelPickup:
+    TNT1 A 0 A_JumpIfInventory("MelDahliaCrossbow", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelDahliaCrossbow", 1)
+    TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo", 5)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,3)
+    Stop
+  AmmoCheck:
+    TNT1 A 0 A_JumpIfInventory("DahliaNormalAmmo", 0, "AmmoCheck2")
+    TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
+    TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",10)
+    Stop
+  AmmoCheck2:
+    TNT1 A 0 A_JumpIfInventory("DahliaExplosiveAmmo", 0, "PickupFail")
+    TNT1 A 0 A_GiveInventory("DahliaNormalAmmo", 10)
+    TNT1 A 0 A_GiveInventory("DahliaExplosiveAmmo",10)
+    Stop
+  PickupFail:
+    DCBP A 1
+    Fail
+  }
 }
 
 //////////////////////////////
@@ -279,92 +279,92 @@ ACTOR CrossbowSSGPickup : CustomInventory Replaces SuperShotgun
 
 ACTOR AmmoBox50Pickup : CustomInventory Replaces Chaingun 
 {
-    Inventory.PickupMessage "[Kurdd & Schaumers AB-50] [Class: \cjSub-Machine Gun\c-, Slot \ck4\c-]"
-	Inventory.PickupSound "misc/w_pkup"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      ABXP A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"VexlerPickup")
-	  Fail
-	MelPickup:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"MelPickupLS")
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
-	  Goto Success
-	MelPickupLS:
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50LS", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
-	  Goto Success
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"VexlerPickupLS")
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
-	  Goto Success
-	VexlerPickupLS:
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50LS", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
-	  Goto Success
-	AmmoCheck:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50,1,0),"Success2")
-	  Fail
-	Success:
-	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50,1,0)
-	  TNT1 A 0 ACS_NamedExecuteAlways("TSPPickupSounds",0,4)
-	  Stop
-	Success2:
-	  TNT1 A 0 A_RailWait
-      Stop
-	}
+  Inventory.PickupMessage "[Kurdd & Schaumers AB-50] [Class: \cjSub-Machine Gun\c-, Slot \ck4\c-]"
+  Inventory.PickupSound "misc/w_pkup"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    ABXP A -1
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+    TNT1 A 0 A_JumpIfInventory("IsVexler",1,"VexlerPickup")
+    Fail
+  MelPickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"MelPickupLS")
+    TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
+    Goto Success
+  MelPickupLS:
+    TNT1 A 0 A_JumpIfInventory("MelAmmoBox50LS", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
+    Goto Success
+  VexlerPickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"VexlerPickupLS")
+    TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
+    Goto Success
+  VexlerPickupLS:
+    TNT1 A 0 A_JumpIfInventory("MelAmmoBox50LS", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
+    Goto Success
+  AmmoCheck:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50,1,0),"Success2")
+    Fail
+  Success:
+    TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50,1,0)
+    TNT1 A 0 ACS_NamedExecuteAlways("TSPPickupSounds",0,4)
+    Stop
+  Success2:
+    TNT1 A 0 A_RailWait
+    Stop
+  }
 }
 
 ACTOR AmmoBox50DroppedPickup : CustomInventory
 {
-    Inventory.PickupMessage "[Kurdd & Schaumers AB-50] [Class: \cjSub-Machine Gun\c-, Slot \ck4\c-]"
-	Inventory.PickupSound "misc/w_pkup"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      ABXP A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"VexlerPickup")
-	  Fail
-	MelPickup:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"MelPickupLS")
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
-	  Goto Success
-	MelPickupLS:
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50LS", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
-	  Goto Success
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"VexlerPickupLS")
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
-	  Goto Success
-	VexlerPickupLS:
-	  TNT1 A 0 A_JumpIfInventory("MelAmmoBox50LS", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
-	  Goto Success
-	AmmoCheck:
-      TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50025,50025,0),"Success2")
-	  Fail
-	Success:
-	  TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50025,50025,0)
-	  TNT1 A 0 ACS_NamedExecuteAlways("TSPPickupSounds",0,4)
-	  Stop
-	Success2:
-	  TNT1 A 0 A_RailWait
-      Stop
-	}
+  Inventory.PickupMessage "[Kurdd & Schaumers AB-50] [Class: \cjSub-Machine Gun\c-, Slot \ck4\c-]"
+  Inventory.PickupSound "misc/w_pkup"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    ABXP A -1
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+    TNT1 A 0 A_JumpIfInventory("IsVexler",1,"VexlerPickup")
+    Fail
+  MelPickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"MelPickupLS")
+    TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
+    Goto Success
+  MelPickupLS:
+    TNT1 A 0 A_JumpIfInventory("MelAmmoBox50LS", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
+    Goto Success
+  VexlerPickup:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"VexlerPickupLS")
+    TNT1 A 0 A_JumpIfInventory("MelAmmoBox50", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelAmmoBox50", 1)
+    Goto Success
+  VexlerPickupLS:
+    TNT1 A 0 A_JumpIfInventory("MelAmmoBox50LS", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelAmmoBox50LS", 1)
+    Goto Success
+  AmmoCheck:
+    TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50025,50025,0),"Success2")
+    Fail
+  Success:
+    TNT1 A 0 ACS_NamedExecuteWithResult("AmmoGiveLS",AMMOGIVE_AmmoBoxAmmo,50025,50025,0)
+    TNT1 A 0 ACS_NamedExecuteAlways("TSPPickupSounds",0,4)
+    Stop
+  Success2:
+    TNT1 A 0 A_RailWait
+    Stop
+  }
 }
 
 ////////////////////////////////////////
@@ -373,37 +373,37 @@ ACTOR AmmoBox50DroppedPickup : CustomInventory
 
 ACTOR ToolboxPickup : CustomInventory Replaces RocketLauncher
 {
-    Inventory.PickupMessage "[Marston Arms RPG-2090 (The Toolbox)] [Class: \cgProjectile Weapon\c-, Slot \ck5\c-]"
-	+INVENTORY.AUTOACTIVATE
-	States
-	{
-	Spawn:
-      RNLP A -1
-	  Stop
-	Pickup:
-	  TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
-	  TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
-	  Fail
-	VexlerPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelToolbox", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelToolbox", 1)
-	  TNT1 A 0 A_GiveInventory("ToolboxAmmo", 10)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,5)
-	  Stop
-	MelPickup:
-	  TNT1 A 0 A_JumpIfInventory("MelToolbox", 1, "AmmoCheck")
-	  TNT1 A 0 A_GiveInventory("MelToolbox", 1)
-	  TNT1 A 0 A_GiveInventory("ToolboxAmmo", 10)
-	  TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,5)
-	  Stop
-	AmmoCheck:
-      TNT1 A 0 A_JumpIfInventory("ToolboxAmmo", 0, "PickupFail")
-	  TNT1 A 0 A_GiveInventory("ToolBoxAmmo", 10)
-	  Stop
-	PickupFail:
-      RNLP A 1
-      Fail
-	}
+  Inventory.PickupMessage "[Marston Arms RPG-2090 (The Toolbox)] [Class: \cgProjectile Weapon\c-, Slot \ck5\c-]"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    RNLP A -1
+    Stop
+  Pickup:
+    TNT1 A 0 A_JumpIfInventory("IsMel",1,"MelPickup")
+    TNT1 A 0 A_JumpIfInventory("IsVexler",1,"MelPickup")
+    Fail
+  VexlerPickup:
+    TNT1 A 0 A_JumpIfInventory("MelToolbox", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelToolbox", 1)
+    TNT1 A 0 A_GiveInventory("ToolboxAmmo", 10)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,5)
+    Stop
+  MelPickup:
+    TNT1 A 0 A_JumpIfInventory("MelToolbox", 1, "AmmoCheck")
+    TNT1 A 0 A_GiveInventory("MelToolbox", 1)
+    TNT1 A 0 A_GiveInventory("ToolboxAmmo", 10)
+    TNT1 A 1 ACS_NamedExecuteAlways("TSPPickupSounds",0,5)
+    Stop
+  AmmoCheck:
+    TNT1 A 0 A_JumpIfInventory("ToolboxAmmo", 0, "PickupFail")
+    TNT1 A 0 A_GiveInventory("ToolBoxAmmo", 10)
+    Stop
+  PickupFail:
+    RNLP A 1
+    Fail
+  }
 }
 
 ///////////////////////////////////////////////
