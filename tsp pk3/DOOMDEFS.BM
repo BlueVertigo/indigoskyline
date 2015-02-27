@@ -1,4 +1,4 @@
-919m Brightmaps
+//919m Brightmaps
 BrightMap Sprite PSTFB0
 {
   map "brightmaps/weapons/pistol/BMPSTFB.png"
@@ -11,8 +11,8 @@ BrightMap Sprite PSTFC0
   DisableFullBright
 }
 
-Nikana
-light attack 1
+//Nikana
+//light attack 1
 Brightmap Sprite NIK1B0
 {
   map "brightmaps/weapons/nikana/bmNIK1B.png"
@@ -49,7 +49,7 @@ Brightmap Sprite NIK1G0
   DisableFullBright
 }
 
-heavy attack 1
+//heavy attack 1
 Brightmap Sprite NIS1C0
 {
   map "brightmaps/weapons/nikana/bmNIS1C.png"
@@ -93,14 +93,14 @@ Brightmap Sprite NIS1I0
 }
 
 
-Revolvodeagle Brightmaps
+//Revolvodeagle Brightmaps
 Brightmap Sprite SVFGA0
 {
   map "brightmaps/weapons/melrevolvodeagle/BMSVFGA0.png"
   DisableFullBright
 }
 
-Shotgun Brightmaps
+//Shotgun Brightmaps
 BrightMap Sprite STGFA0
 {
   map "brightmaps/weapons/melzekeshotgun/BMSTGFA.png"
@@ -113,7 +113,7 @@ BrightMap Sprite STGFB0
   DisableFullBright
 }
 
-Assault Shotgun Brightmaps
+//Assault Shotgun Brightmaps
 BrightMap Sprite MASGA0
 {
   map "brightmaps/weapons/melassaultshotgun/BMMASGA.png"
