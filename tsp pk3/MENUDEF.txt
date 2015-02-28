@@ -257,6 +257,7 @@ OptionMenu "TSPCustomOptions"
 	Option "Magazine Reloading (Pistol & AB-50)",        "tsp_usemags", "OnOff"
 	Option "Magazine Pickups Always Full",        "tsp_fullmags", "OnOff"
 	Option "Always Throw Magazines On Reload",        "tsp_forcethrowmags", "OnOff" 
+	Option "Zombie Hitscanners Avoid Melee",        "tsp_zmelee", "OnOff" 
 	StaticText      ""
     StaticText      "Cheats", 2
 	Option "WOG Beam Infinite Mode",         "tsp_beaminf", "OnOff"
@@ -274,12 +275,12 @@ OptionMenu "TSPCustomOptions"
 OptionValue ZekeOptions
 {
     1, "Same Ammo Pool"
-	0, "Seperate Ammo Pool"
+	0, "Separate Ammo Pool"
 }
     
 OptionValue WOGBeamOptions
 {
-    1, "Quadratic Bezier Curve (Default)"
+    1, "Quadratic B. Curve (Default)"
 	2, "Cubic Bezier Curve"
 	0, "Straight Line"
 }

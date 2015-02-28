@@ -144,6 +144,9 @@ script "MonsterEnter" (void)
   if(GameSkill() >= 3){ GiveInventory("Diff3",1); }
   if(GameSkill() >= 4){ GiveInventory("Diff4",1); }
   if(GameSkill() >= 5){ GiveInventory("Diff5",1); }
+  if(CheckActorProperty(0, APROP_SPECIES,"ZombieHitscan") && GetCVar("tsp_zmelee")){ GiveInventory("GiveAvoidMelee",1); }
+  
+  
 }
 
 script "CheckClass" (int which)
