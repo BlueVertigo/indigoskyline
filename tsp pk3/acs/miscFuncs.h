@@ -58,28 +58,28 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
   if(!CheckFlag(ttid,"NOGRAVITY")){ tVelZ = 0; }
 
   while(check){
-    t = sml_t - t_inc;
+    t = sml_t - (t_inc / 2);
     if(!i){
       t = 1.0;
       t_inc = 10.0;
-      nmax = 50; }
+      nmax = 40; }
     else if(i == 1){
-      if(sml_t > 500.0){ check = 0; } //stop trying to get closer if it's out of range, it's just a waste
+      if(sml_t > 400.0){ check = 0; } //stop trying to get closer if it's out of range, it's just a waste
       else{
         t_inc = 1.0;
-        nmax = 20; }}  
+        nmax = 10; }}  
     else if(i == 2){
       t_inc = 0.1;
-      nmax = 20; }       
+      nmax = 10; }       
     else if(i == 3){
       t_inc = 0.01;
-      nmax = 20; }             
+      nmax = 10; }             
     else if(i == 4){
       t_inc = 0.001;
-      nmax = 20; }           
+      nmax = 10; }           
     else if(i == 5){
       t_inc = 1;
-      nmax = 140; }         
+      nmax = 66; }         
     else if(i == 6){ check = 0; }      
     ++i;
     n = 0;
