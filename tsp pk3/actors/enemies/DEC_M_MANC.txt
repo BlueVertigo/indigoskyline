@@ -53,27 +53,95 @@ ACTOR BaseFatsoV0 : BaseFatso
   States
   {
   Spawn:
+    "####" A 0 A_JumpIfInventory("AGO_Spawn",1,"Spawn2")
+    "####" A 0
+    "####" A 0 ACS_NamedExecuteWithResult("MonsterEnter")
+    "####" A 0 A_GiveInventory("AGO_Spawn",1)
+    "####" "#" 0 A_Jump (256,"Spawn2")
+    Goto Spawn2
+  Spawn2:
     FATT AB 15 A_Look
+    Loop
+  See2:
+    "####" A 0 A_JumpIfInventory("Diff3",1,"See2Hard")
+    "####" A 1 A_Chase
+    "####" AAA 1 A_Chase("","")
+    "####" A 1 A_Chase
+    "####" AAA 1 A_Chase("","")
+    "####" B 1 A_Chase
+    "####" BBB 1 A_Chase("","")
+    "####" B 1 A_Chase
+    "####" BBB 1 A_Chase("","")
+    "####" C 1 A_Chase
+    "####" CCC 1 A_Chase("","")
+    "####" C 1 A_Chase
+    "####" CCC 1 A_Chase("","")
+    "####" D 1 A_Chase
+    "####" DDD 1 A_Chase("","")
+    "####" D 1 A_Chase
+    "####" DDD 1 A_Chase("","")
+    "####" E 1 A_Chase
+    "####" EEE 1 A_Chase("","")
+    "####" E 1 A_Chase
+    "####" EEE 1 A_Chase("","")
+    "####" F 1 A_Chase
+    "####" FFF 1 A_Chase("","")
+    "####" F 1 A_Chase
+    "####" FFF 1 A_Chase("","")
+    Loop
+  See2Hard:
+    "####" AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFF 1 A_Chase
     Loop
   Missile:
     FATT G 20 A_FatRaise
-    FATT H 10 Bright A_FatAttack1
+    "####" "#" 0 A_FaceTarget
+    "####" "#" 0 A_JumpIfCloser(256,"Missile1B")
+    "####" "#" 0 A_JumpIf(ACS_NamedExecuteWithResult("FatMissile",1),"Missile1C")
+    Goto Missile1B
+  Missile1B:
+    "####" "#" 0 A_CustomMissile("FatShot",28,28)
+    "####" "#" 0 A_CustomMissile("FatShot",28,-28,11.25,CMF_AIMOFFSET)
+    Goto Missile1C
+  Missile1C:
+    FATT H 10 Bright
     FATT IG 5
-    FATT H 10 Bright A_FatAttack2
+    Goto Missile2
+  Missile2:
+    "####" "#" 0 A_FaceTarget
+	"####" "#" 0 A_JumpIfCloser(256,"Missile2B")
+    "####" "#" 0 A_JumpIf(ACS_NamedExecuteWithResult("FatMissile",2),"Missile2C")
+    Goto Missile2B
+  Missile2B:
+    "####" "#" 0 A_CustomMissile("FatShot",28,28,-11.25,CMF_AIMOFFSET)
+    "####" "#" 0 A_CustomMissile("FatShot",28,-28)
+    Goto Missile2C
+  Missile2C:
+    FATT H 10 Bright
     FATT IG 5
-    FATT H 10 Bright A_FatAttack3
+    Goto Missile3
+  Missile3:
+    "####" "#" 0 A_FaceTarget
+	"####" "#" 0 A_JumpIfCloser(256,"Missile3B")
+    "####" "#" 0 A_JumpIf(ACS_NamedExecuteWithResult("FatMissile",3),"Missile3C")
+    Goto Missile3B
+  Missile3B:
+    "####" "#" 0 A_CustomMissile("FatShot",28,28,-11.25,CMF_AIMOFFSET)
+    "####" "#" 0 A_CustomMissile("FatShot",28,-28,11.25,CMF_AIMOFFSET)
+    Goto Missile3C
+  Missile3C:
+    FATT H 10 Bright
     FATT IG 5
-    TNT1 A 0 A_Jump (256,"See2")
+    "####" "#" 0 A_Jump (256,"See2")
     Goto See
   Pain:
     FATT J 3
     FATT J 3 A_Pain
-    TNT1 A 0 A_Jump (256,"See2")
+    "####" "#" 0 A_Jump (256,"See2")
     Goto See
   Pain.Melee:
     FATT J 5
     FATT J 5 A_Pain
-    TNT1 A 0 A_Jump (256,"See2")
+    "####" "#" 0 A_Jump (256,"See2")
     Goto See
   Death:
     FATT K 6
@@ -85,50 +153,11 @@ ACTOR BaseFatsoV0 : BaseFatso
   Raise:
     FATT R 5
     FATT QPONMLK 5
-    TNT1 A 0 A_Jump (256,"See2")
+    "####" "#" 0 A_Jump (256,"See2")
     Goto See
   }
 }
+    
+ACTOR FatsoV0 : BaseFatsoV0 {}
 
-ACTOR FatsoV0 : BaseFatsoV0
-{
-  States
-  {
-  See2:
-    FATT A 1 A_Chase
-    FATT AAA 1 A_Chase("","")
-    FATT A 1 A_Chase
-    FATT AAA 1 A_Chase("","")
-    FATT B 1 A_Chase
-    FATT BBB 1 A_Chase("","")
-    FATT B 1 A_Chase
-    FATT BBB 1 A_Chase("","")
-    FATT C 1 A_Chase
-    FATT CCC 1 A_Chase("","")
-    FATT C 1 A_Chase
-    FATT CCC 1 A_Chase("","")
-    FATT D 1 A_Chase
-    FATT DDD 1 A_Chase("","")
-    FATT D 1 A_Chase
-    FATT DDD 1 A_Chase("","")
-    FATT E 1 A_Chase
-    FATT EEE 1 A_Chase("","")
-    FATT E 1 A_Chase
-    FATT EEE 1 A_Chase("","")
-    FATT F 1 A_Chase
-    FATT FFF 1 A_Chase("","")
-    FATT F 1 A_Chase
-    FATT FFF 1 A_Chase("","")
-    Loop
-  }
-}
-
-ACTOR HardFatsoV0 : BaseFatsoV0
-{
-  States
-  {
-  See2:
-    FATT AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFF 1 A_Chase
-    Loop
-  }
-}
+ACTOR HardFatsoV0 : BaseFatsoV0 {}

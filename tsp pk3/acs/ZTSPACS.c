@@ -17,6 +17,52 @@ int LastyFixedA[64];
 int LastzFixedA[64];
 int LastCurveA[64];
 
+script "FatMissile" (int which)
+{
+  int result, rand, speed, ang, input_t;
+  rand = random(0,2);
+  speed = 20.0;
+  if(GameSkill() < 2 || !rand){ result = 0; }
+  else if(GameSkill() == 2){
+    rand = random(1,255);
+    if(rand < 170){ 
+      result = 1;
+      if(which <= 1){
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0.015625,0,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,0,0,0); }
+      else if(which == 2){
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0,0,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,-0.015625,0,0); }
+      else{
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0.015625,0,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,-0.015625,0,0); }}
+    else{ result = 0; }}
+  else{
+    result = 1;
+    if(rand == 1){ 
+      if(which <= 1){
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0.015625,0,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,0,0,0); }
+      else if(which == 2){
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0,0,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,-0.015625,0,0); }
+      else{
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0.015625,0,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,-0.015625,0,0); }}
+    else{ 
+      if(which <= 1){
+        input_t = ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0.015625,1,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,0,1,input_t); }
+      else if(which == 2){
+        input_t = ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0,1,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,-0.015625,1,input_t); }
+      else{
+        input_t = ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",28.0,14.0,0,0.015625,1,0); 
+        ProjInt_Brute(0,0,speed,0,0,0,28.0,"FatShot",-28.0,14.0,0,-0.015625,1,input_t); }}}
+  //if(result){ SetActorState(0,"MissileFinish"); }
+  SetResultValue(result);
+}
+
 script "CybMissile" (void)
 {
   int result, rand, speed;
@@ -29,14 +75,14 @@ script "CybMissile" (void)
       result = 1;
       //if(GetCVar("sv_fastmonsters")){ speed = 20.0; }
       //else{ speed = 15.0; }
-      ProjInt_Brute(0,0,speed,0,-25.0,1.0,60.0,"Rocket"); }
+      ProjInt_Brute(0,0,speed,0,-25.0,1.0,60.0,"Rocket",0,0,0,0,0,0); }
     else{ result = 0; }} */
   else{
     result = 1;
     //if(GameSkill() == 3 || GetCVar("sv_fastmonsters")){ speed = 20.0; }
     //else if(GameSkill() == 5){ speed = 15.0; }
-    if(rand == 1){ ProjInt_Brute(0,0,speed,0,-25.0,1.0,60.0,"Rocket"); }
-    else{ ProjInt_BruteRand(0,0,speed,0,-25.0,1.0,60.0,"Rocket"); }}
+    if(rand == 1){ ProjInt_Brute(0,0,speed,0,-25.0,1.0,60.0,"Rocket",0,0,0,0,0,0); }
+    else{ ProjInt_Brute(0,0,speed,0,-25.0,1.0,60.0,"Rocket",0,0,0,0,1,0); }}
   //if(result){ SetActorState(0,"MissileFinish"); }
   //else{ SetActorState(0,"Melee2"); }
   SetResultValue(result);
@@ -53,14 +99,14 @@ script "ImpMissile" (void)
       result = 1;
       if(GetCVar("sv_fastmonsters")){ speed = 20.0; }
       else{ speed = 10.0; }
-      ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }
+      ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall",0,0,0,0,0,0); }
     else{ result = 0; }}
   else{
     result = 1;
     if(GameSkill() == 3 || GetCVar("sv_fastmonsters")){ speed = 20.0; }
     else if(GameSkill() == 5){ speed = 15.0; }
-    if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }
-    else{ ProjInt_BruteRand(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall"); }}
+    if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall",0,0,0,0,0,0); }
+    else{ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"DoomImpBall",0,0,0,0,1,0); }}
   //if(result){ SetActorState(0,"MissileFinish"); }
   //else{ SetActorState(0,"Melee2"); }
   SetResultValue(result);
@@ -77,14 +123,14 @@ script "BaronMissile" (void)
       result = 1;
       if(GetCVar("sv_fastmonsters")){ speed = 20.0; }
       else{ speed = 15.0; }
-      ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall"); }
+      ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall",0,0,0,0,0,0); }
     else{ result = 0; }}
   else{
     result = 1;
     if(GameSkill() == 3 || GetCVar("sv_fastmonsters")){ speed = 20.0; }
     else if(GameSkill() == 5){ speed = 15.0; }
-    if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall"); }
-    else{ ProjInt_BruteRand(0,0,speed,0,16.0,1.0,32.0,"BaronBall"); }}
+    if(rand == 1){ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall",0,0,0,0,0,0); }
+    else{ ProjInt_Brute(0,0,speed,0,16.0,1.0,32.0,"BaronBall",0,0,0,0,1,0); }}
   //if(result){ SetActorState(0,"MissileFinish"); }
   //else{ SetActorState(0,"Melee2"); }
   SetResultValue(result);

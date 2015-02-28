@@ -1,11 +1,11 @@
 
-function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int yoff, int zoff, str ptype)
+function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int yoff, int zoff, str ptype, int axoff, int ayoff, int azoff, int angoff, int rand, int input_t)
 {
   int sX, sY, sZ, s_ang, tX, tY, tZ, tVelX, tVelY, tVelZ;
   int tVelX_t, tVelY_t, tVelZ_t, tXf, tYf, tZf;
   int T_S_z, Z_spd_t, X_spd_t, Y_spd_t, XY_spd_t, spd_t, p_ang;
-  int t, t_inc, sml_t, n, nmax, i, imax, diff, smldiff;
-  int X_spd, Y_spd, Z_spd;
+  int t, tt, t_inc, sml_t, n, nmax, i, imax, diff, smldiff;
+  int X_spd, Y_spd, Z_spd, XY_spd;
   int check = 1, check2 = 1;
   int oldstid, oldttid, stid_z, ttid_z;
 
@@ -20,6 +20,7 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
   sY = GetActorY(stid);
   sZ = GetActorZ(stid);
   s_ang = GetActorAngle(stid);
+  
   sZ += zoff;
 
   if(xoff > 0){
@@ -104,171 +105,70 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
       t += t_inc;
       if(n > nmax){ check2 = 0; }}}
 
-  t = sml_t;
-  tVelX_t = FixedMul(t,tVelX);
-  tVelY_t = FixedMul(t,tVelY);
-  tVelZ_t = FixedMul(t,tVelZ);
-  tXf = tX + tVelX_t;
-  tYf = tY + tVelY_t;
-  tZf = tZ + tVelZ_t;
-
-  Z_spd = FixedDiv(tZf - sZ, t);
-  X_spd = FixedDiv(tXf - sX, t);
-  Y_spd = FixedDiv(tYf - sY, t);
-  p_ang = VectorAngle(tXf - sX, tYf - sY);
-
-  if(!ptid || ThingCount(T_NONE,stid) > 1){ ptid = UniqueTID(); }
-
-  SpawnProjectile (stid, ptype, 0, 0, 0, 0, ptid); 
-  SetActivator(ptid); 
-  SetPointer(AAPTR_TARGET, stid); //so doesn't collide with it
-  SetActorPosition(ptid, sX, sY, sZ, 0);
-  SetActorAngle(ptid, p_ang);
-  SetActorVelocity(ptid,X_spd,Y_spd,Z_spd,0,0);
-  SetActorAngle(stid, p_ang);
-
-  if(stid_z){ Thing_ChangeTID(stid, oldstid); }
-  if(ttid_z){ Thing_ChangeTID(ttid, oldttid); }
-  SetActivator(stid); 
-  return t;
-}
-
-function int ProjInt_BruteRand(int stid, int ttid, int spd, int ptid, int xoff, int yoff, int zoff, str ptype)
-{
-  int sX, sY, sZ, s_ang, tX, tY, tZ, tVelX, tVelY, tVelZ;
-  int tVelX_t, tVelY_t, tVelZ_t, tXf, tYf, tZf;
-  int T_S_z, Z_spd_t, X_spd_t, Y_spd_t, XY_spd_t, spd_t, p_ang;
-  int X_spd, Y_spd, Z_spd, XY_spd;
-  int t, tt, t_inc, sml_t, n, nmax, i, imax, diff, smldiff;
-  int check = 1, check2 = 1;
-  int oldstid, oldttid, stid_z, ttid_z;
-
-  if(!stid || ThingCount(T_NONE,stid) > 1){
-    stid_z = 1;
-    oldstid = ActivatorTID();
-    stid = UniqueTID();
-    Thing_ChangeTID(0, stid); }
-  else{ oldstid = stid; }
-
-  sX = GetActorX(stid);
-  sY = GetActorY(stid);
-  sZ = GetActorZ(stid); 
-  s_ang = GetActorAngle(stid);
-  sZ += zoff;
-
-  if(xoff > 0){
-    sX += FixedMul(cos(FixedAngMod(s_ang - 0.25)),xoff); 
-    sY += FixedMul(sin(FixedAngMod(s_ang - 0.25)),xoff); }
-  else if(xoff < 0){
-    sX += FixedMul(cos(FixedAngMod(s_ang + 0.25)),xoff); 
-    sY += FixedMul(sin(FixedAngMod(s_ang + 0.25)),xoff); }
-
-  if(yoff > 0){
-    sX += FixedMul(cos(s_ang),yoff); 
-    sY += FixedMul(sin(s_ang),yoff); }
-  else if(yoff < 0){
-    sX -= FixedMul(cos(s_ang),yoff); 
-    sY -= FixedMul(sin(s_ang),yoff); }
-
-  if(!ttid || ThingCount(T_NONE,ttid) > 1){
-    ttid_z = 1;
-    SetActivator(0, AAPTR_TARGET);
-    oldttid = ActivatorTID();
-    ttid = UniqueTID();
-    Thing_ChangeTID(0, ttid); }
-  else{ oldttid = ttid; }
-
-  tX = GetActorX(ttid);
-  tY = GetActorY(ttid);
-  tZ = GetActorZ(ttid);
-  tZ += 36.0;
-  //tZ += 26.5; for comparison with Thing_ProjectileIntercept
-  
-  tVelX = GetActorVelX(ttid);
-  tVelY = GetActorVelY(ttid);
-  tVelZ = GetActorVelZ(ttid);
-  
-  if(!CheckFlag(ttid,"NOGRAVITY") || !CheckFlag(ttid,"FLOAT")){ tVelZ = 0; }
-
-  while(check){
-    t = sml_t - t_inc;
-    if(!i){
-      t = 1.0;
-      t_inc = 10.0;
-      nmax = 50; }     
-    else if(i == 1){
-      if(sml_t > 500.0){ check = 0; } //stop trying to get closer if it's out of range, it's just a waste
-      else{
-        t_inc = 1.0;
-        nmax = 20; }}  
-    else if(i == 2){
-      t_inc = 0.1;
-      nmax = 20; }         
-    else if(i == 3){
-      t_inc = 0.01;
-      nmax = 20; }             
-    else if(i == 4){
-      t_inc = 0.001;
-      nmax = 20; }          
-    else if(i == 5){
-      t_inc = 1;
-      nmax = 140; }      
-    else if(i == 6){ check = 0; }    
-    ++i;
-    n = 0;
-    check2 = 1;
-    
-    while(check && check2){
-      tVelX_t = FixedMul(t,tVelX);
-      tVelY_t = FixedMul(t,tVelY);
-      tVelZ_t = FixedMul(t,tVelZ);
-      tXf = tX + tVelX_t;
-      tYf = tY + tVelY_t;
-      tZf = tZ + tVelZ_t;
-      Z_spd_t = FixedDiv((T_S_z + tVelZ_t), t);
-      X_spd_t = FixedDiv(tXf - sx, t);
-      Y_spd_t = FixedDiv(tYf - sy, t);
-      XY_spd_t = VectorLength(X_spd_t, Y_spd_t);
-      spd_t = VectorLength(XY_spd_t, Z_spd_t);
-      diff = abs(spd - spd_t);
-      if((diff < smldiff) || n == 0){
-        smldiff = diff;
-        sml_t = t; }
-      ++n;
-      t += t_inc;
-      if(n > nmax){ check2 = 0; }}}
-  
+  if(input_t){ t = input_t; }
+  else{ 
+    if(rand){ random(1, sml_t); }
+    else{ t = sml_t; }}
   tt = sml_t;
-  t = random(1, sml_t);
   tVelX_t = FixedMul(t,tVelX);
   tVelY_t = FixedMul(t,tVelY);
   tVelZ_t = FixedMul(t,tVelZ);
   tXf = tX + tVelX_t;
   tYf = tY + tVelY_t;
   tZf = tZ + tVelZ_t;
-
-  Z_spd = FixedDiv(tZf - sZ, tt);
-  p_ang = VectorAngle(tXf - sX, tYf - sY);
-  XY_spd = FixedSqrt(sq(spd) - sq(Z_spd));
-  X_spd = FixedMul(cos(p_ang), XY_spd);
-  Y_spd = FixedMul(sin(p_ang), XY_spd);
   
+  if(rand || input_t){
+    Z_spd = FixedDiv(tZf - sZ, tt);
+    p_ang = VectorAngle(tXf - sX, tYf - sY);
+    XY_spd = FixedSqrt(sq(spd) - sq(Z_spd));
+    X_spd = FixedMul(cos(p_ang), XY_spd);
+    Y_spd = FixedMul(sin(p_ang), XY_spd); }
+  else{
+    Z_spd = FixedDiv(tZf - sZ, t);
+    X_spd = FixedDiv(tXf - sX, t);
+    Y_spd = FixedDiv(tYf - sY, t);
+    p_ang = VectorAngle(tXf - sX, tYf - sY); }
+  
+  SetActorAngle(stid, p_ang);
+  
+  sZ += azoff;
+
+  if(axoff > 0){
+    sX -= FixedMul(cos(FixedAngMod(s_ang - 0.25)),axoff); 
+    sY -= FixedMul(sin(FixedAngMod(s_ang - 0.25)),axoff); }
+  else if(axoff < 0){
+    sX += FixedMul(cos(FixedAngMod(s_ang + 0.25)),axoff); 
+    sY += FixedMul(sin(FixedAngMod(s_ang + 0.25)),axoff); }
+ 
+  if(ayoff > 0){
+    sX += FixedMul(cos(s_ang),ayoff); 
+    sY += FixedMul(sin(s_ang),ayoff); }
+  else if(ayoff < 0){
+    sX -= FixedMul(cos(s_ang),ayoff); 
+    sY -= FixedMul(sin(s_ang),ayoff); }
+
+  if(angoff != 0){
+    p_ang = FixedAngMod(p_ang + angoff);
+    XY_spd = FixedSqrt(sq(X_spd) + sq(Y_spd));
+    X_spd = FixedMul(cos(FixedAngMod(p_ang + angoff)), XY_spd);
+    Y_spd = FixedMul(sin(FixedAngMod(p_ang + angoff)), XY_spd); }
+
   if(!ptid || ThingCount(T_NONE,stid) > 1){ ptid = UniqueTID(); }
 
   SpawnProjectile (stid, ptype, 0, 0, 0, 0, ptid); 
   SetActivator(ptid); 
   SetPointer(AAPTR_TARGET, stid); //so doesn't collide with it
+  SetPointer(AAPTR_TRACER, ttid);
   SetActorPosition(ptid, sX, sY, sZ, 0);
   SetActorAngle(ptid, p_ang);
   SetActorVelocity(ptid,X_spd,Y_spd,Z_spd,0,0);
-  SetActorAngle(stid, p_ang);
-  
+
+  SetActivator(stid); 
   if(stid_z){ Thing_ChangeTID(stid, oldstid); }
   if(ttid_z){ Thing_ChangeTID(ttid, oldttid); }
-  SetActivator(stid); 
   return t;
 }
-
+    
 /* This below script doesn't work, because I'm dumb, and since I don't know 
 C++ yet I can't copy the code Thing_ProjectileIntercept uses. (Here it is on 
 the ZDoom git (https://github.com/rheit/zdoom/blob/master/src/p_things.cpp) 
