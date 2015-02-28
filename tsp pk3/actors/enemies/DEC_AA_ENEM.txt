@@ -135,6 +135,7 @@ ACTOR BaseBigBoss : BaseEnemy
   //+GHOST
   //Species "BigBoss"
   DamageFactor "GasShellDamage", 0 //because boss and mouth too high for breathing poison
+  DamageFactor "ShrapnelExplosion", 0.5
   DropItem CustomCrossbow 10
   States
   {
