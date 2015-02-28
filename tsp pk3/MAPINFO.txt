@@ -159,7 +159,6 @@ skill TSPhardest
   ReplaceActor = "SpiderMastermind","SpiderMastermindSpawnerHard" 
   ReplaceActor = "WolfensteinSS","WolfensteinSSSpawnerHard" 
   Aggressiveness = 0.5
-  DamageFactor = 1.5
   MonsterHealth =  1.5
   MustConfirm
   SpawnFilter = Hard
