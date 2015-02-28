@@ -12,8 +12,13 @@ ACTOR ZombieSkillSpawner : MonsterSkillSpawner replaces ZombieMan
     TNT1 A 0
     TNT1 A 0
     TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 5,"LSSpawn")
+	TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") == 0,"BabySpawn")
     TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("TSPGetGameSkill") > 2,"Spawn2")
     TNT1 A 0 A_SpawnItemEx("TSPZombieSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_TRANSFERSPECIAL|SXF_TRANSFERAMBUSHFLAG)
+    Stop
+  BabySpawn:
+    TNT1 A 0
+    TNT1 A 0 A_SpawnItemEx("TSPZombieSpawnerBaby",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_TRANSFERSPECIAL|SXF_TRANSFERAMBUSHFLAG)
     Stop
   Spawn2:
     TNT1 A 0
@@ -26,7 +31,7 @@ ACTOR ZombieSkillSpawner : MonsterSkillSpawner replaces ZombieMan
   }
 }
 
-ACTOR TSPZombieSpawner : RandomSpawner
+ACTOR TSPZombieSpawnerBaby : RandomSpawner
 {
   DropItem "PistolZombie", 255,100
   DropItem "RifleZombieV0", 255, 100
@@ -38,22 +43,37 @@ ACTOR TSPZombieSpawner : RandomSpawner
   DropItem "FemaleZombieV1", 255, 100
   DropItem "FemaleZombieV2", 255, 100
   //DropItem "Cultist", 255, 100
-  DropItem "JudgmentZombie", 255, 15
+  //DropItem "JudgmentZombie", 255, 15
+}
+
+ACTOR TSPZombieSpawner : RandomSpawner
+{
+  DropItem "PistolZombie", 255,3
+  DropItem "RifleZombieV0", 255, 3
+  DropItem "RifleZombieV1", 255, 3
+  DropItem "RifleZombieV2", 255, 3
+  DropItem "RifleZombieV3", 255, 3
+  DropItem "RifleZombieV4", 255, 3
+  DropItem "RifleZombieV5", 255, 3
+  DropItem "FemaleZombieV1", 255, 3
+  DropItem "FemaleZombieV2", 255, 3
+  //DropItem "Cultist", 255, 3
+  DropItem "JudgmentZombie", 255, 1
 }
 
 ACTOR TSPZombieSpawnerHard : RandomSpawner
 {
-  DropItem "HardPistolZombie", 255,100
-  DropItem "HardRifleZombieV0", 255, 100
-  DropItem "HardRifleZombieV1", 255, 100
-  DropItem "HardRifleZombieV2", 255, 100
-  DropItem "HardRifleZombieV3", 255, 100
-  DropItem "HardRifleZombieV4", 255, 100
-  DropItem "HardRifleZombieV5", 255, 100
-  DropItem "HardFemaleZombieV1", 255, 100
-  DropItem "HardFemaleZombieV2", 255, 100
-  //DropItem "HardCultist", 255, 100
-  DropItem "HardJudgmentZombie", 255, 50
+  DropItem "HardPistolZombie", 255,3
+  DropItem "HardRifleZombieV0", 255, 3
+  DropItem "HardRifleZombieV1", 255, 3
+  DropItem "HardRifleZombieV2", 255, 3
+  DropItem "HardRifleZombieV3", 255, 3
+  DropItem "HardRifleZombieV4", 255, 3
+  DropItem "HardRifleZombieV5", 255, 3
+  DropItem "HardFemaleZombieV1", 255, 3
+  DropItem "HardFemaleZombieV2", 255, 3
+  //DropItem "HardCultist", 255, 3
+  DropItem "HardJudgmentZombie", 255, 2
 }
 
 ACTOR TSPZombieSpawnerLS : RandomSpawner

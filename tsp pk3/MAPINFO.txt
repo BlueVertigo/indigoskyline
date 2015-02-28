@@ -25,7 +25,7 @@ clearskills
 
 skill TSPbaby
 {
-  ReplaceActor = "ZombieMan","TSPZombieSpawner" 
+  ReplaceActor = "ZombieMan","TSPZombieSpawnerBaby" 
   ReplaceActor = "ShotgunGuy","ShotgunguySpawner" 
   ReplaceActor = "Chaingunguy","ChaingunnerSpawner" 
   ReplaceActor = "DoomImp","ImpSpawner" 
