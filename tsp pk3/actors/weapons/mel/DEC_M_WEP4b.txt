@@ -97,7 +97,7 @@ ACTOR MelMipFowty : Weapon
   Obituary "%o schoss %k mit einem Relikt der Vergangenheit. Sieg Heil!"
   +Weapon.AMMO_OPTIONAL
   +NOEXTREMEDEATH
-  +WEAPON.CHEATNOTWEAPON
+  //+WEAPON.CHEATNOTWEAPON
   +WEAPON.NoAlert
   Tag "Maschinepistole 40"
   States

@@ -23,6 +23,7 @@ ACTOR MelAssaultShotgun : Weapon
   Obituary "%o felt the power of %k's Assault shotgun."
   Decal BulletChip
   +Weapon.AMMO_OPTIONAL
+  +WEAPON.CHEATNOTWEAPON
   +NOEXTREMEDEATH
   Tag "Blackwood Arms 366 Thaddeus"
   States
