@@ -2,9 +2,9 @@
 function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int yoff, int zoff, str ptype, int axoff, int ayoff, int azoff, int angoff, int rand, int input_t)
 {
   int sX, sY, sZ, s_ang, tX, tY, tZ, tVelX, tVelY, tVelZ;
-  int tVelX_t, tVelY_t, tVelZ_t, tXf, tYf, tZf;
+  int tXf, tYf, tZf;
   int T_S_z, Z_spd_t, X_spd_t, Y_spd_t, XY_spd_t, spd_t, p_ang;
-  int t, tt, t_inc, sml_t, n, nmax, i, imax, diff, smldiff;
+  int t, tt, t_inc, sml_t, n, nmax, i, diff, smldiff;
   int X_spd, Y_spd, Z_spd, XY_spd;
   int check = 1, check2 = 1;
   int oldstid, oldttid, stid_z, ttid_z;
@@ -86,15 +86,12 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
     check2 = 1; 
 
     while(check && check2){
-      tVelX_t = FixedMul(t,tVelX);
-      tVelY_t = FixedMul(t,tVelY);
-      tVelZ_t = FixedMul(t,tVelZ);
-      tXf = tX + tVelX_t;
-      tYf = tY + tVelY_t;
-      tZf = tZ + tVelZ_t;
-      Z_spd_t = FixedDiv((T_S_z + tVelZ_t), t);
-      X_spd_t = FixedDiv(tXf - sx, t);
-      Y_spd_t = FixedDiv(tYf - sy, t);
+      tXf = tX + FixedMul(t,tVelX);
+      tYf = tY + FixedMul(t,tVelY);
+      tZf = tZ + FixedMul(t,tVelZ);
+      Z_spd_t = FixedDiv(tZf - sZ, t);
+      X_spd_t = FixedDiv(tXf - sX, t);
+      Y_spd_t = FixedDiv(tYf - sY, t);
       XY_spd_t = VectorLength(X_spd_t, Y_spd_t);
       spd_t = VectorLength(XY_spd_t, Z_spd_t);
       diff = abs(spd - spd_t);
@@ -110,12 +107,9 @@ function int ProjInt_Brute(int stid, int ttid, int spd, int ptid, int xoff, int 
     if(rand){ random(1, sml_t); }
     else{ t = sml_t; }}
   tt = sml_t;
-  tVelX_t = FixedMul(t,tVelX);
-  tVelY_t = FixedMul(t,tVelY);
-  tVelZ_t = FixedMul(t,tVelZ);
-  tXf = tX + tVelX_t;
-  tYf = tY + tVelY_t;
-  tZf = tZ + tVelZ_t;
+  tXf = tX + FixedMul(t,tVelX);
+  tYf = tY + FixedMul(t,tVelY);
+  tZf = tZ + FixedMul(t,tVelZ);
   
   if(rand || input_t){
     Z_spd = FixedDiv(tZf - sZ, tt);
