@@ -143,6 +143,9 @@ Mike Lightner
 Nintendo
 --Secret area noise (DSSECRET.mp3), from Super Smash Brothers Brawl
 
+Nevit
+--Creator of animated fire gif (http://commons.wikimedia.org/wiki/File:Animated_fire_by_nevit.gif) used in Demonic Sigil sprites (all RN01* - RN32* sprites) edited by scroton, edits based upon "HERE FOLLOWS A LIST OF SEVERAL DEMONS AND THEIR SIGILS OF SUMMONING:" image
+
 Pillowblaster
 --WOG Beam appearance influenced by Stachanov Beam from Russian Overkill (beam of lens flare sprites what turn into floaty scaled down same sprite)
 --Base sprite for pistol reload sprites (all MPTR* sprites) used in edits by Marty Kirra
@@ -249,6 +252,7 @@ zrrion_the_insect
 -??-Imp variant 3 sprites (all IMV3 sprites)
 -??-Toolbox rocket explosion sprites (all MXP1-MXP7 sprites) taken from AEOD, original source unknown
 -??-Decorate for 9mmCasingSpawner actor, taken from the in-limbo ZNew mod, specific author unknown
+-??-"HERE FOLLOWS A LIST OF SEVERAL DEMONS AND THEIR SIGILS OF SUMMONING:" image
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -354,6 +358,7 @@ zrrion_the_insect
 --WOG Beam death sprites (all C01Z, T01Z, and Z01Z sprites) edited from id Software sprites by scroton
 --Electric arc sprites (all SARC sprites) edited from Doom plasma shot by scroton
 --Toolbox altfire shrapnel sprites (all SHAP sprites) edited from Doom bulletpuff sprite by scroton
+--Demonic Sigil sprites (all RN01* - RN32* sprites) edited from animated fire gif (http://commons.wikimedia.org/wiki/File:Animated_fire_by_nevit.gif) by Nevit and based upon "HERE FOLLOWS A LIST OF SEVERAL DEMONS AND THEIR SIGILS OF SUMMONING:" image; edits by scroton
 
 
 --commonFuncs.h by Ijon Tichy
