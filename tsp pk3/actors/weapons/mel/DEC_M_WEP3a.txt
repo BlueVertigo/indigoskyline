@@ -78,22 +78,23 @@ ACTOR MelZekeShotgun : Weapon
     STGG A 0 A_JumpIfInventory("ShotgunLoading", 1, "MidReloadFire")
     STGG A 0 A_JumpIfNoAmmo("Empty")
     STGG A 0 A_JumpIfInventory("ShotgunNeedsPump", 1, "FastPump")
-    STGG A 0 A_JumpIfInventory("BuckshotShellSelected", 1, "BuckshotShot")
-    STGG A 0 A_JumpIfInventory("HellFireShellSelected", 1, "HellFireShot")
-    STGG A 0 A_JumpIfInventory("ElectricShellSelected", 1, "ElectricShot")
-    STGG A 0 A_JumpIfInventory("PoisonShellSelected", 1, "PoisonShot")
+    STGG A 0 A_JumpIfInventory("BuckshotLoaded", 1, "BuckshotShot")
+    STGG A 0 A_JumpIfInventory("HellFireLoaded", 1, "HellFireShot")
+    STGG A 0 A_JumpIfInventory("ElectricLoaded", 1, "ElectricShot")
+    STGG A 0 A_JumpIfInventory("PoisonLoaded", 1, "PoisonShot")
     Goto Ready
   Hold:
     STGG A 0 A_JumpIfInventory("ShotgunLoading", 1, "MidReloadFire")
     STGG A 0 A_JumpIfNoAmmo("Empty")
     STGG A 0 A_JumpIfInventory("ShotgunNeedsPump", 1, "Pump")
-    STGG A 0 A_JumpIfInventory("BuckshotShellSelected", 1, "BuckshotShot")
-    STGG A 0 A_JumpIfInventory("HellFireShellSelected", 1, "HellFireShot")
-    STGG A 0 A_JumpIfInventory("ElectricShellSelected", 1, "ElectricShot")
-    STGG A 0 A_JumpIfInventory("PoisonShellSelected", 1, "PoisonShot")
+    STGG A 0 A_JumpIfInventory("BuckshotLoaded", 1, "BuckshotShot")
+    STGG A 0 A_JumpIfInventory("HellFireLoaded", 1, "HellFireShot")
+    STGG A 0 A_JumpIfInventory("ElectricLoaded", 1, "ElectricShot")
+    STGG A 0 A_JumpIfInventory("PoisonLoaded", 1, "PoisonShot")
     Goto Ready
   BuckshotShot:
-    STGG A 0 A_AlertMonsters
+    TNT1 A 0 A_GiveInventory("BuckshotShellSelected", 1)
+	STGG A 0 A_AlertMonsters
     STGG A 0 A_PlaySound("zekeshotgun/fire",0)
     STGF A 0 A_Light2
     STGF A 1 BRIGHT A_FireBullets(2.7,2.7,10,5,"919mBulletPuff",FBF_USEAMMO|FBF_NOFLASH)
@@ -106,6 +107,7 @@ ACTOR MelZekeShotgun : Weapon
     STGG AAAAAAA 1 A_WeaponReady(WRF_NOBOB)
     Goto Pump
   ElectricShot:
+    TNT1 A 0 A_GiveInventory("ElectricShellSelected", 1)
     STGG A 0 A_AlertMonsters
     STGG A 0 A_PlaySound("zekeshotgun/elfire",0)
     STGF A 0 A_Light2
@@ -120,6 +122,7 @@ ACTOR MelZekeShotgun : Weapon
     STGG AAAAAAA 1 A_WeaponReady(WRF_NOBOB)
     Goto Pump
   HellFireShot:
+    TNT1 A 0 A_GiveInventory("HellFireShellSelected", 1)
     STGG A 0 A_AlertMonsters
     STGG A 0 A_PlaySound("zekeshotgun/hefire",0)
     STGF A 0 A_Light2
@@ -174,30 +177,46 @@ ACTOR MelZekeShotgun : Weapon
     TNT1 A 0 A_JumpIfInventory("ElectricShellSelected", 1, "AltFireElectric")
     TNT1 A 0 A_JumpIfInventory("HellFireShellSelected", 1, "AltFireHellFire")
     TNT1 A 0 A_JumpIfInventory("PoisonShellSelected", 1, "AltFirePoison")
-    TNT1 A 0 A_JumpIfInventory("BuckshotShell", 1, "AltFireBuckshot")
+    TNT1 A 0 A_JumpIfInventory("BuckshotLoaded", 1, "AltFireBuckshot")
+    TNT1 A 0 A_JumpIfInventory("ElectricLoaded", 1, "AltFireElectric")
+    TNT1 A 0 A_JumpIfInventory("HellFireLoaded", 1, "AltFireHellFire")
+    TNT1 A 0 A_JumpIfInventory("PoisonLoaded", 1, "AltFirePoison")
+	TNT1 A 0 A_JumpIfInventory("BuckshotShell", 1, "AltFireBuckshot")
     TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "AltFireElectric")
     TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "AltFireHellFire")
     TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "AltFirePoison")
     Goto Ready
   AltFireBuckshot:
     TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "AltFireElectricSelect")
-    TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "AltFireHellFireSelect")
-    TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "AltFirePoisonSelect")
+    TNT1 A 0 A_JumpIfInventory("ElectricLoaded", 1, "AltFireElectricSelect")
+	TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "AltFireHellFireSelect")
+    TNT1 A 0 A_JumpIfInventory("HellFireLoaded", 1, "AltFireHellFireSelect")
+	TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "AltFirePoisonSelect")
+    TNT1 A 0 A_JumpIfInventory("PoisonLoaded", 1, "AltFirePoisonSelect")
     Goto SwitchFail
   AltFireElectric:
     TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "AltFireHellFireSelect")
-    TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "AltFirePoisonSelect")
-    TNT1 A 0 A_JumpIfInventory("BuckShotShell", 1, "AltFireBuckshotSelect")
+    TNT1 A 0 A_JumpIfInventory("HellFireLoaded", 1, "AltFireHellFireSelect")
+	TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "AltFirePoisonSelect")
+    TNT1 A 0 A_JumpIfInventory("PoisonLoaded", 1, "AltFirePoisonSelect")
+	TNT1 A 0 A_JumpIfInventory("BuckShotShell", 1, "AltFireBuckshotSelect")
+    TNT1 A 0 A_JumpIfInventory("BuckshotLoaded", 1, "AltFireBuckshotSelect")
     Goto SwitchFail
   AltFireHellFire:
     TNT1 A 0 A_JumpIfInventory("PoisonShell", 1, "AltFirePoisonSelect")
+    TNT1 A 0 A_JumpIfInventory("PoisonLoaded", 1, "AltFirePoisonSelect")
     TNT1 A 0 A_JumpIfInventory("BuckShotShell", 1, "AltFireBuckshotSelect")
-    TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "AltFireElectricSelect")
+    TNT1 A 0 A_JumpIfInventory("BuckshotLoaded", 1, "AltFireBuckshotSelect")
+	TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "AltFireElectricSelect")
+    TNT1 A 0 A_JumpIfInventory("ElectricLoaded", 1, "AltFireElectricSelect")
     Goto SwitchFail
   AltFirePoison:
     TNT1 A 0 A_JumpIfInventory("BuckShotShell", 1, "AltFireBuckshotSelect")
+    TNT1 A 0 A_JumpIfInventory("BuckshotLoaded", 1, "AltFireBuckshotSelect")
     TNT1 A 0 A_JumpIfInventory("ElectricShell", 1, "AltFireElectricSelect")
-    TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "AltFireHellFireSelect")
+    TNT1 A 0 A_JumpIfInventory("ElectricLoaded", 1, "AltFireElectricSelect")
+	TNT1 A 0 A_JumpIfInventory("HellFireShell", 1, "AltFireHellFireSelect")
+    TNT1 A 0 A_JumpIfInventory("HellFireLoaded", 1, "AltFireHellFireSelect")
     Goto SwitchFail
   SwitchFail:
     STGG A 15 ACS_NamedExecuteAlways("TSPZekeMessage",0,2) //"[No Alternate Shell Ammo]"
